@@ -1,39 +1,39 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 2908371,
-      "digest": "sha256:0ead8c196d237568369f24f6ca246c4eb0f10ff75ab52f7bcdb85751c1179aea",
+      "bytes": 2922887,
+      "digest": "sha256:f9079eb7b947b62d2ea7903da3c9002e099c64052df238eda2876745cca55685",
       "format": "html",
       "path": "results/reports/probit_offset_pace/report.html"
     },
     "report_pdf": {
-      "bytes": 1409389,
-      "digest": "sha256:bcf024d96f09755eeaf28bbfb4c5c12f16dfba6333a70b6815292240c13af326",
+      "bytes": 1431977,
+      "digest": "sha256:bfb72df40a8388273b59e9ca709b51c605e558851026b6d41b87347b794bb335",
       "format": "pdf",
       "path": "results/reports/probit_offset_pace/report.pdf"
     },
     "report_summary": {
-      "bytes": 3029588,
-      "digest": "sha256:6d34a876081fdd77640d153a90653f0a6996b0f9a74b9b2e79efbfa0388230c7",
+      "bytes": 3031541,
+      "digest": "sha256:90c4808a1fa50a6034c4782a567a83213da4f37854f08f038a11c43043cdc192",
       "format": "json",
       "path": "results/reports/probit_offset_pace/summary.json"
     },
     "run_lock": {
-      "bytes": 4489,
-      "digest": "sha256:4652ce6b4e673c4238844ea55e7c15bcf4b2725a4e7fad80c83e425d6c4616ba",
+      "bytes": 4449,
+      "digest": "sha256:5b936a0408ca4751ee47026c05e3f9c04bce220f6843da787ef9938bcbd7d9c1",
       "format": "json",
       "path": "results/reports/probit_offset_pace/run_lock.json"
     }
   },
-  "created_utc": "2026-08-25T19:07:27+00:00",
+  "created_utc": "2026-08-25T20:31:07+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:808f3e3abbe8216f117b9701bf84fbc739309d5cd28478ac3ae6338833bfbf51",
+  "lock_digest": "sha256:4a0c3b9d7cf82a69875c5853ebc4bd741a3c2615e06c55971bd3f04332e269ea",
   "report": {
     "config_digest": "",
     "label": "Probit Offset with a pace factor",
     "mode": "canonical",
     "model": "probit_offset_pace",
-    "pdf_pages": 17,
+    "pdf_pages": 18,
     "pdf_quality_gate": "passed",
     "pdf_quality_problems": [],
     "sections": [
@@ -62,13 +62,13 @@
     "source_commit": "",
     "source_dirty": false,
     "visual_review": {
-      "images_rasterised": 17,
-      "note": "Every page of all four PDFs rasterised and inspected: first and last pages, both chart pages, every Kelly preset panel, the section transitions, table widths, page breaks, orphaned headings, clipped legends and endpoint labels, and appendix spacing. Four defects found and fixed before this record: preset panels kept whole left pages 60 percent empty, the edge-bucket section repeated thirteen near-identical tables, the probit tables counted race-seed pairs as races, and the sensitivity table was mislabelled with two empty columns.",
-      "pages": 17,
-      "recorded_utc": "2026-08-25T19:11:10+00:00",
+      "images_rasterised": 18,
+      "note": "Every page of all four PDFs rasterised and inspected after the market-yardstick and colour-scale changes: first and last pages, all chart pages, every Kelly preset panel, the feature-direction grid against the table beneath it, section transitions, table widths, page breaks, orphaned headings, clipped labels and appendix spacing. Six defects found and fixed before this record: the shaded tables and the heatmaps used opposite colour poles so a rising response was blue in one and red in the other; the bar chart's table view headed its category column with the y-axis label; an all-n-a interval column appeared where the chart had no intervals; preset panels and figures kept whole left pages 40 percent empty; the headline delta printed without its sign; and the identity line carried an absolute host path.",
+      "pages": 18,
+      "recorded_utc": "2026-08-25T20:31:38+00:00",
       "verdict": "passed"
     },
-    "visual_review_images": 17
+    "visual_review_images": 18
   },
   "root": "results/reports/probit_offset_pace",
   "run": "report:probit_offset_pace",

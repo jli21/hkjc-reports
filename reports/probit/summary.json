@@ -9,6 +9,13 @@
     ],
     "initial_bankroll": 10000000.0,
     "integration": "exact_gauss_hermite_quadrature",
+    "isolation_better_years": 11,
+    "isolation_calibrated_delta": -0.007068631050634149,
+    "isolation_comparator": "the standalone Softmax on the same utilities",
+    "isolation_delta": -0.012557172194649907,
+    "isolation_n_years": 11,
+    "isolation_note": "Softmax, holding the mean utilities fixed. That is the only comparison that isolates the link: does replacing independent Gumbel noise with correlated normal noise help? Scoring the candidate against the Offset model instead would change the mean learner and the link at the same time.",
+    "isolation_worst_year_delta": -0.006424260327684284,
     "kelly_fractions_declared": [
       0.01,
       0.02,
@@ -176,6 +183,11 @@
     "settled_path_modes": [],
     "settled_strategies": [],
     "settlement_label": "Secondary diagnostic. This suite selects on paired race log loss; betting returns cannot select a model and are not evidence for or against a probit candidate.",
+    "training_window": {
+      "detail": "the mean learner is refitted per test year on every season before it -- 12 fits in all",
+      "sentence": "These are walk-forward figures, not one model's: the softmax mean learner is refitted for each test year on every season in the data before it, so the result concatenates 12 separately fitted models and no test year appears in its own training data. The window starts at the first season the archive holds rather than at the run config's start year, and this report does not read the feature table, so it does not name that year.",
+      "summary": "every earlier season, expanding"
+    },
     "unverifiable_gates": "An interaction diagnostic across predeclared cohorts, reproduction from a clean identified commit, and confirmation on a future prospective period are not derivable from these artifacts. Production remains the five-seed Offset ensemble until they are met.",
     "utility_scale": {
       "max": 1.4533963396824017,
@@ -198,7 +210,7 @@
       "state": "available"
     },
     "effects": {
-      "reason": "There are no per-feature effects to attribute. The link changes how utilities become probabilities; the utilities themselves come from the comparator's fit, whose feature effects are reported in that model's own report.",
+      "reason": "There are no per-feature effects belonging to this model to attribute. A choice link changes how utilities become probabilities; it has no features of its own. The mean utilities come from the comparator's fit, so attributing their feature effects here would credit this candidate with another model's work -- and for the market-anchored architectures those are the incumbent Offset's margins exactly, whose per-feature effects, response directions and group ablation are in the Bagged Offset report. What is specific to this candidate is the link and its utility scale, and both are in the technical appendix.",
       "state": "not_applicable"
     },
     "ensemble": {
@@ -243,10 +255,10 @@
     }
   },
   "identity": {
-    "comparator": "the standalone Softmax on the same utilities",
-    "comparator_note": "Softmax, not the market and not the Offset model. The question this answers is narrow and has to stay narrow: does replacing independent Gumbel noise with correlated normal noise help, holding the mean utilities fixed? Scoring it against the Offset model would compare two different mean learners and one link change at the same time.",
+    "comparator": "the market",
+    "comparator_note": "The market's own implied probabilities on the same races. Every published report is scored against the market, so the four headline numbers mean the same thing and can be read against one another. For the production model the market is also the baseline by construction -- the booster learns a residual on log(market_prob) -- and for the probit candidates it is the common yardstick rather than the quantity they were designed against; the comparison each was designed against is in the technical appendix.",
     "config_digest": "",
-    "cv": null,
+    "cv": 3,
     "environment": {
       "numpy": "2.5.2",
       "pandas": "3.0.5",
@@ -275,7 +287,7 @@
         "min": 1.3892693284359983
       }
     },
-    "rounds": null,
+    "rounds": 400,
     "seeds": [
       7,
       17,
@@ -297,7 +309,7 @@
       2025,
       2026
     ],
-    "train_start_year": null
+    "train_start_year": 2010
   },
   "inputs": {
     "betting_probit/betting_summary": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit/betting_summary.csv",
@@ -276343,11 +276355,13 @@
   "root": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models",
   "summary": {
     "beats_market": false,
-    "calibrated_delta": -0.007068631050634149,
-    "delta": -0.012557172194649907,
+    "delta": 0.002018350086676576,
+    "isolation_calibrated_delta": -0.007068631050634149,
+    "isolation_delta": -0.012557172194649907,
+    "races": 8675,
     "seed_signs_agree": true,
-    "worst_year_delta": -0.006424260327684284,
-    "years_better": 11,
+    "worst_isolation_year_delta": -0.006424260327684284,
+    "years_better": 4,
     "years_total": 11
   },
   "uncertainty": {

@@ -35,12 +35,12 @@
       2025,
       2026
     ],
-    "train_start_year": null
+    "train_start_year": 2010
   },
   "code": {
-    "git_commit": "6798e0d8c02eef9bb24f5bc18c9b3c84bd683891",
+    "git_commit": "454fe67dd394d33069150fcb33933c4856aff035",
     "git_dirty": true,
-    "source_digest": "sha256:6f6c65c66b31f7a2e374c06e03eeb13b8f687bfe52548740ab6ad5bbb678273e"
+    "source_digest": "sha256:ef46fb61dd523db9cdbb110effe208113655161e4ccc17df4ed582d41281cb44"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-08-25T19:07:14+00:00",
-  "digest": "sha256:997592794cd76e31976956cba3534f0d476c18b346846996889d18e51c7cf0a3",
+  "created_utc": "2026-08-25T20:30:52+00:00",
+  "digest": "sha256:c021c646f55622926fa621a1745b35a2e55ac69ce517655be06477309f66c5f2",
   "environment": {
     "numpy": "2.5.2",
     "pandas": "3.0.5",
@@ -130,13 +130,13 @@
   "kind": "run_lock",
   "model": {
     "architecture": "probit_offset",
-    "comparator": "the incumbent Offset model on the same margins",
+    "comparator": "the market",
     "config_digest": "",
-    "cv": null,
+    "cv": 3,
     "family": "probit",
     "key": "probit_offset",
     "label": "Probit Offset (market-anchored)",
-    "rounds": null
+    "rounds": 400
   },
   "notes": {
     "input_run_lock_digest": null,

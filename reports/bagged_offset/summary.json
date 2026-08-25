@@ -78,6 +78,1952 @@
       "retained_policy": "keep_first",
       "retained_policy_source": "features/build.py"
     },
+    "feature_year_directions": [
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0004378519312871476,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0004960904555106542,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0004389038149495852,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.00038269138702812526,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.00024170433095307238,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0003842401719274601,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.00041904407174735636,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0004919666257174857,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0007623542010596826,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0005455236675865611,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0007032808684603003,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Racecourse",
+        "tail_effect": -0.0008120580191066356,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0010569600464859284,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0010867137615045118,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0015732071978106998,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0008291207236866751,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0012254325198673924,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0010564627923051232,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0015098062877056692,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0020794039471276064,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.001970929173958991,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0021860866389551994,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0028482391137774022,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "Track_Turf",
+        "tail_effect": -0.0025447936484400005,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.000992138612866618,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.0009985097333764879,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.0013788130780591572,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.0014405852378927212,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.001527360857879355,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.0002182664289021632,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 7.232264608225127e-05,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": -0.0005996948717926671,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": -0.00011625869548194048,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": -0.00011688009166833344,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.00019000683069389808,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "body_wt_change_z",
+        "tail_effect": 0.00011042708538921395,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.004122780459398073,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.005792506464003019,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.006844709503556962,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.007643228169519995,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.007718428258624249,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.006901784216264814,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.007143174331354625,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.005097275607795791,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.003971397398662441,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.0023209364922862816,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.0018522910484413888,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_days_since",
+        "tail_effect": -0.0017652505943491629,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.004567470873615295,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.005879377674017643,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.005539057622194244,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.004392972722791063,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.0061007608459311665,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.00537193779992024,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.006720679947270158,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.006364807716591385,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.0063426110758062915,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.005666634222649831,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.006625417725206611,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_finish_ewm",
+        "tail_effect": 0.006989555929598286,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.000780373816910475,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.0013404821332802228,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.0011684963320282493,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.00031544144630244283,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.00031993671305293364,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.00047130001589399013,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.0008127441796273065,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.0009890134414002293,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.0008440848904025691,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.0006032052330704466,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.000648448125632411,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "bt_last_behind",
+        "tail_effect": 0.0006272465144275406,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": 0.0062931468155645355,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": 0.0001614485890969325,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": 0.0012140333110426142,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "class_change",
+        "tail_effect": NaN,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": -0.0003518308617679589,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": -0.0003264942615361022,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 1.2506702892435721e-05,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": -5.23732400699462e-05,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 3.0963425895421e-05,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": -0.0003584919840831164,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 2.464088320639503e-05,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 0.0001792079548467284,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 0.00029634146050714835,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 0.00033708697231860996,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 0.00042202236291736264,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "closer_setup",
+        "tail_effect": 0.0002703480537454706,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": 0.0009723774298357186,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": 0.0007196498899191806,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": 0.0009018942157480747,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": 0.0003497931627577059,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": 0.00041761913078369045,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": 0.00030239373473947713,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": 0.00026242600545949924,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": -7.505226196512162e-05,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": -0.0002452886792595611,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": -3.597746512503655e-05,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": -0.00024968724618032326,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "course_variant",
+        "tail_effect": -0.0002423026311020901,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0012522542299725384,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0011068551885737173,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0008674311714790635,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0012043591065223308,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0019463223262920339,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.002259350642363097,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0019372061068922179,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0017473110838136122,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.001920002097009253,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.001217950845965122,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0010258922670736029,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "distance_change",
+        "tail_effect": -0.0007032304715719912,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0009489985979089241,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0017785336145620233,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.00034172827322449025,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0025485398382654786,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0010788490275412642,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0005672519235687653,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0022468890645681375,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0011372583330346532,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0018516687936735573,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0013697220206633017,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.004052967251744344,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "distance_log",
+        "tail_effect": 0.0013230496174791466,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": 0.0019277310128105736,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": 0.0016859628649261188,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": 0.00357077232254695,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": 0.0029260639825993426,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": 0.0012870242753141366,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": 0.0011107072022998204,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": -0.00041489990570554164,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": -0.001017337604119211,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": -0.0010933499709685525,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": -0.0011783697464918196,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": -4.9372999511578105e-05,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "draw_pct",
+        "tail_effect": 0.00015685922475507422,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.004698921093838853,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.006102287751966133,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.0061030187917372105,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.005494085506220433,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.005941793689023058,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.006981910831334001,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.008136572446829717,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.007149522513551289,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.006584577676999657,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.0063439665049549515,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.006476357692876671,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "early_style_ewm",
+        "tail_effect": 0.006303370388982533,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": -0.00037413026131995425,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "field_size",
+        "tail_effect": NaN,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": 0.00038238045205435465,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": 0.0006501776179923796,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": 0.0005089042967381994,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": 0.0003494102664486678,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": 0.00032081044731568106,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": 0.0001081748218075322,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": 6.827777658790477e-05,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": -6.969693474543706e-05,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": -0.00012430111682062642,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": -0.00012015530651126327,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": -0.00011790225778951721,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "gear_change",
+        "tail_effect": -0.00018426140217292502,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": -0.0028220442378409606,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "going_ord",
+        "tail_effect": NaN,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0037359359480594106,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0033794806163806802,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0020027725355053093,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.00217309927280934,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0017923682194549374,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0022750294552584776,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0031963329643573575,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.00341581033353404,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0028774995741013567,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0007409497232490044,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0007561265426383375,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "jockey_residual",
+        "tail_effect": 0.0006795073864872758,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0021499837164602746,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.001927289817531783,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.002200891510773513,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0019465551273826023,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0025090821745967166,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0024683957293805264,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.001473281780814881,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0018104109009220355,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0018239404099097893,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0015644669350711202,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0017323203596645376,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "layoff_log",
+        "tail_effect": -0.0014720735434504049,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.00259178291499954,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.0036332076888206323,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.003965043369860403,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.0034313131993358725,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.0029477375553924458,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.0038874394416750623,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.0043594183677934245,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.004859723342224492,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.004379065348271718,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.003913714560030141,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.0045991765120255955,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "market_rank",
+        "tail_effect": -0.004938704969316189,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0009594608788644875,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0020327563741687205,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0017085331733367186,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.000799274421441941,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": 0.0001258488554197191,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.00012924949191264656,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0008531589329119809,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0008433049802629981,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0008070014538315937,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0006657497927532902,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.000547999915238843,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "pace_pressure",
+        "tail_effect": -0.0007213030713729264,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": 0.0006178245249719365,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": 0.0010056003017011525,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": 2.9599024541463424e-05,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.00027520710047543827,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": 7.654581500837537e-05,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.0004432803842991306,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.0007237608072762519,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.0011890875822089162,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.000932720043833351,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.001000143330914729,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.0008667612588761707,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_abs_centered_correction",
+        "feature": "race_class",
+        "tail_effect": -0.0007778550302371709,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": 0.0007653756119968152,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": 0.0005132787794611476,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": -6.542365714857438e-05,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": 2.9828259741383973e-05,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": 0.0001455240749995599,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": 2.9470690149396698e-05,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": -0.0005997032888321136,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": -0.0006208094226145819,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": -0.0003525766440912039,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": -0.00010615656771803658,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": -0.0012673861190966628,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_change",
+        "tail_effect": -0.0007517987353837964,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0016281319041924268,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0007825306316980766,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": 0.0002728122534312364,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.00014202112522485207,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0004436167912111016,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0011174416236894083,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0011601062292313094,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0016828959589387151,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0017760559045406992,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0019815427319684093,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0013815280375214668,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "rating_z",
+        "tail_effect": -0.0005555904800678758,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0001633446309076754,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.001138915484209179,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0020676391146065313,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0025803271703994006,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0021212665762892838,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0021133547736347205,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0029050652446954437,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0022802551275443476,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.002097820605258365,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0009418966097409549,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0012981698466983985,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "setup_weight_z",
+        "tail_effect": 0.0014411941561606125,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.0012264765224927576,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.00370120950077864,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.003620410583310956,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.003603588804497893,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.0034628177222106506,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.004159553674758681,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.004985046802929122,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.004174255437366543,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.004264133438378255,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.004375118838453269,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.005256738638517626,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trainer_track_residual",
+        "tail_effect": 0.004502580625527094,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.0011152754761593444,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.0006924725088425553,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.0007015899033711185,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.00031664576857821334,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": -0.00025658517691832324,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": -0.0003500996401625247,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.00016385893045988944,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.0001340370251768456,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": -0.00017753024575838038,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.0003842753371093827,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.0006673245229735927,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "trip_excuse_ewm",
+        "tail_effect": 0.0006656791494320879,
+        "test_year": 2026
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.00033420679329930226,
+        "test_year": 2015
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.00017314888195329046,
+        "test_year": 2016
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.0005359839601213411,
+        "test_year": 2017
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.0009845330577547664,
+        "test_year": 2018
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.001417054009440533,
+        "test_year": 2019
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.0021336092729406413,
+        "test_year": 2020
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.0017313183198636355,
+        "test_year": 2021
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.002034909783877726,
+        "test_year": 2022
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.0012429919422385965,
+        "test_year": 2023
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.0016857471923848299,
+        "test_year": 2024
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.0015866186452054352,
+        "test_year": 2025
+      },
+      {
+        "curve_basis": "mean_probability_effect",
+        "feature": "wt_z",
+        "tail_effect": -0.001600679145050093,
+        "test_year": 2026
+      }
+    ],
     "initial_bankroll": 10000000.0,
     "kelly_fractions_declared": [
       0.01,
@@ -121,6 +2067,11 @@
       "kelly_settled_rebate@0.1",
       "rebate_aware_kelly@0.1"
     ],
+    "training_window": {
+      "detail": "a separate fit per test year, each on 2010 through the year before it -- 12 fits in all",
+      "sentence": "These are walk-forward figures, not one model's: for each test year the model was fitted on 2010 through the previous year and then scored that year, so the result concatenates 12 separately fitted models and no test year appears in its own training data. The window expands each year, so the last year's model saw the most data and the first year's the least.",
+      "summary": "2010-2014 then expanding"
+    },
     "ungrouped_features": [
       "market_rank"
     ]
@@ -185,7 +2136,7 @@
   },
   "identity": {
     "comparator": "the market",
-    "comparator_note": "The market's own implied probabilities on the same races. This is the right comparator for the production model because the model is built as a correction to it: the booster learns a residual on log(market_prob), so the market is the baseline by construction, not a chosen benchmark.",
+    "comparator_note": "The market's own implied probabilities on the same races. Every published report is scored against the market, so the four headline numbers mean the same thing and can be read against one another. For the production model the market is also the baseline by construction -- the booster learns a residual on log(market_prob) -- and for the probit candidates it is the common yardstick rather than the quantity they were designed against; the comparison each was designed against is in the technical appendix.",
     "config_digest": "sha256:cb9351b6601ede16f58a647a4b844d09ee84c3398155cdc2ee48b917081c41a9",
     "cv": 3,
     "environment": {
@@ -276,6 +2227,7 @@
     "edge_buckets": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/edge_buckets.csv",
     "ensemble_diagnostics": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/ensemble_diagnostics.parquet",
     "feature_dictionary": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_dictionary.json",
+    "feature_effects_yearly": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_effects_yearly.parquet",
     "feature_stability": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_stability.csv",
     "group_ablation_summary": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/group_ablation_summary.csv",
     "lineage": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/lineage.json",

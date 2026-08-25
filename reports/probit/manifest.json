@@ -1,33 +1,33 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 6111454,
-      "digest": "sha256:7d4399ed38f476106ffeccf3debfb4e05383648ff05f66dbd36bac9da617ca02",
+      "bytes": 6125869,
+      "digest": "sha256:14312913f53f6f1e3be2fffe020474b077f27b0e82bbd39529fb552b6302a903",
       "format": "html",
       "path": "results/reports/probit/report.html"
     },
     "report_pdf": {
-      "bytes": 1424309,
-      "digest": "sha256:9903178acc4241da2fe3fb9c56d9e9b40efa8e950c47017d18dd4aa5760ab766",
+      "bytes": 1447003,
+      "digest": "sha256:eebf07791b006f98dec2996700d27928a3152266130bbb9a909622f3644ae8d0",
       "format": "pdf",
       "path": "results/reports/probit/report.pdf"
     },
     "report_summary": {
-      "bytes": 6681151,
-      "digest": "sha256:86c0817e7b29b201fc7ca211344ad1a0dc651c7ed73cd865371fe90b8f84357a",
+      "bytes": 6683009,
+      "digest": "sha256:fc365033a159134f03a401b58dac052f05fe7d7955a8ce27fbefa20df3c35ee2",
       "format": "json",
       "path": "results/reports/probit/summary.json"
     },
     "run_lock": {
-      "bytes": 4249,
-      "digest": "sha256:a5f28ac4bc3c1e519c26de9558c4ad320719b210995232714056eeb02c8323eb",
+      "bytes": 4211,
+      "digest": "sha256:86d0ea6dfd7abc2b23611078e6cc2067251cb9387a9accfe3a1cbd6e516e82f0",
       "format": "json",
       "path": "results/reports/probit/run_lock.json"
     }
   },
-  "created_utc": "2026-08-25T19:07:13+00:00",
+  "created_utc": "2026-08-25T20:30:52+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:981b4a82906c5ab4dadcb74a0dcae9eda561faf8006342a0a7655f61e8ca69c7",
+  "lock_digest": "sha256:cbd714e96e3100e4798f870b2266961faa8521775de0f35867cd4ab3c915ab3d",
   "report": {
     "config_digest": "",
     "label": "Standalone Probit",
@@ -63,9 +63,9 @@
     "source_dirty": false,
     "visual_review": {
       "images_rasterised": 17,
-      "note": "Every page of all four PDFs rasterised and inspected: first and last pages, both chart pages, every Kelly preset panel, the section transitions, table widths, page breaks, orphaned headings, clipped legends and endpoint labels, and appendix spacing. Four defects found and fixed before this record: preset panels kept whole left pages 60 percent empty, the edge-bucket section repeated thirteen near-identical tables, the probit tables counted race-seed pairs as races, and the sensitivity table was mislabelled with two empty columns.",
+      "note": "Every page of all four PDFs rasterised and inspected after the market-yardstick and colour-scale changes: first and last pages, all chart pages, every Kelly preset panel, the feature-direction grid against the table beneath it, section transitions, table widths, page breaks, orphaned headings, clipped labels and appendix spacing. Six defects found and fixed before this record: the shaded tables and the heatmaps used opposite colour poles so a rising response was blue in one and red in the other; the bar chart's table view headed its category column with the y-axis label; an all-n-a interval column appeared where the chart had no intervals; preset panels and figures kept whole left pages 40 percent empty; the headline delta printed without its sign; and the identity line carried an absolute host path.",
       "pages": 17,
-      "recorded_utc": "2026-08-25T19:11:10+00:00",
+      "recorded_utc": "2026-08-25T20:31:38+00:00",
       "verdict": "passed"
     },
     "visual_review_images": 17

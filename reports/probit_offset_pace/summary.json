@@ -9,6 +9,13 @@
     ],
     "initial_bankroll": 10000000.0,
     "integration": "exact_gauss_hermite_quadrature",
+    "isolation_better_years": 10,
+    "isolation_calibrated_delta": -0.000341476324774025,
+    "isolation_comparator": "the incumbent Offset model on the same margins",
+    "isolation_delta": -0.0007850487902638123,
+    "isolation_n_years": 11,
+    "isolation_note": "Same isolation comparator as the market-anchored probit, so the two are directly comparable to each other: the only difference between them is the shared pace factor in the covariance.",
+    "isolation_worst_year_delta": 0.0011747866620910319,
     "kelly_fractions_declared": [
       0.01,
       0.02,
@@ -286,6 +293,11 @@
     "settled_path_modes": [],
     "settled_strategies": [],
     "settlement_label": "Secondary diagnostic. This suite selects on paired race log loss; betting returns cannot select a model and are not evidence for or against a probit candidate.",
+    "training_window": {
+      "detail": "a separate fit per test year, each on 2010 through the year before it -- 12 fits in all",
+      "sentence": "These are walk-forward figures, not one model's: for each test year the model was fitted on 2010 through the previous year and then scored that year, so the result concatenates 12 separately fitted models and no test year appears in its own training data. The window expands each year, so the last year's model saw the most data and the first year's the least. These are the incumbent Offset's margins, reused exactly rather than refitted, so the window is that run's.",
+      "summary": "2010-2014 then expanding"
+    },
     "unverifiable_gates": "An interaction diagnostic across predeclared cohorts, reproduction from a clean identified commit, and confirmation on a future prospective period are not derivable from these artifacts. Production remains the five-seed Offset ensemble until they are met.",
     "utility_scale": {
       "max": 2.2279824889806115,
@@ -308,7 +320,7 @@
       "state": "available"
     },
     "effects": {
-      "reason": "There are no per-feature effects to attribute. The link changes how utilities become probabilities; the utilities themselves come from the comparator's fit, whose feature effects are reported in that model's own report.",
+      "reason": "There are no per-feature effects belonging to this model to attribute. A choice link changes how utilities become probabilities; it has no features of its own. The mean utilities come from the comparator's fit, so attributing their feature effects here would credit this candidate with another model's work -- and for the market-anchored architectures those are the incumbent Offset's margins exactly, whose per-feature effects, response directions and group ablation are in the Bagged Offset report. What is specific to this candidate is the link and its utility scale, and both are in the technical appendix.",
       "state": "not_applicable"
     },
     "ensemble": {
@@ -353,10 +365,10 @@
     }
   },
   "identity": {
-    "comparator": "the incumbent Offset model on the same margins",
-    "comparator_note": "Same comparator as the market-anchored probit, so the two are directly comparable to each other: the only difference between them is the shared pace factor in the covariance.",
+    "comparator": "the market",
+    "comparator_note": "The market's own implied probabilities on the same races. Every published report is scored against the market, so the four headline numbers mean the same thing and can be read against one another. For the production model the market is also the baseline by construction -- the booster learns a residual on log(market_prob) -- and for the probit candidates it is the common yardstick rather than the quantity they were designed against; the comparison each was designed against is in the technical appendix.",
     "config_digest": "",
-    "cv": null,
+    "cv": 3,
     "environment": {
       "numpy": "2.5.2",
       "pandas": "3.0.5",
@@ -387,7 +399,7 @@
         "min": 1.9932229412402331
       }
     },
-    "rounds": null,
+    "rounds": 400,
     "seeds": [
       7,
       17,
@@ -409,7 +421,7 @@
       2025,
       2026
     ],
-    "train_start_year": null
+    "train_start_year": 2010
   },
   "inputs": {
     "betting_probit_offset_pace/betting_summary": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset_pace/betting_summary.csv",
@@ -123695,10 +123707,12 @@
   "root": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models",
   "summary": {
     "beats_market": true,
-    "calibrated_delta": -0.000341476324774025,
-    "delta": -0.0007850487902638123,
+    "delta": -0.004200139068172478,
+    "isolation_calibrated_delta": -0.000341476324774025,
+    "isolation_delta": -0.0007850487902638123,
+    "races": 8675,
     "seed_signs_agree": true,
-    "worst_year_delta": 0.0011747866620910319,
+    "worst_isolation_year_delta": 0.0011747866620910319,
     "years_better": 10,
     "years_total": 11
   },

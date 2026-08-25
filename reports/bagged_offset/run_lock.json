@@ -38,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "6798e0d8c02eef9bb24f5bc18c9b3c84bd683891",
+    "git_commit": "454fe67dd394d33069150fcb33933c4856aff035",
     "git_dirty": true,
-    "source_digest": "sha256:6f6c65c66b31f7a2e374c06e03eeb13b8f687bfe52548740ab6ad5bbb678273e"
+    "source_digest": "sha256:ef46fb61dd523db9cdbb110effe208113655161e4ccc17df4ed582d41281cb44"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-08-25T19:06:57+00:00",
-  "digest": "sha256:afe6f96862bb2719556d57d8de9d28bc72c7f77145c0a0053fc603316222d185",
+  "created_utc": "2026-08-25T20:30:35+00:00",
+  "digest": "sha256:2786f7bb110722959e641875eb0860963ff07d5085f0f070e0a18982aa1c6d98",
   "environment": {
     "numpy": "2.5.2",
     "pandas": "3.0.5",
@@ -121,6 +121,10 @@
     "feature_dictionary": {
       "digest": "sha256:7d4881f2a9ba0cd2cf6648014db2e1b2737224abb4fd0bde903ea2579e65e907",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_dictionary.json"
+    },
+    "feature_effects_yearly": {
+      "digest": "sha256:8e4456ee6a45b6d224c730b41f26e438a9777ec2a5110db576623d045d24bd79",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_effects_yearly.parquet"
     },
     "feature_stability": {
       "digest": "sha256:38d99058dde2f66a9b041f6abdb4793991a7dd92534f13628ee7cdbbd90397fe",
