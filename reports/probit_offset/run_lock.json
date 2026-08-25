@@ -1,0 +1,146 @@
+{
+  "bankroll": {
+    "initial_bankroll": 10000000.0,
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [
+      0.01
+    ],
+    "rebate_policy": {
+      "basis": "net_loss",
+      "rate": 0.1,
+      "threshold": 10000.0,
+      "threshold_mode": "cliff"
+    }
+  },
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": null
+  },
+  "code": {
+    "git_commit": "7953760a028f1bb13bf516b72b13b1a88bd701b3",
+    "git_dirty": true,
+    "source_digest": "sha256:38a743e2ef160ca0db548caa9dea9ae720566be153fcecf1bdc5861cdf9a0f60"
+  },
+  "compute": {
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ]
+  },
+  "created_utc": "2026-08-25T11:51:20+00:00",
+  "digest": "sha256:2fe70ed1e108a3ff158aced7bd1422d4baf3a5a3b3e058edc8a34f971bbc89f5",
+  "environment": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "xgboost": "3.4.1"
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "betting_probit_offset/betting_summary": {
+      "digest": "sha256:a5468fa780861f5940e6aa2fc323a7e90bb116bb48e2765c55b175791acaca43",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/betting_summary.csv"
+    },
+    "betting_probit_offset/betting_yearly": {
+      "digest": "sha256:dfc46dde1f640a21cd2c21b091ca31cd2eb73c9acc48307284fe5af3909f7e4a",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/betting_yearly.csv"
+    },
+    "betting_probit_offset/edge_buckets": {
+      "digest": "sha256:403d295e83e102a3b1c1a9ea0bd18869f0f66a57a55e6f18d3b29d8a443bbda9",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/edge_buckets.csv"
+    },
+    "betting_probit_offset/probit_betting_run": {
+      "digest": "sha256:b3c36ce2a4aa376b17a9c5cd990e1d8fde34f345e154188c3502e2d86e28b995",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/probit_betting_run.json"
+    },
+    "betting_probit_offset/race_paths": {
+      "digest": "sha256:ae6dd3e2087813df0cc4b2772108becfcf96ac13746f953a8885275afbfb1214",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/race_paths.parquet"
+    },
+    "probit_offset_per_run": {
+      "digest": "sha256:f7240d93d028f2e4a875c1f68f19ebfeee75a668ff40f29246e2ac527026d23e",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_per_run.csv"
+    },
+    "probit_offset_sensitivity": {
+      "digest": "sha256:708ec5fb678ed0e509eadc7fcdb8970b8cd1b6fbf8030b8e3a1d15b4b336a9ea",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_sensitivity.parquet"
+    },
+    "probit_offset_state": {
+      "digest": "sha256:f911cfd3a7db6c814ff08bffdf7a572231553914b8f042faaec989b5ddc157d5",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_state.json"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": "probit_offset",
+    "comparator": "the incumbent Offset model on the same margins",
+    "config_digest": "",
+    "cv": null,
+    "family": "probit",
+    "key": "probit_offset",
+    "label": "Probit Offset (market-anchored)",
+    "rounds": null
+  },
+  "notes": {
+    "input_run_lock_digest": null,
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "",
+    "run_metadata_dirty": false
+  },
+  "run": "report:probit_offset",
+  "schema_version": 1
+}

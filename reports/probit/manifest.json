@@ -1,0 +1,70 @@
+{
+  "artifacts": {
+    "report_html": {
+      "bytes": 1535918,
+      "digest": "sha256:7bdb743640e79d0db895a93b9d2f14b22869f1ad6b33c9feaf58255014b6593c",
+      "format": "html",
+      "path": "results/reports/probit/report.html"
+    },
+    "report_pdf": {
+      "bytes": 941203,
+      "digest": "sha256:ffd5345df8b2bb98ea7693e945e52e1c37da5affaf6a9f652439bc5eeafc5e65",
+      "format": "pdf",
+      "path": "results/reports/probit/report.pdf"
+    },
+    "report_summary": {
+      "bytes": 1983303,
+      "digest": "sha256:bfe5fa9c8207f969d17c53bcd10541c649afd92fc4e93728bc1fdb11aac6e873",
+      "format": "json",
+      "path": "results/reports/probit/summary.json"
+    },
+    "run_lock": {
+      "bytes": 4214,
+      "digest": "sha256:b8506cdf18cecd6d042e9743ae3f3ece2aefa1a558ae1faba84d08425112b446",
+      "format": "json",
+      "path": "results/reports/probit/run_lock.json"
+    }
+  },
+  "created_utc": "2026-08-25T11:51:20+00:00",
+  "kind": "run_manifest",
+  "lock_digest": "sha256:d98bc9f4710d068460a87f2755e726a353ed98ea3cfaee72aaf6d19c19758b1a",
+  "report": {
+    "config_digest": "",
+    "label": "Standalone Probit",
+    "mode": "canonical",
+    "model": "probit",
+    "pdf_pages": 12,
+    "pdf_quality_gate": "passed",
+    "pdf_quality_problems": [],
+    "sections": [
+      "identity",
+      "summary",
+      "population",
+      "overall",
+      "yearly",
+      "calibration",
+      "topchoice",
+      "ensemble",
+      "effects",
+      "races",
+      "betting",
+      "uncertainty",
+      "appendix",
+      "limitations"
+    ],
+    "sections_not_applicable": [
+      "effects",
+      "ensemble",
+      "races",
+      "topchoice"
+    ],
+    "sections_not_built": [],
+    "source_commit": "",
+    "source_dirty": false,
+    "visual_review": null,
+    "visual_review_images": 12
+  },
+  "root": "results/reports/probit",
+  "run": "report:probit",
+  "schema_version": 1
+}

@@ -1,0 +1,146 @@
+{
+  "bankroll": {
+    "initial_bankroll": 10000000.0,
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [
+      0.01
+    ],
+    "rebate_policy": {
+      "basis": "net_loss",
+      "rate": 0.1,
+      "threshold": 10000.0,
+      "threshold_mode": "cliff"
+    }
+  },
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": null
+  },
+  "code": {
+    "git_commit": "7953760a028f1bb13bf516b72b13b1a88bd701b3",
+    "git_dirty": true,
+    "source_digest": "sha256:38a743e2ef160ca0db548caa9dea9ae720566be153fcecf1bdc5861cdf9a0f60"
+  },
+  "compute": {
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ]
+  },
+  "created_utc": "2026-08-25T11:51:15+00:00",
+  "digest": "sha256:d98bc9f4710d068460a87f2755e726a353ed98ea3cfaee72aaf6d19c19758b1a",
+  "environment": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "xgboost": "3.4.1"
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "betting_probit/betting_summary": {
+      "digest": "sha256:7753342099ab63bd2f71157ea85c4bfb962bbcf34c2a63252a018765060ea88c",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit/betting_summary.csv"
+    },
+    "betting_probit/betting_yearly": {
+      "digest": "sha256:8405b77c514198b219370b674ac740fa4540a6f454c550e19f18789e98ebc482",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit/betting_yearly.csv"
+    },
+    "betting_probit/edge_buckets": {
+      "digest": "sha256:6b644a7c1bf968ab244a5a33211778a1e92fae34b211d2678dd7914f1d087fa8",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit/edge_buckets.csv"
+    },
+    "betting_probit/probit_betting_run": {
+      "digest": "sha256:97d9781d745148c20569f4c22761f00e7485363e83fa3c2e1d427f3450a17a78",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit/probit_betting_run.json"
+    },
+    "betting_probit/race_paths": {
+      "digest": "sha256:cef529645cd562fef8a359186b73b968497898f52c533b5ce9222b4f3da37351",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit/race_paths.parquet"
+    },
+    "probit_per_run": {
+      "digest": "sha256:eeab7491ebed461c83fdb6ca678759de57df694f7d4c61b99cc3c845db660565",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_per_run.csv"
+    },
+    "probit_sensitivity": {
+      "digest": "sha256:e989a2c304db3e6b7ee830d34d97c89a4940a02c6a8f0e9591b603eead19a0d2",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_sensitivity.parquet"
+    },
+    "probit_state": {
+      "digest": "sha256:92f1aab0e0ced96c308ddf539098bc5a372bf087da73fc188b99cb3f63a5a2d7",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_state.json"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": "probit",
+    "comparator": "the standalone Softmax on the same utilities",
+    "config_digest": "",
+    "cv": null,
+    "family": "probit",
+    "key": "probit",
+    "label": "Standalone Probit",
+    "rounds": null
+  },
+  "notes": {
+    "input_run_lock_digest": null,
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "",
+    "run_metadata_dirty": false
+  },
+  "run": "report:probit",
+  "schema_version": 1
+}

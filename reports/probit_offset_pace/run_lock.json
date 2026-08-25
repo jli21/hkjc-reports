@@ -1,0 +1,109 @@
+{
+  "bankroll": null,
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": null
+  },
+  "code": {
+    "git_commit": "7953760a028f1bb13bf516b72b13b1a88bd701b3",
+    "git_dirty": true,
+    "source_digest": "sha256:38a743e2ef160ca0db548caa9dea9ae720566be153fcecf1bdc5861cdf9a0f60"
+  },
+  "compute": {
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ]
+  },
+  "created_utc": "2026-08-25T11:51:25+00:00",
+  "digest": "sha256:c1ba3bccfee87768f8e8184357d02b3d012a9308d0a7b239a12a7422e97fdf2d",
+  "environment": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "xgboost": "3.4.1"
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "probit_offset_pace_per_run": {
+      "digest": "sha256:b3c9a284f73a55758eb54ce671f41764f4b7ce1c1e90c76a7a03232f1f2fd878",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_pace_per_run.csv"
+    },
+    "probit_offset_pace_sensitivity": {
+      "digest": "sha256:c6309cb7af4962e608bdcfbf00ff9b378b22134699c94a4d16a0539ec6c65829",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_pace_sensitivity.parquet"
+    },
+    "probit_offset_pace_state": {
+      "digest": "sha256:778f5bb3076d9def4798740125503b726389ff1404721c922c21a861d4ebec40",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_pace_state.json"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": "probit_offset",
+    "comparator": "the incumbent Offset model on the same margins",
+    "config_digest": "",
+    "cv": null,
+    "family": "probit",
+    "key": "probit_offset_pace",
+    "label": "Probit Offset with a pace factor",
+    "rounds": null
+  },
+  "notes": {
+    "input_run_lock_digest": null,
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "",
+    "run_metadata_dirty": false
+  },
+  "run": "report:probit_offset_pace",
+  "schema_version": 1
+}

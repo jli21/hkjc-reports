@@ -1,0 +1,71 @@
+{
+  "artifacts": {
+    "report_html": {
+      "bytes": 36365,
+      "digest": "sha256:3be7c8bdc656c370b3a4643446805a5253a594dd1c194c3fc64bb4561e904c85",
+      "format": "html",
+      "path": "results/reports/probit_offset_pace/report.html"
+    },
+    "report_pdf": {
+      "bytes": 647809,
+      "digest": "sha256:a6508c7aa61e5c96ae5e6dea6c0da1473bdaa82f02fe5882c9f2f632f08e66b3",
+      "format": "pdf",
+      "path": "results/reports/probit_offset_pace/report.pdf"
+    },
+    "report_summary": {
+      "bytes": 14167,
+      "digest": "sha256:f1f1dcb9dad0edd7b05cbfeff646e21c37f36e974f4bd471d70f3557b364fc1e",
+      "format": "json",
+      "path": "results/reports/probit_offset_pace/summary.json"
+    },
+    "run_lock": {
+      "bytes": 2771,
+      "digest": "sha256:78cf01a7b0fa02b952f199c71714b25773f43fbf71283ef13c0c0433be2218bf",
+      "format": "json",
+      "path": "results/reports/probit_offset_pace/run_lock.json"
+    }
+  },
+  "created_utc": "2026-08-25T11:51:29+00:00",
+  "kind": "run_manifest",
+  "lock_digest": "sha256:c1ba3bccfee87768f8e8184357d02b3d012a9308d0a7b239a12a7422e97fdf2d",
+  "report": {
+    "config_digest": "",
+    "label": "Probit Offset with a pace factor",
+    "mode": "canonical",
+    "model": "probit_offset_pace",
+    "pdf_pages": 9,
+    "pdf_quality_gate": "passed",
+    "pdf_quality_problems": [],
+    "sections": [
+      "identity",
+      "summary",
+      "population",
+      "overall",
+      "yearly",
+      "calibration",
+      "topchoice",
+      "ensemble",
+      "effects",
+      "races",
+      "betting",
+      "uncertainty",
+      "appendix",
+      "limitations"
+    ],
+    "sections_not_applicable": [
+      "betting",
+      "effects",
+      "ensemble",
+      "races",
+      "topchoice"
+    ],
+    "sections_not_built": [],
+    "source_commit": "",
+    "source_dirty": false,
+    "visual_review": null,
+    "visual_review_images": 9
+  },
+  "root": "results/reports/probit_offset_pace",
+  "run": "report:probit_offset_pace",
+  "schema_version": 1
+}

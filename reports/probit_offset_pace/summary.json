@@ -1,0 +1,468 @@
+{
+  "appendix": {
+    "architecture": "probit_offset",
+    "bankroll_mode": null,
+    "comparator": "offset",
+    "fallback_scale_note": null,
+    "fallback_years": [
+      2015
+    ],
+    "initial_bankroll": null,
+    "integration": "exact_gauss_hermite_quadrature",
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [],
+    "loading_features": [
+      "early_style_ewm"
+    ],
+    "n_factors": 1,
+    "per_seed_delta": {
+      "123": -0.0007781308906682695,
+      "17": -0.0007586767270883426,
+      "256": -0.0008746618268637581,
+      "42": -0.0007046430285234157,
+      "7": -0.0008091314781752755
+    },
+    "promotion_gates": [
+      {
+        "gate": "1. paired delta is negative",
+        "verdict": "pass"
+      },
+      {
+        "gate": "2. interval excludes zero favourably",
+        "verdict": "pass"
+      },
+      {
+        "gate": "3. no year degrades beyond tolerance",
+        "verdict": "FAIL"
+      },
+      {
+        "gate": "4. survives nested calibration",
+        "verdict": "pass"
+      },
+      {
+        "gate": "5. direction stable across seeds",
+        "verdict": "pass"
+      },
+      {
+        "gate": "6. improvement exceeds integration error 10x",
+        "verdict": "pass"
+      }
+    ],
+    "rebate_aware_sizing": null,
+    "rebate_policy": {
+      "basis": null,
+      "rate": null,
+      "threshold": null,
+      "threshold_mode": null
+    },
+    "sensitivity": [
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years; fallback to the theoretical value",
+        "setting": "2015",
+        "study": "utility_scale",
+        "value": 0.7796968012336761
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 1.9922418885166129,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2016_scale_0.00",
+        "study": "factor_scale_grid",
+        "value": 0.0
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 1.992222074646307,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2016_scale_0.15",
+        "study": "factor_scale_grid",
+        "value": 0.15
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 1.9922002431593293,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2016_scale_0.30",
+        "study": "factor_scale_grid",
+        "value": 0.3
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 1.9922053928135475,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2016_scale_0.50",
+        "study": "factor_scale_grid",
+        "value": 0.5
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 1.9922890886207998,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2016_scale_0.80",
+        "study": "factor_scale_grid",
+        "value": 0.8
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2016",
+        "study": "utility_scale",
+        "value": 1.9932229412402331
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0425754645672662,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2017_scale_0.00",
+        "study": "factor_scale_grid",
+        "value": 0.0
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0425165324336096,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2017_scale_0.15",
+        "study": "factor_scale_grid",
+        "value": 0.15
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.042405047858068,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2017_scale_0.30",
+        "study": "factor_scale_grid",
+        "value": 0.3
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0422863399014437,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2017_scale_0.50",
+        "study": "factor_scale_grid",
+        "value": 0.5
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.042203213354121,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2017_scale_0.80",
+        "study": "factor_scale_grid",
+        "value": 0.8
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2017",
+        "study": "utility_scale",
+        "value": 2.034700471758837
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0340319097341464,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2018_scale_0.00",
+        "study": "factor_scale_grid",
+        "value": 0.0
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0339866323875353,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2018_scale_0.15",
+        "study": "factor_scale_grid",
+        "value": 0.15
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.033897733347708,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2018_scale_0.30",
+        "study": "factor_scale_grid",
+        "value": 0.3
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0338052157050126,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2018_scale_0.50",
+        "study": "factor_scale_grid",
+        "value": 0.5
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0337559633262643,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2018_scale_0.80",
+        "study": "factor_scale_grid",
+        "value": 0.8
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2018",
+        "study": "utility_scale",
+        "value": 2.2101277595134112
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0551797819624347,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2019_scale_0.00",
+        "study": "factor_scale_grid",
+        "value": 0.0
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0551505724909025,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2019_scale_0.15",
+        "study": "factor_scale_grid",
+        "value": 0.15
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.055108714313683,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2019_scale_0.30",
+        "study": "factor_scale_grid",
+        "value": 0.3
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.055108027439958,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2019_scale_0.50",
+        "study": "factor_scale_grid",
+        "value": 0.5
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": 2.0551896407577193,
+        "n_races": 0,
+        "note": "race log loss on the fitting window; zero means no factor",
+        "setting": "2019_scale_0.80",
+        "study": "factor_scale_grid",
+        "value": 0.8
+      }
+    ],
+    "settled_path_modes": [],
+    "settled_strategies": [],
+    "unverifiable_gates": "An interaction diagnostic across predeclared cohorts, reproduction from a clean identified commit, and confirmation on a future prospective period are not derivable from these artifacts. Production remains the five-seed Offset ensemble until they are met.",
+    "utility_scale": {
+      "max": 2.2279824889806115,
+      "min": 1.9932229412402331,
+      "theory": 0.7796968012336761,
+      "theory_source": "the scale the fallback year used, which is the predeclared theoretical value"
+    }
+  },
+  "capabilities": {
+    "appendix": {
+      "reason": "",
+      "state": "available"
+    },
+    "betting": {
+      "reason": "No bet ledger has been settled for Probit Offset with a pace factor. The probability comparison stands on its own; staking a candidate that has not passed its promotion gates would invite reading a bankroll path as a recommendation.",
+      "state": "not_applicable"
+    },
+    "calibration": {
+      "reason": "",
+      "state": "available"
+    },
+    "effects": {
+      "reason": "There are no per-feature effects to attribute. The link changes how utilities become probabilities; the utilities themselves come from the comparator's fit, whose feature effects are reported in that model's own report.",
+      "state": "not_applicable"
+    },
+    "ensemble": {
+      "reason": "There is no ensemble to be stable. This architecture is a choice *link* applied to one set of mean utilities, not a bag of independently fitted members, so seed variation here is integration noise rather than model disagreement -- and that is reported in the appendix instead.",
+      "state": "not_applicable"
+    },
+    "identity": {
+      "reason": "",
+      "state": "available"
+    },
+    "limitations": {
+      "reason": "",
+      "state": "available"
+    },
+    "overall": {
+      "reason": "",
+      "state": "available"
+    },
+    "population": {
+      "reason": "",
+      "state": "available"
+    },
+    "races": {
+      "reason": "Representative races are chosen by how much a model's correction moved a runner's probability. This candidate applies a link to fixed mean utilities, so the movement to explain belongs to the comparator's fit and is shown in that model's report. A race chosen here would be chosen by integration noise.",
+      "state": "not_applicable"
+    },
+    "summary": {
+      "reason": "",
+      "state": "available"
+    },
+    "topchoice": {
+      "reason": "Top-choice movement compares a model's first pick against the market's. This candidate is scored against its own comparator on fixed mean utilities, not against the market, so a market top-choice comparison would answer a different question than the rest of this report.",
+      "state": "not_applicable"
+    },
+    "uncertainty": {
+      "reason": "",
+      "state": "available"
+    },
+    "yearly": {
+      "reason": "",
+      "state": "available"
+    }
+  },
+  "identity": {
+    "comparator": "the incumbent Offset model on the same margins",
+    "comparator_note": "Same comparator as the market-anchored probit, so the two are directly comparable to each other: the only difference between them is the shared pace factor in the covariance.",
+    "config_digest": "",
+    "cv": null,
+    "environment": {
+      "numpy": "2.5.2",
+      "pandas": "3.0.5",
+      "python": "3.12.11",
+      "xgboost": "3.4.1"
+    },
+    "family": "probit",
+    "git_commit": "",
+    "git_dirty": false,
+    "key": "probit_offset_pace",
+    "label": "Probit Offset with a pace factor",
+    "notes": {
+      "architecture": "probit_offset_pace",
+      "integration": "exact_gauss_hermite_quadrature",
+      "loading_features": [
+        "early_style_ewm"
+      ],
+      "n_factors": 1,
+      "utility_scale": {
+        "grid": [
+          0.0,
+          0.15,
+          0.3,
+          0.5,
+          0.8
+        ],
+        "max": 2.2279824889806115,
+        "min": 1.9932229412402331
+      }
+    },
+    "rounds": null,
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ],
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": null
+  },
+  "inputs": {
+    "probit_offset_pace_per_run": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_pace_per_run.csv",
+    "probit_offset_pace_sensitivity": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_pace_sensitivity.parquet",
+    "probit_offset_pace_state": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_pace_state.json"
+  },
+  "kelly_presets": [],
+  "population": {
+    "fallback_reasons": [
+      "insufficient_history"
+    ],
+    "fallback_years": [
+      2015
+    ],
+    "honest_years": 11,
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ],
+    "test_races": 8675,
+    "years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "root": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models",
+  "summary": {
+    "beats_market": true,
+    "calibrated_delta": -0.000341476324774025,
+    "delta": -0.0007850487902638123,
+    "seed_signs_agree": true,
+    "worst_year_delta": 0.0011747866620910319,
+    "years_better": 10,
+    "years_total": 11
+  },
+  "uncertainty": {
+    "day_block_interval": {
+      "bootstrap_seed": 20260824,
+      "excludes_zero_favourably": true,
+      "interval_high": -0.00016409531053966566,
+      "interval_level": 0.8,
+      "interval_low": -0.0011773195443225593,
+      "mean_delta": -0.0006774637496218785,
+      "n_days": 891,
+      "n_races": 39665,
+      "replicates": 2000
+    }
+  }
+}
