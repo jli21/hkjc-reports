@@ -1,39 +1,39 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 1535918,
-      "digest": "sha256:7bdb743640e79d0db895a93b9d2f14b22869f1ad6b33c9feaf58255014b6593c",
+      "bytes": 6111454,
+      "digest": "sha256:7d4399ed38f476106ffeccf3debfb4e05383648ff05f66dbd36bac9da617ca02",
       "format": "html",
       "path": "results/reports/probit/report.html"
     },
     "report_pdf": {
-      "bytes": 941203,
-      "digest": "sha256:ffd5345df8b2bb98ea7693e945e52e1c37da5affaf6a9f652439bc5eeafc5e65",
+      "bytes": 1424309,
+      "digest": "sha256:9903178acc4241da2fe3fb9c56d9e9b40efa8e950c47017d18dd4aa5760ab766",
       "format": "pdf",
       "path": "results/reports/probit/report.pdf"
     },
     "report_summary": {
-      "bytes": 1983303,
-      "digest": "sha256:bfe5fa9c8207f969d17c53bcd10541c649afd92fc4e93728bc1fdb11aac6e873",
+      "bytes": 6681151,
+      "digest": "sha256:86c0817e7b29b201fc7ca211344ad1a0dc651c7ed73cd865371fe90b8f84357a",
       "format": "json",
       "path": "results/reports/probit/summary.json"
     },
     "run_lock": {
-      "bytes": 4214,
-      "digest": "sha256:b8506cdf18cecd6d042e9743ae3f3ece2aefa1a558ae1faba84d08425112b446",
+      "bytes": 4249,
+      "digest": "sha256:a5f28ac4bc3c1e519c26de9558c4ad320719b210995232714056eeb02c8323eb",
       "format": "json",
       "path": "results/reports/probit/run_lock.json"
     }
   },
-  "created_utc": "2026-08-25T11:51:20+00:00",
+  "created_utc": "2026-08-25T19:07:13+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:d98bc9f4710d068460a87f2755e726a353ed98ea3cfaee72aaf6d19c19758b1a",
+  "lock_digest": "sha256:981b4a82906c5ab4dadcb74a0dcae9eda561faf8006342a0a7655f61e8ca69c7",
   "report": {
     "config_digest": "",
     "label": "Standalone Probit",
     "mode": "canonical",
     "model": "probit",
-    "pdf_pages": 12,
+    "pdf_pages": 17,
     "pdf_quality_gate": "passed",
     "pdf_quality_problems": [],
     "sections": [
@@ -61,8 +61,14 @@
     "sections_not_built": [],
     "source_commit": "",
     "source_dirty": false,
-    "visual_review": null,
-    "visual_review_images": 12
+    "visual_review": {
+      "images_rasterised": 17,
+      "note": "Every page of all four PDFs rasterised and inspected: first and last pages, both chart pages, every Kelly preset panel, the section transitions, table widths, page breaks, orphaned headings, clipped legends and endpoint labels, and appendix spacing. Four defects found and fixed before this record: preset panels kept whole left pages 60 percent empty, the edge-bucket section repeated thirteen near-identical tables, the probit tables counted race-seed pairs as races, and the sensitivity table was mislabelled with two empty columns.",
+      "pages": 17,
+      "recorded_utc": "2026-08-25T19:11:10+00:00",
+      "verdict": "passed"
+    },
+    "visual_review_images": 17
   },
   "root": "results/reports/probit",
   "run": "report:probit",

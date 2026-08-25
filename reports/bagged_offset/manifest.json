@@ -1,39 +1,39 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 260238,
-      "digest": "sha256:ea78bf381992d3f2622df15ce238e0d8c96ea477fdf88d78f326f50c981bd889",
+      "bytes": 939183,
+      "digest": "sha256:a04d270d7254fe6c90230f9242f84ee5af7bb92797dd3a521a07acd2ee962ae0",
       "format": "html",
       "path": "results/reports/bagged_offset/report.html"
     },
     "report_pdf": {
-      "bytes": 1523512,
-      "digest": "sha256:c2ce1e8f0eb1c800bb63e692adea36d6378ecdca24276433367bdad4c8230f62",
+      "bytes": 1967390,
+      "digest": "sha256:c444250f5040909ec181a1d4829cc4cdc182577bf9b495961ab1a2c6ffb6c468",
       "format": "pdf",
       "path": "results/reports/bagged_offset/report.pdf"
     },
     "report_summary": {
-      "bytes": 310780,
-      "digest": "sha256:1029a5c8ead9134322842cf2ae4b32877efd5c774c0111a813d7bfff6c298784",
+      "bytes": 1242625,
+      "digest": "sha256:5ae5be28cd37c446c15868d851329cd7d302e1e3fb97b22930cb48da5e4808ad",
       "format": "json",
       "path": "results/reports/bagged_offset/summary.json"
     },
     "run_lock": {
-      "bytes": 6682,
-      "digest": "sha256:bd5905002308b62016cc0932a04e5707eb6ec8b3f071677b35bdb75be9049a3c",
+      "bytes": 6718,
+      "digest": "sha256:070107842a5794c080c8e087a07dc529b49e9e245bf07ff3f4d52ac37ab7dc0d",
       "format": "json",
       "path": "results/reports/bagged_offset/run_lock.json"
     }
   },
-  "created_utc": "2026-08-25T11:51:15+00:00",
+  "created_utc": "2026-08-25T19:07:06+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:c224803a14d568eedd2a45f7fd4dd8866055f6e2b6297cf373b0ecb64fb927b9",
+  "lock_digest": "sha256:afe6f96862bb2719556d57d8de9d28bc72c7f77145c0a0053fc603316222d185",
   "report": {
     "config_digest": "sha256:cb9351b6601ede16f58a647a4b844d09ee84c3398155cdc2ee48b917081c41a9",
     "label": "Bagged Offset (production)",
     "mode": "canonical",
     "model": "bagged_offset",
-    "pdf_pages": 19,
+    "pdf_pages": 24,
     "pdf_quality_gate": "passed",
     "pdf_quality_problems": [],
     "sections": [
@@ -54,10 +54,16 @@
     ],
     "sections_not_applicable": [],
     "sections_not_built": [],
-    "source_commit": "7953760a028f1bb13bf516b72b13b1a88bd701b3",
-    "source_dirty": true,
-    "visual_review": null,
-    "visual_review_images": 19
+    "source_commit": "05f09ed2455de0e001147f8439c74a219acf7288",
+    "source_dirty": false,
+    "visual_review": {
+      "images_rasterised": 24,
+      "note": "Every page of all four PDFs rasterised and inspected: first and last pages, both chart pages, every Kelly preset panel, the section transitions, table widths, page breaks, orphaned headings, clipped legends and endpoint labels, and appendix spacing. Four defects found and fixed before this record: preset panels kept whole left pages 60 percent empty, the edge-bucket section repeated thirteen near-identical tables, the probit tables counted race-seed pairs as races, and the sensitivity table was mislabelled with two empty columns.",
+      "pages": 24,
+      "recorded_utc": "2026-08-25T19:11:10+00:00",
+      "verdict": "passed"
+    },
+    "visual_review_images": 24
   },
   "root": "results/reports/bagged_offset",
   "run": "report:bagged_offset",

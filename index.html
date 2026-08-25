@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HKJC model reports</title><style>
+:root {
+  --ink: #1a1d21;
+  --muted: #5b6470;
+  --rule: #d8dde3;
+  --panel: #f6f8fa;
+  --accent: #1f5c8b;
+  --warn: #8a4b08;
+  --good: #1c6b4a;
+  --bad: #9b2c2c;
+  /* The diverging and sequential ramps hkjc.reporting.charts draws with. Declared here
+     because this report is one self-contained file: the chart module's own stylesheet is not
+     shipped, so a heatmap referencing these would otherwise render with no fill at all. */
+  --div-pos: #2a78d6;
+  --div-mid: #f0efec;
+  --div-neg: #d03b3b;
+  --seq-low: #cde2fb;
+  --seq-high: #104281;
+  --absent: #f0efec;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0 0 6rem;
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif;
+  color: var(--ink); background: #fff;
+}
+main { max-width: 60rem; margin: 0 auto; padding: 0 1.5rem; }
+h1 { font-size: 1.9rem; line-height: 1.2; margin: 2.5rem 0 0.4rem; }
+h2 {
+  font-size: 1.25rem; margin: 3rem 0 0.75rem; padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--rule);
+}
+h3 { font-size: 1rem; margin: 1.75rem 0 0.5rem; color: var(--muted);
+     text-transform: uppercase; letter-spacing: 0.04em; }
+p { margin: 0.7rem 0; }
+.lede { font-size: 1.05rem; color: var(--muted); }
+.subtitle { color: var(--muted); margin: 0 0 2rem; }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+
+nav.toc { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px;
+          padding: 1rem 1.25rem; margin: 2rem 0; }
+nav.toc ol { margin: 0.35rem 0 0; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
+nav.toc li { margin: 0.2rem 0; break-inside: avoid; }
+nav.toc a { color: var(--accent); text-decoration: none; }
+
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.9rem; }
+th, td { text-align: right; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); }
+th:first-child, td:first-child { text-align: left; }
+thead th { border-bottom: 2px solid var(--rule); font-weight: 600; white-space: nowrap; }
+tbody tr:hover { background: var(--panel); }
+td.num { font-variant-numeric: tabular-nums; }
+tr.partial td { color: var(--warn); font-style: italic; }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+         gap: 0.75rem; margin: 1.25rem 0; }
+.tile { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px;
+        padding: 0.75rem 0.9rem; }
+.tile .name { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;
+              color: var(--muted); }
+.tile .value { font-size: 1.35rem; font-variant-numeric: tabular-nums; margin-top: 0.15rem; }
+.tile .note { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+.caveat { border-left: 4px solid var(--warn); background: #fdf8f1; padding: 0.8rem 1rem;
+          margin: 1.25rem 0; border-radius: 0 4px 4px 0; }
+.caveat strong { display: block; margin-bottom: 0.25rem; }
+.unavailable { border-left: 4px solid var(--rule); background: var(--panel);
+               padding: 0.8rem 1rem; margin: 1rem 0; color: var(--muted); }
+.unavailable .label { font-weight: 600; color: var(--ink); }
+.good { color: var(--good); }
+.bad { color: var(--bad); }
+
+figure {
+  margin: 1.25rem 0; padding: 0.75rem 0.75rem 0.25rem; background: var(--panel);
+  border: 1px solid var(--rule); border-radius: 6px;
+}
+figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
+figcaption .figure-title { color: var(--ink); }
+svg { max-width: 100%; height: auto; display: block; }
+
+/* Chart chrome. These class names are emitted by hkjc.reporting.charts, so they live here
+   rather than in that module's own STYLE: this report is one self-contained file, and a
+   second stylesheet would be a second place to change a colour. */
+.grid { stroke: var(--rule); stroke-width: 1; }
+.axis { stroke: #b9c0c8; stroke-width: 1; }
+.zero { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.tick { fill: var(--muted); font-size: 10.5px; }
+.axis-title { fill: var(--muted); font-size: 11px; }
+.point-label { fill: var(--muted); font-size: 10.5px; }
+.end-label { fill: var(--ink); font-size: 11px; font-weight: 600;
+             font-variant-numeric: tabular-nums; }
+.series { stroke-width: 2; fill: none; }
+.marker { stroke: #fff; stroke-width: 2; }
+.s0 { stroke: #2a78d6; } .s1 { stroke: #eb6834; } .s2 { stroke: #1baf7a; }
+.s3 { stroke: #b5299e; }
+circle.s0, rect.s0 { fill: #2a78d6; } circle.s1, rect.s1 { fill: #eb6834; }
+circle.s2, rect.s2 { fill: #1baf7a; } circle.s3, rect.s3 { fill: #b5299e; }
+rect.bar { stroke: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.85rem;
+          color: var(--muted); margin: 0.75rem 0 0.25rem; }
+.legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
+.swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+.swatch.s0 { background: #2a78d6; } .swatch.s1 { background: #eb6834; }
+.swatch.s2 { background: #1baf7a; } .swatch.s3 { background: #b5299e; }
+details.table-view { margin: 0.5rem 0 0; font-size: 0.85rem; }
+details.table-view summary { cursor: pointer; color: var(--muted); padding: 0.25rem 0; }
+details.table-view table { margin: 0.5rem 0; }
+
+/* Kelly presets ------------------------------------------------------- */
+.presets { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
+.presets button {
+  font: inherit; font-size: 0.9rem; padding: 0.4rem 0.9rem; cursor: pointer;
+  background: #fff; color: var(--accent); border: 1px solid var(--accent);
+  border-radius: 999px;
+}
+.presets button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.preset-panel[hidden] { display: none; }
+.print-only { display: none; }
+
+@media print {
+  @page { size: A4 portrait; margin: 12mm; }
+  body { font-size: 10.5pt; padding-bottom: 0; }
+  main { max-width: none; padding: 0; }
+  nav.toc { break-after: page; columns: 1; }
+  h1 { font-size: 20pt; }
+  h2 { font-size: 13pt; break-after: avoid; break-inside: avoid; margin-top: 18pt; }
+  h3 { break-after: avoid; }
+  /* An orphaned heading at a page foot is the commonest print defect, and the one the
+     visual review looks for first. */
+  h2 + p, h3 + p, h2 + table, h3 + table, h2 + .tiles { break-before: avoid; }
+  table { font-size: 8.5pt; break-inside: auto; }
+  th, td { padding: 0.15rem 0.3rem; }
+  /* Headers wrap on paper. They are nowrap on screen, where a table can scroll, and that rule
+     is what clipped the ninth column of the top-choice table at the right margin: "seed top
+     choice agreement" is wider than the column it labels, and a nowrap header cannot give. */
+  thead th { white-space: normal; overflow-wrap: break-word; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  figure, .tile, .caveat, .unavailable { break-inside: avoid; }
+  /* The interactive control cannot work on paper, so the print layout shows every preset as
+     its own panel instead of hiding three of four behind a button nobody can press. */
+  .presets { display: none; }
+  /* A preset panel flows across a page boundary rather than being kept whole. With four
+     presets each panel runs to about a page and a half, and keeping it whole pushed every
+     panel to a fresh page and left the previous one 60% empty. The figure, the tiles and each
+     table row are still kept whole, which is where a break actually hurts. */
+  .preset-panel { display: block !important; break-inside: auto; margin-bottom: 10pt; }
+  .preset-panel[hidden] { display: block !important; }
+  .print-only { display: block; }
+  .screen-only { display: none; }
+  a { color: inherit; text-decoration: none; }
+}
+</style></head><body><main><h1>HKJC model reports</h1><p class="subtitle">one report per published model, generated by hkjc.reporting.generate</p><nav class="toc"><strong>Contents</strong><ol><li><a href="#reports">Published reports</a></li></ol></nav><section id="reports"><h2>Published reports</h2><p class='lede'>Every published model report, with the comparator it is scored against and the sections its architecture cannot have. Each report is one self-contained HTML file and one A4 PDF; nothing here needs a server.</p><table><thead><tr><th>Model</th><th>Family</th><th>Comparator</th><th>Mean delta</th><th>PDF</th><th>PDF gate</th><th>Not applicable</th></tr></thead><tbody><tr><td class="num"><a href="reports/bagged_offset/report.html">Bagged Offset (production)</a></td><td class="num">offset</td><td class="num">the market</td><td class="num">-0.004647</td><td class="num"><a href="reports/bagged_offset/report.pdf">24 pages</a></td><td class="num">passed</td><td class="num">none</td></tr><tr><td class="num"><a href="reports/probit/report.html">Standalone Probit</a></td><td class="num">probit</td><td class="num">the standalone Softmax on the same utilities</td><td class="num">-0.012557</td><td class="num"><a href="reports/probit/report.pdf">17 pages</a></td><td class="num">passed</td><td class="num">effects, ensemble, races, topchoice</td></tr><tr><td class="num"><a href="reports/probit_offset/report.html">Probit Offset (market-anchored)</a></td><td class="num">probit</td><td class="num">the incumbent Offset model on the same margins</td><td class="num">-0.000943</td><td class="num"><a href="reports/probit_offset/report.pdf">17 pages</a></td><td class="num">passed</td><td class="num">effects, ensemble, races, topchoice</td></tr><tr><td class="num"><a href="reports/probit_offset_pace/report.html">Probit Offset with a pace factor</a></td><td class="num">probit</td><td class="num">the incumbent Offset model on the same margins</td><td class="num">-0.000785</td><td class="num"><a href="reports/probit_offset_pace/report.pdf">17 pages</a></td><td class="num">passed</td><td class="num">effects, ensemble, races, topchoice</td></tr></tbody></table><p>The delta column is one number from each report and is not comparable across families: each model is measured against its own comparator, which is the point of stating the comparator beside it. The reports themselves say what their delta means and what it does not establish.</p></section></main><script>
+(function () {
+  'use strict';
+  // Every path below was computed in Python by hkjc.reporting.bundle and embedded as data.
+  // This function draws one of them. It deliberately contains no Kelly, rebate,
+  // stake-rounding or settlement arithmetic: a second implementation of those rules in a
+  // browser would disagree with the first one the moment either changed.
+  var buttons = Array.prototype.slice.call(
+    document.querySelectorAll('.presets button[data-preset]')
+  );
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.preset-panel'));
+  if (!buttons.length || !panels.length) { return; }
+
+  function show(preset) {
+    panels.forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-preset') !== preset;
+    });
+    buttons.forEach(function (button) {
+      button.setAttribute(
+        'aria-pressed', button.getAttribute('data-preset') === preset ? 'true' : 'false'
+      );
+    });
+  }
+
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      show(button.getAttribute('data-preset'));
+    });
+  });
+  show(buttons[0].getAttribute('data-preset'));
+})();
+</script></body></html>

@@ -8,7 +8,10 @@
       0.1
     ],
     "kelly_fractions_settled": [
-      0.01
+      0.01,
+      0.02,
+      0.05,
+      0.1
     ],
     "rebate_policy": {
       "basis": "net_loss",
@@ -35,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "7953760a028f1bb13bf516b72b13b1a88bd701b3",
+    "git_commit": "6798e0d8c02eef9bb24f5bc18c9b3c84bd683891",
     "git_dirty": true,
-    "source_digest": "sha256:38a743e2ef160ca0db548caa9dea9ae720566be153fcecf1bdc5861cdf9a0f60"
+    "source_digest": "sha256:6f6c65c66b31f7a2e374c06e03eeb13b8f687bfe52548740ab6ad5bbb678273e"
   },
   "compute": {
     "seeds": [
@@ -48,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-08-25T11:51:05+00:00",
-  "digest": "sha256:c224803a14d568eedd2a45f7fd4dd8866055f6e2b6297cf373b0ecb64fb927b9",
+  "created_utc": "2026-08-25T19:06:57+00:00",
+  "digest": "sha256:afe6f96862bb2719556d57d8de9d28bc72c7f77145c0a0053fc603316222d185",
   "environment": {
     "numpy": "2.5.2",
     "pandas": "3.0.5",
@@ -92,15 +95,15 @@
   },
   "inputs": {
     "betting_run": {
-      "digest": "sha256:bc1699d2c45c303fc3bbf90f8cf445fbc68d58606a587c364b27ae8d9682ca40",
+      "digest": "sha256:b267ad1da4b7c5d6e5f11f9b7b36621d5d875645b0c1e5fff0c5d1dd0d41c96f",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/betting_run.json"
     },
     "betting_summary": {
-      "digest": "sha256:0477aea4d6204380e17302e9ab5d61953512803e498fb008cc4d4448ef99a84f",
+      "digest": "sha256:9e2c026c716563f93a733c3c5e4797360f0b74d0ec6c457088b586681492402f",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/betting_summary.csv"
     },
     "betting_yearly": {
-      "digest": "sha256:ef8568ceec5754e882ca0f8998fae8c8b4e42a08b1bf9cb0e3ad5c05adef3f82",
+      "digest": "sha256:f4663553435d380d609de7c6ecc0f96b5eacbbcb1b59cfdfe9af855ba8d7c3e3",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/betting_yearly.csv"
     },
     "calibration": {
@@ -108,7 +111,7 @@
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/calibration.parquet"
     },
     "edge_buckets": {
-      "digest": "sha256:118e521949952fc737fab75ea170e42522cc1bcf511b9877aeed85ffe8787f41",
+      "digest": "sha256:2706b11f815d352c69d32558f047a48c310df8d21171f46f59dea4ccdcf62220",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/edge_buckets.csv"
     },
     "ensemble_diagnostics": {
@@ -136,7 +139,7 @@
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/race_explanations.parquet"
     },
     "race_paths": {
-      "digest": "sha256:49095353e6b99f71f0c0003e2abe71c3af96e4cc9159f9b5c6e6227b4a41d677",
+      "digest": "sha256:1e4bc335e192795e97ae7c4a961c2b98a6d8d5fe07a2045e1862b23b6210ef03",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/race_paths.parquet"
     },
     "race_scores": {
@@ -144,7 +147,7 @@
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/race_scores.parquet"
     },
     "run_metadata": {
-      "digest": "sha256:e84f26eb5061196664efe934085324bd2da3212e4f64f48c540e3cc20bd385fa",
+      "digest": "sha256:a3d598d5cbcb9cb8046811f007c50a5bd0289bd45adef900a961e015af3606b3",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/run_metadata.json"
     },
     "sharpness": {
@@ -152,15 +155,15 @@
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/sharpness.csv"
     },
     "sims/day_block/summary": {
-      "digest": "sha256:505860e791de93f7d99dca0fd35d806d3b0bd79881214b90b743337f7524aa2c",
+      "digest": "sha256:95420eefdaa3275d1ca635eff3fe9bee16257d3d3f717120beaf3ca008c5970a",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/sims/day_block/summary.json"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:7486a0d807bd1f90c694c5296bd059a812cc5bb2fbb8395a5ac4bfe4c9e17e7b",
+      "digest": "sha256:ca686d3cc7f87157e10184ef06a331b69d9f5e19c91ef50a6c06805979063457",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/sims/model_assumed/summary.json"
     },
     "simulation_run": {
-      "digest": "sha256:7a0a395b68a9bf951145a94ddcb843d301798173b69849f4e084a1a679424379",
+      "digest": "sha256:b5c8be540cad0f4362f4b06c05821f6492e4f16045dde72c4f623b7cba8025f8",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/simulation_run.json"
     },
     "top_choice_movement": {
@@ -180,10 +183,10 @@
     "rounds": 400
   },
   "notes": {
-    "input_run_lock_digest": "sha256:b4e128f3b71b80490f2e1b0de231111c7c624197e932c79536380aba4b7bd48f",
+    "input_run_lock_digest": "sha256:1e2248fa517c698beed3a4961dd9d93784445d7662dbf69a3548ec19ab5f087f",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "7953760a028f1bb13bf516b72b13b1a88bd701b3",
-    "run_metadata_dirty": true
+    "run_metadata_commit": "05f09ed2455de0e001147f8439c74a219acf7288",
+    "run_metadata_dirty": false
   },
   "run": "report:bagged_offset",
   "schema_version": 1

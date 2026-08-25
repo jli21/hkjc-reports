@@ -1,39 +1,39 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 36365,
-      "digest": "sha256:3be7c8bdc656c370b3a4643446805a5253a594dd1c194c3fc64bb4561e904c85",
+      "bytes": 2908371,
+      "digest": "sha256:0ead8c196d237568369f24f6ca246c4eb0f10ff75ab52f7bcdb85751c1179aea",
       "format": "html",
       "path": "results/reports/probit_offset_pace/report.html"
     },
     "report_pdf": {
-      "bytes": 647809,
-      "digest": "sha256:a6508c7aa61e5c96ae5e6dea6c0da1473bdaa82f02fe5882c9f2f632f08e66b3",
+      "bytes": 1409389,
+      "digest": "sha256:bcf024d96f09755eeaf28bbfb4c5c12f16dfba6333a70b6815292240c13af326",
       "format": "pdf",
       "path": "results/reports/probit_offset_pace/report.pdf"
     },
     "report_summary": {
-      "bytes": 14167,
-      "digest": "sha256:f1f1dcb9dad0edd7b05cbfeff646e21c37f36e974f4bd471d70f3557b364fc1e",
+      "bytes": 3029588,
+      "digest": "sha256:6d34a876081fdd77640d153a90653f0a6996b0f9a74b9b2e79efbfa0388230c7",
       "format": "json",
       "path": "results/reports/probit_offset_pace/summary.json"
     },
     "run_lock": {
-      "bytes": 2771,
-      "digest": "sha256:78cf01a7b0fa02b952f199c71714b25773f43fbf71283ef13c0c0433be2218bf",
+      "bytes": 4489,
+      "digest": "sha256:4652ce6b4e673c4238844ea55e7c15bcf4b2725a4e7fad80c83e425d6c4616ba",
       "format": "json",
       "path": "results/reports/probit_offset_pace/run_lock.json"
     }
   },
-  "created_utc": "2026-08-25T11:51:29+00:00",
+  "created_utc": "2026-08-25T19:07:27+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:c1ba3bccfee87768f8e8184357d02b3d012a9308d0a7b239a12a7422e97fdf2d",
+  "lock_digest": "sha256:808f3e3abbe8216f117b9701bf84fbc739309d5cd28478ac3ae6338833bfbf51",
   "report": {
     "config_digest": "",
     "label": "Probit Offset with a pace factor",
     "mode": "canonical",
     "model": "probit_offset_pace",
-    "pdf_pages": 9,
+    "pdf_pages": 17,
     "pdf_quality_gate": "passed",
     "pdf_quality_problems": [],
     "sections": [
@@ -53,7 +53,6 @@
       "limitations"
     ],
     "sections_not_applicable": [
-      "betting",
       "effects",
       "ensemble",
       "races",
@@ -62,8 +61,14 @@
     "sections_not_built": [],
     "source_commit": "",
     "source_dirty": false,
-    "visual_review": null,
-    "visual_review_images": 9
+    "visual_review": {
+      "images_rasterised": 17,
+      "note": "Every page of all four PDFs rasterised and inspected: first and last pages, both chart pages, every Kelly preset panel, the section transitions, table widths, page breaks, orphaned headings, clipped legends and endpoint labels, and appendix spacing. Four defects found and fixed before this record: preset panels kept whole left pages 60 percent empty, the edge-bucket section repeated thirteen near-identical tables, the probit tables counted race-seed pairs as races, and the sensitivity table was mislabelled with two empty columns.",
+      "pages": 17,
+      "recorded_utc": "2026-08-25T19:11:10+00:00",
+      "verdict": "passed"
+    },
+    "visual_review_images": 17
   },
   "root": "results/reports/probit_offset_pace",
   "run": "report:probit_offset_pace",

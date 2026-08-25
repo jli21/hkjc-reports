@@ -8,7 +8,10 @@
       0.1
     ],
     "kelly_fractions_settled": [
-      0.01
+      0.01,
+      0.02,
+      0.05,
+      0.1
     ],
     "rebate_policy": {
       "basis": "net_loss",
@@ -35,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "7953760a028f1bb13bf516b72b13b1a88bd701b3",
+    "git_commit": "6798e0d8c02eef9bb24f5bc18c9b3c84bd683891",
     "git_dirty": true,
-    "source_digest": "sha256:38a743e2ef160ca0db548caa9dea9ae720566be153fcecf1bdc5861cdf9a0f60"
+    "source_digest": "sha256:6f6c65c66b31f7a2e374c06e03eeb13b8f687bfe52548740ab6ad5bbb678273e"
   },
   "compute": {
     "seeds": [
@@ -48,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-08-25T11:51:20+00:00",
-  "digest": "sha256:2fe70ed1e108a3ff158aced7bd1422d4baf3a5a3b3e058edc8a34f971bbc89f5",
+  "created_utc": "2026-08-25T19:07:14+00:00",
+  "digest": "sha256:997592794cd76e31976956cba3534f0d476c18b346846996889d18e51c7cf0a3",
   "environment": {
     "numpy": "2.5.2",
     "pandas": "3.0.5",
@@ -92,23 +95,23 @@
   },
   "inputs": {
     "betting_probit_offset/betting_summary": {
-      "digest": "sha256:a5468fa780861f5940e6aa2fc323a7e90bb116bb48e2765c55b175791acaca43",
+      "digest": "sha256:78ae92ecc3922a9a1a9970544ffa90e93c7a32106774bc698be4a49e24d4bdfe",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/betting_summary.csv"
     },
     "betting_probit_offset/betting_yearly": {
-      "digest": "sha256:dfc46dde1f640a21cd2c21b091ca31cd2eb73c9acc48307284fe5af3909f7e4a",
+      "digest": "sha256:d14d9d60e9438798bc0df795e7a6dd94bdc581c93da7379a1bd045817a5d0064",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/betting_yearly.csv"
     },
     "betting_probit_offset/edge_buckets": {
-      "digest": "sha256:403d295e83e102a3b1c1a9ea0bd18869f0f66a57a55e6f18d3b29d8a443bbda9",
+      "digest": "sha256:97720323d8948654b6ab1b28ecf6c70224faf42d6b7d27ef4f55d98223c55cdc",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/edge_buckets.csv"
     },
     "betting_probit_offset/probit_betting_run": {
-      "digest": "sha256:b3c36ce2a4aa376b17a9c5cd990e1d8fde34f345e154188c3502e2d86e28b995",
+      "digest": "sha256:e6b4b930a9add63d4e788be844b5379e9b701578df6535e57a0d9ec6d2d307b9",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/probit_betting_run.json"
     },
     "betting_probit_offset/race_paths": {
-      "digest": "sha256:ae6dd3e2087813df0cc4b2772108becfcf96ac13746f953a8885275afbfb1214",
+      "digest": "sha256:d38fa03161d97754bb43de4d36c5107d29259794493a49d83b3d6196865921e3",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/race_paths.parquet"
     },
     "probit_offset_per_run": {
@@ -120,7 +123,7 @@
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_sensitivity.parquet"
     },
     "probit_offset_state": {
-      "digest": "sha256:f911cfd3a7db6c814ff08bffdf7a572231553914b8f042faaec989b5ddc157d5",
+      "digest": "sha256:c8905f23c529b187224c76d181f2881bc85ee4aba2a3cbdabff58248d95f32f5",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_state.json"
     }
   },
