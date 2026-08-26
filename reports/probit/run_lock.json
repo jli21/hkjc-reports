@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "git_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
     "git_dirty": true,
-    "source_digest": "sha256:275d8bd7195d1f9b6aee5c2f144f18096a437bfb80bab28bc72fb6cd94265052"
+    "source_digest": "sha256:959db28f0888275dd241ddae394f31a8ee5d2e2ad60cf4ffea2c83b648132b52"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-08-26T14:52:58+00:00",
-  "digest": "sha256:ee47a59a10cc2a3d2af235a5bb433b0c865db379851133cab03e6ae768a09651",
+  "created_utc": "2026-08-26T19:26:23+00:00",
+  "digest": "sha256:0dc1c4f3426c4eb6d85cdbec682f9f116d5a4bd9a27eed8838b362b44045daf8",
   "environment": {
     "numpy": "2.5.2",
     "pandas": "3.0.5",
@@ -123,7 +123,7 @@
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_sensitivity.parquet"
     },
     "probit_state": {
-      "digest": "sha256:142fbca63f845e1846918f35acca0301a25915915c49fae5b8563ee6d82a203d",
+      "digest": "sha256:5f263d8392d894205a74d23dd9d5bbe68ed49627ec5115d70066f4a5151d0d85",
       "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_state.json"
     }
   },
@@ -144,12 +144,12 @@
       "what_is_held_fixed": "the mean utilities. Both links score the identical raw tree utilities, so the only difference is the shock distribution: independent Gumbel against iid normal. Scoring against the Offset model instead would change the mean learner and the link at once."
     },
     "rounds": 100,
-    "status": "experimental"
+    "status": "standard"
   },
   "notes": {
     "input_run_lock_digest": null,
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "run_metadata_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
     "run_metadata_dirty": true
   },
   "run": "report:probit",

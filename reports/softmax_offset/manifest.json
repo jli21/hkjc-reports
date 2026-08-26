@@ -1,35 +1,35 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 3331921,
-      "digest": "sha256:0a59f734de1f08e5f893129ee2c2ef1ca5e35a0785fc8413efbcb7a27b4365c7",
+      "bytes": 2023107,
+      "digest": "sha256:5a115e9646f14815b6541510a905141586649e6f67a69b85998f60f32637bad9",
       "format": "html",
       "path": "results/reports/softmax_offset/report.html"
     },
     "report_pdf": {
-      "bytes": 2044852,
-      "digest": "sha256:e0db324b8d1ad7fb65cea5809d3de0f24671dca5ffdb97dc2bd73bc064b38a2c",
+      "bytes": 2041941,
+      "digest": "sha256:17e2ec486dd91238c202cad1235bede3f153114ecedf266eeed56129c20efff8",
       "format": "pdf",
       "path": "results/reports/softmax_offset/report.pdf"
     },
     "report_summary": {
-      "bytes": 3628215,
-      "digest": "sha256:be7ed235faa159e9405b0ab3554fb3e3383f321d0e0404a7dee66dd3c1c4e03d",
+      "bytes": 2293022,
+      "digest": "sha256:cc7cbe6c1b3e2600665fceec4f9d3954d9a184d1ab50e27cbd1ffe534e8b8819",
       "format": "json",
       "path": "results/reports/softmax_offset/summary.json"
     },
     "run_lock": {
       "bytes": 6868,
-      "digest": "sha256:357c19528666fcad73c72b90cbcb1abb3e66f50317ad16c6a8e8e1fdd90b3a70",
+      "digest": "sha256:7bc5e827f114648090718591247d4a76b4dc6205fabd28f4972f0daebe2a1fc0",
       "format": "json",
       "path": "results/reports/softmax_offset/run_lock.json"
     }
   },
-  "created_utc": "2026-08-26T14:52:57+00:00",
+  "created_utc": "2026-08-26T19:26:22+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:9c2fb3b92ea98be14bb4489627cf888e8644bfa1094511348e04087ccb19f5d5",
+  "lock_digest": "sha256:1da6ad11383ffda1118f50d596a130dd0c89be4791952c963cd6d9de987dc4ef",
   "report": {
-    "config_digest": "sha256:c07c6a2a1a11d3454f31c509879a364fc5d9abb34347403758907f9bde0ddd10",
+    "config_digest": "sha256:b954e8375fbad27b7895e30685a8472170f5a34b3a1032275d867dc91af24518",
     "label": "Softmax Offset",
     "mode": "canonical",
     "model": "softmax_offset",
@@ -53,13 +53,13 @@
     ],
     "sections_not_applicable": [],
     "sections_not_built": [],
-    "source_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "source_commit": "cbacaf22733554557425ce0bd2b6dbecc51c84af",
     "source_dirty": true,
     "visual_review": {
       "images_rasterised": 20,
-      "note": "Reviewed all 20 pages. Reviewed the rasterised print pages and the interactive HTML after the first four-model production sweep. Every model now records the production feature-set digest sha256:f135d8819346efa3c31e824541e6c68e4a71ef970ca64d839754e4804a5d7f06 and its consumed-versus-learned split, and all four stand on the same 7,933-race population, checked by digest. Headline figures unchanged: softmax -0.001087, softmax_offset -0.004533, probit +0.002018, probit_offset -0.004358. Its split is 27 learned and Implied_Prob consumed as a base margin. The feature-direction grid still spans twelve fitted years with its scope stated, and both bankroll scenario panels are unchanged.",
+      "note": "Reviewed all 20 rasterised pages of the production report, checking this change left it undisturbed. The effects chart still reads mean absolute correction to log(market) with its original column header; the identity card still reads production; the 2 percent Kelly chart still draws its stepped path with both modes and the annual-reset dashes, now from a bounded subsequence with the note saying so; bets-per-year and rebate-received panels unchanged.",
       "pages": 20,
-      "recorded_utc": "2026-08-26T14:53:59+00:00",
+      "recorded_utc": "2026-08-26T19:30:00+00:00",
       "verdict": "passed"
     },
     "visual_review_images": 20

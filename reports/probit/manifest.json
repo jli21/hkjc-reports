@@ -1,33 +1,33 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 6130900,
-      "digest": "sha256:3fd68f0516624c4d7a22749fcf0a3cc9701b589c8ecbf990b61a358eff0fd22a",
+      "bytes": 1801682,
+      "digest": "sha256:1fe0b09c67a82d859e295554d4f9bdd2036902c446c2d2bf91dd5d3654557d9d",
       "format": "html",
       "path": "results/reports/probit/report.html"
     },
     "report_pdf": {
-      "bytes": 1444105,
-      "digest": "sha256:e087f9ef21407e74dfee50ac82fac5ff4f84ebc7f38736be2c8a502de168b997",
+      "bytes": 1326794,
+      "digest": "sha256:5c28e88077ca25588052e1d515b3ccf3a94f3e57970c692a053856d387619765",
       "format": "pdf",
       "path": "results/reports/probit/report.pdf"
     },
     "report_summary": {
-      "bytes": 6686426,
-      "digest": "sha256:4c031005c5fcdf2de298fa9bccfa5a5d89e906911f2cba8f3b670856d251dbe9",
+      "bytes": 1918137,
+      "digest": "sha256:117dbf1a04a7c6bca40ab76237f81951789201044cfeb6f397aaa47ae2f1362d",
       "format": "json",
       "path": "results/reports/probit/summary.json"
     },
     "run_lock": {
-      "bytes": 4861,
-      "digest": "sha256:4238db14b47739c1fe1a367fa37ecafd8ab4611a185861440c5dcdd99c1772d7",
+      "bytes": 4857,
+      "digest": "sha256:20e145e6ff6b9a4805f545af16e0b7bd8dbb3a69b91f8688157fdd46270c619a",
       "format": "json",
       "path": "results/reports/probit/run_lock.json"
     }
   },
-  "created_utc": "2026-08-26T14:53:05+00:00",
+  "created_utc": "2026-08-26T19:26:30+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:ee47a59a10cc2a3d2af235a5bb433b0c865db379851133cab03e6ae768a09651",
+  "lock_digest": "sha256:0dc1c4f3426c4eb6d85cdbec682f9f116d5a4bd9a27eed8838b362b44045daf8",
   "report": {
     "config_digest": "",
     "label": "Probit",
@@ -57,13 +57,13 @@
       "topchoice"
     ],
     "sections_not_built": [],
-    "source_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "source_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
     "source_dirty": true,
     "visual_review": {
       "images_rasterised": 18,
-      "note": "Reviewed all 18 pages. Reviewed the rasterised print pages and the interactive HTML after the first four-model production sweep. Every model now records the production feature-set digest sha256:f135d8819346efa3c31e824541e6c68e4a71ef970ca64d839754e4804a5d7f06 and its consumed-versus-learned split, and all four stand on the same 7,933-race population, checked by digest. Headline figures unchanged: softmax -0.001087, softmax_offset -0.004533, probit +0.002018, probit_offset -0.004358. Two things were checked specifically because the sweep's first attempt got them wrong. The identity card reads five ensemble members, seeds 7, 17, 42, 123 and 256 -- the first sweep ran with probit_suite's one-seed default and published a one-member model, which the tie-out caught. And the paired-delta card is back at -0.012557 against softmax: writing a run identity for the first time had removed it, because the report had been deriving the diagnostic from its own table, and a canonical test caught that the report stopped naming its reference model at all.",
+      "note": "Reviewed all 18 rasterised pages. The identity card now reads standard rather than experimental and the paired architecture diagnostic still names softmax as its reference model with the three losses from the run. Effects, ensemble and top-choice remain declared not applicable for a choice link, which is correct: it learns nothing and consumes another run's mean utilities. Bankroll curves carry the bounded-subsequence note.",
       "pages": 18,
-      "recorded_utc": "2026-08-26T14:53:59+00:00",
+      "recorded_utc": "2026-08-26T19:30:00+00:00",
       "verdict": "passed"
     },
     "visual_review_images": 18
