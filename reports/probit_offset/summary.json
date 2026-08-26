@@ -1,21 +1,15 @@
 {
   "appendix": {
+    "annual_reset_semantics": "",
     "architecture": "probit_offset",
-    "bankroll_mode": "continuous",
-    "comparator": "offset",
+    "bankroll_scenario": null,
+    "calibrated_model_minus_reference": -0.000492511360920926,
     "fallback_scale_note": "These test years have no earlier year to fit the utility scale on and fall back to the predeclared theoretical value. The utility is divided by the scale, so the fallback amplifies corrections where a fitted scale halves them: their stakes and claimed edges are several times any fitted year's and are not comparable with them. Exclude these years from any return figure -- filter on is_honest_scale in the per-run CSV.",
     "fallback_years": [
       2015
     ],
     "initial_bankroll": 10000000.0,
     "integration": "exact_gauss_hermite_quadrature",
-    "isolation_better_years": 11,
-    "isolation_calibrated_delta": -0.000492511360920926,
-    "isolation_comparator": "the incumbent Offset model on the same margins",
-    "isolation_delta": -0.0009425410986714516,
-    "isolation_n_years": 11,
-    "isolation_note": "The incumbent Offset, because the candidate reuses its margins exactly and changes only the link. The market anchor means a zero correction returns the market probability, so this comparison isolates the link.",
-    "isolation_worst_year_delta": -4.923963376604057e-05,
     "kelly_fractions_declared": [
       0.01,
       0.02,
@@ -29,7 +23,10 @@
       0.1
     ],
     "loading_features": [],
+    "model_log_loss": 2.024447145616371,
+    "model_minus_reference": -0.0009425410986714516,
     "n_factors": 0,
+    "path_modes_declared": [],
     "per_seed_delta": {
       "123": -0.0009430717367918774,
       "17": -0.0009189370435715387,
@@ -63,13 +60,19 @@
         "verdict": "pass"
       }
     ],
-    "rebate_aware_sizing": false,
     "rebate_policy": {
       "basis": "net_loss",
       "rate": 0.1,
       "threshold": 10000.0,
       "threshold_mode": "cliff"
     },
+    "reference_better_years": 11,
+    "reference_holds_fixed": "the correction. It is the incumbent's persisted margin, reused exactly rather than refitted, and the market anchor means a zero correction returns the market probability -- so the only difference is the link.",
+    "reference_log_loss": 2.0253896867150423,
+    "reference_model": "softmax_offset",
+    "reference_n_years": 11,
+    "scenario_digest": null,
+    "scenario_role": null,
     "sensitivity": [
       {
         "architecture": "probit_offset",
@@ -181,20 +184,24 @@
       }
     ],
     "settled_path_modes": [],
+    "settled_scenarios": [],
     "settled_strategies": [],
     "settlement_label": "Secondary diagnostic. This suite selects on paired race log loss; betting returns cannot select a model and are not evidence for or against a probit candidate.",
+    "strategy_roles": {},
+    "threshold_fraction": null,
     "training_window": {
-      "detail": "a separate fit per test year, each on 2010 through the year before it -- 12 fits in all",
-      "sentence": "These are walk-forward figures, not one model's: for each test year the model was fitted on 2010 through the previous year and then scored that year, so the result concatenates 12 separately fitted models and no test year appears in its own training data. The window expands each year, so the last year's model saw the most data and the first year's the least. These are the incumbent Offset's margins, reused exactly rather than refitted, so the window is that run's.",
-      "summary": "2010-2014 then expanding"
+      "detail": "the training start year is not recorded in this run's metadata",
+      "sentence": "These are walk-forward figures rather than one model's: the model is refitted for each evaluation year on the seasons before it, so the result concatenates 11 separately fitted models and no evaluation year's outcomes appear in its own fit. This run did not record the year its training window starts, so this report does not name one.",
+      "summary": "11 separate fits, one per evaluation year"
     },
-    "unverifiable_gates": "An interaction diagnostic across predeclared cohorts, reproduction from a clean identified commit, and confirmation on a future prospective period are not derivable from these artifacts. Production remains the five-seed Offset ensemble until they are met.",
+    "unverifiable_gates": "An interaction diagnostic across predeclared cohorts, reproduction from a clean identified commit, and confirmation on a future prospective period are not derivable from these artifacts. Production remains the five-seed Softmax Offset ensemble until they are met.",
     "utility_scale": {
       "max": 2.2279824889806115,
       "min": 1.9932229412402331,
       "theory": 0.7796968012336761,
       "theory_source": "the scale the fallback year used, which is the predeclared theoretical value"
-    }
+    },
+    "worst_year_model_minus_reference": -4.923963376604057e-05
   },
   "capabilities": {
     "appendix": {
@@ -210,11 +217,11 @@
       "state": "available"
     },
     "effects": {
-      "reason": "There are no per-feature effects belonging to this model to attribute. A choice link changes how utilities become probabilities; it has no features of its own. The mean utilities come from the comparator's fit, so attributing their feature effects here would credit this candidate with another model's work -- and for the market-anchored architectures those are the incumbent Offset's margins exactly, whose per-feature effects, response directions and group ablation are in the Bagged Offset report. What is specific to this candidate is the link and its utility scale, and both are in the technical appendix.",
+      "reason": "There are no per-feature effects belonging to this model to attribute. A choice link changes how utilities become probabilities; it has no features of its own. The mean utilities are another run's fit, so attributing their feature effects here would credit this model with that run's work -- and for the market-anchored architecture they are the Softmax Offset margins exactly, whose per-feature effects, response directions and group ablation are in that report. What is specific to this model is the link and its utility scale, and both are in the technical appendix.",
       "state": "not_applicable"
     },
     "ensemble": {
-      "reason": "There is no ensemble to be stable. This architecture is a choice *link* applied to one set of mean utilities, not a bag of independently fitted members, so seed variation here is integration noise rather than model disagreement -- and that is reported in the appendix instead.",
+      "reason": "There is no ensemble to be stable. This architecture is one choice link applied to one set of mean utilities, not a bag of independently fitted members, so seed variation here is integration noise rather than model disagreement -- and that is reported in the appendix instead.",
       "state": "not_applicable"
     },
     "identity": {
@@ -233,16 +240,12 @@
       "reason": "",
       "state": "available"
     },
-    "races": {
-      "reason": "Representative races are chosen by how much a model's correction moved a runner's probability. This candidate applies a link to fixed mean utilities, so the movement to explain belongs to the comparator's fit and is shown in that model's report. A race chosen here would be chosen by integration noise.",
-      "state": "not_applicable"
-    },
     "summary": {
       "reason": "",
       "state": "available"
     },
     "topchoice": {
-      "reason": "Top-choice movement compares a model's first pick against the market's. This candidate is scored against its own comparator on fixed mean utilities, not against the market, so a market top-choice comparison would answer a different question than the rest of this report.",
+      "reason": "Top-choice movement needs the market's own first pick beside the model's, and this run's artifacts do not carry it. The paired diagnostic in the appendix holds the mean utilities fixed, which is a different and narrower question.",
       "state": "not_applicable"
     },
     "uncertainty": {
@@ -255,39 +258,102 @@
     }
   },
   "identity": {
-    "comparator": "the market",
-    "comparator_note": "The market's own implied probabilities on the same races. Every published report is scored against the market, so the four headline numbers mean the same thing and can be read against one another. For the production model the market is also the baseline by construction -- the booster learns a residual on log(market_prob) -- and for the probit candidates it is the common yardstick rather than the quantity they were designed against; the comparison each was designed against is in the technical appendix.",
+    "capabilities": {},
     "config_digest": "",
-    "cv": 3,
+    "cv": null,
     "environment": {
       "numpy": "2.5.2",
       "pandas": "3.0.5",
       "python": "3.12.11",
       "xgboost": "3.4.1"
     },
-    "family": "probit",
-    "git_commit": "",
-    "git_dirty": false,
+    "feature_set": "production",
+    "feature_set_digest": "sha256:f135d8819346efa3c31e824541e6c68e4a71ef970ca64d839754e4804a5d7f06",
+    "features": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ],
+    "features_consumed": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ],
+    "features_learned": [],
+    "git_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "git_dirty": true,
+    "identity_source": "artifact",
     "key": "probit_offset",
-    "label": "Probit Offset (market-anchored)",
+    "label": "Probit Offset",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "model_view": "bagged_probit_offset",
+    "n_features": 28,
+    "n_members": 5,
     "notes": {
       "architecture": "probit_offset",
       "integration": "exact_gauss_hermite_quadrature",
-      "loading_features": [],
-      "n_factors": 0,
-      "utility_scale": {
-        "grid": [
-          0.0,
-          0.15,
-          0.3,
-          0.5,
-          0.8
-        ],
-        "max": 2.2279824889806115,
-        "min": 1.9932229412402331
-      }
+      "research_experiment": null
     },
-    "rounds": 400,
+    "paired_diagnostic": {
+      "model_log_loss": 2.024447145616371,
+      "model_minus_reference": -0.0009425410986714516,
+      "reference_log_loss": 2.0253896867150423,
+      "reference_model": "softmax_offset",
+      "what_is_held_fixed": "the correction. It is the incumbent's persisted margin, reused exactly rather than refitted, and the market anchor means a zero correction returns the market probability -- so the only difference is the link."
+    },
+    "probability_column": "final_prob",
+    "rounds": 100,
+    "schema_version": 1,
     "seeds": [
       7,
       17,
@@ -295,6 +361,7 @@
       123,
       256
     ],
+    "status": "experimental",
     "test_years": [
       2015,
       2016,
@@ -309,7 +376,7 @@
       2025,
       2026
     ],
-    "train_start_year": 2010
+    "train_start_year": null
   },
   "inputs": {
     "betting_probit_offset/betting_summary": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/betting_summary.csv",
@@ -3542,7 +3609,10 @@
       ],
       "races_staked": 1062,
       "rebate_paid": 0.0,
+      "role": "benchmark",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "flat_stake@edge>=0.02"
     },
@@ -6766,7 +6836,10 @@
       ],
       "races_staked": 1062,
       "rebate_paid": 0.0,
+      "role": "benchmark",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "flat_stake@edge>=0.02"
     },
@@ -11349,7 +11422,10 @@
       ],
       "races_staked": 1515,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.01"
     },
@@ -15932,7 +16008,10 @@
       ],
       "races_staked": 1515,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.01"
     },
@@ -20581,7 +20660,10 @@
       ],
       "races_staked": 1537,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.02"
     },
@@ -25230,7 +25312,10 @@
       ],
       "races_staked": 1537,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.02"
     },
@@ -29900,7 +29985,10 @@
       ],
       "races_staked": 1544,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.05"
     },
@@ -34570,7 +34658,10 @@
       ],
       "races_staked": 1544,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.05"
     },
@@ -39243,7 +39334,10 @@
       ],
       "races_staked": 1545,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.1"
     },
@@ -43916,7 +44010,10 @@
       ],
       "races_staked": 1545,
       "rebate_paid": 0.0,
+      "role": "settlement_ablation",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_no_rebate@0.1"
     },
@@ -48502,7 +48599,10 @@
       ],
       "races_staked": 1516,
       "rebate_paid": 0.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.01"
     },
@@ -53088,7 +53188,10 @@
       ],
       "races_staked": 1516,
       "rebate_paid": 0.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.01"
     },
@@ -57737,7 +57840,10 @@
       ],
       "races_staked": 1537,
       "rebate_paid": 1007.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.02"
     },
@@ -62386,7 +62492,10 @@
       ],
       "races_staked": 1537,
       "rebate_paid": 1007.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.02"
     },
@@ -67059,7 +67168,10 @@
       ],
       "races_staked": 1545,
       "rebate_paid": 75876.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.05"
     },
@@ -71732,7 +71844,10 @@
       ],
       "races_staked": 1545,
       "rebate_paid": 75876.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.05"
     },
@@ -76411,7 +76526,10 @@
       ],
       "races_staked": 1547,
       "rebate_paid": 638228.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.1"
     },
@@ -81090,7 +81208,10 @@
       ],
       "races_staked": 1547,
       "rebate_paid": 638228.0,
+      "role": "sizing_reference",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "kelly_settled_rebate@0.1"
     },
@@ -85676,7 +85797,10 @@
       ],
       "races_staked": 1516,
       "rebate_paid": 14000.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.01"
     },
@@ -90262,7 +90386,10 @@
       ],
       "races_staked": 1516,
       "rebate_paid": 14000.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.01"
     },
@@ -95157,7 +95284,10 @@
       ],
       "races_staked": 1619,
       "rebate_paid": 315826.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.02"
     },
@@ -100052,7 +100182,10 @@
       ],
       "races_staked": 1619,
       "rebate_paid": 315826.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.02"
     },
@@ -107926,7 +108059,10 @@
       ],
       "races_staked": 2612,
       "rebate_paid": 2478032.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.05"
     },
@@ -115800,7 +115936,10 @@
       ],
       "races_staked": 2612,
       "rebate_paid": 2478032.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.05"
     },
@@ -127916,7 +128055,10 @@
       ],
       "races_staked": 4026,
       "rebate_paid": 8492883.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.1"
     },
@@ -140032,19 +140174,27 @@
       ],
       "races_staked": 4026,
       "rebate_paid": 8492883.0,
+      "role": "primary",
       "ruined": false,
+      "scenario": "",
+      "scenario_role": "",
       "seed": -1,
       "strategy": "rebate_aware_kelly@0.1"
     }
   ],
   "population": {
+    "evaluation_start_year": 2016,
+    "excluded_years": [
+      2015
+    ],
     "fallback_reasons": [
       "insufficient_history"
     ],
     "fallback_years": [
       2015
     ],
-    "honest_years": 11,
+    "n_race_keys": 7933,
+    "race_key_digest": "sha256:342d95ee674808a0d7ae4d0df5b0f958da1898863e25c2898bb71d9f58392e58",
     "seeds": [
       7,
       17,
@@ -140052,9 +140202,8 @@
       123,
       256
     ],
-    "test_races": 8675,
+    "test_races": 7933,
     "years": [
-      2015,
       2016,
       2017,
       2018,
@@ -140071,12 +140220,12 @@
   "root": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models",
   "summary": {
     "beats_market": true,
+    "calibrated_model_minus_reference": -0.000492511360920926,
     "delta": -0.004357631376580073,
-    "isolation_calibrated_delta": -0.000492511360920926,
-    "isolation_delta": -0.0009425410986714516,
-    "races": 8675,
+    "model_minus_reference": -0.0009425410986714516,
+    "races": 7933,
     "seed_signs_agree": true,
-    "worst_isolation_year_delta": -4.923963376604057e-05,
+    "worst_year_model_minus_reference": -4.923963376604057e-05,
     "years_better": 10,
     "years_total": 11
   },

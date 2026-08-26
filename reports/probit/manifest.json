@@ -1,39 +1,39 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 6125869,
-      "digest": "sha256:14312913f53f6f1e3be2fffe020474b077f27b0e82bbd39529fb552b6302a903",
+      "bytes": 6130900,
+      "digest": "sha256:3fd68f0516624c4d7a22749fcf0a3cc9701b589c8ecbf990b61a358eff0fd22a",
       "format": "html",
       "path": "results/reports/probit/report.html"
     },
     "report_pdf": {
-      "bytes": 1447003,
-      "digest": "sha256:eebf07791b006f98dec2996700d27928a3152266130bbb9a909622f3644ae8d0",
+      "bytes": 1444105,
+      "digest": "sha256:e087f9ef21407e74dfee50ac82fac5ff4f84ebc7f38736be2c8a502de168b997",
       "format": "pdf",
       "path": "results/reports/probit/report.pdf"
     },
     "report_summary": {
-      "bytes": 6683009,
-      "digest": "sha256:fc365033a159134f03a401b58dac052f05fe7d7955a8ce27fbefa20df3c35ee2",
+      "bytes": 6686426,
+      "digest": "sha256:4c031005c5fcdf2de298fa9bccfa5a5d89e906911f2cba8f3b670856d251dbe9",
       "format": "json",
       "path": "results/reports/probit/summary.json"
     },
     "run_lock": {
-      "bytes": 4211,
-      "digest": "sha256:86d0ea6dfd7abc2b23611078e6cc2067251cb9387a9accfe3a1cbd6e516e82f0",
+      "bytes": 4861,
+      "digest": "sha256:4238db14b47739c1fe1a367fa37ecafd8ab4611a185861440c5dcdd99c1772d7",
       "format": "json",
       "path": "results/reports/probit/run_lock.json"
     }
   },
-  "created_utc": "2026-08-25T20:30:52+00:00",
+  "created_utc": "2026-08-26T14:53:05+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:cbd714e96e3100e4798f870b2266961faa8521775de0f35867cd4ab3c915ab3d",
+  "lock_digest": "sha256:ee47a59a10cc2a3d2af235a5bb433b0c865db379851133cab03e6ae768a09651",
   "report": {
     "config_digest": "",
-    "label": "Standalone Probit",
+    "label": "Probit",
     "mode": "canonical",
     "model": "probit",
-    "pdf_pages": 17,
+    "pdf_pages": 18,
     "pdf_quality_gate": "passed",
     "pdf_quality_problems": [],
     "sections": [
@@ -46,7 +46,6 @@
       "topchoice",
       "ensemble",
       "effects",
-      "races",
       "betting",
       "uncertainty",
       "appendix",
@@ -55,20 +54,19 @@
     "sections_not_applicable": [
       "effects",
       "ensemble",
-      "races",
       "topchoice"
     ],
     "sections_not_built": [],
-    "source_commit": "",
-    "source_dirty": false,
+    "source_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "source_dirty": true,
     "visual_review": {
-      "images_rasterised": 17,
-      "note": "Every page of all four PDFs rasterised and inspected after the market-yardstick and colour-scale changes: first and last pages, all chart pages, every Kelly preset panel, the feature-direction grid against the table beneath it, section transitions, table widths, page breaks, orphaned headings, clipped labels and appendix spacing. Six defects found and fixed before this record: the shaded tables and the heatmaps used opposite colour poles so a rising response was blue in one and red in the other; the bar chart's table view headed its category column with the y-axis label; an all-n-a interval column appeared where the chart had no intervals; preset panels and figures kept whole left pages 40 percent empty; the headline delta printed without its sign; and the identity line carried an absolute host path.",
-      "pages": 17,
-      "recorded_utc": "2026-08-25T20:31:38+00:00",
+      "images_rasterised": 18,
+      "note": "Reviewed all 18 pages. Reviewed the rasterised print pages and the interactive HTML after the first four-model production sweep. Every model now records the production feature-set digest sha256:f135d8819346efa3c31e824541e6c68e4a71ef970ca64d839754e4804a5d7f06 and its consumed-versus-learned split, and all four stand on the same 7,933-race population, checked by digest. Headline figures unchanged: softmax -0.001087, softmax_offset -0.004533, probit +0.002018, probit_offset -0.004358. Two things were checked specifically because the sweep's first attempt got them wrong. The identity card reads five ensemble members, seeds 7, 17, 42, 123 and 256 -- the first sweep ran with probit_suite's one-seed default and published a one-member model, which the tie-out caught. And the paired-delta card is back at -0.012557 against softmax: writing a run identity for the first time had removed it, because the report had been deriving the diagnostic from its own table, and a canonical test caught that the report stopped naming its reference model at all.",
+      "pages": 18,
+      "recorded_utc": "2026-08-26T14:53:59+00:00",
       "verdict": "passed"
     },
-    "visual_review_images": 17
+    "visual_review_images": 18
   },
   "root": "results/reports/probit",
   "run": "report:probit",

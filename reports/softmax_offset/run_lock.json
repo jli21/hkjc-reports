@@ -1,0 +1,195 @@
+{
+  "bankroll": {
+    "initial_bankroll": 10000000.0,
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "rebate_policy": {
+      "basis": "net_loss",
+      "rate": 0.1,
+      "threshold": 10000.0,
+      "threshold_mode": "cliff"
+    }
+  },
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": 2010
+  },
+  "code": {
+    "git_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "git_dirty": true,
+    "source_digest": "sha256:275d8bd7195d1f9b6aee5c2f144f18096a437bfb80bab28bc72fb6cd94265052"
+  },
+  "compute": {
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ]
+  },
+  "created_utc": "2026-08-26T14:52:49+00:00",
+  "digest": "sha256:9c2fb3b92ea98be14bb4489627cf888e8644bfa1094511348e04087ccb19f5d5",
+  "environment": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "xgboost": "3.4.1"
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "betting_run": {
+      "digest": "sha256:fc796c608ca24e7446a70c8ff24965c9177a1e68ad01bffc9ca12838f2de1210",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/betting_run.json"
+    },
+    "betting_summary": {
+      "digest": "sha256:4052a57477ae50a1a54d283e955a67208cef8628a996ec1bace467588d084912",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/betting_summary.csv"
+    },
+    "betting_yearly": {
+      "digest": "sha256:f7d8322f2cc42fe1557dbc262ae2c50245de378c968cb44bd7abda89542841ce",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/betting_yearly.csv"
+    },
+    "calibration": {
+      "digest": "sha256:b812b3dc592bf450ac2d3021495ebad0ac8f78861d9f44ca14cff0ee74dbaee6",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/calibration.parquet"
+    },
+    "edge_buckets": {
+      "digest": "sha256:88e17a7f6429903f5d2ca439c22ce55b7ab97ebcac0a58063dda70367042e364",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/edge_buckets.csv"
+    },
+    "ensemble_diagnostics": {
+      "digest": "sha256:bfe57a82f5c3c03101f23af377e31ee5a911b0f799d851e88af881976da5722a",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/ensemble_diagnostics.parquet"
+    },
+    "feature_dictionary": {
+      "digest": "sha256:7d4881f2a9ba0cd2cf6648014db2e1b2737224abb4fd0bde903ea2579e65e907",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_dictionary.json"
+    },
+    "feature_effects_yearly": {
+      "digest": "sha256:8e4456ee6a45b6d224c730b41f26e438a9777ec2a5110db576623d045d24bd79",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_effects_yearly.parquet"
+    },
+    "feature_stability": {
+      "digest": "sha256:38d99058dde2f66a9b041f6abdb4793991a7dd92534f13628ee7cdbbd90397fe",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/feature_stability.csv"
+    },
+    "group_ablation_summary": {
+      "digest": "sha256:159f7913eaddfa8da7698bd7f6279c3df75786c47f4c20c0fd6fb999ace23195",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/group_ablation_summary.csv"
+    },
+    "lineage": {
+      "digest": "sha256:272f4269ac21634d8680f548a323033f9c25e491606c086371b029fe9dc71a24",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/lineage.json"
+    },
+    "race_paths": {
+      "digest": "sha256:62352b339f304f2150e24507564cf97da94463f629000d67c8e38ee2a301da6f",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/race_paths.parquet"
+    },
+    "race_scores": {
+      "digest": "sha256:16941bfab677f0b40b0b402b3ad8a7318c9fa8504f60ef922eba29d4e1b3325e",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/race_scores.parquet"
+    },
+    "run_metadata": {
+      "digest": "sha256:193c58e503605d06fefdbb0eeee22ca5af6260abeaca85dae8f0d9a4b35796cd",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/run_metadata.json"
+    },
+    "sharpness": {
+      "digest": "sha256:9ac9cb18398d38d60bd5f2d10bd1870717f0c3d1d8bf9598d9705b03e9f5e51b",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/sharpness.csv"
+    },
+    "sims/day_block/summary": {
+      "digest": "sha256:95420eefdaa3275d1ca635eff3fe9bee16257d3d3f717120beaf3ca008c5970a",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/sims/day_block/summary.json"
+    },
+    "sims/model_assumed/summary": {
+      "digest": "sha256:ca686d3cc7f87157e10184ef06a331b69d9f5e19c91ef50a6c06805979063457",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/sims/model_assumed/summary.json"
+    },
+    "simulation_run": {
+      "digest": "sha256:f7ac387fe07be18b83c250280fc48badb9cd683422957a2afb9ca4263c6fac48",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/simulation_run.json"
+    },
+    "top_choice_movement": {
+      "digest": "sha256:91ea781e13d12ed4a71da17839c095e0418ba08492c18905410420bd9989c50d",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/model_report/top_choice_movement.csv"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": null,
+    "config_digest": "sha256:c07c6a2a1a11d3454f31c509879a364fc5d9abb34347403758907f9bde0ddd10",
+    "cv": 3,
+    "identity_source": "artifact",
+    "key": "softmax_offset",
+    "label": "Softmax Offset",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "paired_diagnostic": null,
+    "rounds": 400,
+    "status": "production"
+  },
+  "notes": {
+    "input_run_lock_digest": "sha256:5bcb6b5e2747590c2fdfa3174c163fd67df13276b7cceff8401bcda441a887ba",
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "run_metadata_dirty": true
+  },
+  "run": "report:softmax_offset",
+  "schema_version": 1
+}

@@ -1,0 +1,123 @@
+{
+  "bankroll": null,
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": 2010
+  },
+  "code": {
+    "git_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "git_dirty": true,
+    "source_digest": "sha256:275d8bd7195d1f9b6aee5c2f144f18096a437bfb80bab28bc72fb6cd94265052"
+  },
+  "compute": {
+    "seeds": [
+      42
+    ]
+  },
+  "created_utc": "2026-08-26T14:52:43+00:00",
+  "digest": "sha256:3fbd943de3e90fe4d70256ff4f111617ac5adb2f54c5731873165396c72c4457",
+  "environment": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "xgboost": "3.4.1"
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "calibration": {
+      "digest": "sha256:5f774beea052933235cf2af3b164a7f93a41cf1b66b6511319611da6dcafe4fa",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/calibration.parquet"
+    },
+    "ensemble_diagnostics": {
+      "digest": "sha256:48d17bd4c20d73e5d7da905a5e5019a94e1971b710908403af9c98ed7c455be5",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/ensemble_diagnostics.parquet"
+    },
+    "feature_dictionary": {
+      "digest": "sha256:7a631f50c8fa05a389d441895a09f55970f284b0d17def17b0a5816875ef1901",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/feature_dictionary.json"
+    },
+    "race_scores": {
+      "digest": "sha256:dba77617cd536271a09f53eb8353e429965b995fedd72b9d278f757371526e8d",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/race_scores.parquet"
+    },
+    "run_metadata": {
+      "digest": "sha256:516fda80ec6469492e3f289c93460e74f8f12d4170b336fd7dcc6471a9f490cd",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/run_metadata.json"
+    },
+    "sharpness": {
+      "digest": "sha256:2ebb3374fe386fb7ddac330fd3d1e3845eee29c500cc6f609486d2d61bffb4e8",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/sharpness.csv"
+    },
+    "top_choice_movement": {
+      "digest": "sha256:a2160ba278feac7b83acb2a7610856ddc7aee7ef33d161cb50507817ba39e135",
+      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/top_choice_movement.csv"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": null,
+    "config_digest": "sha256:8692cb70f72e43ebfdafc9aeab897531825427df19c5b68c13f9f4b171fe9580",
+    "cv": 3,
+    "identity_source": "artifact",
+    "key": "softmax",
+    "label": "Softmax",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "paired_diagnostic": null,
+    "rounds": 400,
+    "status": "experimental"
+  },
+  "notes": {
+    "input_run_lock_digest": "sha256:6785e10f839a73bfb1de3ab010ef7bd0eb14fd1813434e4371dc6d4aa4277906",
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "run_metadata_dirty": true
+  },
+  "run": "report:softmax",
+  "schema_version": 1
+}

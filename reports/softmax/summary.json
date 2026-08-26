@@ -1,0 +1,276 @@
+{
+  "appendix": {
+    "ablation": null,
+    "annual_reset_semantics": "",
+    "authoring_note": "Reduced dictionary. The per-feature classification, response direction and stability entries are derived from the market-correction attribution, which this run does not produce.",
+    "bankroll_scenario": null,
+    "dataset_registry_digest": null,
+    "duplicates": null,
+    "feature_year_directions": null,
+    "initial_bankroll": null,
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [],
+    "market_offset_column": null,
+    "market_offset_note": "This model has no market offset. Every column below entered the booster as an ordinary feature, including 'Implied_Prob', and no base margin was supplied.",
+    "n_features": 28,
+    "n_learned_features": 28,
+    "path_modes_declared": [],
+    "rebate_policy": {
+      "basis": null,
+      "rate": null,
+      "threshold": null,
+      "threshold_mode": null
+    },
+    "scenario_digest": null,
+    "scenario_role": null,
+    "settled_path_modes": [],
+    "settled_scenarios": [],
+    "settled_strategies": [],
+    "strategy_roles": {},
+    "threshold_fraction": null,
+    "training_window": {
+      "detail": "a separate fit per evaluation year, each on 2010 through the year before it -- 11 fits in all",
+      "final_training_set": "2010-2025",
+      "initial_training_set": "2010-2015",
+      "sentence": "The 2016 evaluation model was trained on the initial 2010-2015 set. Each later evaluation adds the preceding complete season, so the training window expands by one year; the 2026 model uses 2010-2025. Every evaluation year is fitted separately -- 11 fits in all -- and no evaluation year's outcomes appear in its own fit.",
+      "summary": "initial 2010-2015, expanding by one season per evaluation year"
+    },
+    "ungrouped_features": []
+  },
+  "capabilities": {
+    "appendix": {
+      "reason": "",
+      "state": "available"
+    },
+    "betting": {
+      "reason": "No bet ledger has been settled for this model. It is the unanchored baseline the offset architecture exists to improve on, and it has not passed a promotion gate; settling it would produce a bankroll path that reads as a recommendation for a model nobody proposes to stake.",
+      "state": "not_applicable"
+    },
+    "calibration": {
+      "reason": "",
+      "state": "available"
+    },
+    "effects": {
+      "reason": "There is no market correction belonging to this model to attribute. This model learns a utility directly from the feature matrix, in which the market's implied probability is one ordinary column rather than a base margin, so a per-feature attribution here would decompose the utility -- a different quantity from the market correction the attribution artifact declares, and not comparable with the effects reported for the market-anchored models. What this model's features do to its probabilities is therefore not published rather than published under a name that would mislead.",
+      "state": "not_applicable"
+    },
+    "ensemble": {
+      "reason": "There is no ensemble to be stable: this run fitted a single seed, so there is no member disagreement to measure. The headline probability is that one fit's own output, which the identity card states.",
+      "state": "not_applicable"
+    },
+    "identity": {
+      "reason": "",
+      "state": "available"
+    },
+    "limitations": {
+      "reason": "",
+      "state": "available"
+    },
+    "overall": {
+      "reason": "",
+      "state": "available"
+    },
+    "population": {
+      "reason": "",
+      "state": "available"
+    },
+    "summary": {
+      "reason": "",
+      "state": "available"
+    },
+    "topchoice": {
+      "reason": "",
+      "state": "available"
+    },
+    "uncertainty": {
+      "reason": "There is no settled outcome to put an interval on. Both intervals this report can show resample a settlement rather than a prediction -- race days drawn with replacement, and winners drawn from the model's own probabilities and settled at Win Odds -- and no bet ledger has been settled for this model, for the reason the betting section gives.",
+      "state": "not_applicable"
+    },
+    "yearly": {
+      "reason": "",
+      "state": "available"
+    }
+  },
+  "identity": {
+    "capabilities": {
+      "betting": "No bet ledger has been settled for this model. It is the unanchored baseline the offset architecture exists to improve on, and it has not passed a promotion gate; settling it would produce a bankroll path that reads as a recommendation for a model nobody proposes to stake.",
+      "effects": "There is no market correction belonging to this model to attribute. This model learns a utility directly from the feature matrix, in which the market's implied probability is one ordinary column rather than a base margin, so a per-feature attribution here would decompose the utility -- a different quantity from the market correction the attribution artifact declares, and not comparable with the effects reported for the market-anchored models. What this model's features do to its probabilities is therefore not published rather than published under a name that would mislead.",
+      "ensemble": "There is no ensemble to be stable: this run fitted a single seed, so there is no member disagreement to measure. The headline probability is that one fit's own output, which the identity card states.",
+      "uncertainty": "There is no settled outcome to put an interval on. Both intervals this report can show resample a settlement rather than a prediction -- race days drawn with replacement, and winners drawn from the model's own probabilities and settled at Win Odds -- and no bet ledger has been settled for this model, for the reason the betting section gives."
+    },
+    "config_digest": "sha256:8692cb70f72e43ebfdafc9aeab897531825427df19c5b68c13f9f4b171fe9580",
+    "cv": 3,
+    "environment": {
+      "numpy": "2.5.2",
+      "pandas": "3.0.5",
+      "python": "3.12.11",
+      "xgboost": "3.4.1"
+    },
+    "feature_set": "production",
+    "feature_set_digest": "sha256:f135d8819346efa3c31e824541e6c68e4a71ef970ca64d839754e4804a5d7f06",
+    "features": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ],
+    "features_consumed": [],
+    "features_learned": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ],
+    "git_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "git_dirty": true,
+    "identity_source": "artifact",
+    "key": "softmax",
+    "label": "Softmax",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "model_view": "softmax_member",
+    "n_features": 28,
+    "n_members": 1,
+    "notes": {
+      "delta_semantics": {
+        "better_when": "negative",
+        "definition": "model race log loss minus market race log loss, paired by race",
+        "field": "model_minus_market_log_loss",
+        "legacy_fields": {
+          "delta_vs_market": "negative",
+          "log_score_delta_vs_market": "positive",
+          "paired_log_loss_delta_vs_market": "negative",
+          "paired_log_score_delta_vs_market": "positive"
+        },
+        "quantity": "race_multinomial_log_loss"
+      },
+      "market_offset_column": null
+    },
+    "paired_diagnostic": null,
+    "probability_column": "member_final_prob",
+    "rounds": 400,
+    "schema_version": 1,
+    "seeds": [
+      42
+    ],
+    "status": "experimental",
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": 2010
+  },
+  "inputs": {
+    "calibration": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/calibration.parquet",
+    "ensemble_diagnostics": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/ensemble_diagnostics.parquet",
+    "feature_dictionary": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/feature_dictionary.json",
+    "race_scores": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/race_scores.parquet",
+    "run_metadata": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/run_metadata.json",
+    "sharpness": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/sharpness.csv",
+    "top_choice_movement": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report/top_choice_movement.csv"
+  },
+  "kelly_presets": [],
+  "population": {
+    "evaluation_start_year": 2016,
+    "excluded_years": [
+      2015
+    ],
+    "n_race_keys": 7933,
+    "oof_sources": [
+      "model"
+    ],
+    "partial_years": [
+      2026
+    ],
+    "race_key_digest": "sha256:342d95ee674808a0d7ae4d0df5b0f958da1898863e25c2898bb71d9f58392e58",
+    "splits": [
+      "test",
+      "train_apparent"
+    ],
+    "test_races": 7933,
+    "years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "root": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/softmax_report",
+  "summary": {
+    "better_race_share": 0.5250220597504097,
+    "delta": -0.0010865940675755179,
+    "races": 7933,
+    "years_better": 7,
+    "years_total": 11
+  },
+  "uncertainty": {}
+}

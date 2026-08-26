@@ -1,36 +1,36 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 3262038,
-      "digest": "sha256:58ce45f2aa38081c2ac6d258fd71a6efb4452c76363cc203bbe1451175dceefb",
+      "bytes": 3266683,
+      "digest": "sha256:aed46050bda52d5a10730559a7e8c74e7322c4a92077f823f8efe7bbe849758e",
       "format": "html",
       "path": "results/reports/probit_offset/report.html"
     },
     "report_pdf": {
-      "bytes": 1426692,
-      "digest": "sha256:a5fee1d8a6c474f634afdf0ba4720bf678be73d39ef777781ae4a511ecb4299a",
+      "bytes": 1420441,
+      "digest": "sha256:275041b278b400dbb2ce670b1319c002e128740740042258d1aca6afa281121e",
       "format": "pdf",
       "path": "results/reports/probit_offset/report.pdf"
     },
     "report_summary": {
-      "bytes": 3401383,
-      "digest": "sha256:66753f70f0ecb05d90a7bd86c1b45d0af77acae2e79e2913abf3eb044d48ac35",
+      "bytes": 3404771,
+      "digest": "sha256:8c2d1a8f36ce9dc46392f6175a4c72dd12b65eb1723a44298543d9359bb32034",
       "format": "json",
       "path": "results/reports/probit_offset/summary.json"
     },
     "run_lock": {
-      "bytes": 4358,
-      "digest": "sha256:9fd77d7d351f169176942af1b81b0e3d6271813d84b476315f33d421f5cc3c14",
+      "bytes": 4966,
+      "digest": "sha256:8535fcded399749d5635baa353ecfaff53c7f541dacf28dee7beab02cc447d5c",
       "format": "json",
       "path": "results/reports/probit_offset/run_lock.json"
     }
   },
-  "created_utc": "2026-08-25T20:31:00+00:00",
+  "created_utc": "2026-08-26T14:53:12+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:c021c646f55622926fa621a1745b35a2e55ac69ce517655be06477309f66c5f2",
+  "lock_digest": "sha256:bddadce28e5ba653070e131c1f72eb2cda0d9392efead6fd1456794f2c666b10",
   "report": {
     "config_digest": "",
-    "label": "Probit Offset (market-anchored)",
+    "label": "Probit Offset",
     "mode": "canonical",
     "model": "probit_offset",
     "pdf_pages": 18,
@@ -46,7 +46,6 @@
       "topchoice",
       "ensemble",
       "effects",
-      "races",
       "betting",
       "uncertainty",
       "appendix",
@@ -55,17 +54,16 @@
     "sections_not_applicable": [
       "effects",
       "ensemble",
-      "races",
       "topchoice"
     ],
     "sections_not_built": [],
-    "source_commit": "",
-    "source_dirty": false,
+    "source_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "source_dirty": true,
     "visual_review": {
       "images_rasterised": 18,
-      "note": "Every page of all four PDFs rasterised and inspected after the market-yardstick and colour-scale changes: first and last pages, all chart pages, every Kelly preset panel, the feature-direction grid against the table beneath it, section transitions, table widths, page breaks, orphaned headings, clipped labels and appendix spacing. Six defects found and fixed before this record: the shaded tables and the heatmaps used opposite colour poles so a rising response was blue in one and red in the other; the bar chart's table view headed its category column with the y-axis label; an all-n-a interval column appeared where the chart had no intervals; preset panels and figures kept whole left pages 40 percent empty; the headline delta printed without its sign; and the identity line carried an absolute host path.",
+      "note": "Reviewed all 18 pages. Reviewed the rasterised print pages and the interactive HTML after the first four-model production sweep. Every model now records the production feature-set digest sha256:f135d8819346efa3c31e824541e6c68e4a71ef970ca64d839754e4804a5d7f06 and its consumed-versus-learned split, and all four stand on the same 7,933-race population, checked by digest. Headline figures unchanged: softmax -0.001087, softmax_offset -0.004533, probit +0.002018, probit_offset -0.004358. Same two checks as the probit report: five seeds on the identity card, and the paired diagnostic against softmax_offset present in the appendix. Its consumed list is all 28 columns and it learns none, which is what its inapplicable feature-effects section says in words.",
       "pages": 18,
-      "recorded_utc": "2026-08-25T20:31:38+00:00",
+      "recorded_utc": "2026-08-26T14:53:59+00:00",
       "verdict": "passed"
     },
     "visual_review_images": 18

@@ -1,0 +1,75 @@
+{
+  "artifacts": {
+    "report_html": {
+      "bytes": 51858,
+      "digest": "sha256:199bd26d8a8d9902bda8260f433392dfb54fad58f8a0bc81c1970b8c23853949",
+      "format": "html",
+      "path": "results/reports/softmax/report.html"
+    },
+    "report_pdf": {
+      "bytes": 714535,
+      "digest": "sha256:54244b452314072652d02a69e993789998c83a135ebd33efa24785e79c8f1707",
+      "format": "pdf",
+      "path": "results/reports/softmax/report.pdf"
+    },
+    "report_summary": {
+      "bytes": 10403,
+      "digest": "sha256:11aff564f168dae82c17def0aab77f53e58b95e9159735f7b61ed180ee8241c4",
+      "format": "json",
+      "path": "results/reports/softmax/summary.json"
+    },
+    "run_lock": {
+      "bytes": 3788,
+      "digest": "sha256:def7786e4d99b7b3bed15af18d35f6022689b2e97c25a296f7ab45f94c2b919b",
+      "format": "json",
+      "path": "results/reports/softmax/run_lock.json"
+    }
+  },
+  "created_utc": "2026-08-26T14:52:48+00:00",
+  "kind": "run_manifest",
+  "lock_digest": "sha256:3fbd943de3e90fe4d70256ff4f111617ac5adb2f54c5731873165396c72c4457",
+  "report": {
+    "config_digest": "sha256:8692cb70f72e43ebfdafc9aeab897531825427df19c5b68c13f9f4b171fe9580",
+    "label": "Softmax",
+    "mode": "canonical",
+    "model": "softmax",
+    "pdf_pages": 10,
+    "pdf_quality_gate": "passed",
+    "pdf_quality_problems": [],
+    "sections": [
+      "identity",
+      "summary",
+      "population",
+      "overall",
+      "yearly",
+      "calibration",
+      "topchoice",
+      "ensemble",
+      "effects",
+      "betting",
+      "uncertainty",
+      "appendix",
+      "limitations"
+    ],
+    "sections_not_applicable": [
+      "betting",
+      "effects",
+      "ensemble",
+      "uncertainty"
+    ],
+    "sections_not_built": [],
+    "source_commit": "0422b20c203993837b99b587c9d22fd63f51b035",
+    "source_dirty": true,
+    "visual_review": {
+      "images_rasterised": 10,
+      "note": "Reviewed all 10 pages. Reviewed the rasterised print pages and the interactive HTML after the first four-model production sweep. Every model now records the production feature-set digest sha256:f135d8819346efa3c31e824541e6c68e4a71ef970ca64d839754e4804a5d7f06 and its consumed-versus-learned split, and all four stand on the same 7,933-race population, checked by digest. Headline figures unchanged: softmax -0.001087, softmax_offset -0.004533, probit +0.002018, probit_offset -0.004358. This report's split is 28 learned and none consumed, which is the whole difference between it and the production model.",
+      "pages": 10,
+      "recorded_utc": "2026-08-26T14:53:59+00:00",
+      "verdict": "passed"
+    },
+    "visual_review_images": 10
+  },
+  "root": "results/reports/softmax",
+  "run": "report:softmax",
+  "schema_version": 1
+}
