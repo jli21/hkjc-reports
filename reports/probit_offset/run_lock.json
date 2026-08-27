@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
+    "git_commit": "825dae7282a8674a2f28484794ff857697fc78d2",
     "git_dirty": true,
-    "source_digest": "sha256:959db28f0888275dd241ddae394f31a8ee5d2e2ad60cf4ffea2c83b648132b52"
+    "source_digest": "sha256:b0c17547cd85fe486741550b02250ea1493f43f9549808505edf5acd9a77bc3c"
   },
   "compute": {
     "seeds": [
@@ -51,13 +51,13 @@
       256
     ]
   },
-  "created_utc": "2026-08-26T19:26:31+00:00",
-  "digest": "sha256:463c6836761326eadc2be1bb0bfb96614bac38f0af16bd0ff2d68bd1b3c05732",
+  "created_utc": "2026-08-27T05:47:00+00:00",
+  "digest": "sha256:e9cdae7b0f89e0b5a4f507f9f0e68a11fae41f53bf0715867a1bf5217960e4ac",
   "environment": {
-    "numpy": "2.5.2",
-    "pandas": "3.0.5",
-    "python": "3.12.11",
-    "xgboost": "3.4.1"
+    "numpy": "2.1.3",
+    "pandas": "2.2.3",
+    "python": "3.12.6",
+    "xgboost": "3.0.0"
   },
   "features": {
     "groups": {},
@@ -95,36 +95,36 @@
   },
   "inputs": {
     "betting_probit_offset/betting_summary": {
-      "digest": "sha256:78ae92ecc3922a9a1a9970544ffa90e93c7a32106774bc698be4a49e24d4bdfe",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/betting_summary.csv"
+      "digest": "sha256:dbe452381963c3934d6d38acba2d5b551d758797fec9e62e65c6f9d001c03948",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit_offset\\betting_summary.csv"
     },
     "betting_probit_offset/betting_yearly": {
-      "digest": "sha256:d14d9d60e9438798bc0df795e7a6dd94bdc581c93da7379a1bd045817a5d0064",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/betting_yearly.csv"
+      "digest": "sha256:1939983bbf199573633d8c0b38c511346974397a7854559cfc109bdb09987125",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit_offset\\betting_yearly.csv"
     },
     "betting_probit_offset/edge_buckets": {
-      "digest": "sha256:97720323d8948654b6ab1b28ecf6c70224faf42d6b7d27ef4f55d98223c55cdc",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/edge_buckets.csv"
+      "digest": "sha256:603752e4666b8df339d1983d2ae3809d4ec79261ed1255ce678c11f8816fdadd",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit_offset\\edge_buckets.csv"
     },
     "betting_probit_offset/probit_betting_run": {
-      "digest": "sha256:e6b4b930a9add63d4e788be844b5379e9b701578df6535e57a0d9ec6d2d307b9",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/probit_betting_run.json"
+      "digest": "sha256:c6c83a1bdc9e4612ca074f62d5131bb5759dfeb660c1dca7f1c36dbb8efa4b93",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit_offset\\probit_betting_run.json"
     },
     "betting_probit_offset/race_paths": {
-      "digest": "sha256:d38fa03161d97754bb43de4d36c5107d29259794493a49d83b3d6196865921e3",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/betting_probit_offset/race_paths.parquet"
+      "digest": "sha256:d2cfa825d57b10c7c72c97c3fd6c7fd98f5989036703be367c9a160e1a7aa20b",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit_offset\\race_paths.parquet"
     },
     "probit_offset_per_run": {
-      "digest": "sha256:f7240d93d028f2e4a875c1f68f19ebfeee75a668ff40f29246e2ac527026d23e",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_per_run.csv"
+      "digest": "sha256:a77a4b0c06fcc7ceeb1a8d4ca6e63fb0cd087bcb5dfce2471345217a273d8a18",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\probit_offset_per_run.csv"
     },
     "probit_offset_sensitivity": {
-      "digest": "sha256:708ec5fb678ed0e509eadc7fcdb8970b8cd1b6fbf8030b8e3a1d15b4b336a9ea",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_sensitivity.parquet"
+      "digest": "sha256:82ca17c8028a46e44ce1b0cde1af1e2e5dfe9d4f53efad098290bab3ec832330",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\probit_offset_sensitivity.parquet"
     },
     "probit_offset_state": {
-      "digest": "sha256:6986450a0091f8b7060d78895cd59fe47cd7f23f509e0173e02d6cb13774f3b9",
-      "path": "/Users/jlcheung/PycharmProjects/hkjc-mod/results/probit_models/probit_offset_state.json"
+      "digest": "sha256:b44eb296969c2bfd3d6bb4b229de74546e384c5d29264bc171fad16500d95d67",
+      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\probit_offset_state.json"
     }
   },
   "kind": "run_lock",
@@ -137,9 +137,9 @@
     "label": "Probit Offset",
     "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
     "paired_diagnostic": {
-      "model_log_loss": 2.024447145616371,
-      "model_minus_reference": -0.0009425410986714516,
-      "reference_log_loss": 2.0253896867150423,
+      "model_log_loss": 2.022933095175341,
+      "model_minus_reference": -0.0010779658304551631,
+      "reference_log_loss": 2.0240110610057966,
       "reference_model": "softmax_offset",
       "what_is_held_fixed": "the correction. It is the incumbent's persisted margin, reused exactly rather than refitted, and the market anchor means a zero correction returns the market probability -- so the only difference is the link."
     },
@@ -149,7 +149,7 @@
   "notes": {
     "input_run_lock_digest": null,
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
+    "run_metadata_commit": "be5b226ddfa7b1498c27b7d43ea483fe909bca67",
     "run_metadata_dirty": true
   },
   "run": "report:probit_offset",
