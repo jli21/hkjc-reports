@@ -156,14 +156,65 @@ utility scale is the whole game, now with measured heteroskedasticity and a
 sectional-derived pace loading rather than a position habit.
 \end{itemize}
 
+\subsection*{Groups of horses, rather than individuals}
+
+Pursued after a first reading of the individual-level findings, and it attacks the
+right weakness: an individual horse is not measurable enough, while a jockey is.
+Twelve groupings were tested (\S\ref{sec:groups}).
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Shrinking a horse toward its group beats shrinking it toward the
+population}, on every grouping tested --- forward correlation 0.255 to \good{0.285}
+for the best, a 12\% relative gain from changing nothing but the target. But
+\emph{not} by the hypothesised mechanism: within every history-depth band the gain
+is at most $\pm0.02$ and is \emph{negative} for the thinnest horses. The gain is
+Simpson's paradox --- the group term makes thin and thick horses comparable
+\emph{across} depths, which is what a within-race model needs.
+
+\item \textbf{Volatility is a group property, and the group beats the individual.}
+Running style explains 20\% of the between-horse variance in log volatility against
+a 0.07\% noise floor, with a 1.55$\times$ spread between the steadiest and most
+erratic groups --- and the group's volatility forecasts a horse's next deviation
+\good{better than the horse's own volatility history does} ($+0.112$ against
+$+0.101$). That is a strict improvement on the individual-level result, where
+volatility was real and worth nothing.
+
+\item \textbf{Pedigree is a decisive null.} Sire and damsire carry 0.0001 of the
+variance in relative performance --- on 530 units each holding as many runs as a
+jockey, so this is a finding, not a sample-size problem. Hong Kong imports are
+pre-screened and the handicap exists to equalise ability within a class; whatever
+pedigree contributes is already in the rating.
+
+\item \textbf{Cold start is real and priced.} Origin and import type predict a
+first-time starter ($z=5.6$, $z=5.3$) whom the production model cannot see at all.
+But a group's prior market error predicts a debutant's market error at $r$ between
+$-0.005$ and $+0.004$. The market has it.
+\end{itemize}
+
 \subsection*{The practical answer}
 
-Nine candidate feature blocks were built forward-only and tested against the
+Twenty-one candidate blocks in total were built forward-only and tested against the
 production architecture on identical rows, folds and seeds, with a no-op control
-that returns \good{exactly zero}. \textbf{None clears a promotion gate.} Three are
-directionally favourable at 20--26\% of the production edge, with $|t|\approx 1$
-and three of five years improving --- \emph{investigate}, not \emph{promote}, on
-the reference project's own criteria.
+that returns \good{exactly zero} in every run.
+
+One block cleared a development gate --- group-shrunk ability on the prior-class
+group, at $t=-3.80$ with all five years improving and a mean of $-0.00197$, which
+is \good{44\% of the production model's entire edge}. Taken to canonical scale
+(8 years, 5 seeds, 400 rounds) it \bad{retained 43\% of its effect and lost
+significance}: $-0.00085$ at $t=-0.90$, six of eight years improving, with two
+years degrading by more than the mean improvement.
+
+\textbf{So nothing is recommended for promotion}, and the canonical step is what
+established that --- the most plausible mechanism being capacity, since at 400
+rounds the booster recovers much of what the feature supplies at 150. That is a
+general caution about every development-profile number in this repository and is
+more valuable than the feature would have been.
+
+The pattern across all twenty-one blocks is the study's most useful single result:
+the rank correlation between how \emph{novel} a candidate is and how much it
+\emph{helped} is $+0.39$. The more novel the information, the less it helped.
+Marginal value at this effect size lies in sharpening what the model already uses,
+not in adding what it lacks.
 
 And the pattern across the nine is the most useful single thing this study
 produced: the correlation between how \emph{novel} a candidate is and how much it
@@ -173,18 +224,25 @@ already uses, not in adding what it lacks. That is a coherent explanation for th
 reference project's own history: roughly four hundred candidate columns built,
 audited, and none promoted.
 
-\subsection*{The two things that would change the answer}
+\subsection*{Where this leaves the three original recommendations}
+
+All three were tested at the production level in \S\ref{sec:groups}, and two are
+now closed negatively despite being real as measurements.
 
 \begin{enumerate}\itemsep2pt
-\item A canonical-scale confirmation of the sectional finishing block --- five
-seeds, 400 rounds, full chronology --- because the development-profile estimate
-($-0.00088$, 20\% of the production edge) is favourable and its standard error is
-of the same order as its mean.
-\item The \textbf{within-card track-speed signal}. It is the one measurement here
-that is both large ($r=0.50$) and \emph{structurally unavailable} to the reference
-pipeline, which excludes all same-date information by rule. That rule exists to
-stop a horse seeing its own same-day result; a track-speed reading taken from race
-one before race eight runs is forward in time and is not that.
+\item \textbf{Recency-weighted ability at the measured 60-day half-life:}
+$+0.00007$. Nothing. The forward-correlation profile that motivated it is
+unambiguous, and the production model evidently already recovers it.
+\item \textbf{The within-card track-speed signal:} $+0.00041$ --- worse --- and
+$-0.000005$ in its style-interacted form. It correlates 0.50 with a race's own
+shock and still cannot move a win probability, which is what the mechanism
+predicts: a shock common to the field cancels from the ordering, and the
+differential loading through style is too small to matter. Worth knowing before
+anyone spends a leakage-rule exception on it.
+\item \textbf{The sectional finishing block:} $-0.00087$ at $t=-1.07$, unchanged
+and still the second-best block measured. It remains the one candidate whose
+canonical confirmation has not been spent, and is the single most defensible next
+run.
 \end{enumerate}
 
 \newpage
@@ -1225,6 +1283,300 @@ the upward slope is the study's most useful single pattern.}
 
 \newpage
 %======================================================================
+\section{Groups of horses as the estimation unit}\label{sec:groups}
+%======================================================================
+
+Everything above estimates latent performance for an \emph{individual} horse, and
+the recurring obstacle is that an individual horse is not measurable enough: its
+effect must be shrunk to 0.39 of its fitted size to be useful, and 19\% of the
+predictive variance for a three-start horse is simply not knowing the horse.
+Meanwhile the jockey result shows what determinacy buys --- a fifth the effect
+size, four times the forward value, at a scale of 1.05.
+
+So this section asks whether horses can be pooled into groups that are similarly
+well determined, and whether a sparse horse is better served by its group's mean
+than by the population's. Twelve groupings were tested in three families:
+\emph{structural} (sire, damsire, sex, origin, import type --- the only ones a
+debutant has), \emph{connection} (trainer, and trainer crossed with context), and
+\emph{behavioural} (running-style grid, k-means over the prior sectional profile,
+volatility tercile, prior class level --- all assigned date-atomically).
+
+\subsection{Support: several groupings are as well determined as a jockey}
+
+\begin{table}[htbp]\centering\small
+\caption{Runs per unit, against the two reference points. A sire with 116 runs is
+as well determined as a jockey with 118.}
+\begin{tabular}{lrrl}
+\toprule
+Grouping & Units & Median runs per unit & Available for a debutant\\
+\midrule
+import type & 5 & 6{,}691 & yes\\
+trainer & 49 & 1{,}938 & yes\\
+country of origin & 16 & 567 & yes\\
+trainer $\times$ distance & 160 & 458 & yes\\
+\textbf{sire} & 530 & \textbf{116} & yes\\
+damsire & 569 & 96 & yes\\
+\midrule
+\emph{jockey (reference)} & 149 & \emph{118} & ---\\
+\emph{horse (reference)} & 6{,}786 & \bad{15} & no\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+That matters: it makes what follows a test of the \emph{idea} rather than of the
+sample size.
+
+\subsection{Ability: pedigree is a decisive null}
+
+\begin{table}[htbp]\centering\small
+\caption{Three-level variance shares: population, group, horse within group.}
+\begin{tabular}{lrrr}
+\toprule
+Grouping & Group share & Horse within group & Horse variance absorbed\\
+\midrule
+prior class level & 0.0259 & 0.2462 & $-0.090$\\
+trainer $\times$ distance & 0.0251 & 0.2121 & $+0.093$\\
+trainer $\times$ venue & 0.0233 & 0.2120 & $+0.096$\\
+trainer & 0.0226 & 0.2126 & $+0.090$\\
+style group & 0.0086 & 0.1981 & $+0.180$\\
+volatility group & 0.0067 & 0.2191 & $+0.073$\\
+country of origin & 0.0036 & 0.2305 & $+0.011$\\
+\textbf{sire} & \bad{0.0001} & 0.2322 & $+0.006$\\
+\textbf{damsire} & \bad{0.0001} & 0.2326 & $+0.004$\\
+sex & 0.0000 & 0.2334 & 0.000\\
+import type & 0.0000 & 0.2334 & 0.000\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Sire and damsire carry essentially no variance in relative performance},
+on 530 units each holding as many runs as a jockey. The explanation is a property
+of the sport rather than of the data: Hong Kong imports are pre-screened, and the
+handicapping system exists precisely to equalise ability within a class. Whatever
+pedigree contributes has already been absorbed into the rating and the class the
+horse is made to race in.
+
+\subsection{A confounded result, caught and corrected}
+
+The first version of the forward comparison said the style group alone predicts at
+$r=0.243$ against the individual horse's 0.130 --- nearly double, at a calibrated
+scale. It is \textbf{not a grouping result}. A behavioural group is recomputed
+date-atomically and so sees history up to the day before the race, while a BLUP
+fitted on years $<Y$ does not; with a 60-day ability half-life that recency is
+worth a great deal by itself. \S3.3 had already measured the horse's own
+date-atomic prior mean at $r=0.278$ --- \emph{better} than the group.
+
+The corrected design puts both arms on identical timing and changes only what the
+horse is shrunk toward:
+\[
+\hat{a}_i = w_i \bar{y}_i + (1-w_i)\cdot 0
+\qquad\text{versus}\qquad
+\hat{a}_i = w_i \bar{y}_i + (1-w_i)\,\bar{g}_{g(i)},
+\qquad w_i=\frac{n_i}{n_i+6}.
+\]
+
+\subsection{The corrected answer: group shrinkage wins}
+
+\begin{table}[htbp]\centering\small
+\caption{Forward correlation with relative performance, both arms date-atomic.
+The only difference is the shrinkage target.}
+\begin{tabular}{lrrr}
+\toprule
+Grouping & Population-shrunk & Group-shrunk & Gain\\
+\midrule
+\textbf{style group} & 0.2549 & \good{0.2854} & \good{$+0.0305$}\\
+style k-means & 0.2549 & 0.2840 & $+0.0291$\\
+prior class level & 0.2549 & 0.2794 & $+0.0245$\\
+volatility group & 0.2549 & 0.2779 & $+0.0230$\\
+trainer $\times$ venue & 0.2549 & 0.2720 & $+0.0171$\\
+trainer & 0.2549 & 0.2692 & $+0.0143$\\
+country of origin & 0.2549 & 0.2633 & $+0.0083$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every grouping improves on population shrinkage, the best by 12\% in relative
+terms, from changing nothing but the target.
+
+\textbf{But the mechanism is not the hypothesised one.} The gain was expected to
+concentrate in horses with little history. It does the opposite:
+
+\begin{table}[htbp]\centering\small
+\caption{The same comparison, by how much history the horse has (style group).}
+\begin{tabular}{lrrrr}
+\toprule
+Prior starts & Unshrunk horse mean & Population-shrunk & Group-shrunk & Gain\\
+\midrule
+1--3 & \good{0.5035} & 0.4852 & 0.4625 & \bad{$-0.0228$}\\
+4--8 & 0.4224 & 0.4139 & 0.4207 & $+0.0069$\\
+9--15 & 0.2248 & 0.2229 & 0.2257 & $+0.0028$\\
+16--30 & 0.1017 & 0.1017 & 0.1002 & $-0.0015$\\
+30$+$ & 0.1205 & 0.1203 & 0.1224 & $+0.0021$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every within-band gain is at most $\pm0.02$ and the thinnest band is
+\emph{negative}, yet the overall gain is $+0.0305$. This is Simpson's paradox, and
+the resolution is the interesting part: the group term does not improve the
+ordering \emph{within} a depth band, it makes thin and thick horses
+\textbf{comparable across} bands. Population shrinkage collapses every thin horse
+toward zero regardless of quality; group shrinkage gives it its group's mean
+instead, restoring a spread that correlates with the truth. Since the horses in
+one race have very different history depths, cross-depth comparability is exactly
+what a within-race choice model needs --- but the reason is not the one the
+hypothesis proposed.
+
+A second surprise sits in the same table: at 1--3 starts the \emph{unshrunk} mean
+beats both shrunk versions. Range restriction explains it --- a thin horse's raw
+mean is noisy and therefore widely spread, and wide spread inflates a correlation.
+
+\subsection{Volatility: the cleanest group result}
+
+\begin{table}[htbp]\centering\small
+\caption{Is volatility a group property? One-way ANOVA on per-horse log residual
+spread, against the floor that sampling noise alone would produce. The
+volatility-tercile grouping is excluded as circular by construction.}
+\begin{tabular}{lrrrr}
+\toprule
+Grouping & ANOVA $R^2$ & Noise floor & Excess & Top/bottom spread ratio\\
+\midrule
+\textbf{style group} & 0.2043 & 0.0007 & \good{$+0.2035$} & \good{1.549}\\
+style k-means & 0.1535 & 0.0005 & $+0.1531$ & 1.366\\
+trainer $\times$ distance & 0.0427 & 0.0084 & $+0.0343$ & 1.479\\
+damsire & 0.0355 & 0.0105 & $+0.0251$ & 1.434\\
+sire & 0.0320 & 0.0127 & $+0.0193$ & 1.435\\
+sex & 0.0000 & 0.0002 & $-0.0002$ & 1.013\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{How a horse runs predicts how variable it is} --- 20\% of the between-horse
+variance in log volatility, with a 1.55$\times$ spread between the steadiest and
+most erratic style groups. And the forward test is the win the individual-level
+study never got:
+
+\begin{table}[htbp]\centering\small
+\caption{Spearman correlation with the horse's \emph{next} absolute residual, on
+identical rows.}
+\begin{tabular}{lrrr}
+\toprule
+Grouping & The horse's own history & The group & $n$\\
+\midrule
+\textbf{style group} & $+0.1006$ & \good{$+0.1124$} & 70{,}507\\
+style k-means & $+0.1007$ & $+0.1120$ & 70{,}840\\
+trainer $\times$ venue & $+0.1027$ & $+0.0366$ & 64{,}456\\
+sire & $+0.0972$ & $+0.0407$ & 33{,}248\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The style group's volatility forecasts a horse's next deviation \emph{better than
+the horse's own volatility history does}. That is a strict improvement on \S9,
+where individual volatility was real, persistent, and worth nothing.
+
+\subsection{Cold start: real, and priced}
+
+Structural groups are all a debutant has, and the production model cannot see a
+debutant at all --- it cannot distinguish one from a horse with an average record.
+On 2{,}975 scored debut runs, import type predicts at $r=+0.103$ ($z=5.6$, a 0.24
+standard-deviation spread between outer terciles), country of origin at $r=+0.098$
+($z=5.3$), sire at $r=+0.052$, damsire at $+0.045$, sex at nothing.
+
+So a first-time starter \emph{is} partly predictable from where it came from. But
+the market residual test settles its value: a group's prior market error predicts
+a debutant's market error at $r$ between $\bad{-0.005}$ and $+0.004$ for every
+structural grouping. \textbf{The market already prices a debutant's pedigree and
+origin.} The information is real, and it is in the price.
+
+\subsection{Against the production architecture, and the canonical test}
+
+\begin{table}[htbp]\centering\small
+\caption{Group blocks and the report's three strong-evidence recommendations,
+against the incumbent. Development profile: 5 years, 3 seeds, 150 rounds. The
+no-op control returned exactly zero.}
+\begin{tabular}{lrrrrr}
+\toprule
+Block & Mean $\Delta$ & s.e. & $t$ & Cells & Years\\
+\midrule
+\textbf{group-shrunk ability (class)} & \good{$-0.001971$} & 0.00052 & \good{$-3.80$} & 12/15 & \good{5/5}\\
+sectional finish & $-0.000870$ & 0.00081 & $-1.07$ & 8/15 & 3/5\\
+everything & $-0.000862$ & 0.00094 & $-0.92$ & 10/15 & 3/5\\
+group $+$ recency $+$ sectional & $-0.000721$ & 0.00099 & $-0.73$ & 8/15 & 4/5\\
+group-shrunk ability (style) & $-0.000177$ & 0.00089 & $-0.20$ & 6/15 & 2/5\\
+track speed $\times$ style (same-card) & $-0.000005$ & 0.00091 & $-0.01$ & 6/15 & 2/5\\
+\rowcolor{shade}\emph{no-op control} & \emph{0.000000} & --- & --- & --- & ---\\
+recency ability, 60-day half-life & $+0.000068$ & 0.00079 & $+0.09$ & 5/15 & 3/5\\
+group volatility (style) & $+0.000219$ & 0.00087 & $+0.25$ & 5/15 & 1/5\\
+track speed (same-card) & $+0.000410$ & 0.00074 & $+0.55$ & 8/15 & 2/5\\
+group volatility $+$ own & $+0.000555$ & 0.00124 & $+0.45$ & 5/15 & 3/5\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The first candidate in this study to clear a development gate}, and by a
+clear margin: $t=-3.80$, all five years improving, and $-0.00197$ is \good{44\% of
+the production model's entire edge over the market}.
+
+Which group won is itself the \S13 redundancy lesson repeating. The
+\emph{class-level} group beat the \emph{style} group decisively ($-0.00197$ against
+$-0.00018$) even though the correlation test ranked style higher. The incumbent
+already carries \texttt{early\_style\_ewm}, so a style group adds little --- whereas
+``which class band has this horse been racing in'' is the handicapper's own
+standing assessment and is \emph{not} in the production set: \texttt{race\_class} is
+today's class and \texttt{class\_change} is the step between two runs, but the
+horse's historical class \emph{level} is neither.
+
+\begin{table}[htbp]\centering\small
+\caption{Canonical confirmation of the single best block, at production scale.}
+\begin{tabular}{lrrrrr}
+\toprule
+& $\Delta$ & s.e. & $t$ & Cells & Years\\
+\midrule
+development: 5 years, 3 seeds, 150 rounds & $-0.001971$ & 0.00052 & $-3.80$ & 12/15 & 5/5\\
+\textbf{canonical: 8 years, 5 seeds, 400 rounds} & \textbf{$-0.000854$} & 0.00095 & \bad{$-0.90$} & 24/40 & 6/8\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{It does not hold.} Only 43\% of the effect is retained and the significance
+is gone. Per year ($\times1000$): 2016 $-4.00$, 2018 \bad{$+2.31$}, 2019 $-3.44$,
+2021 $-0.45$, 2022 $-0.49$, 2024 \bad{$+2.73$}, 2025 $-1.38$, 2026 $-2.12$. Six of
+eight improve, but the two that degrade do so by more than the mean improvement.
+
+Two readings, and the second is worth more than the feature would have been.
+
+The candidate is not dead: the sign is right in six of eight years and $-0.00085$
+is still 19\% of the production edge. It is \emph{investigate}, which is where every
+other candidate landed too --- but this one arrived there from a far
+better-characterised position.
+
+And \textbf{this is the canonical-confirmation step earning its cost.} \S13 warned
+that a development effect whose standard error is the size of its mean could move
+either way; it moved down, by more than half. The most plausible mechanism is
+capacity: at 400 rounds the booster recovers much of what the engineered feature
+supplies at 150, so the feature's marginal value shrinks as the model is given more
+room. That is a general caution about every development-profile number in this
+repository, and it is the most transferable thing in this section.
+
+Finally, the two other strong-evidence recommendations are settled negatively at
+the production level despite being real at the measurement level. Recency-weighted
+ability at the measured 60-day half-life is worth $+0.00007$ --- nothing --- and the
+within-card track-speed signal is worth $+0.00041$, i.e.\ worse, including in its
+style-interacted form. The track-speed signal correlates 0.50 with a race's own
+shock and still cannot move a win probability, which is exactly what the mechanism
+predicts: a shock common to the field cancels from the ordering, and the
+differential loading through running style is too small to matter.
+
+\figref{f20_groups}{Group determinacy against the horse and jockey reference
+points, three-level variance shares, and forward value by history depth.}
+
+\figref{f21_group_features}{Left: block deltas against the incumbent, with the
+whole production edge marked for scale. Right: the canonical-scale confirmation
+year by year.}
+
+\newpage
+%======================================================================
 \section{Answers to the fourteen questions}
 %======================================================================
 
@@ -1326,30 +1678,38 @@ is flagged wherever it appears rather than folded into a candidate feature.
 \subsection*{Strong evidence --- pursue}
 
 \begin{enumerate}\itemsep3pt
-\item \textbf{Recency-weight the horse-ability history at a $\sim$60-day
-half-life.} The forward correlation profile is monotone and unambiguous, the
-static estimate is the worst of eight tested, and this is already the most direct
-open lead in the reference project's own backlog. The measurement here says
-\emph{weight, do not truncate}, and gives the weight.
+\item \textbf{Change the shrinkage target from the population to a group,
+everywhere a per-horse history is summarised.} This is the one structural change
+the study endorses without qualification, because it costs nothing: the same
+per-horse mean, pulled toward its group instead of toward zero, improves forward
+correlation by 12\% relative (0.255 to 0.285). It is a one-line change to any
+shrinkage estimator. Its production value did not survive canonical confirmation as
+a \emph{feature} ($-0.00085$, $t=-0.90$), but as a \emph{method} it should be the
+default for the reference project's existing state engines, whose
+\texttt{*\_reliability} fields and shrunk means all pull toward a global mean today.
 
-\item \textbf{Build the within-card track-speed estimate and test it properly.}
-$r=0.504$ with a race's own shock, rising to 0.584 by the eighth race of a
-meeting, is the largest single unexploited signal found. It requires a deliberate
-decision about the point-in-time rule --- see the limitation above --- and that
-decision should be made explicitly rather than by default. Note it primarily
-affects \emph{absolute} time, so its value for win probability must be established
-through an interaction, most plausibly with running style.
+\item \textbf{Use group-level volatility rather than per-horse volatility.} The
+style group's volatility forecasts a horse's next deviation better than the horse's
+own history does ($+0.112$ against $+0.101$), on 70{,}507 rows. This is the first
+volatility construction in the project that beats the individual, and it is the
+right form for any future use --- including in staking, where a variance estimate
+matters more than in the probability.
 
 \item \textbf{Take the sectional finishing band to canonical confirmation.}
-$-0.00087$ on the development profile is 20\% of the production edge, with the
-right sign in three of five years. Its standard error is the size of its mean, so
-the development profile cannot settle it and only a five-seed, 400-round, full-chronology
-run can.
+$-0.00087$ on the development profile is 20\% of the production edge with the right
+sign in three of five years, and it is now the best-measured candidate whose
+canonical run has not been spent. Given what canonical confirmation did to the
+prior-class block, the prior should be that roughly half the effect survives.
 \end{enumerate}
 
 \subsection*{Moderate evidence --- worth one more experiment}
 
 \begin{enumerate}\setcounter{enumi}{3}\itemsep3pt
+\item \textbf{The horse's historical class level, in some form.} It produced the
+only development-gate pass in the study ($t=-3.80$, 5/5 years) and lost half its
+effect at canonical scale. The production set has today's class and the step
+between runs, but not the level a horse has been campaigning at, and that gap is
+real even if this particular encoding of it is not yet promotable.
 \item \textbf{Projected pace $\times$ running style.} The interaction is real and
 correctly signed at $|z|\approx8$, the pace is forecastable at $r=0.41$, and
 37.8\% of the market's conditional mispricing survives projection. It did not help
@@ -1383,6 +1743,19 @@ construction might do better, but the prior should be low.
 
 \item \textbf{Any draw-bias feature.} Large in performance, fully priced,
 and the reference project has already paid $-21$pp for encoding it once.
+
+\item \textbf{Pedigree, for ability.} Sire and damsire carry 0.0001 of the
+variance in relative performance on units as well determined as a jockey. The
+handicap has already absorbed it. Do not build a sire feature.
+
+\item \textbf{Pedigree and origin, for the cold start.} They do predict a
+debutant ($z=5.6$ for import type) and the market prices them to within
+0.5 percentage points. Real, and not yours.
+
+\item \textbf{The within-card track-speed signal, as a win-probability feature.}
+$+0.00041$, i.e.\ worse, and $-0.000005$ interacted with style. It is a large
+signal about absolute time that cancels from the ordering. It would only be worth
+revisiting for a problem where absolute time is the target.
 
 \item \textbf{Beaten-margin state families.} \texttt{LBW} is the time restated in
 quarter-lengths. The eight-feature \texttt{margin\_rank} family and the
