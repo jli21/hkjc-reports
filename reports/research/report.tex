@@ -1,0 +1,1453 @@
+% The editable source of report.pdf. Build with:  tectonic report.tex
+% Every number in this document is produced by a stage under ../stages/ and is
+% written to ../outputs/tables/ and ../outputs/diagnostics/ by that stage.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.4cm,top=2.6cm,bottom=2.6cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{titlesec}
+\usepackage[colorlinks=true,linkcolor=darkblue,citecolor=darkblue,urlcolor=darkblue]{hyperref}
+\definecolor{darkblue}{HTML}{2B6CA3}
+\definecolor{warm}{HTML}{C1553B}
+\definecolor{shade}{HTML}{F4F4F2}
+\captionsetup{font=small,labelfont=bf,width=0.95\textwidth}
+\titleformat{\section}{\Large\bfseries}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.6em}{}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\newcommand{\good}[1]{\textcolor{darkblue}{\textbf{#1}}}
+\newcommand{\bad}[1]{\textcolor{warm}{\textbf{#1}}}
+\newcommand{\figref}[2]{\begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{../outputs/figures/#1.pdf}\caption{#2}\end{figure}}
+
+\title{\vspace{-1.2cm}\textbf{The stochastic structure of Hong Kong racing performance}\\[0.35em]
+\large An exploratory latent-performance study, and what of it belongs in a betting model}
+\author{Alternative Performance-Distribution Research Project}
+\date{31 August 2026}
+
+\begin{document}
+\maketitle
+\vspace{-0.8cm}
+
+\begin{center}
+\fcolorbox{black!25}{shade}{\parbox{0.94\textwidth}{\small
+\textbf{What this document is.} An exploratory study of the distribution of horse
+performance in HKJC Class 1--5 racing, 2008--2026, built from individual finishing
+times and per-section sectional times. It is a companion to an existing production
+winner-probability model, which it treats as read-only and as the reference for
+what a useful result would have to look like.
+
+\textbf{What it does not establish.} Nothing here is a profitability claim. Every
+market price used is a result-page price, recorded after the pool closed, at which
+no bet could have been placed; no dividends were loaded and no return is computed
+anywhere in this project. Every season in the archive has been development data,
+here and in the reference project, so no window is genuinely unseen. The
+confirmation step this study cannot substitute for is a prospective test of a
+locked model against timestamped pre-race price snapshots.}}
+\end{center}
+
+\tableofcontents
+\newpage
+
+%======================================================================
+\section{Executive summary}
+%======================================================================
+
+The reference production model beats the market by \good{$-0.0045$} of race log
+loss. That number is the yardstick for everything below: a piece of performance
+structure is worth having only if it moves a meaningful fraction of it.
+
+Fourteen structural questions were asked. The answers divide unevenly, and the
+division is the result.
+
+\subsection*{What is real, and useful}
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Sections are exactly comparable across distances.} HKJC times every
+race in 400\,m sections measured back from the finish, the first carrying the
+remainder --- verified on all 13{,}309 races in the population. So ``the last
+400\,m'' is one physical quantity in a 1200\,m sprint and a 2200\,m staying race.
+Both of the reference project's own sectional engines read the first and last
+section only; the middle of the race was unexamined, and this study examines it.
+
+\item \textbf{Jockey ability is identifiable, and is a far better forward
+predictor than horse ability.} Jockey identity alone forecasts relative
+performance at out-of-sample $R^2$ \good{0.048} against horse identity's 0.012,
+and at a forward scale of \good{1.05} against the horse effect's 0.39. Not because
+it is larger --- it is a fifth the size --- but because it is far better
+determined: about 1{,}000 rides per jockey against 15 starts per horse, and no
+drift. Two independent estimators agree at Spearman 0.970.
+
+\item \textbf{Horse ability drifts with a half-life of about two months.} Forward
+correlation is monotone in recency and peaks at 60 days (0.150 against a static
+0.114). A static ability estimate is over-scaled by a factor of 2.7.
+
+\item \textbf{Horse-specific volatility is real and forecastable.} 61.8\% of the
+observed spread in per-horse log residual standard deviation is signal rather than
+sampling noise; a horse one standard deviation more volatile has 1.43$\times$ the
+spread, and the property persists out of sample at $z\approx 8$.
+
+\item \textbf{The bad tail is heavier, and is partly a recorded event.} The
+out-of-sample residual has skewness $-0.729$ and excess kurtosis $+0.810$. Of runs
+more than three standard deviations below expectation, \good{46\%} carry a severe
+stewards' phrase against a 9.5\% base rate --- a lift of 4.8, monotone across all
+seven residual bands.
+
+\item \textbf{Race-level shared shocks are large, and track speed is a property of
+the day.} The shared shock is 32\% of absolute residual variance, about half a
+second at 1200\,m. A running mean of earlier races on the same card correlates
+\good{0.50} with a race's own shock, rising to 0.58 by the eighth race of a
+meeting.
+\end{itemize}
+
+\subsection*{What is real, and not useful}
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Horse $\times$ environment sensitivity exists only for some
+variables.} Venue (Happy Valley against Sha Tin) and surface sensitivity persist
+out of sample at $z=8.3$ and $z=6.4$. Going sensitivity does \bad{not}
+($z=1.37$) --- even though going moves absolute race time by 1.2\,s. This is
+precisely the outcome the research plan nominated in advance as its most valuable
+possible finding, and it lands.
+
+\item \textbf{The sectional profile is more persistent than final time, for the
+wrong reason.} Fourteen sectional quantities beat the best final-time target on
+persistence, the strongest reaching forward $r=0.483$ against $0.278$. But
+persistence and informativeness are nearly \emph{inversely} ordered: the same
+quantity predicts its own next value at 0.483 and next \emph{performance} at
+0.045. What persists is running \emph{style}, a habit; style persists precisely
+because it carries little ability information.
+
+\item \textbf{The market underprices lightly-raced horses, and the production
+model already knows.} A measure of ability uncertainty essentially uncorrelated
+with the price ($-0.004$) predicts the outcome given the price at $t=+15.0$. But
+the incumbent's own 28 columns already reconstruct \bad{73\%} of it. There is
+nothing left to add.
+\end{itemize}
+
+\subsection*{What is not there}
+
+\begin{itemize}\itemsep2pt
+\item \textbf{Horse $\times$ jockey compatibility is not forecastable.} The median
+pair has \bad{one} ride and 87.8\% have fewer than five. On pairs with enough
+rides to test, the early-to-late correlation is indistinguishable from zero
+($z$ from $-0.4$ to $+0.8$) on a design that would have shown $r=+0.21$ for a true
+pair standard deviation of 0.20. The \emph{in-sample} fit meanwhile reports a
+10.3\% variance share --- a clean illustration of why training fit is not evidence.
+
+\item \textbf{The draw effect is large and fully priced.} Relative performance
+falls 0.25 standard deviations from the inside to the outside draw; the market
+residual across the same bands is non-monotone and within 0.2 percentage points of
+zero, and a date-atomic draw-bias estimate predicts the market's error at
+$r=0.007$.
+
+\item \textbf{No elaboration of the shock distribution improves the
+probabilities.} Once a single utility scale is fitted per variant, plain
+homoskedastic normal shocks are the best of six nested generative variants ---
+heteroskedasticity, horse-specific volatility, Student-$t$ tails, latent-state
+uncertainty and a shared pace factor all fail to improve on it. This
+independently reproduces the reference project's own probit result that the
+utility scale is the whole game, now with measured heteroskedasticity and a
+sectional-derived pace loading rather than a position habit.
+\end{itemize}
+
+\subsection*{The practical answer}
+
+Nine candidate feature blocks were built forward-only and tested against the
+production architecture on identical rows, folds and seeds, with a no-op control
+that returns \good{exactly zero}. \textbf{None clears a promotion gate.} Three are
+directionally favourable at 20--26\% of the production edge, with $|t|\approx 1$
+and three of five years improving --- \emph{investigate}, not \emph{promote}, on
+the reference project's own criteria.
+
+And the pattern across the nine is the most useful single thing this study
+produced: the correlation between how \emph{novel} a candidate is and how much it
+\emph{helped} is $+0.39$, meaning \textbf{the more novel the information, the less
+it helped}. Marginal value at this effect size lies in sharpening what the model
+already uses, not in adding what it lacks. That is a coherent explanation for the
+reference project's own history: roughly four hundred candidate columns built,
+audited, and none promoted.
+
+\subsection*{The two things that would change the answer}
+
+\begin{enumerate}\itemsep2pt
+\item A canonical-scale confirmation of the sectional finishing block --- five
+seeds, 400 rounds, full chronology --- because the development-profile estimate
+($-0.00088$, 20\% of the production edge) is favourable and its standard error is
+of the same order as its mean.
+\item The \textbf{within-card track-speed signal}. It is the one measurement here
+that is both large ($r=0.50$) and \emph{structurally unavailable} to the reference
+pipeline, which excludes all same-date information by rule. That rule exists to
+stop a horse seeing its own same-day result; a track-speed reading taken from race
+one before race eight runs is forward in time and is not that.
+\end{enumerate}
+
+\newpage
+%======================================================================
+\section{The existing project and the data}
+%======================================================================
+
+\subsection{What the reference system does}
+
+The reference project estimates a calibrated probability that each declared runner
+wins, for HKJC Class 1--5 races at Sha Tin and Happy Valley. Its production
+estimator does not learn a probability; it learns a \emph{correction} to the
+market's own. For race $r$ and runner $i$, with $q_{ri}$ the market's normalised
+implied probability,
+\[
+u_{ri}=\log q_{ri}+c_\theta(x_{ri}),
+\qquad
+p_{ri}=\operatorname{softmax}_i(u_r),
+\]
+where $\log q$ enters XGBoost as a fixed additive base margin and the booster
+learns $c_\theta$ against the racewise winner-softmax likelihood. At $c=0$ the
+model \emph{is} the market exactly, because $q$ already sums to one within the
+race. Every published improvement is therefore an improvement over the market on
+the same races.
+
+Its measured standing, on 7{,}933 races over 2016--2026: the production five-seed
+ensemble beats the market by $-0.004533$ of race log loss in ten of eleven years.
+The unanchored baseline beats it by $-0.000992$ but changes sign in four years.
+That contrast --- anchoring converts a coin flip into a consistent one --- is the
+architecture's argument.
+
+One prior result is directly relevant here and is the strongest existing evidence
+for the framing this study adopts. Replacing independent Gumbel choice shocks with
+independent normal ones, holding the mean utilities fixed, improves race log loss
+by $-0.0126$ standalone and $-0.00094$ market-relative, in eleven of eleven years.
+\textbf{Latent performance with normal noise is already known to describe this
+sport better than the softmax the production model uses.}
+
+\subsection{The archive, and the measurement that makes this study possible}
+
+Fourteen scraped datasets are available. This study uses five: \texttt{sectional-times}
+(192\,MB) for per-section times, \texttt{aspx-results} for prices, weights, draw
+and human connections, the \texttt{horses} per-start JSON for the official rating
+and declared gear (which the result pages do not carry), \texttt{horse-profiles},
+and \texttt{comments-on-running} for the stewards' text.
+
+\begin{table}[htbp]\centering\small
+\caption{Sectional geometry, measured on every season. Sections after the first
+are exactly 400\,m, so indexing them \emph{from the finish} makes them physically
+comparable across every distance. Valid on 1.0000 of races.}
+\begin{tabular}{rrl}
+\toprule
+Distance (m) & Sections & Section lengths, start to finish\\
+\midrule
+1000 & 3 & 200, 400, 400\\
+1200 & 3 & 400, 400, 400\\
+1400 & 4 & 200, 400, 400, 400\\
+1600 & 4 & 400, 400, 400, 400\\
+1650 & 4 & 450, 400, 400, 400\\
+1800 & 5 & 200, 400, 400, 400, 400\\
+2000 & 5 & 400, 400, 400, 400, 400\\
+2200 & 6 & 200, 400, 400, 400, 400, 400\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Coverage is close to complete: over 648{,}121 section rows,
+\texttt{sectional\_time\_sec} is missing on 0.0000 in every one of nineteen
+seasons, finishing time on 0.0002--0.0017, and the per-section running position on
+0.0000--0.0004. Each row also carries the leader's own time for that section,
+the margin behind the leader, and --- for sections after the first --- 200\,m
+sub-splits, which this study has not exploited.
+
+\subsection{Population, and reconciliation against the reference}
+
+A race enters if it is Class 1--5 at one of the two Hong Kong tracks, every runner
+is priced, the reciprocal-odds sum is at least 1.10, the field has at least four
+runners and the finishing time is physically plausible. Races are kept whole or
+dropped whole, because a partial field breaks every within-race normalisation.
+
+Result: \textbf{165{,}435 runner-races over 13{,}309 races}, 2 April 2008 to
+15 March 2026, mean overround 1.2291.
+
+Restricting to 2010 onward to match the reference training start, 12{,}041 of its
+12{,}237 races are shared, and on 149{,}494 jointly identified runner rows the
+market probability computed here agrees with the reference table's to
+\good{$5.55\times10^{-17}$} at the 99th percentile --- the same number to float64
+noise.
+
+The residual disagreement is understood rather than tolerated. Exactly 72 races
+(0.60\%) have one fewer runner here, never more, and the missing runners are
+\texttt{UR}, \texttt{PU} and \texttt{WV} codes: \textbf{the sectional archive
+records no times for a non-finisher}. The reference project deliberately keeps
+non-finishers in the pre-race field as losing starters, because removing them by
+post-race status is field-definition look-ahead. This study's performance panel is
+therefore conditioned on finishing, which is a selection effect carried into
+\S\ref{sec:limitations}.
+
+\newpage
+%======================================================================
+\section{Constructing a performance target}
+%======================================================================
+
+\subsection{Model 0: what the environment explains}
+
+A ridge regression of performance on one-hot environment blocks, with no horse,
+jockey or market column in the design --- a par that knew who was running would
+absorb the ability it exists to measure. Two versions are kept apart: an in-sample
+fit used only to decompose variance, and a forward fit, refitted for each
+evaluation year on strictly earlier years, used for every predictive claim.
+
+\begin{table}[htbp]\centering\small
+\caption{Nested in-sample $R^2$. Almost all of raw \emph{time} is distance; the
+interesting variation lives in speed.}
+\begin{tabular}{lrrrr}
+\toprule
+Block & $R^2$ (seconds) & $\Delta R^2$ & $R^2$ (log speed) & $\Delta R^2$\\
+\midrule
+distance & 0.994597 & 0.994597 & 0.661373 & 0.661373\\
+$+$ venue $\times$ surface & 0.994831 & 0.000234 & 0.677483 & 0.016110\\
+$+$ going & 0.995291 & 0.000460 & 0.707558 & 0.030075\\
+$+$ course \& rail & 0.995312 & 0.000020 & 0.708825 & 0.001267\\
+$+$ class & 0.995781 & 0.000470 & 0.740827 & 0.032002\\
+$+$ field size & 0.995795 & 0.000014 & 0.741852 & 0.001025\\
+$+$ season & \textbf{0.996177} & 0.000382 & \textbf{0.767558} & 0.025706\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Forward par $R^2$ on log speed averages 0.7479 across evaluation years, so the par
+model generalises about as well as it fits.
+
+\subsection{Beaten lengths are not a measurement}
+
+The plan lists ``beaten-length-adjusted performance'' as a candidate target. One
+measurement removes it. Regressing beaten seconds on beaten lengths through the
+origin gives a slope of \textbf{0.15996\,s per length}, and the same value to four
+decimals on every distance from 1000\,m to 2200\,m --- that is exactly 6.25
+lengths per second. Testing the stronger claim:
+\[
+\text{lengths} = \operatorname{round}\!\big(\text{beaten seconds}\times 6.25\times 4\big)/4
+\]
+holds \good{exactly} on 83.7\% of 148{,}575 rows and to within a quarter length on
+99.7\%; the median ratio is 6.250000.
+
+\texttt{LBW} is therefore the recorded time restated in quarter-length units, and
+carries no information beyond it. One consequence reaches the reference project
+directly: its \texttt{margin\_rank} state family --- eight features built from
+``99.8\%-covered parsed \texttt{LBW} histories'' --- and its
+\texttt{dynamic\_speed} family are measuring the same physical quantity, and any
+apparent complementarity between them is quantisation noise.
+
+\subsection{Q1: which target}
+
+Targets are compared on \emph{forward persistence}: does a horse's date-atomic
+prior mean predict its next realisation. A target a horse cannot repeat carries no
+ability signal to find.
+
+\begin{table}[htbp]\centering\small
+\caption{Forward persistence of each candidate target, $n=104{,}539$.}
+\begin{tabular}{lrrr}
+\toprule
+Target & Forward $r$ & Forward $R^2$ & Split-half reliability\\
+\midrule
+$y^{\text{rel}}_z$ \ within-race $z$ of log speed & \textbf{0.2777} & \textbf{0.0771} & 0.822\\
+$y^{\text{rank}}$ \ within-race rank percentile & 0.2643 & 0.0698 & 0.840\\
+$y^{\text{par}}$ \ par residual, log speed & 0.2376 & 0.0565 & 0.557\\
+$y^{\text{par}}_z$ \ standardised par residual & 0.2357 & 0.0556 & 0.579\\
+$y^{\text{par}}$ \ par residual, seconds & 0.2195 & 0.0482 & 0.460\\
+$y^{\text{beaten}}$ \ beaten lengths & 0.2132 & 0.0454 & 0.431\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Within-race normalisation wins, and the reason is structural: it removes the
+race-level shock, which is 32\% of the absolute residual's variance and is pure
+noise for the purpose of estimating a horse's ability. Both targets are carried
+forward, because the absolute one is the only one that can answer a question about
+absolute environmental effects.
+
+\figref{f04_targets}{Model 0 and the target. Left: incremental $R^2$ of log speed
+by environment block. Centre: beaten seconds against beaten lengths --- the fit is
+0.15996\,s per length, not the conventional 0.2, and the relationship is
+arithmetic rather than statistical. Right: forward persistence of each candidate
+target.}
+
+\newpage
+%======================================================================
+\section{Exploratory analysis: what is identifiable}
+%======================================================================
+
+\begin{table}[htbp]\centering\small
+\caption{History depth per estimation unit. This table determines what the rest of
+the study can and cannot answer.}
+\begin{tabular}{lrrrrrr}
+\toprule
+Unit & Units & Median & $<5$ & $<10$ & $\ge 20$ & Max\\
+\midrule
+Starts per horse & 8{,}599 & 15 & 16.3\% & 33.0\% & 41.0\% & 97\\
+Rides per jockey & 190 & 121 & 19.5\% & 27.9\% & 62.6\% & 9{,}980\\
+Rides per horse--jockey pair & 68{,}454 & \bad{1} & \bad{87.8\%} & 97.5\% & 0.23\% & 45\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The third row is decisive. A horse--jockey interaction estimated from a median of
+one observation per cell is not an estimate, and \S\ref{sec:pairs} confirms it
+formally rather than asserting it.
+
+Horse $\times$ environment cells are thin but not hopeless: the median
+horse--going cell holds 3 starts and 59.6\% hold fewer than five, while the median
+horse--venue cell holds 8 and 42.2\% reach ten or more. That difference is why
+\S\ref{sec:horseenv} finds a persistent venue sensitivity and no persistent going
+sensitivity, and it is a difference in \emph{measurability} as much as in nature.
+
+\figref{f01_sparsity}{History depth per estimation unit. The right-hand panel is
+the constraint on Q4.}
+
+\figref{f02_interaction_sparsity}{Why partial pooling is not optional. Left:
+the fraction of interaction cells reaching each size. Right: one well-raced
+horse's record across going levels.}
+
+\newpage
+%======================================================================
+\section{Horse and jockey latent effects}
+%======================================================================
+
+\subsection{Estimation}
+
+Crossed random effects are estimated by EM on the mixed-model equations: the E
+step is the best linear unbiased predictor at the current variance ratios, solved
+by Gauss--Seidel backfitting with \texttt{np.bincount}, and the M step is the
+variance-component update that adds each effect's posterior variance to its
+squared mean. Omitting that posterior-variance term is the classic error and
+biases every $\tau^2$ downward.
+
+The estimator is verified rather than trusted. On simulated crossed data with
+$\tau_{\text{horse}}=0.55$, $\tau_{\text{jockey}}=0.20$, $\sigma=0.85$ it recovers
+$0.544$, $0.192$, $0.851$. On data where the jockey factor has \emph{no} effect it
+returns $\tau_{\text{jockey}}=0.0093$, a variance share of $8.5\times10^{-5}$ ---
+so an effect it reports is not an artifact of the machinery.
+
+\subsection{Q2 and Q3: variance components}
+
+\begin{table}[htbp]\centering\small
+\caption{Variance shares on within-race relative performance.}
+\begin{tabular}{lrrrr}
+\toprule
+Model & Horse & Jockey & Trainer & Residual\\
+\midrule
+1: horse & 23.3\% & --- & --- & 76.7\%\\
+2: $+$ jockey & 18.4\% & 3.7\% & --- & 78.0\%\\
+2b: $+$ trainer & 17.7\% & 3.5\% & 1.2\% & 77.7\%\\
+3: $+$ observable covariates & 17.6\% & 3.0\% & 1.1\% & 78.3\%\\
+\midrule
+Jockey alone, no horse control & --- & 6.0\% & --- & 94.0\%\\
+Trainer alone & --- & --- & 1.4\% & 98.6\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Controlling for the horse removes about \textbf{39\%} of the apparent jockey
+variance (6.0\% to 3.7\%). That is the size of the assignment channel: good
+jockeys ride good horses.
+
+\subsection{The surprise: jockey identity forecasts better than horse identity}
+
+\begin{table}[htbp]\centering\small
+\caption{Forward evaluation on the confirmation window, 2020--2026. The scale is
+fitted on the previous year's own earlier fit, so it never sees the scored year.}
+\begin{tabular}{lrrrr}
+\toprule
+Model & oos $R^2$ (scaled) & Forward scale & Mean $r$ & Years positive\\
+\midrule
+1: horse & 0.0124 & 0.39 & 0.141 & 7/7\\
+\textbf{Jockey alone} & \good{0.0479} & \good{1.05} & 0.223 & 7/7\\
+2: horse $+$ jockey & 0.0496 & 0.66 & 0.227 & 7/7\\
+2b: $+$ trainer & 0.0536 & 0.67 & 0.236 & 7/7\\
+3: $+$ covariates & \textbf{0.0582} & 0.64 & 0.245 & 7/7\\
+Trainer alone & 0.0063 & 0.85 & 0.094 & 7/7\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Jockey identity alone forecasts nearly four times as well as horse identity, and
+at a forward scale of 1.05 --- essentially perfectly calibrated --- where the horse
+effect needs shrinking to 0.39 of its fitted size. Adding the horse to the jockey
+improves oos $R^2$ from 0.0479 only to 0.0496.
+
+The explanation is precision and drift, not size. A jockey effect rests on roughly
+a thousand rides and does not move; a horse effect rests on fifteen starts and
+does. Two consequences worth separating:
+
+\begin{itemize}\itemsep2pt
+\item As a \emph{predictor}, jockey identity is powerful partly \emph{because} it
+encodes assignment --- the market knows this too, which is why the production
+model's \texttt{jockey\_residual} is a residual \emph{against the market} rather
+than a strike rate.
+\item As a \emph{causal} effect it is much smaller. The horse-adjusted share is
+3.7\%, and the plan's own instruction not to read a jockey random effect causally
+without discussing assignment bias is exactly right.
+\end{itemize}
+
+\subsection{Identification diagnostics}
+
+Because jockey assignment is highly non-random, the effect is estimated a second,
+independent way: from \emph{within-horse} variation only, using each ride's
+deviation from that horse's own mean.
+
+The within-horse estimates have standard deviation 0.141 against a median standard
+error of 0.028 --- \good{5.05 times their own noise}, so they are not sampling
+error --- and they agree with the crossed BLUPs at Spearman \good{0.970}. Horse
+control shrinks the spread of jockey effects by 17.7\%, and nine of the top ten
+jockeys by raw average remain in the top ten after adjustment.
+
+\subsection{Q2: ability drifts, with a two-month half-life}
+
+\begin{table}[htbp]\centering\small
+\caption{Forward correlation of a decayed horse-ability estimate. Correlation is
+the criterion because it is scale-free; the optimal scale column shows how badly
+a static estimate is over-scaled.}
+\begin{tabular}{lrrr}
+\toprule
+Recency half-life & Forward $r$ & $R^2$ at best scale & Implied optimal scale\\
+\midrule
+30 days & 0.1445 & 0.00065 & 0.870\\
+45 days & 0.1485 & 0.00244 & 0.772\\
+\textbf{60 days} & \good{0.1497} & \textbf{0.00314} & 0.716\\
+90 days & 0.1488 & 0.00325 & 0.650\\
+180 days & 0.1407 & 0.00106 & 0.550\\
+365 days & 0.1301 & $-0.00201$ & 0.470\\
+730 days & 0.1227 & $-0.00406$ & 0.422\\
+Static, all history & \bad{0.1142} & $-0.00628$ & \bad{0.369}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The ordering is monotone with no interior structure to over-read: recent form
+matters far more than distant form, and the whole career is the worst estimator
+tested. This speaks directly to the reference project's open backlog item on
+recency-weighted training, where truncating history was found to hurt badly
+overall while helping recent years --- weighting rather than truncating is the
+untried alternative, and the optimum here is a 60-day half-life.
+
+\figref{f08_variance_components}{Left: variance shares by model. Centre: the
+jockey effect before and after horse control, point size proportional to rides.
+Right: forward correlation against recency half-life; the static estimate is the
+worst of the eight tested.}
+
+\figref{f09_horse_ability}{Shrunk horse ability against starts, and the posterior
+standard deviation of the estimate. The right-hand panel is a quantity both of the
+reference project's latent engines compute and neither promotes.}
+
+\newpage
+%======================================================================
+\section{Environmental effects: absolute time against relative ordering}
+%======================================================================
+
+The plan's Q5 asks for both quantities separately, because they are routinely
+confused and they point in opposite directions here.
+
+\textbf{On absolute time, the environment dominates.} It explains 0.9962 of the
+variance of raw seconds. Holding distance, venue and surface fixed at Sha Tin turf
+1200\,m, going alone moves mean finishing time by \textbf{1.196\,s} across
+adequately-supported levels --- roughly seven and a half lengths.
+
+\textbf{On relative ordering, almost nothing survives.} After the forward par
+model, the residual race-level shock still has a standard deviation of 0.00724 in
+log speed (about half a second at 1200\,m), and the observable card explains
+almost none of it:
+
+\begin{table}[htbp]\centering\small
+\caption{One-way ANOVA $R^2$ of the residual race-level shock, count-weighted.}
+\begin{tabular}{lrrr}
+\toprule
+Dimension & Levels ($\ge 200$ races) & ANOVA $R^2$ & Range in seconds at 1200\,m\\
+\midrule
+going & 3 & 0.0298 & 0.221\\
+venue & 2 & 0.0099 & 0.102\\
+distance band & 4 & 0.0058 & 0.116\\
+class & 4 & 0.0008 & 0.050\\
+course letter & 4 & 0.0005 & 0.035\\
+surface & 2 & 0.0004 & 0.032\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+So roughly \textbf{96\% of the race-level shock is unobserved} from the card ---
+day-to-day track speed, weather and tactics. \S\ref{sec:race} shows that most of
+it \emph{is} observable, just not from the card: it is observable from the rest of
+the meeting.
+
+\figref{f14_environment_absolute}{Left: going against absolute finishing time on
+one distance, track and surface. Right: draw against the win rate and against the
+market's price for the same runners.}
+
+\newpage
+%======================================================================
+\section{Horse \texorpdfstring{$\times$}{x} environment effects}\label{sec:horseenv}
+%======================================================================
+
+The plan calls this the single most important question, and prescribes the right
+test: what matters is not a horse's apparent sensitivity but the between-horse
+variance of the \emph{true} sensitivity, and the only evidence for that is whether
+an early estimate predicts a later realisation.
+
+The design is deliberately hard to fool. For each binary environmental contrast,
+form each horse's performance contrast from its \emph{early} starts; decompose the
+spread of those estimates into true between-horse variance and sampling noise by
+method of moments; then test the early estimate against the same horse's
+\emph{later} contrast.
+
+\begin{table}[htbp]\centering\small
+\caption{Horse $\times$ environment sensitivity. ``Real share'' is the fraction of
+the apparent spread that is not sampling noise. Persistence is the correlation
+between the early and later estimates, with $z$ against zero.}
+\begin{tabular}{lrrrrr}
+\toprule
+Contrast & Horses & Apparent sd & Real $\tau$ & Real share & Persistence\\
+\midrule
+going, soft vs firm & 1{,}675 & 0.515 & 0.216 & 0.175 & \bad{$+0.034$ ($z=1.4$)}\\
+\textbf{venue, HV vs ST} & 1{,}476 & 0.599 & 0.374 & 0.389 & \good{$+0.215$ ($z=8.3$)}\\
+\textbf{surface, AWT vs turf} & 365 & 0.607 & 0.402 & 0.438 & \good{$+0.338$ ($z=6.4$)}\\
+distance, long vs short & 163 & 0.634 & 0.387 & 0.374 & \bad{$+0.064$ ($z=0.8$)}\\
+field size, large vs small & 36 & 0.608 & 0.306 & 0.254 & \bad{$-0.138$ ($z=-0.8$)}\\
+class, high vs low & --- & --- & --- & --- & unanswerable\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three readings, in order of importance.
+
+\textbf{Most apparent sensitivity is noise, everywhere.} Even for the contrasts
+that persist, the real between-horse standard deviation is 0.37--0.40 against an
+apparent 0.60 --- so 56--62\% of what a naive per-horse table would show is
+sampling error. A study that stopped at the apparent spread would have reported
+five real effects.
+
+\textbf{Going sensitivity does not persist.} This is the plan's own nominated
+``most valuable possible finding'' and it is confirmed: going moves absolute race
+time by 1.2\,s, and horse-specific going sensitivity has a forward correlation of
+0.034 at $z=1.4$ on 1{,}675 horses --- the largest sample of the five contrasts.
+The effect on \emph{everyone} is enormous; the differential effect is not
+measurable, and is not usefully there.
+
+\textbf{Venue and surface sensitivity are real.} ``Horses for courses'' between
+Happy Valley's tight circuit and Sha Tin's galloping track survives at $z=8.3$
+with a true between-horse standard deviation of 0.374 performance standard
+deviations --- a materially large effect. Surface sensitivity is stronger still
+($z=6.4$, $\tau=0.402$) on a much smaller qualifying sample.
+
+The measurability difference tracks the cell counts exactly: the median
+horse--venue cell has 8 starts against the median horse--going cell's 3. Part of
+this result is about nature and part is about what 13{,}309 races can resolve, and
+the honest statement separates them.
+
+\figref{f13_environment_sensitivity}{Left: apparent against real between-horse
+spread for each contrast --- the gap is sampling noise. Centre: persistence with
+its null standard error. Right: early against later sensitivity for the strongest
+contrast, binned.}
+
+\newpage
+%======================================================================
+\section{The residual distribution}
+%======================================================================
+
+Measured on 96{,}579 genuinely out-of-sample residuals from a forward-fitted mean
+model with the forward scale applied, 2016--2026.
+
+\begin{table}[htbp]\centering\small
+\caption{Shape of the standardised out-of-sample residual.}
+\begin{tabular}{lrr}
+\toprule
+Statistic & Value & Normal\\
+\midrule
+Skewness & \bad{$-0.729$} & 0\\
+Excess kurtosis & $+0.810$ & 0\\
+IQR / sd & 1.1195 & 1.3490\\
+Mean $-$ median & $-0.070$ & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The centre is \emph{more} concentrated than a normal and the tails are heavier ---
+IQR/sd of 1.12 against 1.35 --- with a pronounced left skew. Candidate densities
+were fitted on the development window and scored on the confirmation window by
+predictive log-likelihood, so no family is preferred for fitting its own data.
+
+\begin{table}[htbp]\centering\small
+\caption{Held-out predictive log-likelihood per observation, relative to the Normal.}
+\begin{tabular}{lrr}
+\toprule
+Family & Parameters & Gain over Normal per observation\\
+\midrule
+Two-component normal mixture & 5 & \good{$+0.0557$}\\
+Skew-$t$ & 4 & $+0.0553$\\
+Skew-normal & 3 & $+0.0455$\\
+Student-$t$ ($\nu=5.18$) & 3 & $+0.0246$\\
+Normal & 2 & 0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Which tail, and what it was}
+
+The plan asks whether the bad-performance tail is materially heavier, and whether
+the outliers are identifiable events. Both answers are yes, and the second is
+checkable because the reference archive holds the stewards' text.
+
+\begin{table}[htbp]\centering\small
+\caption{Stewards'-comment rates by residual band. ``Severe'' matches the language
+used for a run that was stopped or abandoned; its base rate is 9.5\%.}
+\begin{tabular}{lrrrr}
+\toprule
+Residual band & $n$ & Any-trouble rate & Severe rate & Severe lift\\
+\midrule
+$<-3$ sd & 889 & 0.693 & \good{0.460} & \good{4.83}\\
+$-3$ to $-2$ & 4{,}200 & 0.624 & 0.259 & 2.71\\
+$-2$ to $-1$ & 10{,}367 & 0.608 & 0.157 & 1.65\\
+$-1$ to $+1$ & 70{,}122 & 0.575 & 0.078 & 0.82\\
+$+1$ to $+2$ & 10{,}240 & 0.501 & 0.057 & 0.59\\
+$+2$ to $+3$ & 755 & 0.437 & 0.050 & 0.53\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The gradient is monotone across all bands in both tiers. Nearly half of the runs
+three standard deviations below expectation carry a severe stewards' phrase, at
+4.8 times the base rate --- and good performances are \emph{less} likely than
+average to carry one.
+
+Two interpretive points the plan explicitly asks for. First, these observations
+are \emph{not} removed: a disastrous run is part of the outcome distribution a
+probability model must represent, and the reference project's own settlement
+treats non-finishers as losing starters for the same reason. Second, part of the
+left skew is \textbf{structural rather than stochastic}: a beaten horse is eased,
+so the lower tail of a within-race time distribution is long by the physics of the
+sport. The mixture's fitted ``bad'' component carries probability 0.44, which is
+far too large to read as a bad-trip rate and is better read as the asymmetry of
+the racing outcome itself.
+
+\figref{f10_residual_distribution}{Left: the residual on a log density scale with
+Normal and Student-$t$ overlays. Centre: the Q--Q plot. Right: empirical over
+Normal tail probabilities, split by sign --- the bad tail is the heavy one.}
+
+\figref{f11_residual_families}{Left: held-out log-likelihood gain over the Normal.
+Right: stewards'-comment rates by residual band, two severity tiers.}
+
+\newpage
+%======================================================================
+\section{Heteroskedasticity and horse-specific volatility}
+%======================================================================
+
+The plan judges constant variance more important than exact normality, and it is
+right: a model with the mean right and the spread wrong is miscalibrated where
+race log loss punishes hardest.
+
+\subsection{Q9: the variance is not constant}
+
+\begin{table}[htbp]\centering\small
+\caption{Residual spread by decile of each covariate.}
+\begin{tabular}{lrrr}
+\toprule
+Covariate & sd, lowest decile & sd, highest decile & Ratio\\
+\midrule
+Market rank & 0.812 & 1.051 & \textbf{1.295}\\
+Market probability & 1.051 & 0.824 & 0.784\\
+Draw position & 0.914 & 0.984 & 1.077\\
+Field size & 0.933 & 0.949 & 1.017\\
+Carried weight & 0.960 & 0.936 & 0.975\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The largest driver is the market's own assessment, and the direction is
+informative: \textbf{favourites run more consistently}. A joint model of
+$\log|e|$ on observables reaches out-of-sample $R^2$ 0.011 with an implied
+p90/p10 spread ratio of 1.385.
+
+\subsection{Q10: volatility is a horse trait, and it persists}
+
+The naive per-horse standard deviation is dominated by sample size, exactly as the
+plan requires be demonstrated. Decomposing the observed variance of per-horse
+$\log$ sd:
+
+\begin{table}[htbp]\centering\small
+\caption{Variance components of per-horse log residual standard deviation,
+$n=5{,}324$ horses with at least two residuals.}
+\begin{tabular}{lr}
+\toprule
+Quantity & Value\\
+\midrule
+Observed variance of $\log \hat{\sigma}_i$ & 0.2060\\
+Mean sampling variance $\approx 1/(2(n_i-1))$ & 0.0786\\
+True between-horse variance $\tau^2$ & 0.1274\\
+\textbf{Share of the observed spread that is real} & \good{61.8\%}\\
+$\tau$ (sd of true $\log\sigma$) & 0.357\\
+Spread ratio for a horse 1 sd more volatile & \good{1.43$\times$}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The decisive test is the plan's own: split each horse's residual history at its
+own median date and ask whether the first half's spread predicts the second's.
+
+\begin{table}[htbp]\centering\small
+\caption{Split-half persistence of per-horse log residual sd.}
+\begin{tabular}{lrrrr}
+\toprule
+Min starts each half & Horses & $r$ & $z$ vs zero & Later-sd ratio, top/bottom tercile\\
+\midrule
+4 & 3{,}876 & $+0.144$ & $+8.94$ & 1.115\\
+6 & 3{,}146 & $+0.156$ & $+8.77$ & 1.119\\
+8 & 2{,}519 & $+0.176$ & $+8.85$ & 1.131\\
+10 & 2{,}015 & $+0.170$ & $+7.63$ & 1.115\\
+15 & 1{,}024 & \good{$+0.223$} & $+7.14$ & 1.148\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The correlation rises with depth, which is what a real trait measured with less
+noise should do. As a forward feature, a prior-only volatility estimate predicts
+the next start's $|residual|$ at Spearman $+0.087$ to $+0.122$, with the realised
+spread ratio between the top and bottom terciles reaching 1.255 at twelve prior
+starts.
+
+\textbf{So horse-specific volatility passes every test the plan sets for it.}
+Whether it is \emph{useful} is a separate question, and \S\ref{sec:generative} and
+\S\ref{sec:features} answer it differently --- which is the most instructive
+disagreement in this study.
+
+\figref{f12_volatility}{Left: naive against shrunk per-horse volatility by
+observation count, with the pooled value. Centre: split-half persistence with its
+null standard error. Right: the covariates that move the spread.}
+
+\newpage
+%======================================================================
+\section{Horse \texorpdfstring{$\times$}{x} jockey compatibility}\label{sec:pairs}
+%======================================================================
+
+\subsection{A correction, recorded}
+
+The first version of this analysis reported early-to-late pair correlations of
+$-0.04$ to $-0.21$ with $z$ from $-3.8$ to $-7.4$ --- an apparently strong
+\emph{negative} result that would have read as compatibility mean-reverting.
+
+It was an artifact of the residualisation, and the mechanism is worth stating
+because it is easy to reproduce. The horse and jockey main effects were fitted
+over the whole sample, so a horse's effect is roughly the average of its early and
+late performance. The early pair residual then becomes about
+$(\text{early}-\text{late})/2$ and the late one about
+$(\text{late}-\text{early})/2$: forced anticorrelation with no compatibility
+involved. The artifact was \emph{larger in magnitude} than a true pair standard
+deviation of 0.30 would have produced, which is how it was caught.
+
+The corrected design fits the main effects separately within each era, so the
+early estimate and the late realisation share no fitted parameter.
+
+\subsection{The corrected answer, with power}
+
+\begin{table}[htbp]\centering\small
+\caption{Forecastability of a pair effect, with the correlation a real effect of
+each size would have produced on the same design.}
+\begin{tabular}{lrrrrr}
+\toprule
+Min rides each half & Pairs & Apparent sd & True $\tau$ & $r$ & $z$\\
+\midrule
+2 & 575 & 0.483 & 0.234 & $-0.002$ & $-0.05$\\
+3 & 249 & 0.383 & 0.155 & $+0.024$ & $+0.38$\\
+4 & 121 & 0.303 & \textbf{0.000} & $+0.071$ & $+0.77$\\
+5 & 61 & 0.219 & \textbf{0.000} & $-0.053$ & $-0.41$\\
+\midrule
+\multicolumn{6}{l}{\emph{Power: what a real pair effect would have shown}}\\
+\multicolumn{4}{l}{true pair sd $=0.10$} & $+0.058$ & \\
+\multicolumn{4}{l}{true pair sd $=0.20$} & $+0.211$ & \\
+\multicolumn{4}{l}{true pair sd $=0.30$} & $+0.334$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Meanwhile the \textbf{in-sample} Model 7 fit, on pairs with three or more rides,
+reports $\tau_{HJ}=0.298$ and a \bad{10.3\%} variance share.
+
+That contrast is the finding. An in-sample pair effect apparently worth a tenth of
+the variance, and a forecastable component indistinguishable from zero on a design
+with the power to see half that size. Q4 is answered negatively, and the negative
+is supported rather than merely reported.
+
+\figref{f16_pairs}{Left: rides per horse--jockey pair on a log count scale ---
+52\% ride once. Right: measured persistence against what a real effect of each
+size would have produced.}
+
+\newpage
+%======================================================================
+\section{Shared race effects and pace}\label{sec:race}
+%======================================================================
+
+The reference project already tried a one-factor structured-covariance probit and
+got a negative result, with the factor scale essentially unidentified: its grid
+selected ``no factor'' in seven of eleven years and the whole range from 0.00 to
+0.80 spanned about $2\times10^{-5}$ of log loss. Two features of that test left the
+question open. Its loading was a running-\emph{position} habit parsed from the
+result page's three-number line rather than a timed pace measurement, and its
+standardisation used the whole frame including the test block.
+
+\subsection{The shock is large, and mostly a property of the day}
+
+The shared shock is \textbf{32.1\%} of the absolute residual's variance, with a
+standard deviation of 0.00724 in log speed --- about \textbf{0.503\,s at 1200\,m}.
+
+\begin{table}[htbp]\centering\small
+\caption{How predictable a race's own shock is.}
+\begin{tabular}{lr}
+\toprule
+Predictor & Correlation with the race's shock\\
+\midrule
+Running mean of earlier races on the same card & \good{0.504}\\
+\quad by the 8th race of the meeting & \good{0.584}\\
+Prior history of the same venue and surface & 0.179\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Track speed is therefore a day-level property and it is largely \emph{measurable}
+before a later race on the card runs. This is the one signal in this study that is
+both large and structurally unavailable to the reference pipeline, whose
+point-in-time rule excludes all same-date information. That rule exists to stop a
+horse seeing its own same-day outcome; a track-speed reading taken from race one
+before race eight goes to post is forward in time and is not that. It is recorded
+here as a labelled deviation and is not folded into any candidate feature.
+
+\subsection{Q11: the shock does load differently by running style}
+
+A shock loading equally on every runner cancels from every pairwise utility
+difference and cannot change any probability, so the interaction is the whole
+question. Measuring the race's pace directly from the sectional archive:
+
+\begin{table}[htbp]\centering\small
+\caption{Pace-by-style interactions on within-race relative performance,
+development window fitted, confirmation window scored.}
+\begin{tabular}{lrrr}
+\toprule
+Specification & Interaction coefficient & $z$ & oos $R^2$ gain\\
+\midrule
+Forwardness $\times$ early pace & $-0.00034$ & \good{$-8.31$} & $-0.00002$\\
+Forwardness $\times$ pace shape & $+0.00036$ & $+8.55$ & $+0.00035$\\
+Closing ability $\times$ early pace & $+0.00031$ & $+7.43$ & $+0.00118$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The signs are the physics: a fast early pace \emph{hurts} habitual front-runners
+and \emph{helps} closers. So the mechanism the reference project's one-factor
+probit hypothesised is real and correctly signed --- it was undetectable with a
+loading that could not see pace. Its economic size is small.
+
+\subsection{Is the pace forecastable, and does the mispricing survive?}
+
+Everything above conditions on the pace the race actually ran. A model can only
+use a pace it can project.
+
+\begin{table}[htbp]\centering\small
+\caption{Out-of-sample forecastability of a race's early pace.}
+\begin{tabular}{lrr}
+\toprule
+Projection & oos $r$ & oos $R^2$\\
+\midrule
+Top-3 prior style only & 0.032 & $-0.005$\\
+\textbf{Field style composition (12 features)} & \good{0.414} & \good{0.158}\\
+$+$ earlier races on the same card & 0.405 & 0.153\\
+Earlier races on the same card only & 0.098 & $-0.003$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A naive summary sees almost nothing; a proper projection recovers $r=0.41$. Note
+also that track speed and early pace are largely \emph{distinct} quantities ---
+card track speed alone predicts early pace at only 0.098 --- so the surface's
+speed and how hard they went early are separate facts.
+
+The market's error across the style $\times$ pace grid swings $-0.0398$ on the
+\emph{realised} pace, and $-0.0151$ on the \emph{projected} pace: \good{37.8\%
+survives}, with a maximum absolute residual of 0.0087 on 50{,}784 confirmation-window
+runners. Roughly nine tenths of a percentage point of win probability, available
+pre-race, at the extremes of the grid.
+
+\figref{f15_race_factors}{Left: the distribution of the race-level shock. Centre:
+relative performance by prior style and realised early pace --- the interaction is
+visible. Right: the market residual over the same grid.}
+
+\newpage
+%======================================================================
+\section{From latent performance to probabilities}\label{sec:generative}
+%======================================================================
+
+\subsection{Integration, and why not simulation}
+
+For independent shocks the winner probability collapses to a one-dimensional
+integral over the winner's own shock,
+\[
+P(i\ \text{wins}) = \mathbb{E}_z\!\left[\prod_{j\ne i} F_j\!\left(\frac{\mu_i-\mu_j+\sigma_i z}{\sigma_j}\right)\right],
+\]
+which holds for \emph{heterogeneous} $\sigma$ as written. Simulation is avoided for
+a reason the reference project measured: a winner-counting estimator over $m$ draws
+cannot resolve a probability below $1/m$, and this sport's longshots sit at
+$10^{-3}$ to $10^{-4}$ where race log loss is decided.
+
+The integrator is verified against every case with a known answer: two runners at
+equal scale to $1.1\times10^{-16}$, at unequal scale to $1.3\times10^{-12}$, an
+identical twelve-runner field to $1.4\times10^{-17}$ from uniform, a longshot
+resolved at $2.3\times10^{-5}$, total mass to $1.1\times10^{-16}$, a constant
+shared-factor loading collapsing onto the iid answer exactly, and the Student-$t$
+path against a 400{,}000-draw simulation to within its simulation standard error.
+
+\subsection{Q13: what each piece of structure buys}
+
+Six nested variants, each a controlled comparison against the row above. One
+global utility scale is fitted per variant on the last development year and applied
+forward; that year is scored on nothing.
+
+\begin{table}[htbp]\centering\small
+\caption{Nested generative variants. 59{,}364 runners in 4{,}844 races, 2020--2026.
+Market race log loss 2.02718.}
+\begin{tabular}{lrrrr}
+\toprule
+Variant & Fitted scale & Race log loss & vs market & Gain over previous\\
+\midrule
+A. homoskedastic normal & 0.73 & \good{2.39671} & $+0.36953$ & ---\\
+B. $+$ heteroskedastic (observables) & 0.84 & 2.40665 & $+0.37947$ & \bad{$-0.00994$}\\
+C. $+$ horse-specific volatility & 0.98 & 2.41790 & $+0.39072$ & \bad{$-0.01125$}\\
+D. $+$ Student-$t$ shocks & 1.24 & 2.40726 & $+0.38008$ & $+0.01064$\\
+E. $+$ latent-state uncertainty & 1.30 & 2.39776 & $+0.37058$ & $+0.00950$\\
+F. $+$ shared race factor on style & 1.30 & 2.39947 & $+0.37229$ & \bad{$-0.00171$}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{No elaboration beats plain homoskedastic normal shocks.} This is the
+central negative result of the study and it survived a correction: an earlier run
+of this stage left the utility scale at 1.0 through a bug and reported that
+heteroskedasticity, $t$ tails and latent-state uncertainty all helped. Fitting the
+scale per variant reversed the conclusion. The mechanism is visible in the scale
+column: each elaboration changes the relative spread of runners' shocks, and the
+fitted global scale then absorbs most of what was gained.
+
+This independently reproduces the reference project's own probit finding that the
+utility scale is ``the whole game'' --- now with measured heteroskedasticity and a
+sectional-derived pace loading rather than a position habit, so it is a stronger
+statement of the same result.
+
+One further observation. Variant A's calibration RMSE is \good{0.00402} against
+the market's 0.00524 and variant F's 0.00635: the simplest generative model is
+\emph{better calibrated than the market} while being 0.37 of log loss worse. It is
+well calibrated and far less sharp, which is exactly what a market-blind latent
+model should look like, and it is a reminder that calibration alone is not a
+measure of value.
+
+\subsection{Q12: reducible against irreducible uncertainty}
+
+\begin{table}[htbp]\centering\small
+\caption{The predictive variance budget by the horse's prior starts. ``Reducible''
+is the share attributable to not yet knowing the horse's ability.}
+\begin{tabular}{lrrrr}
+\toprule
+Prior starts & $n$ & Latent-state sd & Idiosyncratic sd & Share reducible\\
+\midrule
+0--3 & 13{,}203 & 0.409 & 0.845 & \good{19.1\%}\\
+4--8 & 13{,}527 & 0.367 & 0.846 & 15.8\%\\
+9--15 & 14{,}502 & 0.259 & 0.837 & 8.4\%\\
+16--30 & 18{,}129 & 0.195 & 0.850 & 5.0\%\\
+30$+$ & 9{,}263 & 0.147 & 0.865 & \good{2.8\%}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Clean and monotone. The idiosyncratic component is essentially constant at
+0.84--0.87 across all five bands, while the reducible part falls from 19\% at
+three starts to 3\% at thirty. \textbf{Beyond about fifteen starts, nearly all
+remaining uncertainty is irreducible conditional performance randomness}, and no
+amount of extra history will help.
+
+The shared race component enters the predictive variance of \emph{absolute}
+performance and barely touches the win probability, because it is common to the
+field and cancels from the ordering except through the style loading.
+
+\figref{f17_probabilities}{Left: what each nested structure buys. Centre:
+calibration on log--log axes for the simplest variant, the full one and the
+market. Right: the reducible share of predictive variance against history depth.}
+
+\figref{f18_model_vs_market}{The generative model's probability against the
+market's, on log axes. The dispersion is what a 0.37 log-loss gap looks like.}
+
+\newpage
+%======================================================================
+\section{Market comparison and feature integration}\label{sec:features}
+%======================================================================
+
+This is the plan's declared primary practical output, and the only stage whose
+metric is the one a promotion decision turns on.
+
+\subsection{Method, and why the numbers are trustworthy}
+
+The production offset architecture is reimplemented independently
+(\texttt{src/hkjcres/offset.py}) rather than imported, so this experiment cannot
+mutate the reference project and the architecture has to be stated rather than
+assumed. It verifies: $\operatorname{softmax}(\log q)$ reproduces $q$ to
+$1.4\times10^{-16}$, and a zero-round fit reproduces the market to
+$4.1\times10^{-8}$.
+
+Three disciplines are taken from the reference project:
+
+\begin{itemize}\itemsep2pt
+\item The arms share everything by construction --- one split per year, one label
+vector, one base margin, one seed, computed once and handed to both fits, with the
+candidate's column list being the incumbent's with the block \emph{appended},
+because XGBoost's column indices are positional.
+\item \textbf{The no-op candidate must return exactly zero.} It does: the maximum
+absolute cell delta across fifteen cells is \good{0.0}.
+\item No dividends are loaded and no return is computed. At this effect size ROI
+moves by tens of percentage points on changes that leave log loss unchanged.
+\end{itemize}
+
+Development profile: test years 2016, 2019, 2021, 2024, 2025; seeds 7, 17, 42;
+150 rounds; 122{,}880 rows over 9{,}934 races. On this profile the incumbent beats
+the market by $-0.00109$.
+
+\subsection{The ranked candidate table}
+
+\begin{table}[htbp]\centering\small
+\caption{Candidate blocks against the production incumbent. Negative delta is
+better. \emph{Novel share} is one minus the out-of-sample $R^2$ with which the
+incumbent's own 28 columns reconstruct the candidate.}
+\begin{tabular}{lrrrrrr}
+\toprule
+Block & Mean $\Delta$ & s.e. & $t$ & Cells & Years & Novel share\\
+\midrule
+Full sectional profile (Q1B) & $-0.001179$ & 0.00130 & $-0.91$ & 9/15 & 3/5 & 0.51--0.83\\
+Recent-form ability (Q2) & $-0.001018$ & 0.00106 & $-0.96$ & 8/15 & 3/5 & 0.39\\
+Sectional finish (Q1B) & $-0.000870$ & 0.00081 & $-1.07$ & 8/15 & 3/5 & 0.52\\
+Pace fit (Q11) & $-0.000283$ & 0.00141 & $-0.20$ & 8/15 & 2/5 & 0.76\\
+Horse volatility (Q10) & $-0.000110$ & 0.00087 & $-0.13$ & 9/15 & 2/5 & 0.90\\
+\rowcolor{shade} \emph{no-op control} & \emph{0.000000} & --- & --- & --- & --- & ---\\
+Ability uncertainty (Q12) & $+0.000050$ & 0.00059 & $+0.09$ & 6/15 & 2/5 & 0.27\\
+Sectional middle (Q1B, new) & $+0.000686$ & 0.00071 & $+0.97$ & 6/15 & 2/5 & 0.83\\
+Everything that survived & $+0.001167$ & 0.00155 & $+0.75$ & 6/15 & 1/5 & ---\\
+Condition fit (Q6) & $+0.001379$ & 0.00105 & $+1.31$ & 4/15 & 2/5 & 0.93\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{No block clears a promotion gate.} The best three are directionally
+favourable at $-0.00087$ to $-0.00118$ --- 20 to 26\% of the production model's
+entire edge over the market --- but with $|t|\approx 1$, three of five years
+improving, and a standard error of the same order as the mean. On the reference
+project's own criteria (sign per year, worst year, sign per seed, then the mean)
+that is \emph{investigate}, not \emph{promote}.
+
+\subsection{Q14: what the market has not priced}
+
+Separately from model value, the plan asks whether each quantity predicts
+\emph{market error}. A linear probability model of the outcome on the market's own
+logit plus the standardised candidate:
+
+\begin{table}[htbp]\centering\small
+\caption{Does each candidate explain the outcome given the market's logit?}
+\begin{tabular}{lrrr}
+\toprule
+Feature & Coefficient & $t$ & Correlation with the market price\\
+\midrule
+Ability uncertainty & $+0.0113$ & \good{$+14.99$} & $-0.004$\\
+History depth & $-0.0110$ & $-14.65$ & $-0.000$\\
+Sectional middle & $-0.0047$ & $-6.14$ & $+0.169$\\
+Projected pace & $+0.0041$ & $+5.51$ & $-0.035$\\
+Sectional finish & $-0.0031$ & $-3.91$ & $+0.291$\\
+Venue fit & $-0.0024$ & $-3.24$ & $+0.079$\\
+Surface fit & $-0.0018$ & $-2.42$ & $+0.057$\\
+Horse volatility & $-0.0017$ & $-2.23$ & $-0.102$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The market underprices lightly-raced horses.} A measure of ability
+uncertainty essentially uncorrelated with the price ($-0.004$) predicts the
+outcome given the price at $t=+15.0$, worth about 1.1 percentage points of win
+probability per standard deviation. This is exactly the plan's Q14 hypothesis
+about ``uncertainty for lightly raced horses'', and it is the strongest
+market-inefficiency signal in the study.
+
+\subsection{The resolution, and the study's most useful pattern}
+
+That leaves a tension: a quantity with $t=15$ against the market adds
+$+0.00005$ to the model. Regressing each candidate on the incumbent's own 28
+columns, forward, resolves it.
+
+\begin{table}[htbp]\centering\small
+\caption{How much of each candidate the incumbent's 28 columns already imply,
+out of sample.}
+\begin{tabular}{lrr}
+\toprule
+Candidate & Boosted $R^2$ from the incumbent & Novel share\\
+\midrule
+Venue fit & 0.066 & 0.934\\
+Horse volatility & 0.104 & 0.896\\
+Surface fit & 0.111 & 0.890\\
+Sectional middle & 0.166 & 0.834\\
+Projected pace & 0.236 & 0.764\\
+Sectional finish & 0.480 & 0.520\\
+Recent-form ability & 0.608 & 0.392\\
+History depth & 0.717 & 0.283\\
+\textbf{Ability uncertainty} & \good{0.732} & 0.268\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The incumbent already reconstructs \textbf{73\%} of ability uncertainty from
+\texttt{layoff\_log}, \texttt{bt\_days\_since}, \texttt{rating\_z},
+\texttt{class\_change} and the rest. The market's inefficiency is real; the
+production model has already captured it.
+
+And across the nine blocks, the rank correlation between \emph{novel share} and
+\emph{delta} is \good{$+0.389$} --- positive meaning \textbf{the more novel a
+candidate, the less it helped}. The candidates that helped (sectional finish 0.52
+novel, recent-form ability 0.39) are ones the model already partly had; the
+genuinely novel ones (condition fit 0.93, horse volatility 0.90, sectional middle
+0.83) did nothing or hurt, despite \S\ref{sec:horseenv} and \S9 establishing that
+they are real and persistent.
+
+The inference is uncomfortable and well-evidenced: at this effect size, marginal
+value lies in \emph{sharpening information the model already uses}, not in adding
+information it lacks. Orthogonal signal that is real but small is dominated by the
+noise it introduces and by the tree capacity it consumes. This is a coherent
+explanation for the reference project's own history --- roughly four hundred
+candidate columns built, audited by expanding-year audits, and none promoted.
+
+\figref{f19_features}{Left: candidate block deltas with standard errors. Centre:
+market-residual $t$ statistics. Right: novelty against realised model value ---
+the upward slope is the study's most useful single pattern.}
+
+\newpage
+%======================================================================
+\section{Answers to the fourteen questions}
+%======================================================================
+
+\begin{longtable}{@{}p{0.055\textwidth}p{0.40\textwidth}p{0.50\textwidth}@{}}
+\toprule
+\textbf{Q} & \textbf{Question} & \textbf{Answer}\\
+\midrule
+\endhead
+Q1 & Best observable proxy for latent performance & Within-race $z$ of log speed. Forward $R^2$ 0.077 against 0.056 for a par-time residual; reliability 0.822. Beaten lengths are arithmetically the time and carry nothing extra.\\[3pt]
+Q1B & Do sectionals beat final time & \textbf{Yes for persistence, no for information.} Fourteen sectional quantities out-persist the best time target (best $r=0.483$ against 0.278), but the profile is \emph{not} low-dimensional (49.6/32.3/18.1\%) and the most persistent quantities are the least informative. Shape adds $+0.0026$ of oos $R^2$ over time alone.\\[3pt]
+Q2 & How much variation is horse ability & 23.3\% of relative performance alone, 17.6\% after jockey, trainer and covariates. Ability \emph{drifts}: a 60-day half-life beats the full career (forward $r$ 0.150 against 0.114), and a static estimate is over-scaled 2.7$\times$.\\[3pt]
+Q3 & Is jockey ability identifiable and useful & \textbf{Yes to both, and it forecasts better than horse ability.} 3.7\% of variance after horse control (from 6.0\% before, so 39\% of the apparent effect is assignment). Within-horse switches give a spread 5.05$\times$ their own noise and agree with the BLUPs at 0.970. Jockey alone: oos $R^2$ 0.048 at scale 1.05, against horse alone 0.012 at 0.39.\\[3pt]
+Q4 & Horse $\times$ jockey interaction & \textbf{No.} Median pair has one ride. Corrected early-to-late correlation is null ($z$ from $-0.4$ to $+0.8$) on a design that would show $r=0.21$ for a true sd of 0.20. The in-sample fit's 10.3\% variance share is overfitting.\\[3pt]
+Q5 & Environmental effects on absolute performance & Enormous. Environment explains 0.9962 of raw-seconds variance; going alone moves time 1.196\,s at ST turf 1200\,m. On \emph{relative} ordering, the observable card explains $\sim$3\% of the residual race shock.\\[3pt]
+Q6 & Horse $\times$ environment heterogeneity & \textbf{Real for venue ($z=8.3$) and surface ($z=6.4$); not for going ($z=1.4$), distance or field size.} 56--62\% of even the real contrasts' apparent spread is sampling noise. Adding it to the production model \emph{hurt} ($+0.0014$).\\[3pt]
+Q7 & Does draw matter only conditionally & The draw effect on performance is large and monotone (0.25 sd inside to outside). The \emph{market residual} is non-monotone and within 0.2 pp of zero, and a date-atomic draw-bias estimate predicts market error at $r=0.007$. \textbf{Fully priced.}\\[3pt]
+Q8 & What the unexplained error looks like & Left-skewed ($-0.729$), mildly heavy-tailed ($+0.810$ excess kurtosis), centre more concentrated than Normal (IQR/sd 1.12 vs 1.35). A two-component mixture wins on held-out likelihood ($+0.056$/obs); Student-$t$ $\nu=5.18$. The bad tail is 4.8$\times$ more likely to carry a severe stewards' phrase.\\[3pt]
+Q9 & Is the residual variance constant & \textbf{No.} The largest driver is the market's own price: favourites are more consistent (decile sd ratio 0.784). Joint model oos $R^2$ 0.011 on $\log|e|$, implied p90/p10 spread ratio 1.385.\\[3pt]
+Q10 & Are some horses genuinely more inconsistent & \textbf{Yes.} 61.8\% of the spread in per-horse log sd is real; $\tau=0.357$, so 1 sd more volatile means 1.43$\times$ the spread. Split-half persistence $r$ rises to $+0.223$ at $z=7.1$. Forecastable: prior volatility predicts next $|e|$ at $\rho$ up to 0.122.\\[3pt]
+Q11 & Race-level shared shocks & \textbf{Large and partly measurable.} 32.1\% of absolute residual variance, $\sim$0.50\,s at 1200\,m. Track speed is a day-level property (within-card $r=0.504$). Pace loads differently by style, correctly signed, $|z|\approx 8$. Market error swings 0.040 on realised pace and 0.015 on projected pace (37.8\% survives).\\[3pt]
+Q12 & Reducible against irreducible uncertainty & Clean and monotone. The share attributable to not knowing the horse falls from 19.1\% at 0--3 starts to 2.8\% at 30$+$; the idiosyncratic component is flat at 0.84--0.87 throughout. Beyond $\sim$15 starts nearly everything left is irreducible.\\[3pt]
+Q12B & Why prior latent attempts produced little & \textbf{Supported:} weak signal relative to the market; the market already pricing it; final time masking nothing that helps; and --- the new one --- \emph{redundancy with the incumbent's existing columns} (Spearman $+0.39$ between novelty and unhelpfulness). \textbf{Rejected:} poor target choice, insufficient shrinkage, wrong residual distribution, and absence of horse $\times$ environment structure --- all were tested here and none rescues the result.\\[3pt]
+Q13 & Can latent distributions give calibrated probabilities & \textbf{Yes, calibrated; no, not competitive.} The simplest variant is better calibrated than the market (RMSE 0.0040 vs 0.0052) and 0.37 of log loss worse. And once the utility scale is fitted, \emph{no} elaboration of the shock structure improves on homoskedastic normal.\\[3pt]
+Q14 & Does it add information beyond the market & On one dimension clearly yes --- ability uncertainty predicts the outcome given the price at $t=15$ while being uncorrelated with it. But the incumbent already reconstructs 73\% of it, so the information is in the model even though it is not in the price.\\
+\bottomrule
+\end{longtable}
+
+\newpage
+%======================================================================
+\section{Limitations}\label{sec:limitations}
+%======================================================================
+
+\begin{itemize}\itemsep3pt
+\item \textbf{Prices are retrospective.} Every market probability here is a
+result-page price recorded after the pool closed. No bet could have been placed at
+it. No dividend was loaded and no return is computed anywhere in this project ---
+deliberately, because at this effect size ROI ranks noise.
+
+\item \textbf{No window is unseen.} Every season in the archive has been
+development data, in this study and in the reference project. The chronological
+splits are real --- a scored year is genuinely after its training rows --- but a
+result on 2020--2026 is probability progress, not a locked out-of-sample finding.
+
+\item \textbf{The performance panel is conditioned on finishing.} The sectional
+archive records no times for a non-finisher, so 0.60\% of races contribute one
+fewer runner here than in the reference table. Every performance distribution in
+this document is therefore conditional on completing the race, and the left tail
+is truncated at exactly the point where it would be most extreme.
+
+\item \textbf{The within-race target has a mechanical constraint.} $y^{\text{rel}}_z$
+is standardised within its own field, so the runners in a race are not independent
+by construction and a horse in a weak field scores well for a reason that is not
+its own ability. Opponent adjustment --- which the reference project's rank-state
+engine attempts --- is not implemented here.
+
+\item \textbf{Jockey and trainer effects are observational.} Assignment is highly
+non-random. The within-horse-switch estimate controls for the horse but not for
+\emph{why} a jockey was replaced, and the 39\% of apparent jockey variance removed
+by horse control is a lower bound on the assignment channel, not an estimate of it.
+
+\item \textbf{Trip effects are largely unobserved.} The stewards' text identifies
+severe trouble on 46\% of the worst residuals, which means it misses the rest. A
+run compromised in a way nobody wrote down is indistinguishable here from a horse
+that ran badly.
+
+\item \textbf{Some contrasts are unanswerable rather than answered.} Horse
+$\times$ class sensitivity has too few horses with starts in both class 1--2 and
+class 4--5 in both career halves; it is reported as unanswerable. Horse $\times$
+field-size sensitivity rests on 36 horses and should not be read at all.
+
+\item \textbf{Non-stationarity is real and only partly handled.} Ability drifts
+with a two-month half-life; the stewards' phrasing has changed over nineteen
+seasons, which affects the trouble analysis; and the going and course
+vocabularies are not stable across the archive.
+
+\item \textbf{Measurement error in the environment propagates.} Going is a
+subjective official assessment on an ordinal scale that interleaves turf and
+all-weather descriptors, and the par model treats it as a categorical level with
+whatever consistency the officials applied.
+
+\item \textbf{The feature test is a development profile, not a canonical run.}
+Five years, three seeds, 150 rounds. The reference project's canonical
+confirmation is the full chronology at five seeds and 400 rounds; a candidate
+whose development standard error is the size of its mean could move either way
+there.
+
+\item \textbf{One deviation from the reference project's leakage rule is
+reported.} The within-card track-speed signal uses earlier races on the same
+meeting. It is forward in time and is not a horse seeing its own result, but it
+does breach the letter of a rule the reference project applies uniformly, and it
+is flagged wherever it appears rather than folded into a candidate feature.
+\end{itemize}
+
+\newpage
+%======================================================================
+\section{Recommendations}
+%======================================================================
+
+\subsection*{Strong evidence --- pursue}
+
+\begin{enumerate}\itemsep3pt
+\item \textbf{Recency-weight the horse-ability history at a $\sim$60-day
+half-life.} The forward correlation profile is monotone and unambiguous, the
+static estimate is the worst of eight tested, and this is already the most direct
+open lead in the reference project's own backlog. The measurement here says
+\emph{weight, do not truncate}, and gives the weight.
+
+\item \textbf{Build the within-card track-speed estimate and test it properly.}
+$r=0.504$ with a race's own shock, rising to 0.584 by the eighth race of a
+meeting, is the largest single unexploited signal found. It requires a deliberate
+decision about the point-in-time rule --- see the limitation above --- and that
+decision should be made explicitly rather than by default. Note it primarily
+affects \emph{absolute} time, so its value for win probability must be established
+through an interaction, most plausibly with running style.
+
+\item \textbf{Take the sectional finishing band to canonical confirmation.}
+$-0.00087$ on the development profile is 20\% of the production edge, with the
+right sign in three of five years. Its standard error is the size of its mean, so
+the development profile cannot settle it and only a five-seed, 400-round, full-chronology
+run can.
+\end{enumerate}
+
+\subsection*{Moderate evidence --- worth one more experiment}
+
+\begin{enumerate}\setcounter{enumi}{3}\itemsep3pt
+\item \textbf{Projected pace $\times$ running style.} The interaction is real and
+correctly signed at $|z|\approx8$, the pace is forecastable at $r=0.41$, and
+37.8\% of the market's conditional mispricing survives projection. It did not help
+the model ($-0.00028$, 2 of 5 years). The one experiment worth running is a better
+pace projection --- the jump from $r=0.03$ to $r=0.41$ on changing the construction
+suggests the ceiling is not reached.
+
+\item \textbf{Student-$t$ or mixture shocks in the choice link.} The residual
+distribution clearly is not Gaussian ($+0.056$ held-out log-likelihood per
+observation for a mixture, $\nu=5.18$ for a $t$). It did not help the generative
+model once the scale was fitted, but the reference project's probit link already
+gains from swapping Gumbel for normal, and swapping normal for $t$ inside the
+\emph{anchored} link is a different and cheaper experiment than the one run here.
+\end{enumerate}
+
+\subsection*{Weak or no evidence --- deprioritise}
+
+\begin{enumerate}\setcounter{enumi}{5}\itemsep3pt
+\item \textbf{Horse-specific volatility as a mean-model feature.} Real, persistent,
+forecastable --- and worth $-0.00011$ with 2 of 5 years improving, and negative in
+the generative model. If it has a use it is in \emph{sizing} rather than in the
+probability, and staking is out of scope here.
+
+\item \textbf{Horse $\times$ going sensitivity.} Does not persist on the largest
+sample of any contrast tested. Do not build it.
+
+\item \textbf{Horse $\times$ venue and $\times$ surface sensitivity as features.}
+Genuinely real ($z=8.3$, $z=6.4$) and the block \emph{hurt} the model by $+0.0014$,
+the worst of the nine. The gap between real and useful is the finding; a second
+construction might do better, but the prior should be low.
+
+\item \textbf{Any draw-bias feature.} Large in performance, fully priced,
+and the reference project has already paid $-21$pp for encoding it once.
+
+\item \textbf{Beaten-margin state families.} \texttt{LBW} is the time restated in
+quarter-lengths. The eight-feature \texttt{margin\_rank} family and the
+\texttt{dynamic\_speed} family measure the same physical quantity, and this is
+worth auditing in the reference project on its own terms.
+\end{enumerate}
+
+\subsection*{Unknown --- insufficient data}
+
+\begin{enumerate}\setcounter{enumi}{10}\itemsep3pt
+\item \textbf{Horse $\times$ jockey compatibility.} Not that it is absent; that
+13{,}309 races cannot resolve it. A design with the power to see a true pair sd of
+0.10 would need several times the repeated-pairing density this archive has.
+\item \textbf{Horse $\times$ class sensitivity.} Too few horses race in both
+class 1--2 and class 4--5 within a measurable career.
+\end{enumerate}
+
+\subsection*{The shortlist, specified}
+
+\begin{table}[htbp]\centering\small
+\caption{Concrete integration shortlist. Deltas are the measured development-profile
+paired racewise log-loss change; the production model's whole edge over the market
+is $-0.0045$.}
+\begin{tabular}{@{}p{0.20\textwidth}p{0.31\textwidth}rp{0.28\textwidth}@{}}
+\toprule
+Feature & Construction & Measured $\Delta$ & Cost, cadence, safeguard\\
+\midrule
+\texttt{ability\_recent} &
+Date-atomic decayed mean of within-race $z$ of log speed, half-life 60 days,
+shrunk by $n/(n+3)$ &
+$-0.00102$ &
+One pass over the panel; rebuild with the feature table. Read-before-write within
+each date makes it date-atomic; no market column enters.\\[4pt]
+\texttt{sect\_close} &
+Date-atomic prior mean of the final-400\,m section speed residual, expressed
+relative to the race's own mean at that band &
+$-0.00087$ &
+Requires the backward-aligned sectional par (one forward ridge per year). Same
+date-atomic guarantee. Needs canonical confirmation.\\[4pt]
+Full sectional profile &
+The above plus opening, middle, pace balance and profile consistency &
+$-0.00118$ &
+Five columns; best measured block but its own components disagree, so prefer the
+single band until confirmed.\\[4pt]
+\texttt{track\_speed\_card} &
+Running mean of the par residual over earlier races on the same meeting &
+not tested &
+Cheap. \textbf{Breaches the date-atomic rule as written} --- requires an explicit
+decision, and must be tested through a style interaction since it is common to the
+field.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{A note on how to read a negative result}
+
+By the plan's own definition of success this study succeeds whether or not
+anything is promoted, and in fact nothing is. The structural questions have
+clear, supported answers; four of them reverse a prior expectation; two prior
+results were corrected here after their mechanisms were traced (the pair-effect
+anticorrelation artifact, and the unfitted utility scale). The most valuable
+output is not a feature but a constraint: at an effect size of $-0.0045$, against
+a price this good, and with a model that already reconstructs most of what a new
+column would carry, the return on additional orthogonal information is close to
+zero. That is worth knowing before building the four hundred and first candidate
+column.
+
+\end{document}
