@@ -1,0 +1,52 @@
+{
+  "artifacts": {
+    "report_html": {
+      "bytes": 2438877,
+      "digest": "sha256:80d0b436486b04c721813d7eaace9297b71d69de37e7ddd3f44dabb2a3d24954",
+      "format": "html",
+      "path": "results/reports/probit_offset_boosted/report.html"
+    },
+    "report_summary": {
+      "bytes": 104081,
+      "digest": "sha256:3b5363edf6559941d8e73efdf2b6a9b0f73351c8c6b8819107c276d0ea749fc5",
+      "format": "json",
+      "path": "results/reports/probit_offset_boosted/summary.json"
+    },
+    "run_lock": {
+      "bytes": 6391,
+      "digest": "sha256:c2c0fa280fcfa1646956d0f22f666f05d968b50536d11adefc53b4a4f2646c97",
+      "format": "json",
+      "path": "results/reports/probit_offset_boosted/run_lock.json"
+    }
+  },
+  "created_utc": "2026-09-01T17:50:40+00:00",
+  "kind": "run_manifest",
+  "lock_digest": "sha256:9a375f899ce54f58caa408a0f82ed97443abb1f138da87db262718271ca09783",
+  "report": {
+    "config_digest": "",
+    "evidence_not_applicable": [
+      "effects",
+      "ensemble",
+      "topchoice"
+    ],
+    "evidence_not_built": [],
+    "label": "Probit Offset Boosted",
+    "mode": "canonical",
+    "model": "probit_offset_boosted",
+    "sections": [
+      "overview",
+      "performance",
+      "calibration",
+      "diagnostics",
+      "settlement",
+      "simulation",
+      "limitations"
+    ],
+    "source_commit": "a3776608d446734001159a444096c6b584e132ac",
+    "source_dirty": true,
+    "unverified_preview": false
+  },
+  "root": "results/reports/probit_offset_boosted",
+  "run": "report:probit_offset_boosted",
+  "schema_version": 1
+}

@@ -1,0 +1,198 @@
+{
+  "bankroll": {
+    "initial_bankroll": 10000000.0,
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "rebate_policy": {
+      "basis": "net_loss",
+      "rate": 0.1,
+      "threshold": 10000.0,
+      "threshold_mode": "cliff"
+    }
+  },
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": null
+  },
+  "code": {
+    "git_commit": "47c3cd663113d5df222702e6f3889de8e357b27e",
+    "git_dirty": false,
+    "source_digest": "sha256:ee28d6b06a0a5cd252aed10a07b8590883cb63a850a6eecd37d94273c3ce5387"
+  },
+  "compute": {
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ]
+  },
+  "created_utc": "2026-09-01T17:50:40+00:00",
+  "digest": "sha256:9a375f899ce54f58caa408a0f82ed97443abb1f138da87db262718271ca09783",
+  "environment": {
+    "blas": "accelerate",
+    "compiler": "Clang 20.1.4 ",
+    "cpu_count": 12,
+    "libc": "none",
+    "libxgboost_digest": "sha256:5aef338ede7b84ae7d3405a306614de1d326ccaad033a2f14242aedd421359bc",
+    "locale": "UTF-8",
+    "machine": "arm64",
+    "numpy": "2.5.2",
+    "os": "Darwin",
+    "os_release": "25.6.0",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "scikit_learn": "1.9.0",
+    "scipy": "1.18.1",
+    "thread_env": {
+      "HKJC_QUADRATURE_THREADS": "unset",
+      "MKL_NUM_THREADS": "unset",
+      "NUMEXPR_NUM_THREADS": "unset",
+      "OMP_NUM_THREADS": "unset",
+      "OPENBLAS_NUM_THREADS": "unset",
+      "VECLIB_MAXIMUM_THREADS": "unset"
+    },
+    "timezone": "CST",
+    "xgboost": "3.4.1",
+    "xgboost_build": {
+      "BUILTIN_PREFETCH_PRESENT": true,
+      "MM_PREFETCH_PRESENT": false,
+      "USE_CUDA": false,
+      "USE_NCCL": false,
+      "USE_OPENMP": true
+    }
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "betting_probit_offset_boosted/betting_summary": {
+      "digest": "sha256:4a301ff7724ff7675a99c2b3b54c7bb2537ab86063bbde2ad5aa00b71cbfd4f6",
+      "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_summary.csv"
+    },
+    "betting_probit_offset_boosted/betting_yearly": {
+      "digest": "sha256:a402695ebf65c935dee3a16ee0819d46a386ae89b154caee25b7be44c26bb7cb",
+      "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_yearly.csv"
+    },
+    "betting_probit_offset_boosted/edge_buckets": {
+      "digest": "sha256:3eef3b37817f8c258326e1c382f245a80347d7d7f86c532fc2c6d4b58a864467",
+      "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/edge_buckets.csv"
+    },
+    "betting_probit_offset_boosted/probit_betting_run": {
+      "digest": "sha256:26e34feca907d7acf8c4ff86398802ed17b3f1d6aa6a1b7e804f6c17ab6aca08",
+      "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/probit_betting_run.json"
+    },
+    "betting_probit_offset_boosted/race_paths": {
+      "digest": "sha256:7db3fad1ae6a2c9c7d21a460e30e641465590f5ae6d8af22a62f0c62fb1c1590",
+      "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/race_paths.parquet"
+    },
+    "market_relationship": {
+      "digest": "sha256:40694a9d9de5bc1938980144bf946ae8308167355529a4dd0f9d80d5573e811d",
+      "path": "results/runs/probit_offset_boosted/market_relationship.json"
+    },
+    "probit_offset_boosted_per_run": {
+      "digest": "sha256:c4e2ed400e9127d4169db31f1de6e19a3cc80b93339b8cb63dc6ce7c979d31c0",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_per_run.csv"
+    },
+    "probit_offset_boosted_sensitivity": {
+      "digest": "sha256:b23748f623e0120f0ef3d6ea89c006b43643009df5c7f7faa87a88be3af51d7b",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_sensitivity.parquet"
+    },
+    "probit_offset_boosted_state": {
+      "digest": "sha256:f08fe30040ef3ea020a607a6bc50f29e9e17b7ae7f0b9672afd67d8b4ad98ed2",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_state.json"
+    },
+    "sims/model_assumed/summary": {
+      "digest": "sha256:906dfbd8c1368c1e6e3cd33a0ff9fb7fe6606742a269c27eff827cd22426088b",
+      "path": "results/runs/probit_offset_boosted/sims/model_assumed/summary.json"
+    },
+    "sims/model_assumed/trajectories": {
+      "digest": "sha256:68466cb3320389cdd1c8ac6def861fb556d3ebba306bcec9c6a63959a59db378",
+      "path": "results/runs/probit_offset_boosted/sims/model_assumed/trajectories.parquet"
+    },
+    "simulation_policies": {
+      "digest": "sha256:ebe23e15556bb441f994ffb3fac6421817f64a06f33f9d5022cf18731e8fa100",
+      "path": "results/runs/probit_offset_boosted/simulation_policies.parquet"
+    },
+    "simulation_run": {
+      "digest": "sha256:eed693e4ca9cff158caa6a6fc7116eb50d162f85d0f531d3b79e9e68eccf9ca6",
+      "path": "results/runs/probit_offset_boosted/simulation_run.json"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": "probit_offset_boosted",
+    "config_digest": "",
+    "cv": null,
+    "identity_source": "artifact",
+    "key": "probit_offset_boosted",
+    "label": "Probit Offset Boosted",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "paired_diagnostic": null,
+    "rounds": 400,
+    "status": "standard"
+  },
+  "notes": {
+    "input_run_lock_digest": "sha256:e6166a2db13cee825eac6f8d8bfee5fd7faa4fe791b95b2ea600044ca567d3d3",
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "a3776608d446734001159a444096c6b584e132ac",
+    "run_metadata_dirty": true
+  },
+  "run": "report:probit_offset_boosted",
+  "schema_version": 1
+}
