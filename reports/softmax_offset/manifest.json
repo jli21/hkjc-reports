@@ -1,68 +1,46 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 2023107,
-      "digest": "sha256:5a115e9646f14815b6541510a905141586649e6f67a69b85998f60f32637bad9",
+      "bytes": 3037338,
+      "digest": "sha256:694ff4bc102d1bf7d06feff75d2823c94188a398c1eabc9bb5686a47606ffe8e",
       "format": "html",
       "path": "results/reports/softmax_offset/report.html"
     },
-    "report_pdf": {
-      "bytes": 2041941,
-      "digest": "sha256:17e2ec486dd91238c202cad1235bede3f153114ecedf266eeed56129c20efff8",
-      "format": "pdf",
-      "path": "results/reports/softmax_offset/report.pdf"
-    },
     "report_summary": {
-      "bytes": 2293022,
-      "digest": "sha256:cc7cbe6c1b3e2600665fceec4f9d3954d9a184d1ab50e27cbd1ffe534e8b8819",
+      "bytes": 229629,
+      "digest": "sha256:626479ac9b0aee1a171c5507aca4d951f8e3e6b5bd488fdd4403e9b3c2d00621",
       "format": "json",
       "path": "results/reports/softmax_offset/summary.json"
     },
     "run_lock": {
-      "bytes": 6868,
-      "digest": "sha256:7bc5e827f114648090718591247d4a76b4dc6205fabd28f4972f0daebe2a1fc0",
+      "bytes": 7044,
+      "digest": "sha256:5d8d9df31d70206d9191666e6be99e60374bd4b16f8a359b94970e66e639040b",
       "format": "json",
       "path": "results/reports/softmax_offset/run_lock.json"
     }
   },
-  "created_utc": "2026-08-26T19:26:22+00:00",
+  "created_utc": "2026-09-01T06:28:01+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:1da6ad11383ffda1118f50d596a130dd0c89be4791952c963cd6d9de987dc4ef",
+  "lock_digest": "sha256:9be47b62f21d6f2abe420439eefe7149d5b53229582442e5e4c851530aae5818",
   "report": {
-    "config_digest": "sha256:b954e8375fbad27b7895e30685a8472170f5a34b3a1032275d867dc91af24518",
+    "config_digest": "sha256:c7cbff6a149df891246c2a0703db0f2d70636e8549d2dd958f994777db5b4dcf",
+    "evidence_not_applicable": [],
+    "evidence_not_built": [],
     "label": "Softmax Offset",
     "mode": "canonical",
     "model": "softmax_offset",
-    "pdf_pages": 20,
-    "pdf_quality_gate": "passed",
-    "pdf_quality_problems": [],
     "sections": [
-      "identity",
-      "summary",
-      "population",
-      "overall",
-      "yearly",
+      "overview",
+      "performance",
       "calibration",
-      "topchoice",
-      "ensemble",
-      "effects",
-      "betting",
-      "uncertainty",
-      "appendix",
+      "diagnostics",
+      "settlement",
+      "simulation",
       "limitations"
     ],
-    "sections_not_applicable": [],
-    "sections_not_built": [],
-    "source_commit": "cbacaf22733554557425ce0bd2b6dbecc51c84af",
+    "source_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
     "source_dirty": true,
-    "visual_review": {
-      "images_rasterised": 20,
-      "note": "Reviewed all 20 rasterised pages of the production report, checking this change left it undisturbed. The effects chart still reads mean absolute correction to log(market) with its original column header; the identity card still reads production; the 2 percent Kelly chart still draws its stepped path with both modes and the annual-reset dashes, now from a bounded subsequence with the note saying so; bets-per-year and rebate-received panels unchanged.",
-      "pages": 20,
-      "recorded_utc": "2026-08-26T19:30:00+00:00",
-      "verdict": "passed"
-    },
-    "visual_review_images": 20
+    "unverified_preview": false
   },
   "root": "results/reports/softmax_offset",
   "run": "report:softmax_offset",

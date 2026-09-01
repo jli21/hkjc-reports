@@ -38,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "825dae7282a8674a2f28484794ff857697fc78d2",
-    "git_dirty": true,
-    "source_digest": "sha256:b0c17547cd85fe486741550b02250ea1493f43f9549808505edf5acd9a77bc3c"
+    "git_commit": "29edd757372d3f9602d79b2f6dfbbdd44a17b60e",
+    "git_dirty": false,
+    "source_digest": "sha256:529f6832eb91dd985a4ef1d66569311847f4567b7fcdfe4186e3c01bcf1228ab"
   },
   "compute": {
     "seeds": [
@@ -51,13 +51,40 @@
       256
     ]
   },
-  "created_utc": "2026-08-27T05:47:01+00:00",
-  "digest": "sha256:f3105dee80a8b2f000097152d5e20a03c342f8a4fffd0bf05ec1077e540ea93d",
+  "created_utc": "2026-09-01T06:28:01+00:00",
+  "digest": "sha256:9be47b62f21d6f2abe420439eefe7149d5b53229582442e5e4c851530aae5818",
   "environment": {
-    "numpy": "2.1.3",
-    "pandas": "2.2.3",
-    "python": "3.12.6",
-    "xgboost": "3.0.0"
+    "blas": "accelerate",
+    "compiler": "Clang 20.1.4 ",
+    "cpu_count": 12,
+    "libc": "none",
+    "libxgboost_digest": "sha256:5aef338ede7b84ae7d3405a306614de1d326ccaad033a2f14242aedd421359bc",
+    "locale": "UTF-8",
+    "machine": "arm64",
+    "numpy": "2.5.2",
+    "os": "Darwin",
+    "os_release": "25.6.0",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "scikit_learn": "1.9.0",
+    "scipy": "1.18.1",
+    "thread_env": {
+      "HKJC_QUADRATURE_THREADS": "unset",
+      "MKL_NUM_THREADS": "unset",
+      "NUMEXPR_NUM_THREADS": "unset",
+      "OMP_NUM_THREADS": "unset",
+      "OPENBLAS_NUM_THREADS": "unset",
+      "VECLIB_MAXIMUM_THREADS": "unset"
+    },
+    "timezone": "CST",
+    "xgboost": "3.4.1",
+    "xgboost_build": {
+      "BUILTIN_PREFETCH_PRESENT": true,
+      "MM_PREFETCH_PRESENT": false,
+      "USE_CUDA": false,
+      "USE_NCCL": false,
+      "USE_OPENMP": true
+    }
   },
   "features": {
     "groups": {},
@@ -95,78 +122,86 @@
   },
   "inputs": {
     "betting_run": {
-      "digest": "sha256:43d35afedb13c22c37c09a5c10f5bf33cc748617b229e12d469f2f92b11cce46",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\betting_run.json"
+      "digest": "sha256:7786b1b2827c623f0bc55ddd2274d2570b4dd49c329b01f2f532d85d034db261",
+      "path": "results/runs/softmax_offset/betting_run.json"
     },
     "betting_summary": {
-      "digest": "sha256:34e1f3e60ff115db85152dcf42180badeeebfbe53f44c42e350f171c4801a63f",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\betting_summary.csv"
+      "digest": "sha256:25913c32c9631b68d108d043f756ac2bd0298e4b20e49884f54ed8901c4908d3",
+      "path": "results/runs/softmax_offset/betting_summary.csv"
     },
     "betting_yearly": {
-      "digest": "sha256:5dd8eaefdd9e0b74a76ab5dcb0a985da75921f36e8a853cb1c4a3321ff9d7c71",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\betting_yearly.csv"
+      "digest": "sha256:7a18efc2e07b22811e4f71d1a7d80cdef95e30cc1832861b7e320b3d07e8ba4f",
+      "path": "results/runs/softmax_offset/betting_yearly.csv"
     },
     "calibration": {
-      "digest": "sha256:14c1c81adef4138437461cefd0795a8b9b3ef60c12f20c4d4f85922d3a9aa575",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\calibration.parquet"
+      "digest": "sha256:b812b3dc592bf450ac2d3021495ebad0ac8f78861d9f44ca14cff0ee74dbaee6",
+      "path": "results/runs/softmax_offset/calibration.parquet"
     },
     "edge_buckets": {
-      "digest": "sha256:1373e09918ecd7f220dc12aa299f1d8c860dc16fbefb80e8f7850dc6941ca7a5",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\edge_buckets.csv"
+      "digest": "sha256:1c79eff9c47a1d5f8084838a452c56b6430c513f11912fe45509bb171f5ea04e",
+      "path": "results/runs/softmax_offset/edge_buckets.csv"
     },
     "ensemble_diagnostics": {
-      "digest": "sha256:449f49ba72b93fa0c5fd92d2d8d432e71e5ef9f955ad581b27bb01f00884cb2a",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\ensemble_diagnostics.parquet"
+      "digest": "sha256:bfe57a82f5c3c03101f23af377e31ee5a911b0f799d851e88af881976da5722a",
+      "path": "results/runs/softmax_offset/ensemble_diagnostics.parquet"
     },
     "feature_dictionary": {
-      "digest": "sha256:f5361fded3119e6b2ba50cc1781dd80ba217260221e544e802acdac368e83294",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\feature_dictionary.json"
+      "digest": "sha256:7d4881f2a9ba0cd2cf6648014db2e1b2737224abb4fd0bde903ea2579e65e907",
+      "path": "results/runs/softmax_offset/feature_dictionary.json"
     },
     "feature_effects_yearly": {
-      "digest": "sha256:94ca92fdb19de53affd831667d7f993da09070ef5aaff52379bba132c3bdd843",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\feature_effects_yearly.parquet"
+      "digest": "sha256:8e4456ee6a45b6d224c730b41f26e438a9777ec2a5110db576623d045d24bd79",
+      "path": "results/runs/softmax_offset/feature_effects_yearly.parquet"
     },
     "feature_stability": {
-      "digest": "sha256:c4b9d22298ed03d60f2f195a0952058816d45c30a9e2acbb87791a6c3a125320",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\feature_stability.csv"
+      "digest": "sha256:38d99058dde2f66a9b041f6abdb4793991a7dd92534f13628ee7cdbbd90397fe",
+      "path": "results/runs/softmax_offset/feature_stability.csv"
+    },
+    "lineage": {
+      "digest": "sha256:272f4269ac21634d8680f548a323033f9c25e491606c086371b029fe9dc71a24",
+      "path": "results/runs/softmax_offset/lineage.json"
+    },
+    "market_relationship": {
+      "digest": "sha256:0d7195c11aa81a2c066f4c028607f84e61444d43ae79b4931da44ae866e79a77",
+      "path": "results/runs/softmax_offset/market_relationship.json"
     },
     "race_paths": {
-      "digest": "sha256:3600a7c7bf8f7b589d1a8e58073c4afa2b2821bb0ba4399c5d51676542061baf",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\race_paths.parquet"
+      "digest": "sha256:a5898025f0edead108efc2575c450cc08478f8cace21e358c063ad6d57a98193",
+      "path": "results/runs/softmax_offset/race_paths.parquet"
     },
     "race_scores": {
-      "digest": "sha256:b527d793f73cccb66ec15b18d53c5703bdf66a0c2e525b88e7b701750b1b5971",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\race_scores.parquet"
+      "digest": "sha256:16941bfab677f0b40b0b402b3ad8a7318c9fa8504f60ef922eba29d4e1b3325e",
+      "path": "results/runs/softmax_offset/race_scores.parquet"
     },
     "run_metadata": {
-      "digest": "sha256:f4125beadf81d7f3f65190acc0f36f36b211221221780ef881152870ec949509",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\run_metadata.json"
+      "digest": "sha256:762522664ecdc95507536b8aada8ac1607dc3fbd9a2f9f6f0edba491b775a32a",
+      "path": "results/runs/softmax_offset/run_metadata.json"
     },
     "sharpness": {
-      "digest": "sha256:f7113152e294ac4b9de12dcf30e0d7a1439656da349a823599d4f69768e2705c",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\sharpness.csv"
-    },
-    "sims/day_block/summary": {
-      "digest": "sha256:d8e2bcc08e2436e4281d3c22e3bcfe701efe50cc7d006b8208c0778e8f13ba90",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\sims\\day_block\\summary.json"
+      "digest": "sha256:9ac9cb18398d38d60bd5f2d10bd1870717f0c3d1d8bf9598d9705b03e9f5e51b",
+      "path": "results/runs/softmax_offset/sharpness.csv"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:b570623c76532328cae348493295e9620bd0ab48f0e03336d7196c4cd7e5e4ca",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\sims\\model_assumed\\summary.json"
+      "digest": "sha256:8ada068703470da4fbae59b2d28484db3032d7629e6b5cc0654b118dedbafc46",
+      "path": "results/runs/softmax_offset/sims/model_assumed/summary.json"
+    },
+    "sims/model_assumed/trajectories": {
+      "digest": "sha256:8e5b0265673081503e0815de6df47d3404bb3be52e17561008c6979efb39eddf",
+      "path": "results/runs/softmax_offset/sims/model_assumed/trajectories.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:f7f25cb54b3745eee4761e7f0fb2335b3289d490ba1b7eabb2f841e68f8123b5",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\simulation_run.json"
+      "digest": "sha256:8d3c542b543fe043273b76a590cd3d1d0012264c5efba0d39167ca5c27b7adcf",
+      "path": "results/runs/softmax_offset/simulation_run.json"
     },
     "top_choice_movement": {
-      "digest": "sha256:ea8c01835d378e388c755c9726e606a20154126f46395bc17c55993fe5a7aa9f",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\model_report\\top_choice_movement.csv"
+      "digest": "sha256:91ea781e13d12ed4a71da17839c095e0418ba08492c18905410420bd9989c50d",
+      "path": "results/runs/softmax_offset/top_choice_movement.csv"
     }
   },
   "kind": "run_lock",
   "model": {
     "architecture": null,
-    "config_digest": "sha256:b954e8375fbad27b7895e30685a8472170f5a34b3a1032275d867dc91af24518",
+    "config_digest": "sha256:c7cbff6a149df891246c2a0703db0f2d70636e8549d2dd958f994777db5b4dcf",
     "cv": 3,
     "identity_source": "artifact",
     "key": "softmax_offset",
@@ -177,9 +212,9 @@
     "status": "production"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:001ffdd6af77077030e47c310f624c2b326e63f8680c4a261cc33186c722ac83",
+    "input_run_lock_digest": "sha256:03c013191ce1d9657a3782ad571cd32907c9f827c2af99e1e3cbd81344c1aa0f",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "be5b226ddfa7b1498c27b7d43ea483fe909bca67",
+    "run_metadata_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
     "run_metadata_dirty": true
   },
   "run": "report:softmax_offset",

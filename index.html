@@ -12,11 +12,11 @@
   /* The diverging and sequential ramps hkjc.reporting.charts draws with. Declared here
      because this report is one self-contained file: the chart module's own stylesheet is not
      shipped, so a heatmap referencing these would otherwise render with no fill at all. */
-  --div-pos: #2a78d6;
-  --div-mid: #f0efec;
-  --div-neg: #d03b3b;
-  --seq-low: #cde2fb;
-  --seq-high: #104281;
+  --div-pos: #b9d5f5;
+  --div-mid: #f7f6f3;
+  --div-neg: #f2c4c4;
+  --seq-low: #f3f8fd;
+  --seq-high: #b9d5f5;
   --absent: #f0efec;
 }
 * { box-sizing: border-box; }
@@ -45,8 +45,10 @@ nav.toc ol { margin: 0.35rem 0 0; padding-left: 1.4rem; columns: 2; column-gap: 
 nav.toc li { margin: 0.2rem 0; break-inside: avoid; }
 nav.toc a { color: var(--accent); text-decoration: none; }
 
-table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.9rem; }
-th, td { text-align: right; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); }
+.table-wrap { max-width: 100%; overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: max-content; max-width: 100%; margin: 0 auto;
+        font-size: 0.88rem; }
+th, td { text-align: right; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--rule); }
 th:first-child, td:first-child { text-align: left; }
 thead th { border-bottom: 2px solid var(--rule); font-weight: 600; white-space: nowrap; }
 tbody tr:hover { background: var(--panel); }
@@ -65,6 +67,14 @@ tr.partial td { color: var(--warn); font-style: italic; }
 .caveat { border-left: 4px solid var(--warn); background: #fdf8f1; padding: 0.8rem 1rem;
           margin: 1.25rem 0; border-radius: 0 4px 4px 0; }
 .caveat strong { display: block; margin-bottom: 0.25rem; }
+.preview-banner {
+  border: 2px solid var(--bad); background: #fdf2f2; color: #5a1d1d;
+  padding: 0.9rem 1.1rem; margin: 1.75rem 0 0; border-radius: 4px;
+}
+.preview-banner strong { display: block; font-size: 1.05rem; letter-spacing: 0.04em;
+                         text-transform: uppercase; margin-bottom: 0.4rem; }
+.preview-banner ul { margin: 0; padding-left: 1.2rem; font-size: 0.92rem; }
+.preview-banner li { margin: 0.2rem 0; }
 .unavailable { border-left: 4px solid var(--rule); background: var(--panel);
                padding: 0.8rem 1rem; margin: 1rem 0; color: var(--muted); }
 .unavailable .label { font-weight: 600; color: var(--ink); }
@@ -77,7 +87,8 @@ figure {
 }
 figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
 figcaption .figure-title { color: var(--ink); }
-svg { max-width: 100%; height: auto; display: block; }
+svg.chart { width: 100%; max-width: 100%; height: auto; display: block; }
+.bankroll-chart { min-height: 25rem; }
 
 /* Chart chrome. These class names are emitted by hkjc.reporting.charts, so they live here
    rather than in that module's own STYLE: this report is one self-contained file, and a
@@ -91,6 +102,7 @@ svg { max-width: 100%; height: auto; display: block; }
 .end-label { fill: var(--ink); font-size: 11px; font-weight: 600;
              font-variant-numeric: tabular-nums; }
 .series { stroke-width: 2; fill: none; }
+.series.annual-reset { stroke-width: 2.75; }
 .marker { stroke: #fff; stroke-width: 2; }
 .s0 { stroke: #2a78d6; } .s1 { stroke: #eb6834; } .s2 { stroke: #1baf7a; }
 .s3 { stroke: #b5299e; }
@@ -100,9 +112,14 @@ rect.bar { stroke: none; }
 .legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-size: 0.85rem;
           color: var(--muted); margin: 0.75rem 0 0.25rem; }
 .legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
-.swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
-.swatch.s0 { background: #2a78d6; } .swatch.s1 { background: #eb6834; }
-.swatch.s2 { background: #1baf7a; } .swatch.s3 { background: #b5299e; }
+.swatch { width: 1.4rem; height: 0; display: inline-block; border-top: 3px solid; }
+.swatch.s0 { border-color: #2a78d6; } .swatch.s1 { border-color: #eb6834; }
+.swatch.s2 { border-color: #1baf7a; } .swatch.s3 { border-color: #b5299e; }
+.mode-legend { display: flex; gap: 1rem; margin: 0.25rem 0 0.75rem; color: var(--muted);
+               font-size: 0.82rem; }
+.mode-legend > span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.line-key { width: 1.6rem; height: 0; display: inline-block; border-top: 2px solid var(--muted); }
+.line-key.annual-reset { border-top-style: dashed; border-top-width: 3px; }
 details.table-view { margin: 0.5rem 0 0; font-size: 0.85rem; }
 details.table-view summary { cursor: pointer; color: var(--muted); padding: 0.25rem 0; }
 details.table-view table { margin: 0.5rem 0; }
@@ -116,8 +133,6 @@ details.table-view table { margin: 0.5rem 0; }
 }
 .presets button[aria-pressed="true"] { background: var(--accent); color: #fff; }
 .preset-panel[hidden] { display: none; }
-.print-only { display: none; }
-
 @media print {
   @page { size: A4 portrait; margin: 12mm; }
   body { font-size: 10.5pt; padding-bottom: 0; }
@@ -126,12 +141,13 @@ details.table-view table { margin: 0.5rem 0; }
   h1 { font-size: 20pt; }
   h2 { font-size: 13pt; break-after: avoid; break-inside: avoid; margin-top: 18pt; }
   h3 { break-after: avoid; }
-  /* An orphaned heading at a page foot is the commonest print defect, and the one the
-     visual review looks for first. */
-  h2 + p, h3 + p, h2 + table, h3 + table, h2 + .tiles { break-before: avoid; }
-  table { font-size: 8.5pt; break-inside: auto; }
-  /* Keep shaded cells shaded on paper. Chrome drops background colours when printing unless
-     told not to, and a table whose colour scale is the point would print as plain numbers. */
+  /* Avoid orphaned headings when a reader prints the HTML. */
+  h2 + p, h3 + p, h2 + .table-wrap, h3 + .table-wrap, h2 + .tiles {
+    break-before: avoid;
+  }
+  .table-wrap { overflow: visible; }
+  table { width: 100%; font-size: 8.5pt; break-inside: auto; }
+  /* Keep shaded cells shaded when a reader prints the HTML. */
   td, .tile, figure, .caveat { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   th, td { padding: 0.15rem 0.3rem; }
   /* Headers wrap on paper. They are nowrap on screen, where a table can scroll, and that rule
@@ -148,48 +164,206 @@ details.table-view table { margin: 0.5rem 0; }
   figure { break-inside: auto; }
   figure svg { break-inside: avoid; break-after: avoid; }
   figcaption { break-before: avoid; break-inside: avoid; }
-  /* The interactive control cannot work on paper, so the print layout shows every preset as
-     its own panel instead of hiding three of four behind a button nobody can press. */
-  .presets { display: none; }
-  /* A preset panel flows across a page boundary rather than being kept whole. With four
-     presets each panel runs to about a page and a half, and keeping it whole pushed every
-     panel to a fresh page and left the previous one 60% empty. The figure, the tiles and each
-     table row are still kept whole, which is where a break actually hurts. */
-  .preset-panel { display: block !important; break-inside: auto; margin-bottom: 10pt; }
-  .preset-panel[hidden] { display: block !important; }
-  .print-only { display: block; }
-  .screen-only { display: none; }
   a { color: inherit; text-decoration: none; }
 }
-</style></head><body><main><h1>HKJC model reports</h1><p class="subtitle">one report per published model, generated by hkjc.reporting.generate</p><nav class="toc"><strong>Contents</strong><ol><li><a href="#reports">Published reports</a></li></ol></nav><section id="reports"><h2>Published reports</h2><p class='lede'>Every published model report, with the comparator it is scored against and the sections its architecture cannot have. Each report is one self-contained HTML file and one A4 PDF; nothing here needs a server.</p><table><thead><tr><th>Model</th><th>Family</th><th>Comparator</th><th>Mean delta</th><th>PDF</th><th>PDF gate</th><th>Not applicable</th></tr></thead><tbody><tr><td class="num"><a href="reports/bagged_offset/report.html">Bagged Offset (production)</a></td><td class="num">offset</td><td class="num">the market</td><td class="num">-0.004647</td><td class="num"><a href="reports/bagged_offset/report.pdf">21 pages</a></td><td class="num">passed</td><td class="num">none</td></tr><tr><td class="num"><a href="reports/probit/report.html">Standalone Probit</a></td><td class="num">probit</td><td class="num">the market</td><td class="num">0.002018</td><td class="num"><a href="reports/probit/report.pdf">17 pages</a></td><td class="num">passed</td><td class="num">effects, ensemble, races, topchoice</td></tr><tr><td class="num"><a href="reports/probit_offset/report.html">Probit Offset (market-anchored)</a></td><td class="num">probit</td><td class="num">the market</td><td class="num">-0.004358</td><td class="num"><a href="reports/probit_offset/report.pdf">18 pages</a></td><td class="num">passed</td><td class="num">effects, ensemble, races, topchoice</td></tr><tr><td class="num"><a href="reports/probit_offset_pace/report.html">Probit Offset with a pace factor</a></td><td class="num">probit</td><td class="num">the market</td><td class="num">-0.004200</td><td class="num"><a href="reports/probit_offset_pace/report.pdf">18 pages</a></td><td class="num">passed</td><td class="num">effects, ensemble, races, topchoice</td></tr></tbody></table><p>The delta column is every model's race log loss minus the market's on the same races, so these four numbers are on one yardstick and can be read against each other. One caveat before doing so: the probit rows cover the eleven years whose utility scale was fitted rather than fallen back, and the Offset row covers all twelve. On the matched eleven years the Offset model's delta is -0.004533 rather than -0.004647.</p><p>Each probit report also carries the comparison its architecture was designed to make -- against a softmax or against the incumbent Offset on identical margins -- in its technical appendix. That comparison isolates the link change and this one does not; read as a headline it inverted the ranking, which is why it is not the headline.</p></section></main><script>
+
+:root {
+  --rule: #d3d9df;
+  --panel: #f5f7f8;
+  --div-pos: #7896b3;
+  --div-mid: #f4f2ef;
+  --div-neg: #b8837b;
+  --seq-low: #eff3f6;
+  --seq-high: #7896b3;
+}
+body {
+  font: 15px/1.58 Aptos, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif;
+}
+main { max-width: 76rem; padding: 0 2.25rem; }
+h1 { font-size: 2rem; line-height: 1.18; letter-spacing: -0.025em;
+     margin: 2.75rem 0 0.4rem; }
+h2 { font-size: 1.28rem; letter-spacing: -0.01em; margin: 3.2rem 0 0.75rem;
+     padding-bottom: 0.4rem; }
+h4 { font-size: 0.86rem; margin: 1.2rem 0 0.35rem; color: var(--muted);
+     font-weight: 650; letter-spacing: 0.015em; }
+
+.table-wrap {
+  width: 100%; max-width: 100%; overflow-x: auto; margin: 0.8rem 0 1.25rem;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+table { width: 100%; min-width: max-content; max-width: none; margin: 0;
+        font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 0.42rem 0.6rem; border-bottom: 1px solid #e1e5e9; vertical-align: top; }
+thead th { border-bottom: 2px solid #aeb8c2; background: #f5f6f7; color: #343b44;
+           font-weight: 650; white-space: normal; overflow-wrap: anywhere; line-height: 1.25; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: #f8fafb; }
+tr.fallback td { color: var(--warn); font-style: italic; }
+figure { padding: 0.9rem 0.9rem 0.35rem; border-radius: 8px; }
+.bankroll-chart { min-height: 32rem; }
+.grid { stroke: #d8dde2; }
+.axis { stroke: #a5afb9; }
+.series-area { fill: color-mix(in oklab, #7896b3 10%, transparent); stroke: none; }
+.series { stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.bar.s0 { fill: #7896b3; }
+.bar.s1 { fill: #b8837b; }
+.whisker.s0 { stroke: #7896b3; }
+.whisker.s1 { stroke: #b8837b; }
+.bankroll-chart .series.continuous { stroke: #506f89; }
+.bankroll-chart .series.annual-reset { stroke: #9aacbc; }
+.yearly-bankroll-chart .series.s0 { stroke: #506f89; }
+.yearly-bankroll-chart .series.s1 { stroke: #9aacbc; stroke-dasharray: 7 4; }
+.yearly-bankroll-chart .marker.s0 { fill: #506f89; }
+.yearly-bankroll-chart .marker.s1 { fill: #9aacbc; }
+details.table-view .table-wrap { margin: 0.5rem 0; }
+
+.interactive-controller { margin-top: 1rem; }
+.betting-controls {
+  display: grid; grid-template-columns: repeat(2, minmax(10rem, 1fr)); gap: 0.8rem 1rem;
+  align-items: end; padding: 1rem; border: 1px solid var(--rule); background: #f7f8f8;
+}
+.control-field { display: grid; gap: 0.3rem; color: var(--muted); font-size: 0.78rem;
+                 font-weight: 650; letter-spacing: 0.025em; text-transform: uppercase; }
+.control-field select {
+  width: 100%; min-height: 2.55rem; padding: 0.45rem 2rem 0.45rem 0.65rem;
+  border: 1px solid #b9c2ca; border-radius: 3px; background: #fff; color: var(--ink);
+  font: inherit; text-transform: none; letter-spacing: normal;
+}
+.control-wide { grid-column: 1 / -1; }
+.selector-label { display: block; margin-bottom: 0.35rem; color: var(--muted);
+                  font-size: 0.78rem; font-weight: 650; letter-spacing: 0.025em;
+                  text-transform: uppercase; }
+.selector-buttons { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.selector-buttons button {
+  min-height: 2.4rem; padding: 0.42rem 0.72rem; border: 1px solid #b9c2ca;
+  border-radius: 3px; background: #fff; color: #39434c; cursor: pointer; font: inherit;
+}
+.selector-buttons button[aria-pressed="true"] {
+  border-color: #506f89; background: #e8eef2; color: #243746; box-shadow: inset 0 -2px #506f89;
+}
+.strategy-selector button::before {
+  content: ""; display: inline-block; width: 1rem; margin-right: 0.42rem;
+  border-top: 3px solid #7896b3; vertical-align: middle;
+}
+.strategy-selector button[data-strategy="kelly_settled_rebate"]::before { border-color: #9b8a79; }
+.strategy-selector button[data-strategy="kelly_no_rebate"]::before { border-color: #9a7b76; }
+.strategy-selector button[data-strategy="rebate_aware_large_bank"]::before { border-color: #506f89; }
+.view-selector { margin: 1.1rem 0 0.4rem; }
+.view-selector button { min-height: 2rem; padding: 0.28rem 0.65rem; }
+.year-selector .selector-buttons { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.25rem; }
+.year-selector button { flex: 0 0 auto; }
+.metric-glossary, .activity-detail {
+  margin: 0.8rem 0 1.2rem; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.metric-glossary summary, .activity-detail summary {
+  cursor: pointer; padding: 0.55rem 0; color: #46535f; font-weight: 650;
+}
+.metric-glossary dl { display: grid; grid-template-columns: minmax(9rem, 0.32fr) 1fr;
+                      gap: 0.45rem 1rem; margin: 0 0 0.8rem; }
+.metric-glossary dt { font-weight: 650; }
+.metric-glossary dd { margin: 0; color: var(--muted); }
+.betting-panel > h3 { margin-top: 1.6rem; }
+.simulation-scope {
+  margin: 0.75rem 0 1rem; padding: 0.8rem 0.9rem; border-left: 3px solid #7896b3;
+  background: #f3f6f8; color: #3f4c57;
+}
+.simulation-method-guide {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1rem 0;
+}
+.simulation-method-guide > div { padding: 0.85rem 1rem; border: 1px solid var(--rule); }
+.simulation-method-guide h4 { margin-top: 0; color: #344653; }
+.simulation-method-guide p { margin-bottom: 0; color: var(--muted); }
+.simulation-question { margin: -0.25rem 0 0.9rem; color: #46535f; }
+.simulation-fan-chart .fan-band { stroke: none; }
+.simulation-fan-chart .fan-band.outer { fill: #dce7ef; opacity: 0.72; }
+.simulation-fan-chart .fan-band.inner { fill: #aebfcd; opacity: 0.72; }
+.simulation-fan-chart .series.simulation-sample { stroke: #7f96a8; stroke-width: 0.8; opacity: 0.22; }
+.simulation-fan-chart .series.simulation-median { stroke: #9a7b76; stroke-width: 2.4; }
+.simulation-fan-chart .series.simulation-expected { stroke: #506f89; stroke-width: 2.6; }
+.fan-legend { display: flex; flex-wrap: wrap; gap: 0.55rem 1rem; margin: 0.9rem 0 0.2rem;
+              color: var(--muted); font-size: 0.78rem; }
+.fan-legend > span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.fan-key { display: inline-block; width: 1.2rem; height: 0.65rem; border: 1px solid #9aabb8; }
+.fan-key.outer { background: #dce7ef; }
+.fan-key.inner { background: #aebfcd; }
+.line-key.simulation-expected { border-color: #506f89; }
+.line-key.simulation-median { border-color: #9a7b76; }
+.line-key.simulation-sample { border-color: #7f96a8; opacity: 0.45; }
+
+@media (max-width: 44rem) {
+  main { padding: 0 1rem; }
+  h1 { font-size: 1.7rem; }
+  nav.toc ol { columns: 1; }
+  th, td { padding: 0.38rem 0.48rem; }
+  .betting-controls { grid-template-columns: 1fr; padding: 0.75rem; }
+  .control-wide { grid-column: auto; }
+  .selector-buttons { display: grid; grid-template-columns: 1fr; }
+  .year-selector .selector-buttons { display: flex; }
+  .metric-glossary dl { grid-template-columns: 1fr; gap: 0.15rem; }
+  .metric-glossary dd { margin-bottom: 0.55rem; }
+  .simulation-method-guide { grid-template-columns: 1fr; }
+  .bankroll-chart { min-height: 20rem; }
+}
+
+</style></head><body><main><h1>HKJC model reports</h1><p class="subtitle">one report per published model, generated by hkjc.reporting.generate</p><nav class="toc"><strong>Contents</strong><ol><li><a href="#reports">Published reports</a></li></ol></nav><section id="reports"><h2>Published reports</h2><p class='lede'>Every published model report, with the sections its run cannot fill. Each report is one self-contained HTML file; nothing here needs a server.</p><div class="table-wrap"><table><thead><tr><th>Model</th><th>Members</th><th>Not applicable</th></tr></thead><tbody><tr><td class="num"><a href="reports/softmax/report.html">Softmax</a></td><td class="num">5</td><td class="num">none</td></tr><tr><td class="num"><a href="reports/softmax_offset/report.html">Softmax Offset</a></td><td class="num">5</td><td class="num">none</td></tr><tr><td class="num"><a href="reports/probit/report.html">Probit</a></td><td class="num">5</td><td class="num">none</td></tr><tr><td class="num"><a href="reports/probit_offset/report.html">Probit Offset</a></td><td class="num">5</td><td class="num">none</td></tr></tbody></table></div><p>All reports use the same declared evaluation window. Every row covers the standardized evaluation window, 2016-2026, 7,933 races, with 2015 excluded as a warm-up year whose utility scale is not fitted. The race keys are compared by digest before publication, so this is checked rather than asserted.</p><p>The mathematics behind every model, and the definition of every metric here, is in the project and modelling guide.</p></section></main><script>
 (function () {
   'use strict';
-  // Every path below was computed in Python by hkjc.reporting.bundle and embedded as data.
-  // This function draws one of them. It deliberately contains no Kelly, rebate,
-  // stake-rounding or settlement arithmetic: a second implementation of those rules in a
-  // browser would disagree with the first one the moment either changed.
-  var buttons = Array.prototype.slice.call(
-    document.querySelectorAll('.presets button[data-preset]')
-  );
-  var panels = Array.prototype.slice.call(document.querySelectorAll('.preset-panel'));
-  if (!buttons.length || !panels.length) { return; }
+  // Every panel was computed in Python. This code only selects matching markup.
+  var slice = Array.prototype.slice;
+  var roots = slice.call(document.querySelectorAll('.interactive-controller'));
 
-  function show(preset) {
-    panels.forEach(function (panel) {
-      panel.hidden = panel.getAttribute('data-preset') !== preset;
-    });
-    buttons.forEach(function (button) {
-      button.setAttribute(
-        'aria-pressed', button.getAttribute('data-preset') === preset ? 'true' : 'false'
-      );
-    });
-  }
+  roots.forEach(function (root) {
+    var panels = slice.call(root.querySelectorAll('.interactive-panel'));
+    var groups = [
+      {attribute: 'data-scenario', controls: slice.call(root.querySelectorAll(
+        'select[data-scenario-control],button[data-scenario]')), value: null},
+      {attribute: 'data-preset', controls: slice.call(root.querySelectorAll(
+        'select[data-preset-control],button[data-preset]')), value: null},
+      {attribute: 'data-strategy', controls: slice.call(root.querySelectorAll(
+        'select[data-strategy-control],button[data-strategy]')), value: null},
+      {attribute: 'data-view', controls: slice.call(root.querySelectorAll(
+        'select[data-view-control],button[data-view]')), value: null}
+    ];
 
-  buttons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      show(button.getAttribute('data-preset'));
+    function choice(control, group) {
+      var own = control.getAttribute(group.attribute);
+      return own === null ? control.value : own;
+    }
+
+    function matches(panel) {
+      return groups.every(function (group) {
+        if (group.value === null) { return true; }
+        var own = panel.getAttribute(group.attribute);
+        return own === null || own === group.value;
+      });
+    }
+
+    function show() {
+      panels.forEach(function (panel) { panel.hidden = !matches(panel); });
+      groups.forEach(function (group) {
+        group.controls.forEach(function (control) {
+          if (control.tagName === 'BUTTON') {
+            control.setAttribute('aria-pressed',
+              choice(control, group) === group.value ? 'true' : 'false');
+          }
+        });
+      });
+    }
+
+    groups.forEach(function (group) {
+      group.controls.forEach(function (control) {
+        var eventName = control.tagName === 'SELECT' ? 'change' : 'click';
+        control.addEventListener(eventName, function () {
+          group.value = choice(control, group);
+          show();
+        });
+      });
+      if (group.controls.length) {
+        group.value = choice(group.controls[0], group);
+      }
     });
+    show();
   });
-  show(buttons[0].getAttribute('data-preset'));
 })();
 </script></body></html>

@@ -1,72 +1,50 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 1834512,
-      "digest": "sha256:6c2deeb89965ea38c4be070282862ca3207a8238044558949c023bb09822e576",
+      "bytes": 2446817,
+      "digest": "sha256:6d5a799fc793769f39056bef389a302d15933be3db00f08ee7ddabaa84ade2bb",
       "format": "html",
       "path": "results/reports/probit_offset/report.html"
     },
-    "report_pdf": {
-      "bytes": 1358712,
-      "digest": "sha256:8754bca2998a422d7242671a538629b0df55231ecd94ad82a5f55547fdd720e9",
-      "format": "pdf",
-      "path": "results/reports/probit_offset/report.pdf"
-    },
     "report_summary": {
-      "bytes": 1932264,
-      "digest": "sha256:8a9fe5a637d62bcc247db3d307eb9e2d730f11258e2ee6705dc6fabf596afe2b",
+      "bytes": 105099,
+      "digest": "sha256:1d1af9b59b74024c30e5ca5ecdd6c0c818d4cfcf1ca45c47b45788a370d13dca",
       "format": "json",
       "path": "results/reports/probit_offset/summary.json"
     },
     "run_lock": {
-      "bytes": 4962,
-      "digest": "sha256:07f4490883fbb94c32be8a0b7bd498058ac2160ac8c451c912d3ad36098cf3fc",
+      "bytes": 7429,
+      "digest": "sha256:43e07060a48d11ddca1eb3af11a982aff91536fd2fab47e4876f34979d01e92b",
       "format": "json",
       "path": "results/reports/probit_offset/run_lock.json"
     }
   },
-  "created_utc": "2026-08-26T19:26:40+00:00",
+  "created_utc": "2026-09-01T06:28:02+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:463c6836761326eadc2be1bb0bfb96614bac38f0af16bd0ff2d68bd1b3c05732",
+  "lock_digest": "sha256:c2ddd73f403479114d81cea75d42f890e00509ecf7a6680d400a15b4d39973bc",
   "report": {
     "config_digest": "",
-    "label": "Probit Offset",
-    "mode": "canonical",
-    "model": "probit_offset",
-    "pdf_pages": 19,
-    "pdf_quality_gate": "passed",
-    "pdf_quality_problems": [],
-    "sections": [
-      "identity",
-      "summary",
-      "population",
-      "overall",
-      "yearly",
-      "calibration",
-      "topchoice",
-      "ensemble",
-      "effects",
-      "betting",
-      "uncertainty",
-      "appendix",
-      "limitations"
-    ],
-    "sections_not_applicable": [
+    "evidence_not_applicable": [
       "effects",
       "ensemble",
       "topchoice"
     ],
-    "sections_not_built": [],
-    "source_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
+    "evidence_not_built": [],
+    "label": "Probit Offset",
+    "mode": "canonical",
+    "model": "probit_offset",
+    "sections": [
+      "overview",
+      "performance",
+      "calibration",
+      "diagnostics",
+      "settlement",
+      "simulation",
+      "limitations"
+    ],
+    "source_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
     "source_dirty": true,
-    "visual_review": {
-      "images_rasterised": 19,
-      "note": "Reviewed all 19 rasterised pages. The identity card reads standard rather than experimental, the paired diagnostic names its reference model, and the three link-inapplicable sections still state why. Betting, uncertainty and calibration render as before with the bounded-subsequence note on the Kelly curves.",
-      "pages": 19,
-      "recorded_utc": "2026-08-26T19:30:01+00:00",
-      "verdict": "passed"
-    },
-    "visual_review_images": 19
+    "unverified_preview": false
   },
   "root": "results/reports/probit_offset",
   "run": "report:probit_offset",

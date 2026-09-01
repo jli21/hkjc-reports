@@ -1,72 +1,50 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 1801682,
-      "digest": "sha256:1fe0b09c67a82d859e295554d4f9bdd2036902c446c2d2bf91dd5d3654557d9d",
+      "bytes": 2984396,
+      "digest": "sha256:dc5acb355d86c36941d435ccd71edceb2f2d831bb0557eba7894976818d91e05",
       "format": "html",
       "path": "results/reports/probit/report.html"
     },
-    "report_pdf": {
-      "bytes": 1326794,
-      "digest": "sha256:5c28e88077ca25588052e1d515b3ccf3a94f3e57970c692a053856d387619765",
-      "format": "pdf",
-      "path": "results/reports/probit/report.pdf"
-    },
     "report_summary": {
-      "bytes": 1918137,
-      "digest": "sha256:117dbf1a04a7c6bca40ab76237f81951789201044cfeb6f397aaa47ae2f1362d",
+      "bytes": 104642,
+      "digest": "sha256:5242a401f22cb91fcecb8672bff821ef81f5087c30e77fa73849f485a0788d33",
       "format": "json",
       "path": "results/reports/probit/summary.json"
     },
     "run_lock": {
-      "bytes": 4857,
-      "digest": "sha256:20e145e6ff6b9a4805f545af16e0b7bd8dbb3a69b91f8688157fdd46270c619a",
+      "bytes": 7149,
+      "digest": "sha256:57089f1534fc3e0a676582eea86c84f023b1f5088ccbd1047ff05e2bb1a4d542",
       "format": "json",
       "path": "results/reports/probit/run_lock.json"
     }
   },
-  "created_utc": "2026-08-26T19:26:30+00:00",
+  "created_utc": "2026-09-01T06:28:02+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:0dc1c4f3426c4eb6d85cdbec682f9f116d5a4bd9a27eed8838b362b44045daf8",
+  "lock_digest": "sha256:f05ecc4761ce2e0e03dc7d32bce2121cfc29998a2d2b2e6c704d06b6f437a3a2",
   "report": {
     "config_digest": "",
-    "label": "Probit",
-    "mode": "canonical",
-    "model": "probit",
-    "pdf_pages": 18,
-    "pdf_quality_gate": "passed",
-    "pdf_quality_problems": [],
-    "sections": [
-      "identity",
-      "summary",
-      "population",
-      "overall",
-      "yearly",
-      "calibration",
-      "topchoice",
-      "ensemble",
-      "effects",
-      "betting",
-      "uncertainty",
-      "appendix",
-      "limitations"
-    ],
-    "sections_not_applicable": [
+    "evidence_not_applicable": [
       "effects",
       "ensemble",
       "topchoice"
     ],
-    "sections_not_built": [],
-    "source_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
+    "evidence_not_built": [],
+    "label": "Probit",
+    "mode": "canonical",
+    "model": "probit",
+    "sections": [
+      "overview",
+      "performance",
+      "calibration",
+      "diagnostics",
+      "settlement",
+      "simulation",
+      "limitations"
+    ],
+    "source_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
     "source_dirty": true,
-    "visual_review": {
-      "images_rasterised": 18,
-      "note": "Reviewed all 18 rasterised pages. The identity card now reads standard rather than experimental and the paired architecture diagnostic still names softmax as its reference model with the three losses from the run. Effects, ensemble and top-choice remain declared not applicable for a choice link, which is correct: it learns nothing and consumes another run's mean utilities. Bankroll curves carry the bounded-subsequence note.",
-      "pages": 18,
-      "recorded_utc": "2026-08-26T19:30:00+00:00",
-      "verdict": "passed"
-    },
-    "visual_review_images": 18
+    "unverified_preview": false
   },
   "root": "results/reports/probit",
   "run": "report:probit",

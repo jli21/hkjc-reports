@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "825dae7282a8674a2f28484794ff857697fc78d2",
-    "git_dirty": true,
-    "source_digest": "sha256:b0c17547cd85fe486741550b02250ea1493f43f9549808505edf5acd9a77bc3c"
+    "git_commit": "29edd757372d3f9602d79b2f6dfbbdd44a17b60e",
+    "git_dirty": false,
+    "source_digest": "sha256:529f6832eb91dd985a4ef1d66569311847f4567b7fcdfe4186e3c01bcf1228ab"
   },
   "compute": {
     "seeds": [
@@ -51,13 +51,40 @@
       256
     ]
   },
-  "created_utc": "2026-08-27T05:47:01+00:00",
-  "digest": "sha256:1655b865165a81b63e706fdfb19179c5239ea816903f6f7f0952fecbfee52b1c",
+  "created_utc": "2026-09-01T06:28:02+00:00",
+  "digest": "sha256:f05ecc4761ce2e0e03dc7d32bce2121cfc29998a2d2b2e6c704d06b6f437a3a2",
   "environment": {
-    "numpy": "2.1.3",
-    "pandas": "2.2.3",
-    "python": "3.12.6",
-    "xgboost": "3.0.0"
+    "blas": "accelerate",
+    "compiler": "Clang 20.1.4 ",
+    "cpu_count": 12,
+    "libc": "none",
+    "libxgboost_digest": "sha256:5aef338ede7b84ae7d3405a306614de1d326ccaad033a2f14242aedd421359bc",
+    "locale": "UTF-8",
+    "machine": "arm64",
+    "numpy": "2.5.2",
+    "os": "Darwin",
+    "os_release": "25.6.0",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "scikit_learn": "1.9.0",
+    "scipy": "1.18.1",
+    "thread_env": {
+      "HKJC_QUADRATURE_THREADS": "unset",
+      "MKL_NUM_THREADS": "unset",
+      "NUMEXPR_NUM_THREADS": "unset",
+      "OMP_NUM_THREADS": "unset",
+      "OPENBLAS_NUM_THREADS": "unset",
+      "VECLIB_MAXIMUM_THREADS": "unset"
+    },
+    "timezone": "CST",
+    "xgboost": "3.4.1",
+    "xgboost_build": {
+      "BUILTIN_PREFETCH_PRESENT": true,
+      "MM_PREFETCH_PRESENT": false,
+      "USE_CUDA": false,
+      "USE_NCCL": false,
+      "USE_OPENMP": true
+    }
   },
   "features": {
     "groups": {},
@@ -95,36 +122,72 @@
   },
   "inputs": {
     "betting_probit/betting_summary": {
-      "digest": "sha256:de70386955f7fae5c52fcd17ebbcf6a9cf814ea83d35c5dd5373bcda140d3355",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit\\betting_summary.csv"
+      "digest": "sha256:1a3476880075c79bf753040352f9bc00cc904b2c138643f63fe28ea47318bf84",
+      "path": "results/runs/probit/betting_probit/betting_summary.csv"
     },
     "betting_probit/betting_yearly": {
-      "digest": "sha256:3b09fb4e56942edbac7b86038df704b8b6e9a7a9236190b6f705011be93a5e31",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit\\betting_yearly.csv"
+      "digest": "sha256:54c34e1a8a57c1e020d804898b65f5941ace614ccc6ce7c8294a3b24aabc1c09",
+      "path": "results/runs/probit/betting_probit/betting_yearly.csv"
     },
     "betting_probit/edge_buckets": {
-      "digest": "sha256:8c3cab0d49bebec3bf848b5a99710855dbd96796f4be3dbb9fa68e514b3f3182",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit\\edge_buckets.csv"
+      "digest": "sha256:6321794f8062e8b71240dbf370dcadf8fb05c77ac37bade273c323e61880c5dc",
+      "path": "results/runs/probit/betting_probit/edge_buckets.csv"
     },
     "betting_probit/probit_betting_run": {
-      "digest": "sha256:35f9ccdbc4e100e30775cec79e996cdc97d46a087401098e1121864643ffda40",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit\\probit_betting_run.json"
+      "digest": "sha256:8fab0693b8df98ba60a59b05c81bb2bc61ec90d6c81fa84e93fe8cc03fb7c4b2",
+      "path": "results/runs/probit/betting_probit/probit_betting_run.json"
     },
     "betting_probit/race_paths": {
-      "digest": "sha256:f4be883063d3f5eb72e58eb2e2797156c418d2bf220ca9b91d37b83d06d0ae0e",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\betting_probit\\race_paths.parquet"
+      "digest": "sha256:9c1e977c806ed84ac00ac4cf5dabd79d359ce668c3b204f49e84f3ec7f1a1f98",
+      "path": "results/runs/probit/betting_probit/race_paths.parquet"
+    },
+    "market_relationship": {
+      "digest": "sha256:94e5950dfc7076af0ef21e05bb81651516095ca5ea7b99e8167b50d4bde4bf2b",
+      "path": "results/runs/probit/market_relationship.json"
+    },
+    "probit_correction_identity": {
+      "digest": "sha256:34cc4a40e6bc3162a3df8ddfc143544c91b3919c8b96670d4329e0c5a146d440",
+      "path": "results/runs/probit/probit_correction_identity.json"
+    },
+    "probit_link_movement": {
+      "digest": "sha256:e18e2b611f86df8060e3bc2fd9989a77f618e4a095695d83652f0d8303859509",
+      "path": "results/runs/probit/probit_link_movement.parquet"
     },
     "probit_per_run": {
-      "digest": "sha256:8c051fdc87eb55cd4986e355a5d10b2aa0ff432b3d9cc4e9d47f208049061c49",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\probit_per_run.csv"
+      "digest": "sha256:eeab7491ebed461c83fdb6ca678759de57df694f7d4c61b99cc3c845db660565",
+      "path": "results/runs/probit/probit_per_run.csv"
+    },
+    "probit_reliability": {
+      "digest": "sha256:cbabc6c304ec9ed5fa23dd3ee63686c61ac0e7db06a2e50863e076878e87270b",
+      "path": "results/runs/probit/probit_reliability.parquet"
+    },
+    "probit_reliability_yearly": {
+      "digest": "sha256:41b3e0731a9b47d0d3aae5323726def31a81080e4189c04930b710d0ee609946",
+      "path": "results/runs/probit/probit_reliability_yearly.parquet"
     },
     "probit_sensitivity": {
-      "digest": "sha256:cb29085cd133b89924759c2183f3e4fa7a4a2d28b63ba74d0386a42673f09087",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\probit_sensitivity.parquet"
+      "digest": "sha256:e989a2c304db3e6b7ee830d34d97c89a4940a02c6a8f0e9591b603eead19a0d2",
+      "path": "results/runs/probit/probit_sensitivity.parquet"
     },
     "probit_state": {
-      "digest": "sha256:f9672620d97da45e47d056a1d77388ba5e88e6dc27021324b605256957e66b6a",
-      "path": "C:\\Users\\Jason\\Projects\\hkjc-mod\\results\\probit_models\\probit_state.json"
+      "digest": "sha256:28805615b35fd1dd1b3b181dfbbdaf004d508b3b451ce32014935351ce4df807",
+      "path": "results/runs/probit/probit_state.json"
+    },
+    "sims/model_assumed/summary": {
+      "digest": "sha256:e7025a6ada498d01f68022a85e08c52ad9d35332af77edf013ae77c596fa886a",
+      "path": "results/runs/probit/sims/model_assumed/summary.json"
+    },
+    "sims/model_assumed/trajectories": {
+      "digest": "sha256:16f3213e73aeec2823ef4a01f6a960545a232752a5c15e7bda9dd13d1b826f95",
+      "path": "results/runs/probit/sims/model_assumed/trajectories.parquet"
+    },
+    "simulation_policies": {
+      "digest": "sha256:11acde851cf9e5bf828b12974a6772b9ef0058dfae0987446a2cb0827744daf4",
+      "path": "results/runs/probit/simulation_policies.parquet"
+    },
+    "simulation_run": {
+      "digest": "sha256:f516b810b6d6fc375317abbcae35aaa18d283d2534cbce6383a5b13d762f3f5a",
+      "path": "results/runs/probit/simulation_run.json"
     }
   },
   "kind": "run_lock",
@@ -137,9 +200,9 @@
     "label": "Probit",
     "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
     "paired_diagnostic": {
-      "model_log_loss": 2.0301506293833165,
-      "model_minus_reference": -0.012559470067842048,
-      "reference_log_loss": 2.042710099451159,
+      "model_log_loss": 2.030823126882181,
+      "model_minus_reference": -0.012557172194649907,
+      "reference_log_loss": 2.043380299076831,
       "reference_model": "softmax",
       "what_is_held_fixed": "the mean utilities. Both links score the identical raw tree utilities, so the only difference is the shock distribution: independent Gumbel against iid normal. Scoring against the Offset model instead would change the mean learner and the link at once."
     },
@@ -147,9 +210,9 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": null,
+    "input_run_lock_digest": "sha256:6416b21d2e2640080148cef69da30071a6a272e2d3c0d2b4c63af538608c0f95",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "be5b226ddfa7b1498c27b7d43ea483fe909bca67",
+    "run_metadata_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
     "run_metadata_dirty": true
   },
   "run": "report:probit",

@@ -1,68 +1,46 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 3771066,
-      "digest": "sha256:27f29089744fd099f9f90f4e586f32d181308eb4196b38247e305f08ba84ab80",
+      "bytes": 6428370,
+      "digest": "sha256:5e93f2574e6de0c9f4d805af866e74de7e43248b832a2d7c1f54cec491202426",
       "format": "html",
       "path": "results/reports/softmax/report.html"
     },
-    "report_pdf": {
-      "bytes": 2196134,
-      "digest": "sha256:d677f9a2829e3d3e12de201ee7a82aabfae26a9019598f36f10eaa8ee3453fb4",
-      "format": "pdf",
-      "path": "results/reports/softmax/report.pdf"
-    },
     "report_summary": {
-      "bytes": 4304948,
-      "digest": "sha256:dbc80a058394871be891396fb23be20ec5510120bf598268a3941999f08a456a",
+      "bytes": 232544,
+      "digest": "sha256:1517257897ea21eac1f709248db4a1c5b1d8c78fb9aebbe1e30da8f4a3dabf63",
       "format": "json",
       "path": "results/reports/softmax/summary.json"
     },
     "run_lock": {
-      "bytes": 6675,
-      "digest": "sha256:f2356433d0a5ea93b9168d3c8f81b4ad9f11eec0edfff909b1fba36c99b09cd2",
+      "bytes": 6888,
+      "digest": "sha256:06e21b112b418b9d580539b415c5fa8d439ad70b5fc22fe99c8ed525c7b8ea6e",
       "format": "json",
       "path": "results/reports/softmax/run_lock.json"
     }
   },
-  "created_utc": "2026-08-26T19:27:05+00:00",
+  "created_utc": "2026-09-01T06:28:00+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:159aac9a28a89fa75b16abf75d2503600c9117b472687e99e4af590f0167dfab",
+  "lock_digest": "sha256:5ba2ef305f34888ee2110811f8e5ce2b7586e2aeef2c3c286008f5958618dd32",
   "report": {
-    "config_digest": "sha256:73bf1d82bb8d73784ab90d0e081755cfe5c3d44b17687f1be29ff951c27591ad",
+    "config_digest": "sha256:25038878a576474fcdede70d9c4303798c0168aa56905263cba3a500877689f7",
+    "evidence_not_applicable": [],
+    "evidence_not_built": [],
     "label": "Softmax",
     "mode": "canonical",
     "model": "softmax",
-    "pdf_pages": 20,
-    "pdf_quality_gate": "passed",
-    "pdf_quality_problems": [],
     "sections": [
-      "identity",
-      "summary",
-      "population",
-      "overall",
-      "yearly",
+      "overview",
+      "performance",
       "calibration",
-      "topchoice",
-      "ensemble",
-      "effects",
-      "betting",
-      "uncertainty",
-      "appendix",
+      "diagnostics",
+      "settlement",
+      "simulation",
       "limitations"
     ],
-    "sections_not_applicable": [],
-    "sections_not_built": [],
-    "source_commit": "eb0e98021dda5bf6a51227aeab017154e346392e",
+    "source_commit": "4ebd6e3384cec52ef01f3ac134e0e92a1d113f94",
     "source_dirty": true,
-    "visual_review": {
-      "images_rasterised": 20,
-      "note": "Reviewed all 20 rasterised pages. Title and identity card read standard rather than experimental, with 5 ensemble members and seeds 7/17/42/123/256. All thirteen sections render with content: the effects section states its utility-attribution basis and its column reads mean abs attributed effect, with Implied_Prob dominating at 0.83 and market_rank second; the response-direction grid shows Implied_Prob one solid colour across all twelve years; the group ablation shows all seven groups with bootstrap intervals; the betting section carries the non-production caveat, the ruin caveat naming flat_stake, and thirteen negative-ROI rows; the Kelly curves carry the bounded-subsequence note. No literal markdown and no absent chart title or axis label.",
-      "pages": 20,
-      "recorded_utc": "2026-08-26T19:29:41+00:00",
-      "verdict": "passed"
-    },
-    "visual_review_images": 20
+    "unverified_preview": false
   },
   "root": "results/reports/softmax",
   "run": "report:softmax",
