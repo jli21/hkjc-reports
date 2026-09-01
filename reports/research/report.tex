@@ -224,6 +224,40 @@ already uses, not in adding what it lacks. That is a coherent explanation for th
 reference project's own history: roughly four hundred candidate columns built,
 audited, and none promoted.
 
+\subsection*{The finding that outlasts every candidate}
+
+Three candidates were taken from the development profile to canonical scale
+(\S\ref{sec:detail}). All three had been favourable; none survived.
+
+\begin{center}\small
+\begin{tabular}{lrrr}
+\toprule
+Candidate & Development $\Delta$ & Canonical $\Delta$ & Retained\\
+\midrule
+group-shrunk ability, prior class & $-0.00197$ ($t=-3.80$, 5/5 yr) & $-0.00085$ ($t=-0.90$) & 43\%\\
+finishing band, recency-weighted & $-0.00111$ & $-0.00016$ & 15\%\\
+finishing band, field-relative rank & $-0.00122$ & $+0.00028$ & \bad{$-23$\%}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Mean retention about \bad{12\%}, and the strongest development result --- $t=-3.80$
+with every single year improving --- retained the most while still losing
+significance. Two mechanisms point the same way: at 400 rounds the booster extracts
+from the existing 28 columns what the feature supplied at 150, and fifteen
+development cells at this effect size admit a $t$ of $-1.3$ from sampling alone.
+
+\textbf{At this effect size the development profile has close to no predictive value
+for the canonical outcome.} That matters because the development profile is exactly
+the gate the reference project uses to decide which candidates earn a canonical run.
+Its workflow is not wrong --- it requires canonical confirmation before promotion ---
+but the screening stage should be understood as a filter on gross defects and schema
+correctness, not as evidence about a candidate's value.
+
+The concrete implication: stop generating candidates and screening them cheaply. The
+only measurement that carries information here is the expensive one, so the right
+strategy is far fewer candidates, each taken straight to canonical scale.
+
 \subsection*{Where this leaves the three original recommendations}
 
 All three were tested at the production level in \S\ref{sec:groups}, and two are
@@ -1577,6 +1611,161 @@ year by year.}
 
 \newpage
 %======================================================================
+\section{The three recommendations, in detail}\label{sec:detail}
+%======================================================================
+
+Each of \S\ref{sec:groups}'s three strong-evidence recommendations was taken apart.
+All three are demoted, two of them by evidence against my own earlier claims, and
+the exercise produced one general result worth more than the three combined.
+
+\subsection{Recommendation 1: a hand-picked constant, not a grouping effect}
+
+\S\ref{sec:groups} endorsed group shrinkage on a forward-correlation gain of
+$+0.0305$, using $w=n/(n+6)$ with the 6 chosen by hand and an \emph{unshrunk} group
+mean. Removing both shortcuts required fixing two errors in this project's own code:
+the variance-component estimator collapsed each horse's date-atomically varying
+group with \texttt{.first()}, which assigned nearly every horse to the
+``unknown'' bucket and drove the estimated between-group variance to exactly zero
+for every behavioural grouping; and the three-level predictor fell through to the
+\emph{raw} group mean when that variance was zero, silently turning ``no group
+signal'' into ``trust the group completely''.
+
+With both fixed, the shrinkage constant can be estimated ($\sigma^2/\tau^2$) and
+swept.
+
+\begin{table}[htbp]\centering\small
+\caption{Forward correlation against the shrinkage constant. The curve is monotone
+and the optimum is at the boundary --- essentially, do not shrink.}
+\begin{tabular}{rrr}
+\toprule
+$k$ & Population anchor & Group anchor\\
+\midrule
+0.1 & 0.3081 & \good{0.3189}\\
+0.5 & 0.3025 & 0.3160\\
+2 & 0.2832 & 0.3033\\
+\textbf{6} \emph{(\S\ref{sec:groups}'s guess)} & \bad{0.2549} & \bad{0.2854}\\
+16 & 0.2268 & 0.2703\\
+64 & 0.1964 & 0.2556\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The decomposition.} Of the $+0.0305$ attributed to grouping,
+\bad{$+0.0532$ was simply a badly chosen shrinkage constant} and only
+\good{$+0.0108$} is the group. Fixing the constant is worth \emph{more} than the
+entire claimed grouping effect, so \S\ref{sec:groups}'s headline was substantially
+an artifact of comparing two over-shrunk estimators. The plain \textbf{unshrunk}
+horse mean scores 0.3093, beating every properly-estimated three-level
+specification. Shrinkage minimises squared error rather than maximising
+correlation, and shrinking toward zero destroys exactly the cross-depth
+comparability that \S\ref{sec:groups} identified as the group's value.
+
+\textbf{And the recommendation's central claim is refuted.} It said group shrinkage
+should be the default for the reference project's existing state engines. Tested on
+their four published states, it degrades all four:
+
+\begin{table}[htbp]\centering\small
+\caption{Group-shrinking the reference project's own published state columns.}
+\begin{tabular}{lrrr}
+\toprule
+Reference state & As published & Style-group gain & Class-group gain\\
+\midrule
+\texttt{handicap\_residual\_mean} & \good{$+0.3763$} & $-0.0297$ & $-0.0409$\\
+\texttt{rank\_ability} & $+0.3150$ & $-0.0278$ & $-0.0604$\\
+\texttt{margin\_rank\_mean} & $+0.2892$ & $-0.0264$ & $-0.0570$\\
+\texttt{dynamic\_speed\_mean} & $+0.2449$ & $-0.0036$ & $-0.0632$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Worth noting separately: their \texttt{handicap\_residual\_mean} is a
+\textbf{better forward predictor of relative performance than anything built in this
+project} (0.3763 against a best of 0.3093), and it is not a production input.
+
+The transferable lesson is broader than the feature: \textbf{a hand-chosen
+shrinkage constant can dominate the effect being studied}, and any comparison of
+shrinkage \emph{targets} must sweep the constant first.
+
+\figref{f22_shrinkage_detail}{The constant curve with both anchors, the full
+specification ladder, and where proper shrinkage helps by history depth.}
+
+\subsection{Recommendation 2: a better variance that makes probabilities worse}
+
+Group volatility forecasts the spread better than the horse's own history --- and
+better than \S\ref{sec:groups} measured, on 45{,}316 identical rows: group k-means
+$+0.1284$, group style $+0.1236$, own history $+0.1190$. The factual claim stands.
+
+Its use does not. Inside the generative model, every heteroskedastic construction
+loses, and calibration deteriorates monotonically with the dispersion introduced:
+
+\begin{table}[htbp]\centering\small
+\caption{Sigma constructions inside the identical quadrature machinery, one utility
+scale fitted forward per variant.}
+\begin{tabular}{lrrr}
+\toprule
+Sigma construction & Race log loss & vs observables & Calibration RMSE\\
+\midrule
+\textbf{flat (one sigma for everyone)} & \good{2.39671} & $+0.00994$ & \good{0.00402}\\
+observables only & 2.40665 & 0 & 0.00532\\
+$+$ individual volatility & 2.41790 & $-0.01125$ & 0.01028\\
+$+$ blended own and group & 2.42192 & $-0.01527$ & 0.00932\\
+$+$ group volatility (style) & \bad{2.42847} & \bad{$-0.02181$} & 0.00974\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The mechanism, tested rather than assumed.} In an argmax model a larger
+$\sigma$ raises a runner's win probability, so is that direction right? Splitting on
+volatility within strata of the model's own mean rank, high-volatility horses win
+\emph{more}: $+0.0422$ at mean rank 1 ($z=4.18$), $+0.0265$ at ranks 2--3
+($z=4.24$). The direction is correct.
+
+But the market's implied probability for that high-volatility group is 0.1828
+against 0.1570 for the low-volatility one: \textbf{the volatile horses are simply
+better horses}, and the volatility estimate is entangled with quality a
+linear-plus-BLUP mean model has not removed. Adding $\sigma$ dispersion therefore
+imports mean-model error into the variance channel --- which is why a variance
+estimate that genuinely forecasts spread better still makes the probabilities worse.
+
+One lead survives with its caveat attached: within the top mean-rank stratum,
+high-volatility horses beat the market by $+0.0113$ while low-volatility ones trail
+by $-0.0051$, a 1.6 percentage-point gap. It is conditioned on \emph{this project's}
+weak mean rank, so it is suggestive only, and would need the production booster's own
+utilities as the conditioner to mean anything.
+
+\figref{f23_group_volatility_detail}{Variant losses, the forecasting skill that does
+improve, and the within-race sigma dispersion a choice model actually sees.}
+
+\subsection{Recommendation 3: the best encoding, and it reverses}
+
+Twelve encodings of the finishing band were compared before spending its canonical
+run. Expressing it as a \textbf{field-relative rank} is the best
+($-0.001223$, $t=-1.26$, four of five years), modestly better than the residual
+mean; and the design \S\ref{sec:detail} above implies --- giving the tree the raw
+mean and the count separately so it can learn its own shrinkage --- is
+\emph{worse} than either ($-0.000633$), so the tree does not exploit the count the
+way the shrinkage analysis suggested.
+
+\begin{table}[htbp]\centering\small
+\caption{Canonical confirmation of the best two encodings: 8 years, 5 seeds, 400
+rounds.}
+\begin{tabular}{lrrr}
+\toprule
+Block & Development & Canonical & Retained\\
+\midrule
+field-relative rank & $-0.001223$ ($t=-1.26$) & \bad{$+0.000283$} ($t=+0.27$) & \bad{$-23$\%}\\
+recency 60d $+$ career & $-0.001106$ ($t=-1.08$) & $-0.000161$ ($t=-0.14$) & 15\%\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Neither survives, and the best development encoding \emph{reverses sign}.
+
+\figref{f24_sectional_canonical}{The twelve encodings on the development profile,
+and the canonical per-year confirmation of the best two.}
+
+\newpage
+%======================================================================
 \section{Answers to the fourteen questions}
 %======================================================================
 
@@ -1677,39 +1866,47 @@ is flagged wherever it appears rather than folded into a candidate feature.
 
 \subsection*{Strong evidence --- pursue}
 
+\textbf{Nothing sits here any longer.} All three items that occupied this heading
+were taken apart in \S\ref{sec:detail}: one was largely an arithmetic artifact of a
+hand-picked constant, one produces worse probabilities despite being a better
+variance estimate, and one reverses sign at canonical scale. Leaving the heading
+empty is the finding.
+
+What replaces them is a single recommendation about \emph{method} rather than about
+any feature:
+
 \begin{enumerate}\itemsep3pt
-\item \textbf{Change the shrinkage target from the population to a group,
-everywhere a per-horse history is summarised.} This is the one structural change
-the study endorses without qualification, because it costs nothing: the same
-per-horse mean, pulled toward its group instead of toward zero, improves forward
-correlation by 12\% relative (0.255 to 0.285). It is a one-line change to any
-shrinkage estimator. Its production value did not survive canonical confirmation as
-a \emph{feature} ($-0.00085$, $t=-0.90$), but as a \emph{method} it should be the
-default for the reference project's existing state engines, whose
-\texttt{*\_reliability} fields and shrunk means all pull toward a global mean today.
-
-\item \textbf{Use group-level volatility rather than per-horse volatility.} The
-style group's volatility forecasts a horse's next deviation better than the horse's
-own history does ($+0.112$ against $+0.101$), on 70{,}507 rows. This is the first
-volatility construction in the project that beats the individual, and it is the
-right form for any future use --- including in staking, where a variance estimate
-matters more than in the probability.
-
-\item \textbf{Take the sectional finishing band to canonical confirmation.}
-$-0.00087$ on the development profile is 20\% of the production edge with the right
-sign in three of five years, and it is now the best-measured candidate whose
-canonical run has not been spent. Given what canonical confirmation did to the
-prior-class block, the prior should be that roughly half the effect survives.
+\item \textbf{Stop screening candidates on the development profile, and run far
+fewer candidates at canonical scale instead.} Three candidates were carried from
+development to canonical here; mean retention was 12\% and the sign flipped once. At
+an effect size of $-0.0045$ the cheap measurement carries close to no information
+about the expensive one. The reference project's promotion workflow already requires
+canonical confirmation, so this is not a correction to it --- it is a statement that
+the screening stage should be treated as a check on schemas and gross defects, not
+as evidence. The practical consequence is to spend the same compute on three
+canonical runs rather than thirty development ones.
 \end{enumerate}
 
 \subsection*{Moderate evidence --- worth one more experiment}
 
-\begin{enumerate}\setcounter{enumi}{3}\itemsep3pt
-\item \textbf{The horse's historical class level, in some form.} It produced the
-only development-gate pass in the study ($t=-3.80$, 5/5 years) and lost half its
-effect at canonical scale. The production set has today's class and the step
-between runs, but not the level a horse has been campaigning at, and that gap is
-real even if this particular encoding of it is not yet promotable.
+\begin{enumerate}\setcounter{enumi}{1}\itemsep3pt
+\item \textbf{The horse's historical class level, in some form.} It produced the only
+development-gate pass in the study ($t=-3.80$, 5/5 years) and retained the most of
+any candidate at canonical scale (43\%, $-0.00085$, six of eight years). The
+production set has today's class and the step between runs but not the level a horse
+has been campaigning at, and that gap is real even if this encoding of it is not yet
+promotable. It is the one candidate worth a second canonical run with a better
+encoding.
+
+\item \textbf{The reference project's own \texttt{handicap\_residual\_mean}.} At
+$0.3763$ it is a better forward predictor of relative performance than anything
+constructed in this project, and it is \emph{not} a production input. Nothing here
+explains why it was not promoted; finding out is cheaper than building anything new.
+
+\item \textbf{Group-level volatility, for staking rather than for probability.} It
+is the best variance forecast in the study ($+0.128$ against the horse's own
+$+0.119$) and it damages the probabilities. A variance estimate has a natural use in
+bet sizing, which is out of scope here and is where this belongs if anywhere.
 \item \textbf{Projected pace $\times$ running style.} The interaction is real and
 correctly signed at $|z|\approx8$, the pace is forecastable at $r=0.41$, and
 37.8\% of the market's conditional mispricing survives projection. It did not help

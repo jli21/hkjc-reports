@@ -1,8 +1,8 @@
 # HKJC model reports
 
-Published evidence for four winner-probability models on Hong Kong racing. Generated from
-[jli21/hkjc-mod](https://github.com/jli21/hkjc-mod) by `python -m hkjc build-report`; nothing here
-is written by hand.
+Published evidence for four winner-probability models on Hong Kong racing, generated from
+[jli21/hkjc-mod](https://github.com/jli21/hkjc-mod) by `python -m hkjc build-report`, plus four
+exploratory research studies that inform them. Nothing in the model reports is written by hand.
 
 **Open [`index.html`](index.html)**, or go straight to a report:
 
@@ -19,8 +19,30 @@ render them in the file view, so download the file or use a raw-HTML viewer.
 These four are the models `hkjc-mod` currently publishes. `reports/bagged_offset/` and
 `reports/probit_offset_pace/` are kept as archived evidence from the 2026-08-25 generation under
 the earlier naming; they are not regenerated and their figures describe a different race
-population from the four above. `reports/research/` is a separate written report, not a generated
-one.
+population from the four above.
+
+## Research studies
+
+Four exploratory studies of the distribution of horse performance in Class 1-5 racing, 2008-2026,
+from [RamenBurger/hkjc-research](https://github.com/RamenBurger/hkjc-research). They are written
+documents rather than generated reports, they treat the production model as read-only, and they
+compute no return anywhere: no dividends are loaded, deliberately, because at these effect sizes
+ROI ranks noise.
+
+| Study | Report | Subject |
+|---|---|---|
+| I. Static latent performance | [PDF, 45pp](reports/research/report.pdf) | latent horse and jockey ability, environmental sensitivity, the residual distribution, volatility, race-level shocks, groups of horses |
+| II. Dynamic latent state and regimes | [PDF, 18pp](reports/research/dynamic-state.pdf) | ability as a dynamic state, run informativeness, per-run observation noise, opponent adjustment, transition regimes, dynamic analog peers, 200 m sub-splits |
+| III. Deep feature research | [PDF, 29pp](reports/research/feature-research.pdf) | handicap/class/rating state, sectional and 200 m physical state, field-level pace and race shape, run-specific information quality, and two adversarial checks on the programme's own instruments |
+| IV. Regime explorer | [PDF, 22pp](reports/research/regime-explorer.pdf) | latent switching regimes, a multidimensional sectional state, jockey interactions, metric-learned peer pools, per-run predictive information, and the residual mixture as a measurement model |
+
+Study IV closes the six sections of Study II's brief that Study II did not execute, and
+**supersedes `dynamic-state.pdf` as the answer to that brief**; Study II is kept as its own
+artifact rather than as the current answer. Read them in that order if reading all four.
+
+Only Study I's LaTeX source is published here, beside its PDF, because it was already. The sources
+for the other three, every stage that produced their numbers, and the research log recording several
+results that were corrected after their mechanisms were traced, are all in `hkjc-research`.
 
 ## Nothing here establishes profitability
 
@@ -70,8 +92,8 @@ hidden.
 
 `run_lock.json` is what ties a figure back to the run that produced it: the run inputs are not
 published here, but their digests are, so a claim about which bytes a number came from is
-checkable. It also records whether the source tree was clean when the report was written; for these
-four it was.
+checkable. It also records whether the source tree was clean when the report was written; for all
+four model reports it was.
 
 ## How these were checked
 
@@ -83,7 +105,9 @@ four it was.
 * 2,075 tests pass, and each report was rendered under canonical strictness, which refuses to
   publish a report whose declared evidence is missing.
 
-No PDFs are published for these four. The earlier generation shipped them with an automated
+No PDFs are published for the four model reports. The earlier generation shipped them with an
+automated
 dimension-and-heading gate and a recorded visual review; the current pipeline does not produce
 them, and shipping the 2026-08-25 files beside 2026-09-01 HTML would have paired each report with a
-PDF describing a different race population.
+PDF describing a different race population. The research studies under `reports/research/` are PDFs
+by nature and are unaffected.
