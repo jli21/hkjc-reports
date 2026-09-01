@@ -1,0 +1,990 @@
+---
+title: Research findings
+kind: findings
+status: living-document
+moved: 2026-08-25
+moved_from: FINDINGS.md
+moved_by: docs/plans/archive/2026-08-24-repository-cleanup.md
+---
+
+# HKJC model -- research findings
+
+A record of what was tried and what it showed, in the order it happened. Moved here from
+`FINDINGS.md` at the repository root by Phase 10 of the 2026-08-24 cleanup.
+
+## How to read this
+
+This is a log, not a specification, and parts of it are older than the model. Where a section's
+numbers have been superseded, a note at the head of the section says so and names what replaced
+it -- the notes were added during the cleanup rather than the sections being rewritten, because
+a research log whose history is edited to match the present is no longer evidence of anything.
+
+The current published numbers are in the four model reports under `results/reports/`. Where this
+document and a report disagree, the report is right: it is generated from declared artifacts and
+its inputs are locked by digest.
+
+Three sections below are explicitly stale and marked:
+
+* **TL;DR -- current best config** describes a 25-feature, Kelly 0.02/0.03 configuration whose
+  cumulative returns (+332% at Kelly 0.02) come from a settlement that predates the current
+  filters. Production is 28 declared inputs of which 27 are learned, Kelly 0.01, and the
+  published bagged_offset report settles 339 bets over twelve years for a return near zero.
+* **Feature set (final)** lists 25 columns and names two that are no longer inputs. The
+  authority is `configs/features/production.json`.
+* **Reproducibility** names `python -m hkjc.suites.production`, which does not exist. The
+  supported commands are in `docs/pipeline.md`.
+
+What has *not* gone stale, and is still the most useful part of this document, is the negative
+and methodological findings: what was tried and did not work, and why a measurement that looked
+convincing was not. Those are in **What we tried -- chronologically** and **Methodology
+lessons**, and they are the reason several later designs were not attempted twice.
+
+
+## 2026-08 Phase 6: the normal choice link beats the Gumbel one, on both scoreboards
+
+Replacing independent Gumbel choice shocks (softmax) with normal latent-performance
+shocks (probit) improves held-out race log loss in both of the plan's paired
+comparisons. Both are isolated *link* comparisons: the mean learner is held fixed and
+the same raw utility rows feed both links, so the only thing that differs is the shock
+distribution.
+
+| Comparison | Delta | Honest years better | 80% day-block interval | After nested calibration |
+|---|---:|---:|---|---:|
+| `probit` vs `softmax` (standalone) | **-0.012557** | 11 of 11 | [-0.01403, -0.01007] | -0.007069 |
+| `probit_offset` vs `offset` (market-relative) | **-0.000943** | 11 of 11 | [-0.00124, -0.00044] | -0.000493 |
+
+Negative is better. Both intervals exclude zero favourably, every one of the five seeds
+is negative in both comparisons, and no year degrades. For scale, the Offset model's
+entire edge over the market is -0.004647.
+
+**The shape of the answer.** The link buys an order of magnitude more where the model
+must construct the whole ordering itself than where the market has already done most of
+the work. That is coherent rather than surprising: a market price already encodes much
+of the substitution structure between runners, so swapping the link on top of it adds
+less. Standalone probit closes about 86% of the gap between standalone softmax (2.0434)
+and the market (2.0288), reaching 2.0308 -- better than softmax, still short of the
+market.
+
+**The utility scale is the whole game, and theory gets it wrong.** It is the single free
+parameter of the iid link. Matching a logit's difference variance (pi^2/3) to a probit's
+(2) suggests `sqrt(2/(pi^2/3)) = 0.78`; the walk-forward fit on real margins says about
+2.1 for the offset side and 1.43 for the standalone side. At 0.78 the offset candidate
+*loses* by +0.016, at 1.0 by +0.005, at 2.0 it wins, and by 40 it has converged back
+toward the market. A run that took the theoretical value on faith would have reported
+the wrong sign. The fitted values are stable across years (offset 1.99-2.23, standalone
+1.39-1.45) despite being refitted each year on that year's history alone, so they are
+not tracking noise.
+
+**The plan's specified integrator could not have found this.** QMC winner-counting over
+`m` draws can only land on a multiple of `1/m`, so at the plan's canonical 2,048 draws
+nothing below 4.9e-4 is resolvable -- and HKJC longshots sit at 1e-3 to 1e-4, which is
+exactly the range race log loss is dominated by. Measured on the canonical 2024 seed-7
+slice, the QMC loss was still drifting with budget (2.333 at 512 draws, 2.196 at 2,048,
+2.151 at 32,768) and its 4-replicate standard error at 32,768 was 0.0032 -- 3.4x larger
+than the -0.000943 effect. Promotion gate 6 demands the improvement exceed integration
+error by 10x; QMC fails it by a factor of three at any affordable budget, because the
+error falls only as `m^-0.5` for a discontinuous `argmax` integrand.
+
+For iid normal shocks the winner probability collapses to a one-dimensional integral
+over the winner's own shock:
+
+```text
+P(i wins) = E_z[ prod_{j != i} Phi(m_i - m_j + z) ]
+```
+
+so Gauss-Hermite quadrature gives it outright. It matches the analytic binary result to
+1.1e-16, resolves a probability of 1.1e-9, and runs 30x faster than QMC at 32,768 draws.
+Gate 6 then passes by seven orders of magnitude. With shared factors the runners are
+conditionally independent given the factor draw, so the integral nests and the structured
+variants are exact too. QMC is retained as an independent cross-check -- it shares no code
+with the quadrature path beyond the batch, and the two agree to 1.8e-4 on real utilities,
+consistent with QMC's own reported error.
+
+**The market anchor is not optional.** Direct probit does not reproduce the market from
+the market's own utilities: on real margins `C_probit(log q, Sigma)` differs from `q` by
+up to 0.20, where `softmax(log q)` is `q` exactly. The unanchored diagnostic therefore
+scores 2.0424 against the incumbent's 2.0254 -- losing by four times the model's whole
+edge, entirely from a baseline shift that would have been attributed to the link. The
+anchored form `normalize(q * p1 / p0)` returns `q` to 1.1e-16 at zero correction.
+
+### Limitations
+
+- Both results are **link-only**. The mean learner is the existing softmax or Offset
+  fit; no native joint probit likelihood was trained, and metadata records
+  `mean_training=softmax_surrogate` for that reason.
+- The utility scale is fitted on earlier *test* years, which are themselves development
+  data under the standing limitation below. This is not a locked prospective result.
+- The first year has no history and falls back to the theoretical scale; it is labelled
+  `insufficient_history` and excluded from the headline. Including it, the offset delta
+  is +0.001017 -- which is how much the theoretical scale costs.
+- **Structured covariance does not help.** A one-factor pace variant loading on
+  standardised `early_style_ewm`, with its scale chosen from a predeclared grid on
+  earlier years, comes out *worse* than iid: -0.000785 against -0.000943 raw and
+  -0.000341 against -0.000493 calibrated. It degrades one year past the +0.001
+  tolerance where iid degrades none, and its interval is wider. The grid selected "no
+  factor" in 7 of 11 years, and the entire grid from scale 0.00 to 0.80 spans about
+  2e-5 of log loss -- so the factor scale is essentially unidentified by this data.
+  The improvement is attributable to the normal idiosyncratic distribution, not to
+  correlated pace shocks. A two-factor variant is implemented and tested but not run
+  canonically: at ~21 minutes per run there is no reason to spend it when the
+  one-factor grid is this flat.
+- Promotion gates 7 (an interaction diagnostic), 9 (clean-commit reproduction) and 10
+  (prospective confirmation) are not yet satisfied. Production remains the five-seed
+  Offset ensemble.
+
+---
+
+## 2026-08 Landing-layer duplicates in 2026, absorbed by an unasserted safety net
+
+Found while validating primary keys in the Phase 4 scraping work. **The model
+numbers are not affected** — but the reason they are not is worth knowing.
+
+`data/historical-data/aspx-results/aspx-results-2026.csv` holds 4,184 rows for 213
+races — 19.64 runners per race, where a Hong Kong race fields about 12–14. 1,513 of
+those rows are **byte-identical duplicates**: all 21 columns match a twin. The cause
+is a re-scrape that rewrote the year's file instead of merging into it.
+
+They do not reach the feature table. `features/build.py:1777` does
+`df[~df.index.duplicated(keep='first')]` immediately after
+`set_index(['race_id', 'Horse No.'])`. Verified rather than assumed:
+`race_features_extended.parquet` has **zero** duplicate `(race_id, Horse No.)` keys
+in any year, 2026 shows 2,527 rows over 201 races = 12.57 runners/race, and each of
+the 1,437 duplicated landing keys that survive filtering appears exactly once. So
+`mean_delta_vs_market = -0.003685` is computed on clean data and **no rebaseline is
+required.**
+
+The residual issue is the safety net itself:
+
+- It announces the problem only as a `print` — the Phase 4 T2 build log contains
+  `Dropped 1501 duplicate (race_id, Horse No.) entries.` on line 46 of
+  `prep-data.log`, inside a 19-minute build. The pipeline has been reporting this
+  for as long as the defect has existed and nobody read it.
+- It is `keep='first'`, so which copy survives is positional. Harmless while the
+  copies are byte-identical; silent and arbitrary if they ever diverge.
+- Nothing asserts it. Compare `formline_shared_races` at `build.py:483`, which
+  raises an explicit `AssertionError` if the dedup it depends on ever moves — the
+  codebase already knows this pattern, it just is not applied here.
+
+Phase 5 step 5.0 (swallowed exceptions → recorded diagnostics) is the right home
+for promoting that count into a real diagnostic. Phase 4 removed the *cause*:
+`hkjc.collection.orchestrate` merges a re-scrape into the existing year by
+`primary_key` with `keep="last"`, and `audit_keys` reports the existing duplicates
+in `data/historical-data/SCRAPE_COVERAGE.md`.
+
+## 2026-08 Rebate-Aware Kelly
+
+The Kelly objective now includes the HKJC loss rebate, so bet sizing and
+settlement optimise the same growth function. Previously the optimiser was
+rebate-blind and the rebate was added afterwards as a bankroll credit, meaning
+"with rebate" described a strategy nobody would run: rebate-blind stakes plus a
+rebate cheque.
+
+### Confirmed rebate terms
+
+The rebate pays once the loss reaches HK$10,000: 10% on Win/Place, 12% on
+Quinella/Quinella Place. This model bets WIN only, so 10% is the live rate.
+Two corrections followed:
+
+- The gate is a **cliff**, not an excess. At a $10,000 loss the rebate is 10% of
+  the whole loss, a discontinuous $0 → $1,000 jump. `betting.py` was right and
+  the `.tex` write-up (`0.1 × max(0, loss − 10k)`) was wrong.
+- The base is the **race loss**, not losing turnover. The old
+  `(stakes × (1 − won)).sum()` paid a rebate even on net-*winning* races.
+  Corrected to `max(0, staked − returned)`; the legacy behaviour survives as
+  `basis='losing_stake'` purely to reproduce published figures.
+
+### Why this is a bankroll question, not a rate question
+
+Model probabilities are normalised to sum to 1 while `b = Win Odds − 1` stays
+un-devigged, and mean race overround is `1.2280`. A model that reproduces the
+devigged market therefore scores `edge = 1/1.228 − 1 = −18.6%` on every runner,
+and clearing `edge > 0` needs a lift ratio above `1.228` against a realised
+Offset lift of only p99 `= 1.128`. That is why the model placed 15 bets in
+107,038 runner-rows.
+
+A thresholded rebate does **not** shift the marginal break-even: at `f → 0` the
+loss is infinitesimal and never clears the gate, so `dG/df|₀` is unchanged. The
+rebate is a *non-local* incentive to stake enough to clear the gate, which makes
+the objective non-concave and requires a multi-start solve; a single solve from
+`f = 0` finds nothing. Because the gate is a fixed dollar amount while Kelly
+stakes scale with the bankroll, reachability is governed by `t = 10,000 / B`.
+
+### Result (bagged Offset, 2015-2026, retrospective final odds)
+
+| Pool | `t` | Kelly | Bets | Races | Turnover | Rebate | ROI on turnover |
+|---|---|---|---|---|---|---|---|
+| baseline (blind) | — | 0.01 | 13 | 13 | 4,470 | 0 | +0.93% |
+| HK$10M | 1e-3 | 0.05 | 178 | 178 | 1.90M | 143,879 | +1.75% |
+| HK$100M | 1e-4 | 0.01 | 405 | 404 | 5.29M | 411,108 | −1.10% |
+| HK$1B | 1e-5 | 0.01 | 1,054 | 1,049 | 61.3M | 4,837,215 | −2.04% |
+| HK$1B | 1e-5 | 0.10 | 1,225 | 1,219 | 617.4M | 48,714,886 | −2.01% |
+
+Activity rose from 13-15 bets to ~1,200, an ~80x increase, and the share of
+solves won by a gate-clearing seed tracks pool size exactly as the mechanism
+predicts: 34% at $10M, 69% at $100M, 92% at $1B. `rebate_model_error` falls to
+exactly 0 at $1B, confirming sizing and settlement agree once the gate is
+comfortably cleared.
+
+**The extra bets are not profitable.** At scale, ROI on turnover settles at
+about −2%. The rebate recovers roughly 10 of the ~18.6 percentage points of
+takeout, which converts a heavily losing book into a mildly losing one — it does
+not manufacture an edge. The few positive cells ($10M at Kelly 0.02 and 0.05)
+rest on 30 and 178 bets and should not be read as signal; note also that ROI is
+not monotone in the edge threshold, consistent with the weak residual ordering
+recorded below.
+
+Sizing deliberately over-bets to clear the gate, which is +EV on the rebate
+alone and −EV on the underlying wager. That is a faithful consequence of the
+real terms, not a modelling artefact.
+
+These use retrospective final odds for sizing and official WIN dividends for
+settlement. They are diagnostics, not executable returns.
+
+### Reproducing
+
+```bash
+# published behaviour, bit-identical
+python -m hkjc.suites.return_suite --reuse-predictions --rebate-basis losing_stake
+
+# rebate-aware sizing
+python -m hkjc.suites.return_suite --reuse-predictions --rebate-aware-sizing \
+    --rebate-basis net_loss --rebate-threshold-mode cliff --initial-bankroll 1000000000
+```
+
+`rebate_aware_sizing` defaults to off, so every prior figure reproduces. A
+golden-value regression in `tests/test_rebate_policy.py` pins that exactly.
+
+## 2026-08 Point-In-Time Feature Iteration
+
+This section supersedes the old production recommendation below. The older
+notes remain as research history but their ROI claims are not comparable after
+race, settlement, and Kelly corrections.
+
+### Dynamic horse-memory research
+
+A new date-atomic state engine now replays all runners by complete race date.
+It emits every pre-race snapshot before applying any outcome from that date and
+maintains these separately ablatable states:
+
+- Bayesian opponent-adjusted rank ability with broad surface/distance/venue
+  aptitude, posterior covariance, mean reversion, and short performance
+  innovation.
+- A market-independent dynamic speed mean, short speed innovation, and
+  uncertainty based on strictly prior context-standardized finish speed.
+- Explicit historical market-mispricing memory, kept separate from the core
+  ability state.
+- Reliability-weighted early-sectional strength, including exact-field
+  relative values.
+
+The first direct-tree screens showed why engineered memory cannot simply be
+added as a large feature family. Rank state improved winner residual AUC but
+worsened log loss; compact dynamic speed improved only 15/27 year-seed runs;
+and unrestricted combinations overfit 2025.
+
+`src/hkjc/suites/memory_residual_suite.py` therefore fits small bounded utility tilts
+against the incumbent model's chronological OOF probabilities. Across
+2018-2026 and seeds `[7, 17, 42]`, the single reliability-weighted early
+sectional tilt produced:
+
+- Mean candidate-minus-incumbent race log loss: `-0.000211`.
+- Better log loss in 23/27 year-seed runs.
+- Improvements in eight of nine yearly seed averages; 2020 regressed by
+  `+0.000997`, while 2025 was effectively neutral at `-0.000012`.
+- Stable standardized coefficients from `0.016` to `0.025`, far inside the
+  configured `[-0.35, 0.35]` bound.
+
+Adding short dynamic speed improved the mean delta to `-0.000249` but only
+18/27 runs, so the single sectional correction is the more stable research
+candidate. Neither layer is promoted to production yet. All years are reused
+development data, and the residual-ordering metrics did not improve alongside
+log loss.
+
+Artifacts:
+
+- `results/contextual_feature_suite/memory_residual_validation/`
+- `results/contextual_feature_suite/memory_residual_pair_validation/`
+- `results/contextual_feature_suite/horse_memory_validation_2018_2022/`
+- `results/contextual_feature_suite/horse_memory_validation_2023_2026/`
+
+The independently cacheable workflow is:
+
+```powershell
+python -m hkjc.features.build_horse_state_cache
+python -m hkjc.features.materialize_horse_state
+python -m hkjc.suites.memory_tilt_diagnostic
+python -m hkjc.suites.memory_residual_suite --years 2018,2019,2020,2021,2022,2023,2024,2025,2026 --seeds 7,17,42
+```
+
+### Independent base and margin-aware iteration
+
+The independent model was expanded beyond one-hot winner training and generic
+EWMs:
+
+- A strict inference allowlist prevents current or historical market-derived
+  columns from entering the independent feature matrix.
+- Historical market distributions were tested as dense training targets. They
+  did not improve hard winner log loss and were rejected.
+- A 10% dense finishing-order target improved the selected independent model
+  without using odds.
+- Opponent-adjusted beaten-margin state now distinguishes close and dominant
+  performances using 99.8%-covered parsed `LBW` histories.
+- Official rating-plus-carried-weight residual states expose persistent
+  performance beyond handicap expectations.
+- A new 2008-2026 sectional observation cache reconstructs physical first-
+  section lengths, quality-controls times, standardizes absolute race pace on
+  complete prior-date contexts, and maintains separate absolute pace,
+  field-relative speed, workload, and late-sustain states.
+
+Development selection on 2018-2021 chose rank-plus-margin memory with 10%
+placing supervision. Locked 2022-2026 evaluation over seeds `[7, 17, 42]`
+produced:
+
+- Old strict independent base mean log loss: `2.213981`.
+- Rank-plus-margin independent mean log loss: `2.193902`.
+- Improvement: `-0.020079` per race across 15 year-seed runs.
+- Remaining delta versus market: `+0.157366`; the independent model is much
+  stronger but still not competitive with current odds.
+
+A nonlinear residual mapper could beat the raw market in some later regimes,
+but it was unstable and did not improve the incumbent Offset. Probability-ratio
+tails remained far below the approximately `1.227` takeout hurdle.
+
+The final constrained Offset frontier separates probability and ordering:
+
+- Sectional reliability tilt: `-0.000211` log loss versus incumbent, 23/27
+  wins, but lower residual AUC.
+- Margin-rank tilt: `+0.000027` log loss, but residual AUC improved from
+  `0.724153` to `0.732025`.
+- Sectional plus margin-rank tilt: `-0.000174` log loss, 21/27 wins, residual
+  AUC `0.724131` (effectively incumbent-level).
+
+No new layer is promoted automatically. The independent-base improvement is
+material, but it has not yet produced takeout-scale calibrated residuals or a
+stable improvement over the incumbent market model.
+
+Additional artifacts:
+
+- `results/distilled_independent_suite/development_feature_target_screen/`
+- `results/distilled_independent_suite/rank_margin_evaluation_2022_2024/`
+- `results/distilled_independent_suite/rank_margin_evaluation_2025_2026/`
+- `results/contextual_feature_suite/sectional_margin_rank_validation/`
+- `data/processed/cache/sectional_observations.parquet`
+- `data/processed/cache/sectional_memory_state.parquet`
+
+### Promoted result
+
+- Model: racewise XGBoost market offset using `log(q_market)` plus learned
+  corrections and softmax winner likelihood.
+- Inputs: 28 total: 2 market, 10 race-card/context, and 16 promoted correction
+  features.
+- Calibration: chronological expanding-window predictions; no random-fold or
+  in-sample isotonic calibration.
+- Evaluation: expanding-year tests from 2015-2026, seeds `[7, 17, 42]`, 100
+  rounds, probability metrics only.
+- Result: 35/36 individual year-seed runs and all 12 bagged yearly runs beat
+  the market on race multinomial log loss.
+- Mean bagged candidate-minus-market log loss: `-0.004064` per race.
+- Bagged year-level 95% interval: `[-0.005574, -0.002555]`.
+- All 12 yearly seed averages beat the market.
+- Mean calibration slope: `0.9926`.
+
+Artifacts:
+
+- `results/promoted_suite_no_speed_sectional_2015_2021/`
+- `results/promoted_suite_no_speed_sectional/`
+- `results/promoted_ablation.csv`
+- `results/feature_audit/`
+
+### Promoted correction blocks
+
+- Preparation: layoff, class/rating/distance changes, gear change, and carried
+  weight versus the horse's own history.
+- Historical market residuals: strictly prior-date trainer-track and jockey
+  performance relative to prior market expectations.
+- Pace: structured early-position history, projected pressure, and closer setup.
+- Trip context: prior comments-derived trouble state.
+- Barrier trials: effort-adjusted finishing state, margin, and recency.
+- Body condition: horse-relative declared-weight surprise without target encoding.
+
+The new speed and sectional blocks remain available in the 44-column
+fundamental research set, where they are strongly predictive without current
+odds. They were removed from the promoted market-edge correction because
+actual-model ablation found no stable incremental value after the market and
+other feature blocks were present.
+
+### Correctness changes
+
+- Raw duplicates are removed before odds normalization.
+- Malformed and incomplete race fields are rejected atomically.
+- Trainer and all target aggregates update after complete dates, never by runner
+  row order.
+- Corrupt historical race incidents are quarantined.
+- Sparse cohort-selected trackwork/vet/movement data is excluded from the
+  long-history core model.
+- The Kelly optimizer now includes the probability that an unbet runner wins.
+- Dividends join by race and runner without expanding evaluation rows.
+- Feature promotion is based on paired race log loss, not bankroll ROI.
+
+### Remaining limitation
+
+All years through 2026 are development data, and result-page odds are final
+odds rather than timestamped executable prices. This is substantial probability
+progress, not proof of a tradable edge. The next confirmation step is a locked
+prospective shadow test against archived pre-race snapshots.
+
+### Corrected retrospective returns
+
+`src/hkjc/suites/return_suite.py` retrains the promoted model walk-forward for every
+year, averages seeds `[7, 17, 42]`, sizes bets with the corrected multinomial
+Kelly objective, and settles against official WIN dividends.
+
+Bagged results over 2015-2026:
+
+| Kelly fraction | No-rebate bankroll ROI | With-rebate ROI | Max DD no rebate |
+|---:|---:|---:|---:|
+| 0.01 | -0.029% | -0.029% | 0.040% |
+| 0.02 | -0.057% | -0.057% | 0.080% |
+| 0.05 | -0.143% | -0.143% | 0.200% |
+| 0.10 | -0.285% | -0.271% | 0.400% |
+
+At Kelly `0.02`, the bag placed only 10 bets across 10 races, turned over
+`$9,040` from a `$10m` starting bankroll, and lost `$5,681.50`. Equal-stake ROI
+on all positive-edge selections was `-13.5%`.
+
+This final result follows two additional integrity corrections:
+
+- Races with reciprocal WIN-odds sums below `1.10` are incomplete markets and
+  are rejected before feature construction. Earlier apparent profits were
+  dominated by synthetic arbitrage in these partial fields.
+- DNF/PU/DISQ runners remain in the pre-race field as losing starters. Removing
+  them using post-race status was field-definition look-ahead.
+
+The corrected conclusion is that probability quality improves consistently,
+but the improvement is not large enough to overcome HKJC takeout. The bagged
+model still beat market race log loss in all 12 yearly tests, averaging
+`-0.004064` per race with mean calibration slope `0.993`, but it did not produce
+positive retrospective betting returns.
+
+These returns use final result-page odds for model input and sizing. They are
+useful diagnostics, not executable historical returns. No Kelly level or edge
+filter should be selected from this reused development history.
+
+### Model-design coverage experiment
+
+`src/hkjc/suites/model_design_suite.py` tested whether low activity was specific to
+the offset architecture. The design split used 2018-2021 as development and
+2022-2026 as later evaluation, with identical settlement and final odds.
+
+- Direct market-aware softmax produced 5,485 apparent positive-edge bets across
+  80.0% of later races, but worsened market log loss by `+0.007069` and lost
+  `-43.5%` per flat stake.
+- Independent fundamental softmax produced bets in every race, but trailed the
+  market by `+0.177288` log loss and lost `-27.6%` per flat stake.
+- Scaling the offset correction by `2x` retained a `-0.002897` log-loss
+  improvement, produced 738 bets across 721 later races, and lost `-15.8%` per
+  flat stake.
+- Scaling by `2.5x` covered 1,476 later races and was approximately neutral on
+  log loss (`-0.000070` versus market), but still lost `-11.2%` per flat stake.
+- At `3x`, coverage rose to 65.3% while probability quality became worse than
+  market and flat-stake ROI remained `-11.5%`.
+
+The controlled conclusion is that offset anchoring explains the original low
+bet count, but removing or amplifying the anchor creates activity faster than
+it creates incremental pricing power. With the current features, the `2x`
+residual is a useful high-coverage research challenger, not a promoted betting
+model. The next feature iteration should target market-independent information
+that improves the ordering of model-market residuals; changing Kelly or merely
+increasing probability amplitude cannot supply that information.
+
+Artifacts:
+
+- `results/model_design_suite/summary.csv`
+- `results/model_design_suite/yearly.csv`
+- `results/model_design_suite/edge_buckets.csv`
+- `results/model_design_suite/kelly_race_paths.parquet`
+- `results/model_design_suite/kelly_bets.parquet`
+- `results/model_design_suite/model_design_report.html`
+
+### Contextual feature batch 1
+
+The first context-rich feature rebuild retained the promoted model as the
+benchmark and expanded the audit dataset from 66 to 129 non-market candidates.
+It added:
+
+- full course/rail and surface-specific going state;
+- raw, median-relative, rank, and field-dispersion rating/weight state;
+- draw rank among actual runners;
+- explicit debut, uncapped layoff, and career reliability state;
+- separate position-derived and comment-derived pace systems;
+- body-weight percentage change, prior median, surprise, and layoff interaction;
+- shared-race formline comparisons with 84.6% runner coverage;
+- recency- and distance-conditioned barrier-trial readiness and reliability.
+
+Correctness repairs include deterministic tied market ranks, an unambiguous AWT
+course category, removal of generic `held up` from the trouble regex, use of the
+source barrier-trial race key, and elimination of the silent `pace_pressure` /
+`closer_setup` overwrite. The prior comment-derived pace remains under explicit
+legacy names so incumbent comparisons are reproducible.
+
+The serious validation used the actual Offset model over 2018-2026, seeds
+`[7, 17, 42]`, 100 rounds, and chronological calibration. No dividends or ROI
+were loaded during selection.
+
+- The full contextual card block was too broad and unstable.
+- Course/going context had a small mean gain in an interim validation but did
+  not improve opportunity coverage.
+- Shared-race pairwise and transition blocks were strongly fundamental but not
+  stable enough relative to the market for promotion.
+- Contextual barrier-trial additions did not beat the already strong incumbent
+  trial block.
+- The compact rating/weight block increased `2x` race coverage from 24.6% to
+  26.6% and `2.5x` coverage from 47.7% to 49.6%, but its mean paired log-loss
+  change versus incumbent was `+0.000015` and only 13/27 runs improved.
+
+No batch-one candidate is promoted. The useful conclusion is that decomposed
+context can move coverage without probability amplification, but static card,
+formline, and trial summaries still do not improve residual ordering reliably.
+The next batch should target condition-matched sectional energy and pace setup,
+where the existing generic features have strong fundamental signal but weak
+incremental market value.
+
+Final batch-one artifacts:
+
+- `results/contextual_feature_suite/final_screen/`
+- `results/contextual_feature_suite/final_rating_validation/`
+- `results/feature_audit/contextual_batch1_screen/`
+
+---
+
+## TL;DR — Current best config
+
+> **Superseded.** This configuration is not the production model. It describes 25 features,
+> Kelly 0.02-0.03 and cumulative returns from a settlement that predates the current
+> `min_overround` filter and the rebate policy. Production today is the 400-round, 5-seed,
+> 28-input Offset model at Kelly 0.01; its settled numbers are in
+> `results/reports/bagged_offset/report.html`, which places 339 bets across twelve years for a
+> return within a hundredth of a percent of break-even. The caveat immediately below -- that
+> bag_A was the luckiest of five meta-sets -- is the part of this section that has aged well,
+> and it is why seed choice is now recorded in every run lock.
+
+
+- **Model:** Offset (market as `base_margin`) + 5-seed bagging
+- **Seeds:** `[7, 17, 42, 123, 256]`
+- **Params:** `lr=0.01, depth=5, min_child_weight=20, subsample=0.7, colsample_bytree=0.7, gamma=0.2, reg_alpha=2.0, reg_lambda=10.0`, 400 rounds (deep_slow)
+- **Features:** 19 edge + 4 race card + 2 market = **25 total** (see feature set below)
+- **Kelly:** 0.02 for consistency / 0.03 for max return
+
+### Results (2015-2026, compounded; 2026 partial)
+
+**⚠️ Honest caveat first:** the bag_A seeds `[7, 17, 42, 123, 256]` that we use as production were retested against 4 other independent 5-seed sets. **Bag_A was the luckiest tail** — across 5 meta-sets the mean cum ROI at K=0.02 is **+107%**, with std 130%, min **+24%**, max +332% (bag_A). So production's bag_A numbers below represent the top of the distribution, not the expected case.
+
+Headline numbers (bag_A, lucky tail):
+
+| Kelly | Cum no_rebate | Cum with_rebate | Pos no_rebate | Pos with_rebate |
+|---|---|---|---|---|
+| 0.01 | +139.47% | +260.26% | 9/12 | 11/12 |
+| **0.02** | **+332.53%** | +880.08% | **9/12** | **11/12** ← bag_A |
+| 0.03 | +522.74% | +2027.26% | 7/12 | 10/12 |
+| 0.05 | +644.80% | +5701.83% | 7/12 | 9/12 |
+
+**Realistic production expectation (mean across 5 independent 5-seed bagging sets, K=0.02):**
+
+| Stat | cum_no | cum_wr |
+|---|---|---|
+| MEAN | +107.18% | +366.46% |
+| STD | 129.60% | 295.37% |
+| **MIN** | **+23.99%** | **+178.64%** |
+| MAX | +332.48% | +879.87% |
+
+**All 5 bagging sets positive (min +24%).** This is the genuine win: bagging reliably eliminates catastrophic losing seeds (single-seed min was −19%), even if it doesn't reliably deliver the bag_A bonanza.
+
+Out-of-sample: 2025 slight negative (~−2% at K02 averaged across meta-sets), 2026 partial positive across all 5 meta-sets (+1% to +7%).
+
+### Horse form v2 (latest production update)
+
+- **Production Offset form block:** `legacy_recent_form`, `legacy_career_beat_odds`, `form_surprise`, `form_stability`
+- **Softmax best test block:** `form_fast`, `form_cycle`, `form_surprise`
+- The horse-form redesign replaces the old block:
+  - `recent_form`, `form_vs_career`, `prev_win`, `career_beat_odds`
+  with a latent-state block plus two explicit legacy anchors.
+
+**Offset, yearly 2015-2026 vs old form block:**
+- average log loss improved from `0.237417` to `0.237407`
+- cumulative ROI with rebate improved from `+183.88%` to `+589.65%`
+- LL improved in `7/12` years, so the improvement is not perfectly uniform, but the aggregate gain is strong enough to adopt in production
+
+**Softmax, yearly 2015-2026:**
+- best LL candidate: `condensed_stability`, `model_weight=0.45`, `alpha=0.0075`
+- best return candidate: `condensed_triplet`, `model_weight=0.50`, `alpha=0.015`
+- both beat the old form block on average, but neither is consistent enough year-by-year to treat as a locked production default yet
+
+### Trainer/track v2 (latest iteration) ❌ NOT PROMOTED
+
+- Tested continuous shrunk trainer features:
+  - `trainer_resid_shrunk`
+  - `trainer_context_resid`
+  - `trainer_context_delta`
+- Goal: replace brittle thresholded trainer block:
+  - `trainer_track_spec`, `tt_gap`, `tr_gap`
+
+Result:
+- Screened on `2024-2026`, then checked targeted full-year variants.
+- No trainer-v2 candidate beat the legacy trainer block on both LL and returns strongly enough to justify promotion.
+- Current production remains the legacy trainer block.
+
+Takeaway:
+- Shrinkage was directionally sensible, but the current implementation likely throws away too much useful track-specific asymmetry that the old market-gap features still capture.
+
+### Draw/setup v2 (latest iteration) ⚠️ SOFTMAX ONLY IMPROVEMENT
+
+- Re-engineered `draw_outside_ST` / setup block with field-size-aware features:
+  - `draw_pct`
+  - `draw_style_tension`
+  - `draw_setup_resid`
+  - `draw_field_resid`
+  - `draw_field_pressure`
+  - `setup_weight_resid`
+  - `setup_weight_tension`
+
+Key result:
+- **Offset:** legacy block still wins. Keep `draw_outside_ST + setup_weight_z` in production.
+- **Softmax:** `draw_field_resid + setup_weight_z` is the best-tested replacement.
+
+Second-pass summary:
+- Offset baseline: `avg_log_loss=0.237411`, `cum_roi_with_rebate=+895.61%`
+- Offset best replacement (`draw_field_resid + setup_weight_z`): `avg_log_loss=0.237415`, `cum_roi_with_rebate=+449.67%`
+- Softmax baseline: `avg_log_loss=0.237351`, `cum_roi_with_rebate=-27.82%`
+- Softmax best replacement (`draw_field_resid + setup_weight_z`): `avg_log_loss=0.237335`, `cum_roi_with_rebate=+1.05%`
+
+Takeaway:
+- For **Offset**, the old hard ST-outside heuristic still dominates once full walk-forward returns are considered.
+- For **Softmax**, replacing the binary draw flag with a **field-size-aware draw residual** is a real improvement in both LL and returns.
+
+### Running it
+
+```bash
+cd model/
+python -m hkjc.suites.production
+```
+
+Generates `results/bankroll_viz.html` — interactive visualization with Kelly tabs + year tabs.
+
+---
+
+## Feature set (final)
+
+> **Superseded as a specification.** The authority is
+> `configs/features/production.json`, which declares 28 inputs of which 27 are learned --
+> the market column is consumed as the booster's base margin and is not a learned feature. Two
+> columns named here (`log_implied_prob`, `Draw`) are no longer inputs. The grouping below is
+> still the grouping the ablation uses, which is why the section is kept.
+
+
+### Market (2)
+- `Implied_Prob` — market win probability (normalized per race)
+- `log_implied_prob` — log of implied
+
+### Race card (4)
+- `Racecourse` — ST=1, HV=0
+- `Track_Turf` — Turf=1, AWT=0
+- `Draw` — starting stall (1-14)
+- `Act_Wt` — weight carried (lbs)
+
+### Edge (19)
+
+**Class (1):** `class_change` = `prev_class − current_class`
+
+**Weight (2):**
+- `wt_z` — z-score of `Act_Wt` within current field
+- `setup_weight_z` — z-score vs horse's own weight history
+
+**Form (4, production Offset subset from horse-form v2):**
+- `legacy_recent_form` — legacy avg(1/place) over last 3 races, kept as an anchor
+- `legacy_career_beat_odds` — legacy expanding mean of `(win − implied_prob)`
+- `form_surprise` — exponentially weighted market-relative outperformance
+- `form_stability` — rolling spread of recent finish quality
+
+**Trainer (3):**
+- `trainer_track_spec` — trainer's track-specific WR minus overall WR
+- `tt_gap` — trainer × track actual WR minus market-implied WR
+- `tr_gap` — trainer overall actual WR minus market-implied WR
+
+**Draw/Field interactions (2):**
+- `draw_outside_ST` — binary: Draw ≥ 10 AND at ST
+- `fav_field_size` — is_fav × field_size
+
+**Barrier trial (2):**
+- `bt_avg_early` — expanding avg front-running in trials
+- `bt_last_behind` — time behind winner in last trial
+
+**Sectional (4):**
+- `trail_sect_closing` — avg closing speed vs race (trailing per horse)
+- `trail_sect_peak_at` — avg position of peak speed (0=early, 1=late)
+- `trail_sect_avg` — avg overall sectional speed vs race
+- `trail_sect_best_gain` — avg biggest in-race position gain
+
+**Body weight (1) — NEW this session:**
+- `body_wt_mkt_residual` — time-respecting market-failure residual bucketed by `(body_wt_change × implied_prob)`. Formula: `(past_wins − past_implied) / (past_implied + k)` with k=50, per bucket.
+
+---
+
+## What we tried — chronologically
+
+### 1. Feature pruning (prune2) ✓ WIN
+
+Dropped the 2 lowest-importance features: `top3_count_5` (rank 22.1) and `field_form_cv` (rank 22.6). 
+
+**Result: +69pp paired delta over baseline, robust across 3 seeds, LL unchanged.**
+
+Key lesson: low-importance LEAF features can be safely pruned. Low-importance BACKBONE features (Racecourse, Track_Turf) cannot — they enable downstream interactions even when their own gain is low.
+
+### 2. Draw re-engineering (`draw_bias_loc`) ❌ FAILED
+
+Built time-respecting bucketed lift feature at `(Racecourse, Dist, Draw)`. Correctly encoded empirical draw bias (HV 1200m Draw 1 = +41% win rate advantage; ST 1000m reversed).
+
+**Result: −21pp paired delta.** Market already prices draw bias. Duplicating it added noise.
+
+**Key lesson:** Don't encode features the market already prices. Target market-failure residuals instead.
+
+### 3. prev_mkt_residual (prev_win swap) ⚠️ NEUTRAL
+
+Replaced binary `prev_win` with bucketed residual `(prev_won × prev_impl)`. Empirical analysis showed market under-reacts to repeat favourites (+2.1% edge) and overprices fluke longshot winners (−0.4%).
+
+**Result:** Single-seed showed +20pp, but across 3 seeds mean was +9pp with high variance. Not clearly better than noise.
+
+### 4. class_change re-engineering ❌ FAILED
+
+Built market-failure residual bucketed by `(RaceClass_ord × class_change)`. Empirical analysis showed strong patterns: class rises +1.30% edge, class drops −0.61%, Class 2 rises the strongest at +21% residual.
+
+**Result: −38pp paired delta across seeds.**
+
+**Key lesson:** Don't re-encode the model's top-importance features. `class_change` is consistently rank #1 — XGBoost already finds optimal splits. Adding a derived version wastes tree capacity.
+
+### 5. Sectional consolidation ❌ FAILED
+
+Tried reducing 4 sectional features to 2 or 1 composite (`sect_kick = closing − avg`).
+
+**Result: −22pp to −47pp paired delta.** All 4 sectionals carry complementary information — not redundant.
+
+### 6. Form normalization ❌ FAILED
+
+Swapped `recent_form = avg(1/place)` for `avg((field_size − place + 1)/field_size)` to properly account for field size.
+
+**Result: −32pp paired delta.** The concave `1/place` encoding implicitly weights top finishes more heavily — turns out this is the right shape for horse-quality signal. Linear normalization is too democratic.
+
+### 7. Dropping odds-dependent features ❌ FAILED
+
+Tested LOO on each of: `fav_field_size`, `career_beat_odds`, `tt_gap`, `tr_gap`. All have moderate corr with market; rationale was reducing deployment fragility.
+
+**Result: Every LOO hurt.** fav_field_size: −40pp, career_beat_odds: −30pp, tt_gap: −21pp, tr_gap: −21pp. All 4 removed: −33pp. Every odds-dependent feature earns its keep.
+
+### 8. body_wt_mkt_residual ✓ **WIN**
+
+**First robust feature addition.** Built from previously-unused `Declar. Horse Wt.` field in horses JSON.
+
+Bucketed market-failure residual at `(body_wt_change_bucket × impl_bucket)`. Feature is nearly orthogonal to market (corr = +0.01).
+
+Empirical insights:
+- Favourites (impl > 0.15) with weight changes outperform market by +2-3% edge
+- Horses after long rest (>60 days): weight GAIN is positive (+1.5% edge)
+- Volatile-weight horses with big drops: +0.7% edge
+- Prev winners with weight drops: +1.3% edge
+
+**Result (8-seed test):**
+- Baseline mean: +14.42%, min −33.3%, max +66.4%
+- With body_wt_residual: mean **+48.74%**, min **−3.0%**, max +91.0%
+- Mean paired Δ: **+34.32%**, 7/8 seeds positive
+- **Downside compressed dramatically (−33% → −3%).**
+
+Also tested raw body_wt_z + body_wt_change (2 features) and `body_wt_after_win` targeted binary — both hurt. Only the bucketed residual works.
+
+### 9. 5-seed Offset bagging ✓ **WIN**
+
+Train 5 Offset models on same data with different XGBoost seeds. Average predictions per race, renormalize.
+
+**Result (3 meta-seed sets × 10 years):**
+- Mean cum ROI: +70.98% (vs +48.74% single-seed)
+- Min cum: **+41.38%** (vs −3.0% single-seed)
+- Best meta-set: +103.65% cum, **8/10 positive years** (vs 5-6/10 single-seed)
+- **Flipped 2018 AND 2019 from negative to positive** — both were structural losers
+
+**Why:** XGBoost has random elements (column subsampling, row subsampling, split randomization). Different seeds → different trees → averaging cancels noise. LL stays flat (~0.24520) — bagging doesn't improve *prediction accuracy*, it reduces *prediction variance* that Kelly was amplifying.
+
+### 10. Calibration + Softmax ensemble ❌ FAILED
+
+Tested:
+- Bagged Offset + isotonic calibration: **−141pp**
+- Softmax (with log_implied_prob + isotonic): **−91pp**
+- Ensemble (0.5 × bagged_offset_cal + 0.5 × softmax_cal): **−62pp**
+
+**Result: bagged Offset alone is the architectural ceiling.**
+
+- Isotonic on Offset hurts because market anchor (`base_margin`) already provides calibration by construction.
+- Softmax underperforms because it has to learn the market anchor from scratch (as a feature) whereas Offset hard-wires it.
+- Ensembling a good model with a bad one produces a mediocre model.
+
+### 11. Kelly sweep on bagged ✓ **WIN**
+
+With bagging reducing variance, Kelly can safely be 2-3x higher than the old 0.01 standard.
+
+| Kelly | Cum ROI | Pos |
+|---|---|---|
+| 0.01 | +103.66% | 8/10 |
+| 0.02 | +218.63% | 8/10 |
+| 0.03 | +303.92% | 7/10 |
+| 0.05 | +290.71% | 6/10 |
+
+Kelly 0.03 is the new sweet spot; Kelly 0.02 the conservative pick.
+
+### 12. Truncated training (last 5 / last 3 years) ❌ FAILED
+
+Hypothesis: if the market is pricing in our edges over time, training only on
+recent years should outperform full-history training. Tested at K=0.02, 3 seeds:
+
+| Window | Mean cum no_rebate | Seeds |
+|---|---|---|
+| Full (2010→$t$−1) | **+103.34%** | +26.6%, −18.9%, +302.4% |
+| Last 5 years | −71.37% | −69.2%, −72.7%, −72.2% |
+| Last 3 years | −85.06% | −67.2%, −91.1%, −96.9% |
+
+**Truncation catastrophically hurt overall.** BUT year-by-year showed
+partial recency gains: last_3 beat full history in 2024 (+7.92% vs −4.46%),
+2025 (+21% vs −7%), and 2026 (+3% vs −0.3%). So the edge-decay story has
+partial support, but simple truncation is too blunt — the cost in
+2015-2021 dwarfs recency gains in 2024-2026.
+
+**Next attempt (untested):** recency-weighted training
+($w = e^{-\lambda\,\text{years\_ago}}$) instead of throwing away data.
+
+### 13. 5-seed variance study: "was bag_A lucky?" ✅ YES
+
+Ran 5 INDEPENDENT 5-seed bagging meta-sets at K=0.02 over 12 years:
+
+| Meta-set | cum_no | cum_wr | pos_no |
+|---|---|---|---|
+| bag_A (production) | **+332.48%** | +879.87% | 9/12 |
+| bag_B | +101.18% | +354.02% | 9/12 |
+| bag_C | +29.07% | +188.39% | 7/12 |
+| bag_D | +23.99% | +178.64% | 6/12 |
+| bag_E | +49.19% | +231.36% | 6/12 |
+| **MEAN** | **+107.18%** | +366.46% | 7.4/12 |
+| **STD** | 129.60% | 295.37% | — |
+| **MIN** | +23.99% | +178.64% | 6/12 |
+
+**Bag_A was the luckiest of 5 independent bagging attempts.** Mean realistic
+production is ~+107% cum (not +332%). But:
+
+- **All 5 meta-sets positive** (min +24%) — bagging reliably removes catastrophic runs.
+- Single-seed comparison: MEAN +131%, MIN **−18.9%**, MAX +302%.
+- So bagging's actual benefit is *downside compression* (min −19% → min +24%), NOT raising the expected mean.
+- **LL is identical across all 5 meta-sets** (0.23708-0.23709) — confirms the variance-reduction mechanism.
+
+Years robust across meta-sets:
+- **2016, 2022, 2023, 2026**: positive in all 5 meta-sets.
+- **2020**: negative in all 5 meta-sets (structural COVID-era bad year).
+- **2015**: chaotic (−24% to +82% depending on meta-seed) — the main source of
+  production variance.
+
+---
+
+## Year-by-year (bagged Offset, Kelly 0.01, no rebate)
+
+> **Superseded.** These per-year returns are from the same pre-filter settlement as the TL;DR
+> above. The current per-year figures, with bet counts beside them, are in the Kelly section of
+> `results/reports/bagged_offset/report.html`.
+
+
+| Year | Single seed=42 | 5-seed bagged (bag_A) |
+|---|---|---|
+| 2015 | +39.12% | +35.48% |
+| 2016 | +24.71% | +20.95% |
+| 2017 | −0.96% | −2.02% |
+| 2018 | −3.46% | **+2.46%** |
+| 2019 | −7.71% | **+5.24%** |
+| 2020 | −9.27% | −5.34% |
+| 2021 | +15.31% | +11.45% |
+| 2022 | +4.74% | +7.19% |
+| 2023 | +3.24% | +3.08% |
+| 2024 | −0.65% | +0.90% |
+| **Cum** | **+72.04%** | **+103.66%** |
+
+---
+
+## Methodology lessons
+
+### 1. LL-flat / ROI-variable is the norm
+
+Most feature tweaks leave log-loss essentially unchanged (Δ ≤ 0.0001) but move ROI by ±30-100pp. This is Kelly amplifying tiny probability shifts. Single-seed ROI differences at this scale are noise-dominated.
+
+**Rule:** Rank feature changes by paired-delta across 3+ seeds, not single-seed ROI.
+
+### 2. Market-failure residuals > raw features > derived re-encodings
+
+Pattern that worked: take a feature with market-orthogonal signal (body weight), discretize by meaningful buckets (weight change × implied), compute time-respecting `(actual − implied)/ (implied + k)` per bucket. This targets exactly where market is wrong.
+
+Pattern that failed: re-encoding features already in the model (class_change_residual, draw_bias_loc). Adds correlated info → overfitting surface.
+
+### 3. Importance rank ≠ marginal value
+
+XGBoost gain-importance measures *this feature's contribution to splits*. Doesn't measure *this feature's value as interaction substrate*. Low-rank CATEGORICALS like Racecourse are essential backbones for other features' interactions; removing them crashes the model.
+
+### 4. Bagging is cheap variance reduction
+
+5-seed bagging: 5× training cost, +22pp mean ROI, eliminates downside. Almost certainly the best $ per effort ratio in the session.
+
+### 5. Offset > Softmax for HKJC
+
+The Offset model's `base_margin = logit(Implied_Prob)` hard-anchors predictions to market. Softmax trying to learn this from features is fundamentally weaker. Don't spend cycles on Softmax architectures.
+
+---
+
+## Reproducibility
+
+> **Superseded.** `hkjc.suites.production` and `results/bankroll_viz.html` do not exist. The
+> supported pipeline is in `docs/pipeline.md`; the canonical rebuild sequence is in
+> `results/README.md`.
+
+
+Pipeline:
+1. `python -m hkjc.features.build` — builds `data/processed/race_features.parquet` with all 25 production features (including `body_wt_mkt_residual`). Regenerate after any data refresh or feature-code change.
+2. `python -m hkjc.suites.production` — loads the parquet, trains the bagged Offset model across 2015-2024 at Kelly ∈ {0.01, 0.02, 0.03, 0.05}, writes `results/bankroll_viz.html`.
+
+## Two compiled kernels that were correct and never wired in (2026-08-31)
+
+Both were written during the Phase 2 iteration work, verified, deliberately left unused, and removed
+on 2026-08-31 once it was clear that a kernel with no caller is dead code however well documented.
+Retrieve either with `git show f08e0b0:src/hkjc/models/common/race.py`. The findings are here because
+they are the reason not to repeat the attempt, and they are about the *callers*, which are still live.
+
+**`tempered_softmax`.** Bit-identical to `scipy.special.softmax` per race in both float32 and
+float64 -- verified over six seeds in each precision -- and wiring it into
+`apply_temperature_binned` still moved the canonical probabilities by one float32 unit in the last
+place. The cause is in the caller, not the kernel: that loop's arithmetic precision is decided by the
+Python *type* of each temperature. A `np.float64` coming out of `scipy.optimize.minimize` promotes a
+float32 margin to float64, and the Python float `1.0` used for the untempered stage does not. So two
+stages of one pipeline compute in two precisions, and a single array of temperatures cannot carry
+both behaviours. Fixing that is a scientific change with its own baseline, not a speed change.
+`tests/unit/test_models.py::TemperedSoftmaxTests` still pins the promotion behaviour as a fact about
+NumPy rather than as prose.
+
+**`blend_nll`.** Correct in float64 and *not* bit-identical to the reference in float32, which is
+what kept it out. The reference forms the whole blended array and then takes the winners' mean; a
+per-winner accumulation differs by one unit in the last place on roughly four inputs in five. The
+blend fitter's inputs are float32, one `minimize` over a single parameter is about 7% of a fit cell's
+calibration, and a fitted blend weight that moves in its last bit moves every published probability.
+So the cost of compiling it was never worth the risk. `learn_blend_weight` still carries the
+"Deliberately *not* compiled" note, and a test asserts it does.
+
+The general lesson, which is the transferable part: **a kernel proved bit-identical in isolation can
+still move a published number, because the precision of the surrounding loop is not a property of the
+kernel.** Both attempts failed at the boundary rather than in the arithmetic.
+
+## Memory files
+
+Individual findings preserved in `~/.claude/projects/.../memory/`:
+- `production_state.md` — current config
+- `body_wt_residual_finding.md` — the body weight feature
+- `architecture_5seed_bagging.md` — bagging details
+- `architecture_kelly_sweep.md` — Kelly 0.02-0.03 finding
+- `architecture_cal_ensemble_rejected.md` — what NOT to retry
+- `feedback_dont_duplicate_market.md`, `feedback_dont_reencode_top_features.md`, `feedback_pruning_strategy.md` — methodology guardrails

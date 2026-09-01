@@ -1,0 +1,28 @@
+\begin{center}\small
+\begin{tabular}{lrrrl}
+\toprule
+Model & Rounds & Train time per cell & Score time & Notes \\
+\midrule
+production Offset (softmax) & 400 & $\sim$3.4s & $<$0.1s & one threaded tree fit \\
+link-only \texttt{probit\_offset} & --- & 0 (no fit) & 0.50s/year & consumes existing margins \\
+\rowcolor{rowshade}boosted probit & 400 & \bad{58--155s} & 0.04s & 44\% of the fit is the objective \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Cell time grows with the training window, from 58s for the 2015 cell to about 155s for 2026, so a
+twelve-year five-seed sweep is roughly 100 minutes against about three minutes for the softmax
+equivalent --- a factor of \bad{$\sim$30}. The scoring cost is negligible either way: the
+integrator does a test year in 0.04s and the whole scale-fitting and calibration pass takes 8.6
+seconds.
+
+\textbf{Where the time goes, measured.} The objective is 44\% of a round after fusing three
+integration passes into two; the remainder is XGBoost's own tree construction. The objective
+itself is dominated by one ufunc, \texttt{scipy.special.log\_ndtr}, over a
+$(\text{races},\text{nodes},n,n)$ array, which is why threading buys 10--16$\times$ and why
+further gains would have to come from the array's shape rather than from the language.
+
+\textbf{Is 30$\times$ affordable?} For research, plainly yes. For production the honest answer is
+that it depends on cadence: a full twelve-year rebuild moves from minutes to hours, which is
+tolerable weekly and not tolerable interactively. Nothing about the architecture requires the
+whole history to be refitted for a single new race day.

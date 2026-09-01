@@ -1,0 +1,68 @@
+\textbf{What the diagnostic can and cannot show.} Split frequency and gain say which features an
+ensemble used; only the count of feature pairs on a shared root-to-leaf path says an
+\emph{interaction} was learned, because two features with large separate gains that never share a
+path are being used additively. Both are computed by
+\texttt{boosted\_probit\_diagnostics.interaction\_diagnostics}, normalised so two ensembles of
+different total gain are comparable.
+
+\subsection*{§35's depth ablation: the motivating hypothesis, tested directly}
+
+If the probit objective's advantage is about representing nonlinear interactions, it must be
+\emph{absent} at depth 1, where a tree ensemble is additive by construction and has no tree
+interactions at all. Honest validation year inside the training window (fit $\leq$ 2022,
+validate 2023), each objective at its own tuned learning rate, $\sigma$ fixed at 1.8:
+
+\begin{center}\small
+\begin{tabular}{rrrr}
+\toprule
+Max depth & softmax $\Delta$ vs market & probit $\Delta$ vs market & probit $-$ softmax \\
+\midrule
+1 (additive) & $-0.004279$ & $-0.001614$ & \bad{$+0.002665$} \\
+2 & $-0.003922$ & $-0.002806$ & \bad{$+0.001115$} \\
+3 & $-0.003470$ & $-0.003552$ & \good{$-0.000082$} \\
+4 & $-0.003580$ & $-0.003927$ & \good{$-0.000347$} \\
+\rowcolor{rowshade}5 (production) & $-0.003646$ & $-0.004269$ & \good{$-0.000623$} \\
+6 & $-0.002793$ & $-0.003608$ & \good{$-0.000814$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Monotone across all six depths, and it crosses zero at depth 3.} At depth 1 the probit
+objective is \emph{much worse} than softmax --- $+0.00267$, nearly three times the effect the
+whole experiment is chasing. The gap closes at every step and the probit objective ends up
+$-0.00081$ ahead at depth 6.
+
+This is as direct a confirmation of the plan's motivating hypothesis as the data can give:
+\textbf{the probit likelihood's advantage is conditional on the mean function being able to
+represent interactions, and without that capacity the likelihood is a liability.} It also
+explains why the repository's linear-probit intuition was right to be suspicious of a linear
+mean, and why the link-only experiments -- which inherit a depth-5 softmax mean -- saw a gain at
+all.
+
+One incidental observation worth recording because it complicates the reading: the
+\emph{softmax} objective is best at depth 1 on this validation year ($-0.004279$ against
+$-0.003646$ at the production depth 5). So the production depth is not optimal for the softmax
+objective on this year either, and part of what the depth ladder shows is the two objectives
+having different optimal capacities rather than one being uniformly better.
+
+\textbf{The stronger and simpler evidence that the mean function differs} is in §11's ladder, and
+it needs no tree diagnostic at all. Scoring the boosted margins and the Offset margins through the
+\emph{identical} softmax link isolates the mean function from the link entirely, and the two
+differ. A pure rescaling would not survive that comparison, and §10's recalibration control tested
+rescaling directly and rejected it: amplifying the softmax correction by a factor fitted on
+training data ran to the grid ceiling and recovered almost none of the difference.
+
+\textbf{The correction is smaller, not larger.} At the tuned learning rate the probit-trained
+correction has standard deviation $0.102$ against the softmax booster's $0.145$. Whatever the
+probit objective is doing, it is not winning by being more aggressive --- which is the opposite of
+what a capacity advantage would look like, and it is why §22's capacity discussion in this
+experiment runs the other way from the plan's expectation.
+
+\textbf{What was not done.} SHAP interaction values were not computed. §20 permits them "if
+computationally feasible" and warns against interpretability theatre; the pair-count diagnostic
+answers the question the plan actually poses --- \emph{does the probit objective induce a
+meaningfully different partitioning of feature space} --- and a SHAP interaction matrix over 28
+features and 400 trees would have added cost without adding an answer. The depth ablation §35
+asks for is reported at development scale only, for the reason §17 gives: canonical compute goes
+to a small number of serious candidates, and a canonical depth sweep is six times the canonical
+cost.

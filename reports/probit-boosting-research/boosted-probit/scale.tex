@@ -1,0 +1,74 @@
+The utility scale is the single most dangerous parameter in this architecture, and the
+repository already said so: \emph{"the utility scale is the whole game, and theory gets it
+wrong."} It failed twice here, in two different ways, and both failures were caught by controls
+rather than by inspection.
+
+\subsection*{Why it is unidentified at the start}
+
+With $f=0$ the anchor returns $q$ exactly for \emph{any} $\sigma$, so the training loss is
+exactly flat in it. A fit before the first tree is meaningless. It becomes identified as soon as
+$f\neq0$, because $\sigma$ divides the market's own spread as well as the correction's.
+
+\subsection*{Failure 1: the plan's Option C}
+
+§18 Option C is to alternate --- boost, refit $\sigma$ on the training window, continue. Test
+year 2024, seed 7, refitting every 64 rounds:
+
+\begin{center}\small
+\begin{tabular}{rrr}
+\toprule
+rounds & fitted $\sigma$ & boosted probit $-$ market \\
+\midrule
+100 & 0.66 & \bad{$-0.016128$} \\
+200 & 0.41 & \bad{$+0.004470$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+At 100 rounds it appeared to beat the market by three and a half times the production edge. At
+200 rounds it lost to the market. $\sigma$ was running to its lower bound.
+
+The cause is systematic rather than random: refitting on the \emph{training} loss selects a small
+scale, because the training correction is overfit and dividing by a small scale sharpens it.
+Sweeping $\sigma$ on the softmax booster's own margins shows it from the other side --- the
+test-optimal scale \emph{rises} as the mean function grows while the training-optimal scale
+falls:
+
+\begin{center}\small
+\begin{tabular}{rrr}
+\toprule
+$\sigma$ & on 100-round margins & on 400-round margins \\
+\midrule
+0.66 & $-0.007820$ & \bad{$+0.008432$} \\
+1.00 & $-0.007288$ & $-0.009001$ \\
+1.50 & $-0.005326$ & \good{$-0.010168$} \\
+2.00 & $-0.004144$ & $-0.008923$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+An alternation that cannot see held-out data chases the wrong one, and its fixed point is a
+bound. §10's recalibration control also rules out the simple explanation: amplifying the softmax
+correction by a factor fitted on training data ran the factor to the grid ceiling and bought
+only $-0.000466$, so the $-0.016$ was not a rescaling --- it was a lucky point on an unstable
+trajectory.
+
+\subsection*{Failure 2: the same error one level out}
+
+A development sweep then fitted the \emph{scoring} scale on the previous year's margins from the
+same model. But that model was trained on years including the previous one, so those margins are
+in-sample, and the scale fit again ran to $0.30$--$0.45$ and the model lost to the market by
+$+0.006$ to $+0.018$.
+
+\subsection*{What the architecture uses}
+
+\texttt{scale\_mode="fixed"}: trees train at a declared scale and the \emph{scoring} scale is
+fitted forward per test year by the stage, on strictly earlier years --- the identical procedure
+\texttt{probit\_offset} gets. That is what makes the comparison a comparison of likelihoods
+rather than of scale-selection procedures, and it removes a feedback loop whose fixed point is a
+bound. \texttt{scale\_mode="alternating"} is retained so the failure reproduces rather than only
+being described.
+
+The canonical run's forward-fitted scoring scales land at \good{1.73--1.80}, interior to the
+$(0.25, 12.0)$ bounds and near the $1.99$--$2.23$ the link-only fits produce. No year hit a
+bound.

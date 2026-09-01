@@ -1,0 +1,38 @@
+\textbf{The learning rate was selected on one validation year.} The sweep in §10 used 2023 as an
+honest held-out year inside the training window. One year is a thin basis, and the plateau from
+0.002 to 0.005 is broad; 0.0025 was chosen inside it rather than at the single-year argmax of
+0.003 for exactly that reason. A candidate whose advantage depends on a hyperparameter selected
+on one year should be treated as provisional however good its canonical number.
+
+\textbf{The scale is fitted on earlier test years.} That is the same limitation the published
+\texttt{probit\_offset} report carries, and it is inherited rather than introduced: those years
+are development data under the repository's standing limitation, so this is not a locked
+prospective result.
+
+\textbf{No window is genuinely unseen.} Every season in the archive has been development data,
+here and in the reference project. The only real confirmation is a prospective test of a locked
+model against timestamped pre-race prices.
+
+\textbf{The curvature is an approximation and is not the only one available.} The Gauss--Newton
+diagonal ignores the dense off-diagonal terms the race likelihood genuinely has, and
+\texttt{own\_derivative} is used as a proxy for $J_{ii}$ to keep the cost at nothing extra. §16
+asks for the full race Hessian to be investigated for understanding; it was not. What was done
+is to expose \texttt{curvature="unit"} so a first-order booster is available as the reference,
+and the effective-step problem in §10 is a direct consequence of the diagonal's $\sigma$
+scaling, so the approximation is not innocent.
+
+\textbf{The comparison is against the raw-softmax measurement of the incumbent, not the
+calibrated production model.} The stage's comparator is the softmax link on the same margins,
+which is the right paired control for an uncalibrated candidate. The calibrated production
+figure is $-0.004647$ against the $-0.003957$ used here, and a reader comparing this document's
+numbers with the published production report must not mix the two.
+
+\textbf{Depth was not swept at canonical scale.} §35 asks for softmax against probit at matched
+depth as the direct test of the motivating hypothesis. It is reported at development scale only,
+because a canonical depth sweep is six times the canonical cost and the plan is explicit that
+canonical compute goes to a small number of serious candidates.
+
+\textbf{Betting and simulation artifacts were not produced.} The published probit reports carry
+a bet ledger and bankroll paths from the settlement stage. Those are secondary diagnostics ---
+returns cannot select a model, and this repository says so --- and they are absent here rather
+than reported as empty.

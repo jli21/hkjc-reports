@@ -1,0 +1,365 @@
+% The detailed research report the boosted-probit plan asks for in PDF.
+% Build with: tectonic report.tex   (from docs/research/boosted-probit/)
+%
+% This is NOT the repository-standard model report. That one is rendered from the run's own
+% artifacts by `hkjc build-report --model probit_offset_boosted`, through the same bundle,
+% sections and publication path as the four existing models, and lives at
+% results/reports/probit_offset_boosted/report.html. The two are different documents for
+% different readers: the standard report says what the model scored, and this one says how the
+% model was derived, validated, profiled and argued about.
+%
+% Sections 11 and 18 are generated from persisted evidence by tools/boosted_probit_report.py --
+% do not hand-edit ladder.tex or recommendation.tex.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.3cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=darkblue,urlcolor=darkblue]{hyperref}
+\definecolor{darkblue}{HTML}{1F5C8B}
+\definecolor{warm}{HTML}{9B2C2C}
+\definecolor{shade}{HTML}{F6F8FA}
+\definecolor{rowshade}{HTML}{FAFAF8}
+\captionsetup{font=small,labelfont=bf,width=0.95\textwidth}
+\titleformat{\section}{\Large\bfseries}{\thesection}{0.7em}{}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\newcommand{\good}[1]{\textcolor{darkblue}{\textbf{#1}}}
+\newcommand{\bad}[1]{\textcolor{warm}{\textbf{#1}}}
+
+\title{\vspace{-1.2cm}\textbf{Market-anchored boosted multinomial probit}\\[0.35em]
+\large Does training a nonlinear tree ensemble directly under the multinomial-probit\\
+race likelihood improve on the existing probit links and the production softmax booster?}
+\author{Branch \texttt{research/boosted-probit}}
+\date{1 September 2026}
+
+\begin{document}
+\maketitle
+\vspace{-0.7cm}
+
+\begin{center}
+\fcolorbox{black!25}{shade}{\parbox{0.94\textwidth}{\small
+\textbf{What this document is.} The detailed research report for the boosted-probit
+experiment. The repository-standard model report is rendered separately from this run's own
+artifacts by \texttt{hkjc build-report --model probit\_offset\_boosted}, through the same
+bundle and publication path as the four existing models; it says what the model scored. This
+document says how it was derived, validated, profiled, and twice nearly mis-concluded.
+
+\textbf{Scope.} The branch is not merged. The production default remains
+\texttt{configs/models/softmax\_offset\_production.json}, and the new model carries
+\texttt{standard} rather than \texttt{production} status in the publication config.
+
+\textbf{What it does not establish.} No profitability claim: every price is a result-page
+price recorded after the pool closed, and no return is computed. The utility scale is fitted on
+earlier \emph{test} years, which are development data under the repository's standing
+limitation, so this is not a locked prospective result.}}
+\end{center}
+
+\tableofcontents
+\newpage
+
+%======================================================================
+\section{Executive summary}
+%======================================================================
+
+\input{summary}
+
+%======================================================================
+\section{Motivation}
+%======================================================================
+
+The production model is a market-anchored softmax booster: the market's normalised implied
+probability enters XGBoost as a fixed additive base margin $\log q$ and the booster learns a
+per-runner correction against a racewise winner-softmax likelihood. At zero correction the
+model \emph{is} the market exactly, because $\operatorname{softmax}(\log q) = q$.
+
+A softmax choice model is the Gumbel case of a random-utility argmax. The repository's Phase 6
+work replaced those Gumbel shocks with normal ones and found the normal link better on both of
+its scoreboards: $-0.012557$ standalone and $-0.000943$ market-relative, every year and every
+seed favourable. But both results are \textbf{link-only} --- the mean utilities came from a
+softmax fit, and \texttt{findings.md} says so explicitly: \emph{"no native joint probit
+likelihood was trained, and metadata records \texttt{mean\_training=softmax\_surrogate} for
+that reason."}
+
+That leaves the obvious question. A linear probit mean is restrictive and trees fix that; but
+if the probit \emph{likelihood} is the better one, the ensemble should be fitted under it
+rather than lifted from a fit under a different one. This experiment fits one.
+
+%======================================================================
+\section{Existing architecture, reproduced}
+%======================================================================
+
+Nothing was implemented until the recorded results were reproduced from the committed
+artifacts, on \texttt{is\_honest\_scale} rows (2015 has no earlier season to fit a scale on and
+is excluded from every headline in this document, as it is from the published ones).
+
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+Quantity & Reproduced & \texttt{findings.md} \\
+\midrule
+market race log loss & 2.028805 & --- \\
+Offset, softmax link on its margins & 2.025390 & --- \\
+\texttt{probit\_offset} & 2.024447 & --- \\
+Offset $-$ market & $-0.003415$ & --- \\
+\texttt{probit\_offset} $-$ market & $-0.004358$ & --- \\
+\rowcolor{rowshade}\textbf{\texttt{probit\_offset} $-$ Offset} & \good{$-0.000943$} & \good{$-0.000943$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Exact to the digit. One note carried through the whole document: \texttt{findings.md} quotes the
+production edge as $-0.004647$, which is the \emph{calibrated} figure. The raw-softmax-on-margins
+measurement used consistently here is $-0.003957$ on the shared-race population. The two are
+different measurements of the same model, and mixing them would move a candidate by $0.001$ in
+whichever direction flattered it.
+
+%======================================================================
+\section{Multinomial probit mathematics}
+%======================================================================
+
+For runners $1,\dots,n$ with mean utilities $\mu_i$, iid normal shocks and scale $\sigma$, the
+winner probability collapses to a one-dimensional integral over the winner's own shock:
+\[
+P(i \text{ wins}) \;=\; \mathbb{E}_z\!\left[\prod_{j\neq i}
+\Phi\!\left(\frac{\mu_i-\mu_j}{\sigma}+z\right)\right],
+\qquad z\sim N(0,1).
+\]
+That collapse is what makes an exact answer available at all, and it is why the repository's
+integrator is Gauss--Hermite quadrature rather than Monte Carlo. The existing module computes it
+as a log-sum so a product of 13 normal CDFs cannot underflow, dividing out the $j=i$ factor in
+log space so the inner array stays a dense matrix operation. None of that was changed.
+
+For two runners there is a closed form, $P(1>2) = \Phi\big((\mu_1-\mu_2)/(\sqrt2\sigma)\big)$,
+which the integrator matches to $1.1\times10^{-16}$.
+
+%======================================================================
+\section{The market anchor}
+%======================================================================
+
+Under a softmax link, $\operatorname{softmax}(\log q) = q$ exactly. Under probit it does not:
+$C_{\text{probit}}(\log q,\Sigma) \neq q$, and on real margins the discrepancy reaches $0.20$.
+Feeding $\log q$ to a probit link therefore \emph{moves the baseline}, and the unanchored
+diagnostic loses to the incumbent by four times the model's whole edge --- entirely from a
+baseline shift that would have been attributed to the link.
+
+The repository's answer is a ratio anchor, and it is exact:
+\[
+p \;=\; \operatorname{normalize}_r\!\left(\frac{q \cdot P(\log q + c)}{P(\log q)}\right),
+\]
+which returns $q$ when $c=0$ because the numerator and denominator are then the same numbers.
+Measured at $1.1\times10^{-16}$, at every utility scale --- which is also why $\sigma$ is
+\emph{unidentified} before the first tree: the loss is exactly flat in it while the correction is
+zero.
+
+The boosted architecture uses this anchor unchanged, with $c = f_\theta(x)$.
+
+%======================================================================
+\section{Probability engine}
+%======================================================================
+
+Reused, not rebuilt. §5 of the plan asks for a new engine only if the existing one cannot
+supply gradients, batch, or stay stable; it can do all three. The one addition is a
+probabilities-only entry point that calls the integrator's own
+\texttt{\_race\_stack\_probabilities}, because the boosting loop wants probabilities without
+the gradient's $\lambda$ array once per round.
+
+\textbf{§24: how many nodes does the \emph{gradient} need?} Measured on a real 2024 training
+slice (130,629 rows, 10,496 races) against a 128-node reference:
+
+\begin{center}\small
+\begin{tabular}{rrrrr}
+\toprule
+nodes & max abs prob error & max rel gradient error & race log-loss error & seconds \\
+\midrule
+8 & 3.2e-03 & 1.4e-01 & 2.4e-05 & 0.16 \\
+16 & 1.8e-04 & 1.2e-02 & 3.0e-06 & 0.27 \\
+24 & 1.6e-05 & 1.3e-03 & 2.4e-07 & 0.39 \\
+\rowcolor{rowshade}\textbf{32} & \textbf{2.2e-06} & \textbf{1.5e-04} & \good{2.5e-08} & \textbf{0.51} \\
+48 & 3.2e-08 & 3.3e-06 & 6.7e-10 & 0.75 \\
+64 & 6.5e-10 & 8.5e-08 & 1.4e-12 & 0.97 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+32 nodes for training, 64 for scoring. At 32 the induced race-log-loss error is
+$2.5\times10^{-8}$ against an effect of $9.4\times10^{-4}$ --- \good{38,000$\times$ smaller}.
+
+%======================================================================
+\section{Gradient derivation}
+%======================================================================
+
+\textbf{The plan's derivation is for a different model, and using it would have trained the
+wrong objective.} §12 derives $\partial(-\log P_w)/\partial\mu$ for the \emph{unanchored}
+probit, where only the winner's probability appears and one row of the Jacobian suffices. The
+prediction here is anchored. Writing
+\[
+s_j \;=\; \log q_j + \log P_j(\mu) - \log P_j(\log q)
+\]
+makes the structure plain: $p = \operatorname{softmax}_r(s)$, so
+$\partial L/\partial s_j = p_j - y_j$ --- exactly the production objective's residual --- and
+\[
+\boxed{\;\frac{\partial L}{\partial \mu_i} \;=\; \sum_j (p_j - y_j)\,
+\frac{\partial \log P_j}{\partial \mu_i}\;}
+\]
+The anchor's denominator does not depend on $\mu$ and drops out. What does not drop out is that
+every runner's $s$ depends on every runner's $\mu$, so this needs the \textbf{full $n\times n$
+Jacobian}.
+
+With $a_{jk} = (\mu_j-\mu_k)/\sigma + z$ and $\lambda(a)=\phi(a)/\Phi(a)$:
+\[
+\frac{\partial P_j}{\partial \mu_j} = \frac{1}{\sigma}\,\mathbb{E}_z\!\left[\prod_{k\neq j}\Phi(a_{jk})
+\sum_{k\neq j}\lambda(a_{jk})\right],
+\qquad
+\frac{\partial P_j}{\partial \mu_i} = -\frac{1}{\sigma}\,\mathbb{E}_z\!\left[\prod_{k\neq j}\Phi(a_{jk})
+\,\lambda(a_{ji})\right].
+\]
+Both share the product term the probability already forms, and $\lambda$ is the same
+$(\text{races},\text{nodes},n,n)$ shape as the log-CDF array --- so the gradient costs about one
+more probability evaluation rather than $n$ of them. Only the vector--Jacobian product is
+formed; the Jacobian is contracted inside the node loop and never materialised.
+
+\textbf{Curvature.} The true race Hessian is dense. XGBoost consumes one scalar per row, so the
+diagonal used is Gauss--Newton, $h_i = J_{ii}^2\,p_i(1-p_i)$, nonnegative by construction rather
+than by clipping and reducing to the production softmax's $p(1-p)$ when the link is the identity.
+
+\subsection*{§13's mandatory validation}
+
+\begin{center}\small
+\begin{tabular}{lll}
+\toprule
+Check & Result & Tolerance \\
+\midrule
+probabilities vs \texttt{quadrature\_probit\_probabilities} & \good{0.0} (bit-identical) & --- \\
+anchor identity at zero correction & \good{1.1e-16} & 1e-12 \\
+gradient vs central difference, worst of 48 cells & \good{5.6e-9} relative & 1e-6 \\
+curvature nonnegative & yes & --- \\
+sum of probabilities per race & 1 to 2e-12 & 1e-9 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+48 cells: field sizes $\{5,8,12,14\}$ $\times$ regimes \{favourite-heavy, near-uniform,
+longshot-heavy\} $\times$ steps $\{10^{-3},10^{-4},10^{-5},10^{-6}\}$. Best step $10^{-4}$;
+$10^{-6}$ degrades to $\sim$1e-9 from cancellation, as expected.
+
+\textbf{One bug worth recording, because it looked numerical and was not.} The first version
+failed its own check at $0.800000000006817$. That is $4/5$: the analytic gradient differentiates
+the race-loss \emph{sum} (the convention \texttt{softmax\_obj} uses, since XGBoost sums rows)
+while the finite-difference helper differenced the \emph{mean}, and the fixture had five races.
+
+%======================================================================
+\section{Boosting algorithm}
+%======================================================================
+
+An XGBoost custom objective on the production training path, not a bespoke booster. §14 offers
+a hand-rolled first-order loop as a reference and says not to build one merely because the plan
+suggests it --- and the repository already trains its production model through
+\texttt{xgb.train(..., obj=softmax\_obj)} with \texttt{base\_margin=$\log q$}, which is
+structurally the same problem. Reusing that path means the two architectures differ in exactly
+one argument, and the boosted probit inherits the production model's regularisation, column
+sampling, histogram method, determinism and threading. A parallel booster would have turned
+§22's capacity comparison into a comparison of two training stacks.
+
+Per round: form $\mu$ from the base margin plus the ensemble so far, integrate probabilities,
+form the residual $p-y$, take one more pass for the gradient and the curvature together, hand
+XGBoost the two vectors.
+
+%======================================================================
+\section{Optimisation}
+%======================================================================
+
+Profiled before optimised, as §23 asks. Two bottlenecks, both fixed.
+
+\textbf{Three integration passes per round became two.} The objective computed probabilities,
+then the gradient, then the curvature. The gradient and curvature cotangents now share a pass
+(the VJP accepts a stack of cotangents), and the probabilities-only path stops building a
+$\lambda$ array it discards. \good{62\% of a round $\to$ 44\%}.
+
+\textbf{Threading.} \texttt{log\_ndtr} releases the GIL and the integrator already had a thread
+knob; the gradient inherits it.
+
+\begin{center}\small
+\begin{tabular}{rrrrrr}
+\toprule
+threads & nodes & probability & gradient & per round & 400 rounds \\
+\midrule
+1 & 32 & 0.86s & 1.38s & 2.24s & $\sim$15 min \\
+1 & 64 & 1.63s & 2.66s & 4.29s & $\sim$29 min \\
+\rowcolor{rowshade}\textbf{8} & \textbf{32} & \textbf{0.14s} & \textbf{0.22s} & \textbf{0.36s} & \good{$\sim$2 min} \\
+8 & 64 & 0.27s & 0.43s & 0.70s & $\sim$5 min \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+So direct probit training is computationally feasible: a 400-round fit over a decade of races is
+two minutes. Cells are therefore fitted \emph{serially} --- each already saturates the machine
+through the integrator's threads, and fanning cells across processes would divide the same cores
+twice.
+
+%======================================================================
+\section{The utility scale, and two failures}
+%======================================================================
+
+\input{scale}
+
+%======================================================================
+\section{Results: the comparison ladder}
+%======================================================================
+
+\input{ladder}
+
+%======================================================================
+\section{Interaction analysis}
+%======================================================================
+
+\input{interactions}
+
+%======================================================================
+\section{Calibration and sharpness}
+%======================================================================
+
+\input{calibration}
+
+%======================================================================
+\section{Longshots}
+%======================================================================
+
+\input{longshots}
+
+%======================================================================
+\section{Runtime and engineering tradeoffs}
+%======================================================================
+
+\input{runtime}
+
+%======================================================================
+\section{Tail and variance experiments}
+%======================================================================
+
+Not run, and the plan says not to start with them (§37, §38). The homoskedastic
+$\epsilon \sim N(0,\sigma^2)$ model is what this experiment tests, and the repository's prior
+work already found that structured covariance did not help and that more elaborate shock
+distributions did not improve the standalone generative model after scale fitting. Student-$t$
+tails and a boosted variance model are named here so their absence is a decision rather than an
+omission.
+
+%======================================================================
+\section{Limitations}
+%======================================================================
+
+\input{limitations}
+
+%======================================================================
+\section{Recommendation}
+%======================================================================
+
+\input{recommendation}
+
+\end{document}
