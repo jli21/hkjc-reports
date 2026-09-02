@@ -40,6 +40,264 @@ convincing was not. Those are in **What we tried -- chronologically** and **Meth
 lessons**, and they are the reason several later designs were not attempted twice.
 
 
+## 2026-09-02 `race-incidents` was a fixture: one meeting, 27 year files, and a contract that passed
+
+**309,276 rows across 27 year files held 142 distinct horses and 99 distinct incident texts.** Every
+check in this repository passed it. The row count was right, the dates were right, the schema was
+right, the `Incident` prose was real -- and it came from one meeting, relabelled 2,178 times.
+
+**Three failures compounding, established against the live site rather than inferred.**
+
+1. **The wrong query parameter.** The collector built
+   `racereportfull?racedate=YYYY/MM/DD&Racecourse=ST&RaceNo=1`. The endpoint reads none of those
+   three; its own date selector navigates with `?Date=`. Verified on 2026-09-02:
+   `?racedate=2024/01/01` answers *"Race Meeting: 15/07/2026"* at Happy Valley, and `?Date=2024/01/01`
+   answers *"01/01/2024"* at Sha Tin.
+2. **The endpoint fails open, and its siblings do not.** Given a parameter it cannot honour, or a date
+   with no meeting, `racereportfull` returns **HTTP 200 and a complete, plausible page for the current
+   default meeting**. Its sibling `exceptionalfactors`, fetched by the same collector in the same run
+   with the same lowercase `racedate`, fails *closed* with "No information." That is why
+   `race-exceptional-factors` is real and this was not, from one collector in one run.
+3. **Identity came from the request.** `parse_report_meeting` stamped every row with the date and
+   racecourse it had *asked for*, numbered races by table position, and synthesised a per-race
+   `source_url` that was never fetched. So a fallback page was relabelled as the meeting requested and
+   the recorded provenance could not contradict it.
+
+The mechanism is visible in the data alone: in `race-incidents-2003.csv`, ST race 1 across **49
+distinct dates holds exactly one horse set**, ST and HV rows for a race number are identical, and the
+file contains `horse_id`s from the 2020-2025 seasons. Only `RaceNo` was ever read: 11 race numbers x
+~13 runners = 142 horses.
+
+**What was rebuilt, by this repository's own repaired collector.** 192 meetings, zero fetch failures,
+zero discards:
+
+| | rebuilt 2024-2026 | the archive it replaced |
+|---|---:|---:|
+| rows | 22,914 | 309,276 |
+| races | 1,845 | 23,958 |
+| meetings | 192 | 2,178 |
+| **distinct horses** | **2,122** | **142** |
+| **distinct incident texts** | **13,272** | **99** |
+
+Race numbers came from the page's own `Race:N` headers for **100% of rows** -- the positional fallback
+never fired. Every accepted page proved its own meeting date, and each row records the URL actually
+fetched (192 URLs for 192 meetings, not one per race). 98.81% of `(race_id, horse_id)` pairs are in the
+results panel and on those 22,641 rows the scraped horse number agrees with the panel's **exactly:
+zero disagreements**. Mean runner-set agreement is 0.9927 with 90.6% of races agreeing exactly.
+
+**The 273 rows not in the panel are fully accounted for, and most of them are the point of the
+dataset.** 170 are withdrawn or excluded runners (`WV`, `WX`) that never started, so a results-derived
+panel cannot contain them -- and their text is the intervention itself: *"Withdrawn on 2.1.24 by order
+of the Stewards acting on veterinary advice (lame right fore). Before being allowed to race again,
+LADY BILLIE will be subjected to..."* 102 sit in eight races the **panel itself** lacks on three 2024
+dates, so they are an `aspx-results` gap rather than an incident error. One is a standby declared
+starter with no placing and no number, recording a trainer fined for entering it in a barrier trial.
+Zero rows are unexplained. A downstream join must not inner-join on the panel or it discards exactly
+these.
+
+**Two bounds on what can ever be recovered.** The per-runner incident *table* begins with the 2023/24
+season: `2024/01/01` serves ten tables and 124 runners while 2023/09/10, 2023/01/01, 2022, 2021, 2020
+and 2019 serve real pages with **zero** tables. So the 24 pre-2024 files were not mis-scraped, they
+were never available in this schema, and they are gone. What those earlier pages *do* carry is the
+same channel as prose keyed by race -- *"Race 10: SUPER FORM on 31.12.18 on veterinary advice"*,
+jockey censures, per-race veterinary findings -- which is a meeting-level schema and a separate
+dataset. It is in `backlog.md`.
+
+**The methodology lessons, which are the transferable part.**
+
+* **A sibling endpoint's contract is not evidence of this endpoint's contract, and neither is HTTP
+  200.** Two pages in the same family, fetched by the same code path on the same day, disagreed about
+  whether a query parameter exists and about what to do when it cannot be honoured.
+* **Identity must come from the response.** A collector that stamps a response with the request it
+  answered cannot detect a server that ignored the request, and its provenance is then a record of
+  what was asked rather than of what arrived.
+* **A row count cannot see replication.** `min_rows: 300000` was satisfied by the fixture. The
+  contract now declares entity-cardinality floors (`min_distinct`) enforced on read and reported in
+  `SCRAPE_COVERAGE.md`, and the regression test is that the replicated fixture fails its own contract.
+* **The cross-dataset check was the cheap one and it was not there.** Comparing the page's runners
+  against `aspx-results` for the same races returns ~0.99 on the rebuilt data and near zero on the
+  archive. It would have caught this on the first meeting.
+
+The primary key moved from `(race_id, "Horse No.")` to `(race_id, horse_id)`, because a withdrawn
+runner has no number and those are the rows worth having. `verify --only historical` now checks 249
+files rather than 273, and the freeze grew a rebaseline verb that demands a reason and records what
+moved, because "source data does not change" cannot mean "a fixture stays because it is frozen".
+
+## 2026-09-02 The declared-gear intervention: three blocks, three nulls, and a season split that did not replicate
+
+**What was tested.** HKJC declares each runner's equipment on the card before the race in its own
+notation -- a bare code is standing equipment, a trailing `1` is first time in that item, `2` is the
+second start, `-` is removed today. Production reduces the whole channel to `gear_change`, one bit
+comparing raw strings. Six columns decompose it (`gear_first_n`, `gear_removed_n`, `gear_load`,
+`gear_vision_first`, `gear_true_change`, `gear_intervention_size`), measured as three blocks against
+the locked incumbent. No new dataset, cache or join: the `Gear` string was already loaded.
+
+**D1 confirmed on this repository's own table, not taken on trust.** Over 152,046 starts from 2010:
+
+| Quantity | Measured here | The research's panel |
+|---|---:|---:|
+| `gear_change` fires | 0.2654 | 0.2769 |
+| the equipment set actually changed | 0.1467 | 0.1524 |
+| **fires with no equipment change** | **0.4473** | 0.4499 |
+| real changes the bit misses | 0.0000 | 0.0000 |
+
+`B1` at one start becomes `B` at the next, so the string changes while nothing on the horse's head
+does. The bit never misses a real change; nearly half of what it reports is HKJC's first-time marker
+decaying. **`gear_change` keeps its semantics** -- it is one of the 28 production inputs, so
+redefining it is a modelling change behind the same bar as a promotion, and the corrected bit had to
+be measured as an addition first.
+
+**The result: three rejects.** `canonical_confirm`, 11 scored years x 5 seeds, 55 cells each,
+complete, race universe consistent, no-op exactly `0.0` on the rebuilt table beforehand:
+
+| Block | equal-cell | race-weighted | years | seeds | paired 95% interval | research | retention |
+|---|---:|---:|---:|---:|---|---:|---:|
+| all six | **-0.0002790** | -0.0002537 | 7/11 | **5/5** | -0.000486 to -0.000024 | -0.0014606 | 19% |
+| first-time only | **-0.0001978** | -0.0002181 | **9/11** | **5/5** | -0.000391 to -0.000052 | -0.0012124 | 16% |
+| corrected bit | **-0.0001370** | -0.0001639 | 7/11 | **5/5** | -0.000336 to +0.000010 | -0.0007010 | 20% |
+
+Every equal-cell mean is above the pre-registered `-0.0005`, so all three stop there. At 3.0-6.2% of
+the production model's market-relative edge, none is worth a production column.
+
+**This is a different kind of null from C4's, and the difference is worth keeping.** C4 was
+inconsistent *and* tiny: 5/11 years, 1/5 seeds, an interval spanning zero. These are **consistent and
+tiny**: 5/5 seeds favourable in all three blocks, 9/11 years for the narrow one, and two of the three
+intervals *exclude* zero. The signs are the most stable this programme has produced. The magnitude is
+a fifth of what was predicted. A real, reproducible, sign-stable effect can still be too small to
+promote, and that is a cleaner finding than noise would have been.
+
+**The research's central prediction did not replicate, and it was pre-registered so it can be said
+plainly.** The source repository put the *entire* effect in the last three seasons, identically across
+all three blocks, with 2016-2022 positive in every one (+0.000329, +0.000466, +0.001133). Split at
+this plan's 2023 boundary:
+
+| Block | 2016-2022 | years | 2023-2026 | years |
+|---|---:|---:|---:|---:|
+| all six | -0.0000762 | 3/7 | -0.0006338 | **4/4** |
+| first-time only | **-0.0001544** | **7/7** | -0.0002739 | 2/4 |
+| corrected bit | -0.0001663 | 5/7 | -0.0000858 | 2/4 |
+
+The early half is favourable in all three blocks, not positive. For the first-time block it is
+**7/7 years favourable at t = -2.22**, more consistent than its own recent half. So the effect is not
+confined to the seasons where declaration coverage rose (`gear_first_n` 0.0943 in 2010 to 0.1436 in
+2024), and the "recent-only, therefore a restricted-span argument" branch of the pre-registration is
+not the one that fired. Only the six-column block is recent-concentrated (4/4 favourable at
+t = -2.97 over 2023-2026), which is the opposite of the wide-block-dilutes-its-contents story.
+
+**Redundancy, pinned.** Against `gear_change`: `gear_true_change` 0.690, `gear_intervention_size`
+0.650, `gear_removed_n` 0.455, `gear_first_n` 0.323, `gear_vision_first` 0.295, `gear_load` 0.121.
+Against `early_style_ewm` and `trip_excuse_ewm` every column is below 0.07 in absolute value -- this
+block is genuinely novel where C4 was not, and it still measured almost nothing. That is the third
+study in a row in which novelty against the incumbent and usefulness ran in opposite directions.
+
+**What was kept.** The six columns stay in both feature tables and in `ALL_CANDIDATE_FEATURES` as
+research inputs; nothing reads them at fit time unless a candidate names them. `production.json` is
+untouched. The three manifests carry their measured neutral shares and the pinned correlations. The
+replacement test -- the corrected bit *instead of* `gear_change` rather than beside it -- is still not
+expressible in this harness and is in `backlog.md` with what it would cost.
+
+## 2026-09 Pace composition x own style (canonical block C4): a null, and where the research effect went
+
+**The claim tested.** A feature-research campaign in a separate repository took six candidate
+blocks to canonical scale (8 years x 5 seeds x 400 rounds, 40 paired cells) and exactly one
+survived: `pace composition x own style`, at a paired racewise log-loss delta of **-0.0014903**,
+t = -1.25, 25/40 cells and 6/8 years favourable, with a development-scale effect that carried into
+canonical intact. That is 32.9% of the production model's entire edge over the market
+(-0.004533), and it was the most novel of the finalists against the incumbent's 28 columns. The
+plan for this work is `docs/plans/` 2026-09-01; the implementation is
+`src/hkjc/features/pace_composition.py`.
+
+**The mechanism, which is the reason the block is four columns rather than one.** A racewise
+softmax is invariant to anything constant within a race, so the *level* of a projected pace
+cancels out of the ordering however good the forecast is -- which is what every previous pace
+attempt in this programme measured. What does not cancel is the projected shape multiplied by
+this runner's own race-centred prior style. Three of the four columns are that product; the
+fourth is the runner's own early-speed score less its race mean.
+
+**Three corrections applied before anything was measured**, each a place where the research
+number used information a pre-race feature cannot have:
+
+| Correction | What it was | What it is here |
+|---|---|---|
+| the forecast's track-speed term | `race_track_speed`, the field's own mean sectional residual **in the race being predicted** | a strictly-prior per-course/going estimate from completed meetings only |
+| `z_pace_hat`'s scale | standardised over the whole panel, future years included | training-fold moments, applied forward |
+| missing values | a full-panel median | a declared neutral 0.0, measured and recorded |
+
+The first one is the load-bearing one and its cost is measurable rather than speculative: the
+pace forecast's out-of-sample correlation with the realised early pace falls from the research
+build's **r = 0.680 to r = 0.337** (R^2 = 0.086 on 10,098 races). The forecast was reading a
+partial answer to its own question. Study II of the same campaign had independently reached
+r = 0.414 for a legitimate field-composition forecast, so 0.337 is the plausible band and 0.680
+was not.
+
+**The result, on this repository's own chronology and seeds** (`canonical_confirm`: 12 test years
+from 2015 with 2015 a fitted warm-up, 5 seeds, 400 rounds, 55 scored cells, complete):
+
+| Quantity | Research canonical | Measured here |
+|---|---:|---:|
+| equal-cell mean delta | -0.0014903 | **+0.0000659** |
+| race-weighted mean delta | not reported | **-0.0000226** |
+| years favourable | 6/8 | 5/11 |
+| seeds favourable | not reported | 1/5 |
+| worst year | 2021, +0.00913 | 2020, +0.00130 |
+| paired race-level 95% interval | not reported | -0.000301 to +0.000232 |
+| share of the production edge | 32.9% | 1.5% at most, and not distinguishable from zero |
+
+Retention from the research canonical figure is **-4% on the equal-cell mean and +2% on the
+race-weighted one**. The recommendation is `reject`, the pre-registered thresholds
+(`MATERIAL_DELTA = -0.0005`, a 60% sign majority) are not met on any reading, and
+`configs/features/production.json` was not edited at any point.
+
+**The two means disagree in sign, and that is worth a sentence rather than a footnote.** The
+equal-cell mean gives every (year, seed) the same weight; the race-weighted mean gives every race
+the same weight. 2026 holds 201 races against 744-799 for every other year, and it is one of the
+block's worst (+0.00129), so it carries 1/11 of the equal-cell mean and 1/40 of the
+race-weighted one. Reporting either as though it were the other is how this block could be
+written up as marginally positive or marginally negative at will. It is neither: the paired
+interval spans zero and 1 of 5 seeds favours it.
+
+**The redundancy, measured on the shipped table rather than assumed.** Production already carries
+`early_style_ewm`, `pace_pressure` and `closer_setup`. Against `early_style_ewm`,
+`pacecomp_lead_x_style` correlates 0.77, `pacecomp_entropy_x_style` 0.79 and
+`pacecomp_own_speed_vs_field` 0.82. Only `pacecomp_pace_x_style` is substantially novel, at 0.18
+-- and that is the column whose forecast lost half its correlation to the P0.1 correction. So the
+one genuinely new thing in the block is the one the correction weakened, and the other three are
+largely a restatement of a column the incumbent has had for years. The research campaign's own
+novel-share measurement (0.682 for the pace cross, 0.317, 0.278 and 0.180 for the others) pointed
+at the same conclusion from the other direction.
+
+Correlation against `sectional_projected_pace` is exactly zero, and that number is arithmetic
+rather than evidence: it is race-constant and all four new columns are race-centred. A test pins
+it so nobody reads it as a redundancy finding.
+
+**What this contributes, given that it is a null.**
+
+* **A leak in a predictor can be the whole effect, and a plausible-looking forecast quality figure
+  is where to look for one.** r = 0.680 for a pre-race pace forecast should have read as too good.
+  The three corrections cost -0.001490 and the first is most of it.
+* **Development-scale paired deltas remain uninformative at this effect size, in both
+  directions.** The 15-cell `development` profile returned +0.000310 here against the research
+  campaign's -0.0014519 for the same block -- a sign flip. The campaign had already recorded
+  eight development-to-canonical retentions of 43%, 15%, -23%, 2%, -155%, -401%, -567% and +427%;
+  this is the ninth, and the lesson has not changed. A development profile is for finding
+  mistakes, not effects.
+* **Redundancy with the incumbent, not novelty against nothing, decides whether a feature is
+  worth anything.** Three of these four columns were a re-derivation of `early_style_ewm` by
+  another route, and no amount of mechanism argument changes that.
+* **One structural feature does replicate and is not noise.** 2020 and 2021 are the block's worst
+  years in both studies (research 2021: +0.00913; here 2021: +0.00112, 2020: +0.00130). Whatever
+  the crosses do, they do the opposite of helping through the disruption seasons. That is the only
+  part of this block a future attempt should start from.
+
+**What was kept.** The four columns remain in both feature tables and in
+`ALL_CANDIDATE_FEATURES`, the cache builder is step four of the documented build sequence, and the
+candidate manifest, its measured `missing_behaviour` and the pinned redundancy correlations are in
+the tree. They are research inputs, not production inputs: nothing reads them at fit time unless a
+candidate names them, and the cost of keeping them is one minute of build time. Re-running the
+measurement takes `hkjc feature-iterate --candidate pace_composition_x_own_style --profile
+canonical_confirm`, and the run's content digest is
+`sha256:97fdf464dc3b18e009dd454f1e514aabf55793dff7a8571bb0a0b129685d3d28`.
+
 ## 2026-08 Phase 6: the normal choice link beats the Gumbel one, on both scoreboards
 
 Replacing independent Gumbel choice shocks (softmax) with normal latent-performance

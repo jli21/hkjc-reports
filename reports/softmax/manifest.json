@@ -1,8 +1,8 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 6428370,
-      "digest": "sha256:5e93f2574e6de0c9f4d805af866e74de7e43248b832a2d7c1f54cec491202426",
+      "bytes": 6428366,
+      "digest": "sha256:83a8800eacd4e8062e7157a1ef92883d6fde826a05bab87330442e3453df20d4",
       "format": "html",
       "path": "results/reports/softmax/report.html"
     },
@@ -14,14 +14,14 @@
     },
     "run_lock": {
       "bytes": 6888,
-      "digest": "sha256:06e21b112b418b9d580539b415c5fa8d439ad70b5fc22fe99c8ed525c7b8ea6e",
+      "digest": "sha256:881d38938985ff1dc33c2cd861d74f6df5b64d0c5d4f49bb738412bb023ab87d",
       "format": "json",
       "path": "results/reports/softmax/run_lock.json"
     }
   },
-  "created_utc": "2026-09-01T06:28:00+00:00",
+  "created_utc": "2026-09-02T04:00:34+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:5ba2ef305f34888ee2110811f8e5ce2b7586e2aeef2c3c286008f5958618dd32",
+  "lock_digest": "sha256:dcace3061736f706b1d7163edc7447592146b0e63763307e28bcc7836445831a",
   "report": {
     "config_digest": "sha256:25038878a576474fcdede70d9c4303798c0168aa56905263cba3a500877689f7",
     "evidence_not_applicable": [],

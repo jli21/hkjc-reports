@@ -1,9 +1,13 @@
-\textbf{What the diagnostic can and cannot show.} Split frequency and gain say which features an
-ensemble used; only the count of feature pairs on a shared root-to-leaf path says an
-\emph{interaction} was learned, because two features with large separate gains that never share a
-path are being used additively. Both are computed by
-\texttt{boosted\_probit\_diagnostics.interaction\_diagnostics}, normalised so two ensembles of
-different total gain are comparable.
+\textbf{What the diagnostic can and cannot show, and what was actually run.} Split frequency and
+gain say which features an ensemble used; only the count of feature pairs on a shared root-to-leaf
+path says an \emph{interaction} was learned, because two features with large separate gains that
+never share a path are being used additively. That pair-count diagnostic was specified and
+\emph{was not run}: no gain, split-share or pair-count table appears in this report, and no
+committed artifact holds one. The earlier version of this paragraph named a module as computing
+both, which was a statement about code that existed rather than about evidence that was produced,
+and the module has since been removed as never having been called. What §20 rests on here is the
+depth ablation below, which is real and reproducible from
+\texttt{depth\_ladder.csv}, together with §11's identical-link comparison.
 
 \subsection*{§35's depth ablation: the motivating hypothesis, tested directly}
 

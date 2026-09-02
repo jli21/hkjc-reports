@@ -49,11 +49,17 @@ race likelihood improve on the existing probit links and the production softmax 
 experiment. The repository-standard model report is rendered separately from this run's own
 artifacts by \texttt{hkjc build-report --model probit\_offset\_boosted}, through the same
 bundle and publication path as the four existing models; it says what the model scored. This
-document says how it was derived, validated, profiled, and twice nearly mis-concluded.
+document says how it was derived, validated, profiled, and three times nearly mis-concluded --- the third time in this report's own statistics rather than in the model.
 
 \textbf{Scope.} The branch is not merged. The production default remains
 \texttt{configs/models/softmax\_offset\_production.json}, and the new model carries
 \texttt{standard} rather than \texttt{production} status in the publication config.
+
+\textbf{The answer, up front.} \bad{No.} Direct probit training beats both baselines on
+the mean, but neither margin survives a test across test years: $t=-1.40$ against the production
+booster and $t=-0.46$ against the link-only probit, on $6/11$ years favourable. Essentially the
+whole gain belongs to the probit \emph{link}, which the repository already has and which costs no
+fitting at all. The recommendation is to keep the softmax booster.
 
 \textbf{What it does not establish.} No profitability claim: every price is a result-page
 price recorded after the pool closed, and no return is computed. The utility scale is fitted on

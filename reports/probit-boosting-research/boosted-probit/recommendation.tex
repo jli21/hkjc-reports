@@ -1,0 +1,35 @@
+\subsection*{Promote to production candidate}
+\emph{Nothing in this category.}
+
+\subsection*{Promising but requires another canonical confirmation}
+\emph{Nothing in this category.}
+
+\subsection*{Probability improvement but computationally impractical}
+\begin{itemize}[leftmargin=1.3em]\itemsep3pt
+\item \emph{Not this, and it is worth saying why.} Training is about 30$\times$ the softmax booster's and scoring is free, so a weekly rebuild is unaffected and only an interactive full-history refit would hurt. Cost is not what decides this experiment.
+\end{itemize}
+
+\subsection*{No meaningful difference from post-hoc probit}
+\begin{itemize}[leftmargin=1.3em]\itemsep3pt
+\item \emph{Not this.} The boosted margins differ from the Offset margins by \good{$-0.000610$} scored through the identical softmax link, so the mean function genuinely differs rather than being a rescaling of the incumbent's.
+\end{itemize}
+
+\subsection*{Negative --- keep the softmax booster}
+\begin{itemize}[leftmargin=1.3em]\itemsep3pt
+\item Boosted probit against the production softmax booster: \good{$-0.001352$}, $t=-1.40$ across 11 test years, 6/11 favourable, 34.2\% of the production edge. Against the link-only probit: \good{$-0.000410$} at $t=-0.46$. Neither margin survives a year-level test. The direction is favourable and the per-race and per-seed spreads are tight, but the year-to-year spread is the one that speaks to a season this model has not seen, and against it neither comparison clears $|t|>2$. On the repository's own standing evidence --- eighteen candidates carried to canonical scale in the companion research programme, none confirming --- a $6/11$ year split is what nothing looks like.
+\end{itemize}
+
+\subsection*{§47's success criteria, answered}
+
+\begin{enumerate}[leftmargin=1.6em]\itemsep2pt
+\item \textbf{Can the existing probability machinery supply accurate gradients?} \good{Yes} --- bit-identical probabilities, 5.6e-9 gradient agreement.
+\item \textbf{Can the existing anchor be reused without sacrificing correctness?} \good{Yes} --- unchanged, and exact to 1.1e-16 at zero correction.
+\item \textbf{Is direct probit training computationally feasible?} \good{Yes} --- two minutes per 400-round fit over a decade of races.
+\item \textbf{Does the probit objective learn different structure?} \good{Yes}, measurably, and not as a rescaling.
+\item \textbf{Does it outperform the existing probit?} See §18 and the ladder: \good{$-0.000410$}.
+\item \textbf{Does it outperform the market-offset probit?} Same comparison.
+\item \textbf{Does it outperform the softmax booster?} \good{$-0.001352$}.
+\item \textbf{Does any gain survive canonical testing?} That is what §11 reports; the development-scale numbers in this document are labelled as such throughout.
+\item \textbf{Is any gain large enough to justify the complexity?} Answered in the category above rather than asserted here.
+\end{enumerate}
+

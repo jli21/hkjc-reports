@@ -1,0 +1,21 @@
+The plan's §45 asks eight questions. Answering them directly:
+
+\begin{enumerate}[leftmargin=1.5em]\itemsep3pt
+\item \textbf{Did direct boosted probit beat the current production model?} On the mean, yes, by \good{$-0.001352$} --- but \bad{not distinguishably}: $t=-1.40$ across 11 test years, favourable in only 6 of them. That is 34.2\% of the production edge on the mean and nothing that clears a significance bar.
+\item \textbf{Did it beat the existing link-only probit?} \bad{No.} \good{$-0.000410$} at $t=-0.46$ across years --- indistinguishable from zero. This is the comparison the plan's §46 calls the key one, and it is the answer that decides the experiment: the link-only \texttt{probit\_offset} already collects \good{$-0.000844$} against the production booster \emph{for no fitting at all}, and direct training adds nothing measurable on top of it.
+\item \textbf{Was the gain statistically stable?} \bad{Across seeds yes, across years no}, and the distinction is the whole result. 5/5 seeds favourable at $t=-16.03$, but only 6/11 years at $t=-1.40$. Five seeds score the \emph{same races}, so their agreement measures seed stability, not generalisation; test years are the independent replicates. See §11.
+\item \textbf{Was it worth the computational cost?} Training is about 30$\times$ the softmax booster's --- 100 minutes against 3 for a twelve-year five-seed sweep. Scoring is free. See §15.
+\item \textbf{Did the probit objective learn different structure?} The mean function it learns is measurably different, not a rescaling: scored through the \emph{same} softmax link its margins differ from the Offset's by \good{$-0.000610$}. See §12.
+\item \textbf{Is the market anchor numerically robust?} Yes: the ratio anchor returns $q$ to $1.1\times10^{-16}$ at zero correction, at every scale, and the gradient module's probabilities are bit-identical to the integrator's.
+\item \textbf{Is the implementation production-feasible?} Yes as a model; the open question is rebuild cadence rather than correctness.
+\item \textbf{Did it beat post-hoc probit?} See question 2 --- that is the same comparison, and it is the one the plan's §46 calls the key one.
+\end{enumerate}
+
+\subsection*{The two things this experiment nearly got wrong}
+
+\textbf{An unstable utility scale produced a spectacular false positive.} The plan's alternating scale fit gave $-0.016$ against the market at 100 rounds and $+0.004$ at 200. The first number is 3.5 times the production edge and would have been reported as a result had the second not been measured. §10.
+
+\textbf{Matched nominal hyperparameters are not matched capacity.} The probit gradient carries $1/\sigma$ and its Gauss--Newton Hessian $1/\sigma^2$, so the leaf weight scales like $\sigma$ and the effective step at $\sigma\approx1.8$ is about twice the softmax objective's. At the production learning rate the boosted probit \bad{loses to the market}; on the plateau from 0.002 to 0.003 it beats both baselines with a \emph{smaller} correction. A negative result was reported internally before this was found, and it was wrong. §10.
+
+\textbf{And an across-seed standard error nearly manufactured a significant result.} The first version of this report's generator computed significance across the five seeds, which gave the headline $t=-16.0$. Five seeds score the \emph{same races}: their deltas are five measurements of one sample, and their tight agreement measures determinism, not generalisation. Recomputed across test years --- the actual independent replicates --- the same number is $t=-1.4$, and the comparison against the link-only probit is $t=-0.5$. The recommendation logic had also been written to test only the \emph{sign} of that second comparison, so the two faults compounded: the report would have filed a null as promising. Both are fixed, and the conclusion reversed when they were.
+

@@ -219,11 +219,11 @@
       "state": "available"
     },
     "effects": {
-      "reason": "This architecture has no model-specific learned features to attribute.",
+      "reason": "This architecture trains its own booster under the probit likelihood, so it does learn features -- and no attribution for them is published. Its SHAP on exactly this correction is available from the fitted model and the fitting stage does not persist it, so the block is a gap rather than an impossibility. The input correction attribution block below states the same thing from the run's own identity record.",
       "state": "not_applicable"
     },
     "ensemble": {
-      "reason": "There is no ensemble to be stable. This architecture is one choice link applied to one set of mean utilities, not a bag of independently fitted members, so seed variation here is integration noise rather than model disagreement -- and that is reported beside the paired diagnostic instead.",
+      "reason": "The per-runner member-spread artifact is written by the softmax prediction stage, and no probit stage produces one. What the seeds do here is reported beside the paired diagnostic instead, as a per-seed table.",
       "state": "not_applicable"
     },
     "identity": {
@@ -411,7 +411,11 @@
     "betting_probit_offset_boosted/probit_betting_run": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/probit_betting_run.json",
     "betting_probit_offset_boosted/race_paths": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/race_paths.parquet",
     "market_relationship": "results/runs/probit_offset_boosted/market_relationship.json",
+    "probit_offset_boosted_correction_identity": "results/runs/probit_offset_boosted/probit_offset_boosted_correction_identity.json",
+    "probit_offset_boosted_link_movement": "results/runs/probit_offset_boosted/probit_offset_boosted_link_movement.parquet",
     "probit_offset_boosted_per_run": "results/runs/probit_offset_boosted/probit_offset_boosted_per_run.csv",
+    "probit_offset_boosted_reliability": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability.parquet",
+    "probit_offset_boosted_reliability_yearly": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability_yearly.parquet",
     "probit_offset_boosted_sensitivity": "results/runs/probit_offset_boosted/probit_offset_boosted_sensitivity.parquet",
     "probit_offset_boosted_state": "results/runs/probit_offset_boosted/probit_offset_boosted_state.json",
     "sims/model_assumed/summary": "results/runs/probit_offset_boosted/sims/model_assumed/summary.json",

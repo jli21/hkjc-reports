@@ -322,5 +322,147 @@ from 0.002 to 0.005 all beats the baselines, and 0.0025 sits inside it rather th
 The canonical claim is therefore made at a validated but deliberately non-argmax setting, which
 can only understate it.
 
-CANONICAL_PLACEHOLDER
+## E9 — canonical result, and the third near-miss
 
+Canonical: 11 honest-scale test years x 5 seeds x 400 rounds at lr 0.0025, every arm scored on
+the same race keys, deltas paired per race.
+
+| Arm | race log loss | vs market |
+|---|---|---|
+| boosted probit | 2.023757 | -0.004905 |
+| link-only `probit_offset` | 2.023818 | -0.004844 |
+| softmax link on boosted margins | 2.024052 | -0.004610 |
+| production Offset | 2.024662 | -0.004000 |
+| market | 2.028662 | --- |
+
+The boosted architecture is top of the ladder. **It does not follow that it works**, and the
+reason took a third correction to see.
+
+**The near-miss.** The first version of the report generator computed significance across the
+five seeds and got the headline `boosted vs production = -0.000905, t = -16.03, 5/5 seeds`. I
+would have published that. It is close to meaningless: five seeds score the *same races*, so five
+deltas are five measurements of one sample, and their agreement measures how deterministic the
+training is. Recomputed across **test years** -- the independent replicates:
+
+| Comparison | mean delta | se (years) | t (years) | years favourable | t (seeds) |
+|---|---|---|---|---|---|
+| boosted vs production Offset | -0.001352 | 0.000968 | **-1.40** | 6/11 | -16.03 |
+| boosted vs link-only probit | -0.000410 | 0.000900 | **-0.46** | 6/11 | -1.24 |
+
+The same model, the same races, two notions of an independent observation, and a factor of
+eleven in the *t*. Only the second answers "will this hold next season".
+
+Compounding it, `recommendation_section` tested only the **sign** of the link-only comparison,
+not its significance. Both faults together would have filed this run as *"promising, requires
+another canonical confirmation"*. Both are fixed, `year_level` is now primary in `findings.json`,
+and the seed-level figures are labelled as a stability measure rather than a significance one.
+
+**The conclusion, which reversed.** Direct probit training does not improve on either baseline at
+any defensible level. Almost the entire gain over the production booster belongs to the probit
+**link**: link-only vs production is -0.000844 of the -0.001352 total, and it costs no fitting at
+all -- it is a rescoring of utilities another stage already produced. Direct training adds
+-0.000410 on top at t = -0.46.
+
+The per-year spread is the tell: 2026 -0.0080, 2022 -0.0056, 2024 -0.0037 against 2016 +0.0023,
+2025 +0.0027, 2018 +0.0022. A mean carried by three good years out of eleven.
+
+**Recommendation: keep the softmax booster.** Filed under "Negative", not under "no meaningful
+difference from post-hoc probit" -- though it is nearly that too. The mean function genuinely
+does differ from the incumbent's: scored through the *identical* softmax link the boosted margins
+beat the Offset margins by -0.000610 at t = -11.15 across seeds. The probit objective learns
+something real. It just does not learn something that pays.
+
+This is the nineteenth candidate this programme has carried to canonical scale across two
+repositories, and the nineteenth not to confirm at t < -2.
+
+## E10 — integration, and three guards that fired
+
+Publishing through the repository's own machinery rather than beside it surfaced four defects in
+my integration, each caught by an existing contract:
+
+1. **The run lock refused to certify.** The boosted branch of `run_from_config` never wrote
+   `probit_offset_boosted_utilities.parquet`, which `write_run_lock` declares as an input.
+   `RunLockError: cannot lock a run whose inputs are absent` -- correct, and the fix is to
+   persist it as the standalone architectures do. The two training-diagnostics frames now
+   persist beside it; nothing else was recording them.
+2. **A closed vocabulary rejected the model view.** `simulation_policies` validates `model_view`
+   against `MODEL_VIEWS`, which did not admit `bagged_probit_offset_boosted`. The guard working:
+   an unlisted view is what a typo looks like.
+3. **Two hygiene contracts rejected my test module.** a separate `test_probit_gradients` module
+   imported `pytest` (this suite is unittest-only) and pushed the module count to 21 against a
+   15-20 target. Both say the same thing -- the tests belong in `tests/unit/test_probit.py` --
+   so the 26 gradient checks are now `AnchoredProbitGradientTests` there, as subTests.
+4. **Two pins asserted exactly four published models.** Resolved by publishing the fifth
+   properly rather than by hiding it: `standard` status is correct for it (the vocabulary notes
+   `experimental` cannot appear in this file at all, since every entry has a canonical report),
+   and it joins the production sweep, because the invariant those pins encode is that every
+   published report is rebuildable -- one the sweep skips goes stale silently. It dominates the
+   sweep's runtime, being the only entry that fits a mean rather than laying a link over
+   utilities; the per-cell cache makes a warm rebuild cheap.
+
+Full suite: 1638 passed, 12 skipped, 8760 subtests.
+
+**Artifacts.** `results/reports/probit_offset_boosted/report.html` through the same bundle and
+sections as the other four; `docs/research/boosted-probit/report.pdf` for the derivation.
+
+
+
+---
+
+## E11 — consolidation onto `main`: three things this experiment left behind
+
+Not an experiment. The branch was merged into `main` on 2026-09-01 and reviewed as a whole, and
+three of its own loose ends are recorded here because two of them were published claims.
+
+**1. A diagnostics module that never ran.** `hkjc.workflows.stages.boosted_probit_diagnostics`
+was added at `59543f1` as a reader module for §§20, 32-35 and 43: depth ladder, correction
+comparison, per-feature gain and split shares, root-to-leaf pair counts, longshot buckets,
+calibration-with-sharpness, paired delta. It was never called. It had no `main()` despite a
+docstring advertising itself as a runnable module with an `--output-dir` flag (the invocation is
+not reproduced here, because a documentation test resolves every module a live command names),
+it imported `argparse`, `json` and `sys` and used none of them, and the two report tools written
+after it (`f17f2cb`, `3e4c309`) computed their own ladder and never imported it. **Not one number
+in the PDF came from it.** Deleted; retrievable at `59543f1`. The same judgement, for the same
+reason, as the two compiled kernels in `findings.md` that were correct and never wired in.
+
+**2. Two published paragraphs credited it anyway.** `interactions.tex` opened by saying split
+frequency, gain and pair counts "are computed by
+`boosted_probit_diagnostics.interaction_diagnostics`" and then showed none of the three;
+`longshots.tex` said the §33 buckets "are computed by … `longshot_table`" and showed no buckets.
+Both were statements about code that existed rather than about evidence that was produced. Both
+now say what was and was not run. §20's answer here rests on the depth ablation, which is real and
+sits in `depth_ladder.csv`, and on §11's identical-link comparison.
+
+**3. Regenerating the sections silently deleted a number.** `tools/boosted_probit_sections.py`
+took `--summary` as optional, and without it `ladder_section` dropped the fitted-scale sentence
+the committed `ladder.tex` carries. It now defaults to the run's own `_state.json`, so a bare
+invocation reproduces every committed section byte for byte. Its docstring also advertised
+`--canonical`, `--diagnostics`, `--curve`, `--depth` and `--interactions`, none of which `main`
+has ever accepted, so every command it documented failed on an unrecognised argument.
+
+**And one thing the integration had got wrong about this architecture.** The probit reporting path
+was written for two link-only architectures and this one inherited its reason strings, so the
+published boosted report stated that it "has no model-specific learned features to attribute" and
+that there is "no ensemble to be stable … not a bag of independently fitted members". Both are
+false for an architecture that fits its own booster per seed. It was also absent from
+`probit_diagnostics.INPUT_COLUMN` — the architecture list written twice, the same defect `47c3cd6`
+fixed once in `probit.py` — so `build()` raised for it and its report rendered without the
+reliability and link-movement blocks the other two probit reports carry. All three now have them;
+the reasons are architecture-aware and pinned against the stage's own list; and the attribution
+gap is recorded in `backlog.md` with the producer change it needs.
+
+**A fifth thing, and the one place the fix stops short.** The run identity hard-coded
+`features_learned=()` for every probit architecture, on the comment "a choice link learns nothing".
+True of two; false of this one, which learns a correction on twenty-seven columns with the market's
+implied probability as a base margin, exactly as `OffsetModel` does. `sweep --check` printed that
+as `learned 0 consumed 28`. `probit._feature_split` now derives the split from the architecture and
+from the model class's own declared market column.
+
+The *published* boosted identity still says `learned 0`, and that is deliberate. Regenerating it
+means `--force-overwrite`, because the merge of canonical block C4 added four columns to
+`race_features.parquet` and every published run root's lock therefore names a feature table that no
+longer exists — the guard that refused the re-run is working, not broken. Regenerating one root of
+a five-root generation would leave `sweep --check` reading reports standing on two different
+feature-table digests, which is worse than a uniformly old one: today all five name one commit, one
+feature-set digest and one race population, and the gate passes. So the correction lands in the
+code and in a test that reads the code, and the next full generation writes it into the artifact.

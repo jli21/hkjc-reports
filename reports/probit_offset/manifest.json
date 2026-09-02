@@ -1,27 +1,27 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 2446817,
-      "digest": "sha256:6d5a799fc793769f39056bef389a302d15933be3db00f08ee7ddabaa84ade2bb",
+      "bytes": 2446813,
+      "digest": "sha256:a38bb204135d6d02d2e223c3f99c993508200175481dbba25067fe86f1a8071f",
       "format": "html",
       "path": "results/reports/probit_offset/report.html"
     },
     "report_summary": {
-      "bytes": 105099,
-      "digest": "sha256:1d1af9b59b74024c30e5ca5ecdd6c0c818d4cfcf1ca45c47b45788a370d13dca",
+      "bytes": 105184,
+      "digest": "sha256:1c931ef61e6577c41ee3a3aaa797588e21c02a07f3cfbe4f30cb28d22848496c",
       "format": "json",
       "path": "results/reports/probit_offset/summary.json"
     },
     "run_lock": {
       "bytes": 7429,
-      "digest": "sha256:43e07060a48d11ddca1eb3af11a982aff91536fd2fab47e4876f34979d01e92b",
+      "digest": "sha256:17cca46db72ee89868ac11912c8b766340b55b5b9a61f4e9c2015bc4c0ac77e8",
       "format": "json",
       "path": "results/reports/probit_offset/run_lock.json"
     }
   },
-  "created_utc": "2026-09-01T06:28:02+00:00",
+  "created_utc": "2026-09-02T04:00:36+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:c2ddd73f403479114d81cea75d42f890e00509ecf7a6680d400a15b4d39973bc",
+  "lock_digest": "sha256:f51a0481e916411c2548065ff7ca9be57969bcf07ea1b12617c398d6d43c9463",
   "report": {
     "config_digest": "",
     "evidence_not_applicable": [

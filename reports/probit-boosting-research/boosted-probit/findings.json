@@ -1,0 +1,201 @@
+{
+  "seeds": [
+    7,
+    17,
+    42,
+    123,
+    256
+  ],
+  "years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "canonical_source": "/tmp/canon_race_scores.parquet",
+  "arms": [
+    {
+      "arm": "boosted_probit",
+      "loss": 2.0237567624792967,
+      "vs_market": -0.004905488941735481
+    },
+    {
+      "arm": "link_only_probit_offset",
+      "loss": 2.023818241883769,
+      "vs_market": -0.004844009537263272
+    },
+    {
+      "arm": "boosted_softmax_link",
+      "loss": 2.0240519148512215,
+      "vs_market": -0.004610336569810691
+    },
+    {
+      "arm": "production_offset",
+      "loss": 2.0246617984281183,
+      "vs_market": -0.00400045299291385
+    },
+    {
+      "arm": "market",
+      "loss": 2.028662251421032,
+      "vs_market": 0.0
+    }
+  ],
+  "paired": [
+    {
+      "comparison": "boosted_margins_vs_offset_margins",
+      "mean_delta": -0.0006098835768966907,
+      "se_across_seeds": 5.471050921062701e-05,
+      "mean_within_seed_se": 0.0010072778736773347,
+      "seeds": 5,
+      "seeds_favourable": 5,
+      "mean_share_races_improved": 0.4999117609983613,
+      "t_across_seeds": -11.147466651219295
+    },
+    {
+      "comparison": "boosted_vs_link_only",
+      "mean_delta": -6.147940447226437e-05,
+      "se_across_seeds": 4.975734199623517e-05,
+      "mean_within_seed_se": 0.0008025130884108464,
+      "seeds": 5,
+      "seeds_favourable": 4,
+      "mean_share_races_improved": 0.5042984999369722,
+      "t_across_seeds": -1.2355845791946871
+    },
+    {
+      "comparison": "boosted_vs_production",
+      "mean_delta": -0.0009050359488216762,
+      "se_across_seeds": 5.644661633400969e-05,
+      "mean_within_seed_se": 0.0010322617033647137,
+      "seeds": 5,
+      "seeds_favourable": 5,
+      "mean_share_races_improved": 0.5017773856044372,
+      "t_across_seeds": -16.033484513338
+    },
+    {
+      "comparison": "link_on_boosted_margins",
+      "mean_delta": -0.0002951523719249855,
+      "se_across_seeds": 3.3601708977229314e-06,
+      "mean_within_seed_se": 0.0001331440760393619,
+      "seeds": 5,
+      "seeds_favourable": 5,
+      "mean_share_races_improved": 0.5746375898146981,
+      "t_across_seeds": -87.83850015634616
+    },
+    {
+      "comparison": "link_only_vs_production",
+      "mean_delta": -0.0008435565443494118,
+      "se_across_seeds": 2.221818479630274e-05,
+      "mean_within_seed_se": 0.0003338511754038416,
+      "seeds": 5,
+      "seeds_favourable": 5,
+      "mean_share_races_improved": 0.5268624732131603,
+      "t_across_seeds": -37.966942488019335
+    }
+  ],
+  "per_year": [
+    {
+      "test_year": 2016,
+      "boosted_minus_production": 0.0022624191966853116,
+      "boosted_minus_link_only": 0.003389464340406477,
+      "seeds": 5
+    },
+    {
+      "test_year": 2017,
+      "boosted_minus_production": -0.0005761912091450127,
+      "boosted_minus_link_only": -9.338183656363764e-05,
+      "seeds": 5
+    },
+    {
+      "test_year": 2018,
+      "boosted_minus_production": 0.0010218706366216833,
+      "boosted_minus_link_only": 0.0021635592714999512,
+      "seeds": 5
+    },
+    {
+      "test_year": 2019,
+      "boosted_minus_production": -0.0017671484454836427,
+      "boosted_minus_link_only": -0.0017179088117177266,
+      "seeds": 5
+    },
+    {
+      "test_year": 2020,
+      "boosted_minus_production": 4.110243898694382e-05,
+      "boosted_minus_link_only": 0.0014060858506702843,
+      "seeds": 5
+    },
+    {
+      "test_year": 2021,
+      "boosted_minus_production": 0.0007568725638720717,
+      "boosted_minus_link_only": 0.0012871038355844193,
+      "seeds": 5
+    },
+    {
+      "test_year": 2022,
+      "boosted_minus_production": -0.005591291032310294,
+      "boosted_minus_link_only": -0.003928155437431102,
+      "seeds": 5
+    },
+    {
+      "test_year": 2023,
+      "boosted_minus_production": -0.0011984662075671365,
+      "boosted_minus_link_only": -0.0005046228584626555,
+      "seeds": 5
+    },
+    {
+      "test_year": 2024,
+      "boosted_minus_production": -0.0036528531292719644,
+      "boosted_minus_link_only": -0.003570257337793155,
+      "seeds": 5
+    },
+    {
+      "test_year": 2025,
+      "boosted_minus_production": 0.0018118660504705766,
+      "boosted_minus_link_only": 0.0027346130748834054,
+      "seeds": 5
+    },
+    {
+      "test_year": 2026,
+      "boosted_minus_production": -0.007985408936063587,
+      "boosted_minus_link_only": -0.005675776078895085,
+      "seeds": 5
+    }
+  ],
+  "years_better_than_production": 6,
+  "years_total": 11,
+  "year_level": {
+    "boosted_vs_production": {
+      "mean_delta": -0.0013524752793822774,
+      "se_across_years": 0.0009684234590057842,
+      "t_across_years": -1.3965742638770582,
+      "years": 11,
+      "years_favourable": 6
+    },
+    "boosted_vs_link_only": {
+      "mean_delta": -0.00040993418071080226,
+      "se_across_years": 0.0008996914876746927,
+      "t_across_years": -0.4556386120427815,
+      "years": 11,
+      "years_favourable": 6
+    }
+  },
+  "headline": {
+    "mean_delta": -0.0013524752793822774,
+    "se_across_years": 0.0009684234590057842,
+    "t_across_years": -1.3965742638770582,
+    "years": 11,
+    "years_favourable": 6,
+    "mean_delta_racewise": -0.0009050359488216762,
+    "se_across_seeds": 5.644661633400969e-05,
+    "t_across_seeds": -16.033484513338,
+    "seeds_favourable": 5,
+    "seeds": 5,
+    "share_of_production_edge": 0.3417930956235223
+  }
+}

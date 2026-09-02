@@ -91,6 +91,64 @@ rests on buckets holding as few as nine bets, where one winner moves the bucket.
 the right one and the sample is too small to conclude from; more years or a pooled-across-models
 version would help.
 
+**Replacing `gear_change` rather than adding beside it.** Production's `gear_change` compares raw gear
+strings, and measured on the shipped table it fires on 0.2654 of starts while the normalised equipment
+set changes on 0.1467 -- so **44.73% of its fires are HKJC's first-time marker decaying** (`B1`
+becoming `B`) with nothing on the horse changing. It misses 0.0000 of real changes, so it is a noisy
+superset rather than a wrong signal. `gear_true_change` is the same event without the false half.
+
+*Where it stands:* the addition was measured and rejected (2026-09-02, `-0.0001370` equal-cell over 55
+cells, above the `-0.0005` bar), and that is *not* the same question as the replacement. `feature-iterate`
+appends a block to the incumbent and cannot substitute a column, so the cleanest form of the fix is not
+expressible as a candidate. What it would cost: a variant feature-set config (`production_gear_fixed.json`,
+28 columns with `gear_change` redefined) and a way for the harness to name an incumbent other than
+`production.json`. That is a change to what "the incumbent" means and needs its own decision. The
+addition result bears on it: a corrected bit that adds almost nothing on top of the defective one
+suggests the replacement is a **cleanup** -- worth doing for the definition's honesty, not for the log
+loss -- and it should be argued on those terms rather than as a modelling improvement. The semantics are
+now documented where the column is defined, which was the other half of the finding.
+
+**A `race-stewards-reports` dataset for the prose era, 2003-2023.** `race-incidents` now begins in
+2024, because that is when the per-runner incident *table* begins: verified against the live site on
+2026-09-02, `?Date=2024/01/01` serves ten incident tables and 124 runners while 2023/09/10,
+2023/01/01, 2022, 2021, 2020 and 2019 serve real pages with **zero** tables. The 24 year files that
+used to cover 2000-2023 were the endpoint's fail-open default meeting relabelled, and they are gone.
+
+What the earlier pages *do* carry is the same channel in a different shape: prose stewards' reports
+keyed by race, holding exactly the official-intervention statements this programme went looking for
+-- *"Race 10: SUPER FORM on 31.12.18 on veterinary advice"*, jockey censures, per-race veterinary
+findings. That is a meeting-level or mention-level schema, not a runner-level one, so it cannot be
+backfilled into `race-incidents` and needs its own parser, contract and key.
+
+*Where it stands:* recommended and out of scope for the 2026-09-02 repair, which deliberately did
+not parse prose into a runner-level schema. It is the only place the official-intervention channel
+exists before 2024, and the production model trains from 2010 -- so a runner-level intervention
+feature is confined to the last three seasons until this exists. Note the shape of the gap before
+building it: `gear_first_n`'s own measured value was confined to 2023-2026 for a related reason
+(declaration coverage rising from 0.74 to 0.87), and a recent-only channel is a different finding
+from a stationary one.
+
+**Feature attribution for the two probit architectures that could have it.** Neither the standalone
+`probit` nor `probit_offset_boosted` publishes any per-feature evidence, and the two gaps are one
+producer change. The standalone link fits its own utilities and `standalone_utilities` persists
+their raw margins *without* SHAP; the boosted architecture fits its own booster under the probit
+likelihood and `BoostedProbitModel.predict_contrib` returns SHAP on exactly the correction it
+learns, and the fitting stage does not persist it. In both cases the only attribution available
+today would be a separately fitted Softmax run's, which is another run's work under this model's
+heading and is refused. What it costs: the probit fitting stage persisting `correction_shap` and
+`feature_values` for its own sixty cells per architecture, after which the existing transforms
+(`feature_effects.build_feature_effects_yearly` and `build_feature_stability`) produce the yearly
+response curves and the whole stability table -- including the direction-consistency fields
+(`sign_agreement`, `shape_correlation`, `monotone_share`, `seed_variation`) -- with no new
+mathematics, because those transforms are architecture-agnostic reducers over a SHAP frame.
+
+*Where it stands:* refused deliberately rather than overlooked. `probit_offset` renders the Offset
+run's attribution instead, gated by `probit_diagnostics.correction_identity`, which proves the
+inherited frame describes the exact correction the link consumed -- 535,295 rows matched, margins
+agreeing to 0.0. That gate is the reason the other two get nothing rather than the nearest
+available thing. Leave-one-feature-out through the link is separately ruled out on cost: it needs a
+quadrature pass per feature per runner, which is 28 features over 97,636 runners.
+
 ## Closed during the 2026-08-24 cleanup
 
 Kept here briefly because each was an open question that now has an answer, and the answer is

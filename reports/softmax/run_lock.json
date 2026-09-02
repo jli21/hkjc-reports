@@ -38,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "29edd757372d3f9602d79b2f6dfbbdd44a17b60e",
+    "git_commit": "b49c11f9844e15d30a4d4740716d54b70dc187a0",
     "git_dirty": false,
-    "source_digest": "sha256:529f6832eb91dd985a4ef1d66569311847f4567b7fcdfe4186e3c01bcf1228ab"
+    "source_digest": "sha256:b3a693fd9d5787e2857ad1ee3480f5e24a8b2930063ffba5ba804fb0a9e62bf5"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-01T06:28:00+00:00",
-  "digest": "sha256:5ba2ef305f34888ee2110811f8e5ce2b7586e2aeef2c3c286008f5958618dd32",
+  "created_utc": "2026-09-02T04:00:34+00:00",
+  "digest": "sha256:dcace3061736f706b1d7163edc7447592146b0e63763307e28bcc7836445831a",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",

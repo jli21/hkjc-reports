@@ -1,0 +1,80 @@
+Canonical scale: 11 test years $\times$ 5 seeds $\times$ 400 rounds, at the validated learning rate 0.0025. Every arm is scored on the \emph{same} race keys, and each paired delta is computed per race and then averaged, never as a difference of two separately aggregated populations.
+
+\subsection*{§21's ladder}
+
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+Arm & race log loss & $\Delta$ vs market \\
+\midrule
+\rowcolor{rowshade}F. boosted probit (directly trained) & 2.023757 & \good{$-0.004905$} \\
+C/D. link-only \texttt{probit\_offset} & 2.023818 & \good{$-0.004844$} \\
+E. softmax link on boosted-probit margins & 2.024052 & \good{$-0.004610$} \\
+B. production Offset (softmax booster) & 2.024662 & \good{$-0.004000$} \\
+A. market & 2.028662 & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{§28's paired comparisons}
+
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+Comparison & mean $\Delta$ & se & $t$ & seeds better & races better \\
+\midrule
+\rowcolor{rowshade}\textbf{boosted probit vs production Offset} & \good{$-0.000905$} & 0.000056 & $-16.03$ & 5/5 & 0.502 \\
+boosted probit vs link-only \texttt{probit\_offset} & \good{$-0.000061$} & 0.000050 & $-1.24$ & 4/5 & 0.504 \\
+\emph{link-only vs production} (baseline, reproduced) & \good{$-0.000844$} & 0.000022 & $-37.97$ & 5/5 & 0.527 \\
+probit link vs softmax link, \emph{on boosted margins} & \good{$-0.000295$} & 0.000003 & $-87.84$ & 5/5 & 0.575 \\
+boosted margins vs Offset margins, \emph{same softmax link} & \good{$-0.000610$} & 0.000055 & $-11.15$ & 5/5 & 0.500 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Those standard errors are across seeds, and they are not a generalisation test.} An earlier version of this section called them \emph{the conservative choice}. They are not. Five seeds score the \emph{same races}, so five deltas are five measurements of one sample; their agreement measures how deterministic the training is, which is worth knowing and is not evidence that the effect recurs. The independent replicates are test years.
+
+\subsection*{The same two comparisons, across test years}
+
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+Comparison & mean $\Delta$ & se (years) & $t$ (years) & years better & $t$ (seeds) \\
+\midrule
+\textbf{boosted probit vs production Offset} & \good{$-0.001352$} & 0.000968 & $\mathbf{-1.40}$ & 6/11 & $-16.03$ \\
+boosted probit vs link-only \texttt{probit\_offset} & \good{$-0.000410$} & 0.000900 & $\mathbf{-0.46}$ & 6/11 & $-1.24$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The last two columns are the finding. $t=-16.0$ and $t=-1.4$ are the same measurement of the same model under two different notions of what counts as an independent observation, and only the second one answers \emph{will this hold next season}.
+
+\textbf{Headline.} On the mean, boosted probit beats the production softmax booster by \good{$-0.001352$} --- 34.2\% of the production model's entire edge over the market. But across test years that is $t=-1.40$ on 6/11 years favourable, and against the link-only probit --- the baseline that costs no fitting --- it is \good{$-0.000410$} at $t=-0.46$. \bad{Neither margin survives a year-level test.}
+
+\subsection*{Per year}
+
+\begin{center}\small
+\begin{tabular}{lrr}
+\toprule
+Test year & vs production Offset & vs link-only probit \\
+\midrule
+2016 & \bad{$+0.002262$} & \bad{$+0.003389$} \\
+2017 & \good{$-0.000576$} & \good{$-0.000093$} \\
+2018 & \bad{$+0.001022$} & \bad{$+0.002164$} \\
+2019 & \good{$-0.001767$} & \good{$-0.001718$} \\
+2020 & \bad{$+0.000041$} & \bad{$+0.001406$} \\
+2021 & \bad{$+0.000757$} & \bad{$+0.001287$} \\
+2022 & \good{$-0.005591$} & \good{$-0.003928$} \\
+2023 & \good{$-0.001198$} & \good{$-0.000505$} \\
+2024 & \good{$-0.003653$} & \good{$-0.003570$} \\
+2025 & \bad{$+0.001812$} & \bad{$+0.002735$} \\
+2026 & \good{$-0.007985$} & \good{$-0.005676$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Reconciling this table with the published model report}
+
+\texttt{results/reports/probit\_offset\_boosted/report.html} reports the boosted architecture at a race log loss of $2.023697$ where the ladder above says $2.023757$. Both are right and the gap is not rounding: the published report scores the \emph{bagged} ensemble --- one probability per runner, averaged over the five seeds before the loss is taken --- while this ladder averages each seed's own loss so that every arm is scored the way its comparator is. Jensen's inequality makes the bagged figure the smaller of the two, necessarily and by $6\times10^{-5}$ here. Neither is used to compare against the other document's arms, which is the only way the difference could mislead.
+
+Forward-fitted scoring scales span 1.657 to 1.741, interior to the $(0.25, 12.0)$ bounds. \texttt{scale\_on\_bound\_years}: [].

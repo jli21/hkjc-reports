@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "47c3cd663113d5df222702e6f3889de8e357b27e",
+    "git_commit": "b49c11f9844e15d30a4d4740716d54b70dc187a0",
     "git_dirty": false,
-    "source_digest": "sha256:ee28d6b06a0a5cd252aed10a07b8590883cb63a850a6eecd37d94273c3ce5387"
+    "source_digest": "sha256:b3a693fd9d5787e2857ad1ee3480f5e24a8b2930063ffba5ba804fb0a9e62bf5"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-01T17:50:40+00:00",
-  "digest": "sha256:9a375f899ce54f58caa408a0f82ed97443abb1f138da87db262718271ca09783",
+  "created_utc": "2026-09-02T04:00:37+00:00",
+  "digest": "sha256:d705d471d71d65153f428a457159cc02729ea45bebc2ea8acbd85f205e2f1153",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -145,9 +145,25 @@
       "digest": "sha256:40694a9d9de5bc1938980144bf946ae8308167355529a4dd0f9d80d5573e811d",
       "path": "results/runs/probit_offset_boosted/market_relationship.json"
     },
+    "probit_offset_boosted_correction_identity": {
+      "digest": "sha256:cef037790aeeed04106f5a792c620dd83d5c7e1b74196c8b5c76d4a27fcf8d99",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_correction_identity.json"
+    },
+    "probit_offset_boosted_link_movement": {
+      "digest": "sha256:384ef748a1a6811adde9d05a66a139cafd6f068f64be37f3de0c4834f7809e3c",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_link_movement.parquet"
+    },
     "probit_offset_boosted_per_run": {
       "digest": "sha256:c4e2ed400e9127d4169db31f1de6e19a3cc80b93339b8cb63dc6ce7c979d31c0",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_per_run.csv"
+    },
+    "probit_offset_boosted_reliability": {
+      "digest": "sha256:a026a9fd58dde71ddeb0bcd45a5975cd67d63ec8116dbb2c11bae51e64812e3e",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability.parquet"
+    },
+    "probit_offset_boosted_reliability_yearly": {
+      "digest": "sha256:50ebafad6d2e455e8d09ac1e52903cb84dd5c0f0ba027cdcbe51c12ce2d656cd",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability_yearly.parquet"
     },
     "probit_offset_boosted_sensitivity": {
       "digest": "sha256:b23748f623e0120f0ef3d6ea89c006b43643009df5c7f7faa87a88be3af51d7b",

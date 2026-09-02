@@ -23,7 +23,7 @@ population from the four above.
 
 ## Research studies
 
-Four exploratory studies of the distribution of horse performance in Class 1-5 racing, 2008-2026,
+Five exploratory studies of the distribution of horse performance in Class 1-5 racing, 2008-2026,
 from [RamenBurger/hkjc-research](https://github.com/RamenBurger/hkjc-research). They are written
 documents rather than generated reports, they treat the production model as read-only, and they
 compute no return anywhere: no dividends are loaded, deliberately, because at these effect sizes
@@ -35,13 +35,25 @@ ROI ranks noise.
 | II. Dynamic latent state and regimes | [PDF, 18pp](reports/research/dynamic-state.pdf) | ability as a dynamic state, run informativeness, per-run observation noise, opponent adjustment, transition regimes, dynamic analog peers, 200 m sub-splits |
 | III. Deep feature research | [PDF, 29pp](reports/research/feature-research.pdf) | handicap/class/rating state, sectional and 200 m physical state, field-level pace and race shape, run-specific information quality, and two adversarial checks on the programme's own instruments |
 | IV. Regime explorer | [PDF, 22pp](reports/research/regime-explorer.pdf) | latent switching regimes, a multidimensional sectional state, jockey interactions, metric-learned peer pools, per-run predictive information, and the residual mixture as a measurement model |
+| V. Jockey booking information | [PDF, 12pp](reports/research/jockey-booking-research.pdf) | whether today's jockey booking adds anything to the market, the horse's history and production's `jockey_residual`: dynamic jockey state, booking change and upgrade, trainer appointment behaviour, barrier-trial continuity, and a tactical-execution gate |
 
 Study IV closes the six sections of Study II's brief that Study II did not execute, and
 **supersedes `dynamic-state.pdf` as the answer to that brief**; Study II is kept as its own
-artifact rather than as the current answer. Read them in that order if reading all four.
+artifact rather than as the current answer. Read I to IV in that order if reading all of them.
+
+**Study V is a null, and is published because of that rather than in spite of it.** Eleven
+candidate blocks were built across four predeclared waves, eight reached the production model's
+own canonical profile (8 years x 5 seeds x 400 rounds, 40 paired cells), and **all eight were
+rejected**: the best is worth `-0.000075` of race log loss against a declared materiality bar of
+`-0.0005`, and six of the eight make the model worse. Three results in it are worth more than the
+feature would have been --- production's cumulative `jockey_residual` is reproduced exactly to
+6.7e-17 and its *cumulative* form is confirmed better than any decayed one; the apparent
+booking-upgrade signal loses to a permutation that preserves trainer and market-rank structure;
+and a jockey tactical effect that beat its own control by 189 times produced the campaign's **worst**
+block. No feature was promoted and none was handed to production.
 
 Only Study I's LaTeX source is published here, beside its PDF, because it was already. The sources
-for the other three, every stage that produced their numbers, and the research log recording several
+for the other four, every stage that produced their numbers, and the research log recording several
 results that were corrected after their mechanisms were traced, are all in `hkjc-research`.
 
 ## Nothing here establishes profitability

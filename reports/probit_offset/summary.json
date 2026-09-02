@@ -219,11 +219,11 @@
       "state": "available"
     },
     "effects": {
-      "reason": "This architecture has no model-specific learned features to attribute.",
+      "reason": "A choice link applies a shock distribution to mean utilities another fit produced, so it has no features of its own to attribute. Showing the Softmax or Offset run's attribution here would be that run's work under this model's heading.",
       "state": "not_applicable"
     },
     "ensemble": {
-      "reason": "There is no ensemble to be stable. This architecture is one choice link applied to one set of mean utilities, not a bag of independently fitted members, so seed variation here is integration noise rather than model disagreement -- and that is reported beside the paired diagnostic instead.",
+      "reason": "The per-runner member-spread artifact is written by the softmax prediction stage, and no probit stage produces one. What the seeds do here is reported beside the paired diagnostic instead, as a per-seed table.",
       "state": "not_applicable"
     },
     "identity": {
