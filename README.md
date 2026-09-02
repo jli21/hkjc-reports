@@ -32,7 +32,7 @@ the written record behind several results that were *rejected*, which is most of
 
 ## Research studies
 
-Five exploratory studies of the distribution of horse performance in Class 1-5 racing, 2008-2026,
+Six exploratory studies of the distribution of horse performance in Class 1-5 racing, 2008-2026,
 from [RamenBurger/hkjc-research](https://github.com/RamenBurger/hkjc-research). They are written
 documents rather than generated reports, they treat the production model as read-only, and they
 compute no return anywhere: no dividends are loaded, deliberately, because at these effect sizes
@@ -45,6 +45,7 @@ ROI ranks noise.
 | III. Deep feature research | [PDF, 29pp](reports/research/feature-research.pdf) | handicap/class/rating state, sectional and 200 m physical state, field-level pace and race shape, run-specific information quality, and two adversarial checks on the programme's own instruments |
 | IV. Regime explorer | [PDF, 22pp](reports/research/regime-explorer.pdf) | latent switching regimes, a multidimensional sectional state, jockey interactions, metric-learned peer pools, per-run predictive information, and the residual mixture as a measurement model |
 | V. Jockey booking information | [PDF, 12pp](reports/research/jockey-booking-research.pdf) | whether today's jockey booking adds anything to the market, the horse's history and production's `jockey_residual`: dynamic jockey state, booking change and upgrade, trainer appointment behaviour, barrier-trial continuity, and a tactical-execution gate |
+| VI. Within-race geometry | [PDF, 8pp](reports/research/within-race-geometry.pdf) | the information a per-row booster provably cannot construct: price micro-structure, field-centred form, campaign position, and a decomposition of the stewards' comment channel |
 
 Study IV closes the six sections of Study II's brief that Study II did not execute, and
 **supersedes `dynamic-state.pdf` as the answer to that brief**; Study II is kept as its own
@@ -61,8 +62,26 @@ booking-upgrade signal loses to a permutation that preserves trainer and market-
 and a jockey tactical effect that beat its own control by 189 times produced the campaign's **worst**
 block. No feature was promoted and none was handed to production.
 
+**Study VI is also a null, and it is the sharpest one.** It asked whether the remaining signal
+sits in the one class of information the production model *provably cannot construct*: a per-row
+booster sees one runner at a time, and a racewise softmax with the market as a fixed offset
+responds only to within-race variation, so the geometry of a field is invisible to it. Two of the
+four waves were withdrawn on numerical proof before any canonical budget was spent --- including
+one proof that invalidated the campaign's own declared control --- and the six remaining blocks
+were rejected. Its two permutation controls are the result and they disagree: price
+micro-geometry beat its control, so that geometry does attach to the individual runner, while
+ability geometry lost to its control by a factor of thirteen. The principle is confirmed as a
+principle and refuted as a source of usable signal.
+
+**Across Studies III to VI, 24 candidate blocks have been carried to the production model's own
+canonical profile and none has confirmed.** That is the programme's central practical finding and
+it is stronger than any of the individual nulls. Two mechanisms once looked like near-misses --- a
+pace-composition cross at t = -1.25 and a campaign-position block worth 37% of the production
+edge --- and both dissolved on examination, the second because a single partial season accounted
+for more than the whole effect.
+
 Only Study I's LaTeX source is published here, beside its PDF, because it was already. The sources
-for the other four, every stage that produced their numbers, and the research log recording several
+for the other five, every stage that produced their numbers, and the research log recording several
 results that were corrected after their mechanisms were traced, are all in `hkjc-research`.
 
 ## Nothing here establishes profitability
