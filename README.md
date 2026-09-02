@@ -1,7 +1,7 @@
 # HKJC model reports
 
-Published evidence for four winner-probability models on Hong Kong racing, generated from
-[jli21/hkjc-mod](https://github.com/jli21/hkjc-mod) by `python -m hkjc build-report`, plus four
+Published evidence for five winner-probability models on Hong Kong racing, generated from
+[jli21/hkjc-mod](https://github.com/jli21/hkjc-mod) by `python -m hkjc build-report`, plus five
 exploratory research studies that inform them. Nothing in the model reports is written by hand.
 
 **Open [`index.html`](index.html)**, or go straight to a report:
@@ -12,14 +12,23 @@ exploratory research studies that inform them. Nothing in the model reports is w
 | Softmax Offset (production) | the market | [HTML](reports/softmax_offset/report.html) |
 | Standalone Probit | standalone Softmax | [HTML](reports/probit/report.html) |
 | Probit Offset (market-anchored) | the incumbent Offset | [HTML](reports/probit_offset/report.html) |
+| Boosted Probit Offset | the incumbent Offset | [HTML](reports/probit_offset_boosted/report.html) |
 
 Each HTML file is self-contained: no network, no server, no external stylesheet. GitHub will not
 render them in the file view, so download the file or use a raw-HTML viewer.
 
-These four are the models `hkjc-mod` currently publishes. `reports/bagged_offset/` and
-`reports/probit_offset_pace/` are kept as archived evidence from the 2026-08-25 generation under
-the earlier naming; they are not regenerated and their figures describe a different race
-population from the four above.
+These five are the models `hkjc-mod` currently publishes. The fifth is the only one that trains its
+own mean function under the probit likelihood rather than laying a choice link over another run's
+utilities -- and its own conclusion is that the gain belongs to the link rather than to the direct
+training, so `hkjc-mod` keeps the softmax booster.
+
+`reports/bagged_offset/` and `reports/probit_offset_pace/` are kept as archived evidence from the
+2026-08-25 generation under the earlier naming; they are not regenerated and their figures describe a
+different race population from the five above.
+
+`reports/probit-boosting-research/` holds `hkjc-mod`'s own research documents rather than a model
+report: the findings log, the open backlog, and the boosted-probit experiment's log and PDF. It is
+the written record behind several results that were *rejected*, which is most of what is in it.
 
 ## Research studies
 
