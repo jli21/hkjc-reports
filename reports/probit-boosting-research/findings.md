@@ -123,6 +123,52 @@ runner has no number and those are the rows worth having. `verify --only histori
 files rather than 273, and the freeze grew a rebaseline verb that demands a reason and records what
 moved, because "source data does not change" cannot mean "a fixture stays because it is frozen".
 
+## 2026-09-03 Tuning the boosted probit: one validation year moved 15%, nine test years moved nothing
+
+Every booster setting in `probit_offset_boosted` was **copied from `OffsetModel` and never tuned** --
+§22 of its plan required the capacity comparison to hold everything but the likelihood fixed. So its
+negative result was a negative result about a borrowed configuration, and the architecture had never
+been optimised for its own objective.
+
+**The validation year is the whole problem, and it has no clean answer.** The canonical profile scores
+2015-2026 and trains from 2010, so only 2011-2014 are never scored. Validating on 2014 is leak-free
+and fits 36,160 rows where a canonical cell gets 121,000; validating on 2023, as the original work
+did, has the rows and is a year the canonical run *scores*. Both were run over one declared grid.
+
+**The two fat validation years anti-rank the grid: Spearman −0.4, and 2014 against 2023 is −0.9.**
+Every candidate configuration is both first and last depending on which year is asked.
+`reg_lambda=2.0` is the argmax on 2014 *and* 2022 and the worst of five on 2023. The mechanism is
+training-set size -- a looser per-leaf minimum only pays when there is data to fill the leaves --
+which makes the leak-free year not merely weak but **actively misleading**: its whole signal is
+−0.0003 against the fat years' −0.0043, and its ranking is inverted.
+
+The selection rule was stated before the canonical run and deliberately rejected the largest average
+gain: take the configuration that improves on the baseline in **both** fat years *and* swings no more
+between them than the baseline does. That picked `min_child_weight` 20 → 10 (+0.000447 on the fat
+mean, swing 0.000208) over `reg_lambda=2.0` (+0.000040, swing 0.001534 -- nine times the control's).
+Both selection years were then excluded from the judgement.
+
+**It did nothing.** A 15% improvement in the validation year's edge became **+0.000062 at t = +0.63
+over nine independent years**, sign alternating. Twentieth candidate to canonical scale without
+confirming, and the first where the thing carried was a hyperparameter rather than a feature. The
+transferable lesson is the precautions: grid declared in advance, rule stated before the run, argmax
+deliberately refused, selection years excluded -- all taken, and the gain still evaporated. A
+single-year validation delta at this effect size is not evidence about a hyperparameter.
+
+**What the run did establish is the strongest number in the programme's record.** Scoring the
+*identical* boosted margins through the probit link and through the softmax link -- mean function
+fixed, only the shock distribution changing -- gives **−0.000351 at t = −3.24, 8 of 9 years
+favourable** (−0.000285, t = −2.91, 9/11 on all years). The original work reported this contrast at
+*seed* level, where five deltas over the same races measure determinism rather than generalisation.
+At year level it is the first t below −2 in twenty candidates.
+
+It is still not a promotion case, for the same reason as before: the contrast needs the boosted
+margins, which cost two and a half hours of fitting and are worth nothing themselves -- the tuned
+architecture against the free link-only probit is +0.000054 at t = +0.05. The link pays; the
+architecture that made it measurable is not what should ship. **Recommendation unchanged: keep the
+softmax booster, keep `probit_offset` as the published link.** Full methodology in
+`docs/research/boosted-probit-log.md` §E12 and the report's tuning section.
+
 ## 2026-09-02 The declared-gear intervention: three blocks, three nulls, and a season split that did not replicate
 
 **What was tested.** HKJC declares each runner's equipment on the card before the race in its own

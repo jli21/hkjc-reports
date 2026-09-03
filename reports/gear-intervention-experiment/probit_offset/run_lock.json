@@ -1,0 +1,204 @@
+{
+  "bankroll": {
+    "initial_bankroll": 10000000.0,
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "rebate_policy": {
+      "basis": "net_loss",
+      "rate": 0.1,
+      "threshold": 10000.0,
+      "threshold_mode": "cliff"
+    }
+  },
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": null
+  },
+  "code": {
+    "git_commit": "c85a5fb67e85bfea31198b53089c6d6488454b5c",
+    "git_dirty": true,
+    "source_digest": "sha256:66c9466f9ce1e1dcfa2950c7bc4aca1fc728a27bb5d1952f67390c98bf21a6ba"
+  },
+  "compute": {
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ]
+  },
+  "created_utc": "2026-09-03T06:22:46+00:00",
+  "digest": "sha256:a4528f19b92265a0e4c3878dd33023db15d6c170c5ac59c5e3fc168d8bd6a39c",
+  "environment": {
+    "blas": "accelerate",
+    "compiler": "Clang 20.1.4 ",
+    "cpu_count": 12,
+    "libc": "none",
+    "libxgboost_digest": "sha256:5aef338ede7b84ae7d3405a306614de1d326ccaad033a2f14242aedd421359bc",
+    "locale": "UTF-8",
+    "machine": "arm64",
+    "numpy": "2.5.2",
+    "os": "Darwin",
+    "os_release": "25.6.0",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "scikit_learn": "1.9.0",
+    "scipy": "1.18.1",
+    "thread_env": {
+      "HKJC_QUADRATURE_THREADS": "unset",
+      "MKL_NUM_THREADS": "unset",
+      "NUMEXPR_NUM_THREADS": "unset",
+      "OMP_NUM_THREADS": "unset",
+      "OPENBLAS_NUM_THREADS": "unset",
+      "VECLIB_MAXIMUM_THREADS": "unset"
+    },
+    "timezone": "CST",
+    "xgboost": "3.4.1",
+    "xgboost_build": {
+      "BUILTIN_PREFETCH_PRESENT": true,
+      "MM_PREFETCH_PRESENT": false,
+      "USE_CUDA": false,
+      "USE_NCCL": false,
+      "USE_OPENMP": true
+    }
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "betting_probit_offset/betting_summary": {
+      "digest": "sha256:3120f2d7259849d85ab3369196c351ce92bad0f31780c3eadb3832ce7d2abb66",
+      "path": "results/experiments/gear-generation/probit_offset/betting_probit_offset/betting_summary.csv"
+    },
+    "betting_probit_offset/betting_yearly": {
+      "digest": "sha256:49b4f6dd88ae0284869a73de73d7efe7ad62a94660d5ef6433a3e6f68d3a4021",
+      "path": "results/experiments/gear-generation/probit_offset/betting_probit_offset/betting_yearly.csv"
+    },
+    "betting_probit_offset/edge_buckets": {
+      "digest": "sha256:a9682be07fb25c86e0cf8a7d649223a895e96515c8f6c58272e2ac7609e044fa",
+      "path": "results/experiments/gear-generation/probit_offset/betting_probit_offset/edge_buckets.csv"
+    },
+    "betting_probit_offset/probit_betting_run": {
+      "digest": "sha256:17ae30c7e1b49e0df489815180f989052cf4e5358e69d9ef7179d75b996105dc",
+      "path": "results/experiments/gear-generation/probit_offset/betting_probit_offset/probit_betting_run.json"
+    },
+    "betting_probit_offset/race_paths": {
+      "digest": "sha256:960a2c3dac23fd0460c514b0303f076d2afb2a9c30f570ca187bfe415d45bc7f",
+      "path": "results/experiments/gear-generation/probit_offset/betting_probit_offset/race_paths.parquet"
+    },
+    "market_relationship": {
+      "digest": "sha256:49d00a57156514019d7d5dabdf2b483da9a6197cfdbe74635b9a4a43197a188b",
+      "path": "results/experiments/gear-generation/probit_offset/market_relationship.json"
+    },
+    "probit_offset_correction_identity": {
+      "digest": "sha256:18b0a1bccd3fab7bc4ee4109e92e6495fc62c866393fd96a40f87c97f7988253",
+      "path": "results/experiments/gear-generation/probit_offset/probit_offset_correction_identity.json"
+    },
+    "probit_offset_link_movement": {
+      "digest": "sha256:eaba011d2293b71cefdd742ec647f4ca030edecc02828591493e9823d347694d",
+      "path": "results/experiments/gear-generation/probit_offset/probit_offset_link_movement.parquet"
+    },
+    "probit_offset_per_run": {
+      "digest": "sha256:12fd8a3cd67dc3a851bc4530b5966c122070757adb083012273cf35a5fd925b7",
+      "path": "results/experiments/gear-generation/probit_offset/probit_offset_per_run.csv"
+    },
+    "probit_offset_reliability": {
+      "digest": "sha256:7ea8a5f8d3b35d84c4868c8e891517c5c6e718ad0ce91518b66162099ac74f7f",
+      "path": "results/experiments/gear-generation/probit_offset/probit_offset_reliability.parquet"
+    },
+    "probit_offset_reliability_yearly": {
+      "digest": "sha256:190f7474c3e7547f8156bcd4a3ad98e4997d489510df34c8826eb65ee13f596f",
+      "path": "results/experiments/gear-generation/probit_offset/probit_offset_reliability_yearly.parquet"
+    },
+    "probit_offset_sensitivity": {
+      "digest": "sha256:1a5b23a4e940accd5bdf66b789e0b2ba30643a3a81da8a7a53746149c6fc46b4",
+      "path": "results/experiments/gear-generation/probit_offset/probit_offset_sensitivity.parquet"
+    },
+    "probit_offset_state": {
+      "digest": "sha256:75262df97e451ee8141ebe50eef43d91226971888392a61c3538a8b9164967ef",
+      "path": "results/experiments/gear-generation/probit_offset/probit_offset_state.json"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": "probit_offset",
+    "config_digest": "",
+    "cv": null,
+    "identity_source": "artifact",
+    "key": "probit_offset",
+    "label": "Probit Offset",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "paired_diagnostic": {
+      "model_log_loss": 2.024093516761705,
+      "model_minus_reference": -0.0008359163985140624,
+      "reference_log_loss": 2.024929433160219,
+      "reference_model": "softmax_offset",
+      "what_is_held_fixed": "the correction. It is the incumbent's persisted margin, reused exactly rather than refitted, and the market anchor means a zero correction returns the market probability -- so the only difference is the link."
+    },
+    "rounds": 400,
+    "status": "standard"
+  },
+  "notes": {
+    "input_run_lock_digest": "sha256:70473468e05fca6af3a78c1a570f29cc65edde3342b2f9496bcd0e18899fbc27",
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "c85a5fb67e85bfea31198b53089c6d6488454b5c",
+    "run_metadata_dirty": true
+  },
+  "run": "report:probit_offset",
+  "schema_version": 1
+}

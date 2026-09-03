@@ -1,0 +1,54 @@
+{
+  "artifacts": {
+    "report_html": {
+      "bytes": 1445334,
+      "digest": "sha256:9d34a237734632923dabe1e67e12085dde3807220246c8d4915293b619840200",
+      "format": "html",
+      "path": "results/experiments/gear-generation/reports/probit_offset/report.html"
+    },
+    "report_summary": {
+      "bytes": 93680,
+      "digest": "sha256:b8511d592dad9831bc4b9578e126e3fff95e4e38dd3f4973f4c4de61bb63d6c1",
+      "format": "json",
+      "path": "results/experiments/gear-generation/reports/probit_offset/summary.json"
+    },
+    "run_lock": {
+      "bytes": 6912,
+      "digest": "sha256:c528d6ca87416efe1ff5fbcf547d5936bd24d30dc12d265a7b53100e8ee271e1",
+      "format": "json",
+      "path": "results/experiments/gear-generation/reports/probit_offset/run_lock.json"
+    }
+  },
+  "created_utc": "2026-09-03T06:22:46+00:00",
+  "kind": "run_manifest",
+  "lock_digest": "sha256:a4528f19b92265a0e4c3878dd33023db15d6c170c5ac59c5e3fc168d8bd6a39c",
+  "report": {
+    "config_digest": "",
+    "evidence_not_applicable": [
+      "effects",
+      "ensemble",
+      "topchoice"
+    ],
+    "evidence_not_built": [
+      "simulation"
+    ],
+    "label": "Probit Offset",
+    "mode": "exploratory",
+    "model": "probit_offset",
+    "sections": [
+      "overview",
+      "performance",
+      "calibration",
+      "diagnostics",
+      "settlement",
+      "simulation",
+      "limitations"
+    ],
+    "source_commit": "c85a5fb67e85bfea31198b53089c6d6488454b5c",
+    "source_dirty": true,
+    "unverified_preview": false
+  },
+  "root": "results/experiments/gear-generation/reports/probit_offset",
+  "run": "report:probit_offset",
+  "schema_version": 1
+}

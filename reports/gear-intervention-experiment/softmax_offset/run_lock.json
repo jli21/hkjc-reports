@@ -1,0 +1,218 @@
+{
+  "bankroll": {
+    "initial_bankroll": 10000000.0,
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "rebate_policy": {
+      "basis": "net_loss",
+      "rate": 0.1,
+      "threshold": 10000.0,
+      "threshold_mode": "cliff"
+    }
+  },
+  "chronology": {
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": 2010
+  },
+  "code": {
+    "git_commit": "c85a5fb67e85bfea31198b53089c6d6488454b5c",
+    "git_dirty": true,
+    "source_digest": "sha256:421203346009fb8d13b59fa302877cbadc5923561cdf19e6e522c299eca85e4d"
+  },
+  "compute": {
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ]
+  },
+  "created_utc": "2026-09-03T06:11:13+00:00",
+  "digest": "sha256:5d0d94299689089a24deabb9c71a2217ba20f3db9ab71175cdfa6511d7475e0b",
+  "environment": {
+    "blas": "accelerate",
+    "compiler": "Clang 20.1.4 ",
+    "cpu_count": 12,
+    "libc": "none",
+    "libxgboost_digest": "sha256:5aef338ede7b84ae7d3405a306614de1d326ccaad033a2f14242aedd421359bc",
+    "locale": "UTF-8",
+    "machine": "arm64",
+    "numpy": "2.5.2",
+    "os": "Darwin",
+    "os_release": "25.6.0",
+    "pandas": "3.0.5",
+    "python": "3.12.11",
+    "scikit_learn": "1.9.0",
+    "scipy": "1.18.1",
+    "thread_env": {
+      "HKJC_QUADRATURE_THREADS": "unset",
+      "MKL_NUM_THREADS": "unset",
+      "NUMEXPR_NUM_THREADS": "unset",
+      "OMP_NUM_THREADS": "unset",
+      "OPENBLAS_NUM_THREADS": "unset",
+      "VECLIB_MAXIMUM_THREADS": "unset"
+    },
+    "timezone": "CST",
+    "xgboost": "3.4.1",
+    "xgboost_build": {
+      "BUILTIN_PREFETCH_PRESENT": true,
+      "MM_PREFETCH_PRESENT": false,
+      "USE_CUDA": false,
+      "USE_NCCL": false,
+      "USE_OPENMP": true
+    }
+  },
+  "features": {
+    "groups": {},
+    "n": 28,
+    "ordered": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z"
+    ]
+  },
+  "inputs": {
+    "betting_run": {
+      "digest": "sha256:d1977651ff5abd9aac0832849ee9c61f3c226e9473312acaad4b79718fa42445",
+      "path": "results/experiments/gear-generation/softmax_offset/betting_run.json"
+    },
+    "betting_summary": {
+      "digest": "sha256:0ee2ac583148e271fd57c8da774c9a3cc817238939cc10fc66b94758eb52e4b7",
+      "path": "results/experiments/gear-generation/softmax_offset/betting_summary.csv"
+    },
+    "betting_yearly": {
+      "digest": "sha256:f12edf439aa77e5c82ecd5c74941b19695f5951905bc07bac0916646b4a6b81d",
+      "path": "results/experiments/gear-generation/softmax_offset/betting_yearly.csv"
+    },
+    "calibration": {
+      "digest": "sha256:2b0f1c4d5a6ab537c4950a53f8f5f2798f1174f5866f9eaf911d679aa4f3a223",
+      "path": "results/experiments/gear-generation/softmax_offset/calibration.parquet"
+    },
+    "edge_buckets": {
+      "digest": "sha256:0ed378c5569cc9e2a0b39be331e3bf88c369c740faca8b8953e9c65bc71886f6",
+      "path": "results/experiments/gear-generation/softmax_offset/edge_buckets.csv"
+    },
+    "ensemble_diagnostics": {
+      "digest": "sha256:be1da459daf9b5cad7a0bd0a6dad84a7ecff0baa53a567345bd38b9d71cbe0a9",
+      "path": "results/experiments/gear-generation/softmax_offset/ensemble_diagnostics.parquet"
+    },
+    "feature_dictionary": {
+      "digest": "sha256:b598fc6e70a5145793c6774d285e210c176cc49a06102a05dd2f76cf9b8dd6b9",
+      "path": "results/experiments/gear-generation/softmax_offset/feature_dictionary.json"
+    },
+    "feature_effects_yearly": {
+      "digest": "sha256:56de59a6d1f856166cd4b818620421110f929a315ee214836a492f66355ad530",
+      "path": "results/experiments/gear-generation/softmax_offset/feature_effects_yearly.parquet"
+    },
+    "feature_stability": {
+      "digest": "sha256:21a7a0d8b73cca04ebc59ccbc0142f74c78b218a5c573c17fb0a3bbb4a61b987",
+      "path": "results/experiments/gear-generation/softmax_offset/feature_stability.csv"
+    },
+    "market_relationship": {
+      "digest": "sha256:d4253c5404f47905ddf65925943166995e20625f020faac51a3978a9a6762846",
+      "path": "results/experiments/gear-generation/softmax_offset/market_relationship.json"
+    },
+    "race_paths": {
+      "digest": "sha256:c356cfc6b46be703756f4d4e7b27dceb9fb17368c8bd590791a17d9b4d7a131d",
+      "path": "results/experiments/gear-generation/softmax_offset/race_paths.parquet"
+    },
+    "race_scores": {
+      "digest": "sha256:6b0798c8a244ffead747a64644eb7a565e06ce764852ee62676115896a2245b5",
+      "path": "results/experiments/gear-generation/softmax_offset/race_scores.parquet"
+    },
+    "run_metadata": {
+      "digest": "sha256:a0e5860a4f5fcbc27e713adc57d17400b3c3a0dfafc7cb637843d85f5d947518",
+      "path": "results/experiments/gear-generation/softmax_offset/run_metadata.json"
+    },
+    "sharpness": {
+      "digest": "sha256:c84450fab7053fc8f6a73246046091ff9a764e80fc5609de18f95cef86cff9fd",
+      "path": "results/experiments/gear-generation/softmax_offset/sharpness.csv"
+    },
+    "sims/model_assumed/summary": {
+      "digest": "sha256:557f4f7c99fbcb3a5ca02d643bfc887959e0c2a8a885a17c7f07138a7c36c063",
+      "path": "results/experiments/gear-generation/softmax_offset/sims/model_assumed/summary.json"
+    },
+    "sims/model_assumed/trajectories": {
+      "digest": "sha256:fe4ededef1b0978411715cc93c27264fcb27b0a4038c4bcf8a438d35db11a4a7",
+      "path": "results/experiments/gear-generation/softmax_offset/sims/model_assumed/trajectories.parquet"
+    },
+    "simulation_run": {
+      "digest": "sha256:f62794a62792b2320b0b30d5e59bb037da535bea75737cb7e14a179d5bb28d77",
+      "path": "results/experiments/gear-generation/softmax_offset/simulation_run.json"
+    },
+    "top_choice_movement": {
+      "digest": "sha256:1799a992dab0b189ed0d081ff2443e079a45ecefe7aa3885b4332c2a98669823",
+      "path": "results/experiments/gear-generation/softmax_offset/top_choice_movement.csv"
+    }
+  },
+  "kind": "run_lock",
+  "model": {
+    "architecture": null,
+    "config_digest": "sha256:bf0c84b8bbd341d6398c3aa4a2f671220a4ec0aa6c586a4a8940ad3fd2a25c6a",
+    "cv": 3,
+    "identity_source": "artifact",
+    "key": "softmax_offset",
+    "label": "Softmax Offset",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "paired_diagnostic": null,
+    "rounds": 400,
+    "status": "standard"
+  },
+  "notes": {
+    "input_run_lock_digest": "sha256:1c3300ec8467dbf400ba5a4f8fa1f2cc70703193a08dc56b431201bd8a17490f",
+    "produced_by": "hkjc.reporting.generate",
+    "run_metadata_commit": "c85a5fb67e85bfea31198b53089c6d6488454b5c",
+    "run_metadata_dirty": true
+  },
+  "run": "report:softmax_offset",
+  "schema_version": 1
+}

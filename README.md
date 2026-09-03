@@ -30,6 +30,20 @@ different race population from the five above.
 report: the findings log, the open backlog, and the boosted-probit experiment's log and PDF. It is
 the written record behind several results that were *rejected*, which is most of what is in it.
 
+`reports/gear-intervention-experiment/` holds two **experimental** model reports and is the one place
+here that is not published evidence. They are the production Offset and the market-anchored Probit
+Offset trained on the 28 production columns *plus* six declared-gear intervention columns, rendered
+in exploratory mode from `results/experiments/` in `hkjc-mod`. They exist because the paired feature
+harness reports one number and refuses per-feature attribution by construction, so the only way to
+see which gear column earns its place was to run a real generation and read its SHAP, its yearly
+response curves and its stability table. What they showed: `gear_removed_n` is the largest correction
+in the whole model, monotone -- taking equipment off is a positive the market underprices -- and
+`gear_first_n`, which prior work had named the strongest candidate, is flat at every bin. **Nothing
+in them is promoted.** `configs/features/production.json` in `hkjc-mod` is unchanged, their run
+status reads `standard` rather than `production`, and the paired canonical measurement they motivated
+came back at -0.0003, below the promotion bar. Read them as working evidence, not as a model this
+programme runs.
+
 ## Research studies
 
 Six exploratory studies of the distribution of horse performance in Class 1-5 racing, 2008-2026,

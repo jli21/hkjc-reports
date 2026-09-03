@@ -1,0 +1,116 @@
+Every booster setting in this architecture was \textbf{copied from \texttt{OffsetModel} and never
+tuned}. §22 required the capacity comparison to hold everything but the likelihood fixed, so the
+probit objective was fitted at the \emph{softmax} objective's tuned settings. That kept the
+comparison clean, and it means §11's negative result is a negative result about a borrowed
+configuration rather than about the architecture at its best.
+
+\textbf{One reading that looked like evidence, and was not.} §35's depth ablation is monotone from
+$+0.002665$ at depth~1 to $-0.000814$ at depth~6 and stops there, which reads as ``the probit
+objective wants deeper trees than production's depth~5''. It is not: the ablation reports probit
+\emph{minus} softmax at each depth, and its own table has the softmax arm degrading with depth
+(best at depth~1, $-0.004279$; $-0.003646$ at depth~5). Part of a narrowing gap was the other arm
+getting worse. Measured directly on a fat fit, depth is flat and then harmful --- $-0.004200$,
+$-0.004191$, $-0.004210$, $-0.003889$ for depths 5 to 8. \emph{A monotone difference between two
+arms is not a monotone claim about either.}
+
+\subsection*{The validation year is the whole problem}
+
+The canonical profile scores 2015--2026 and trains from 2010, so only 2011--2014 are never scored.
+That gives two options and no third: validate on 2014, which is leak-free but fits
+\textbf{36{,}160} training rows where a canonical cell gets \textbf{121{,}000}; or validate on 2023
+as §8 did, which has the rows and is a year the canonical run \emph{scores}, so the selection leaks
+into that cell.
+
+Both were run over one declared five-configuration grid. \texttt{utility\_scale} was fixed at the
+declared 2.0 throughout --- a scale fitted on the training loss runs to its lower bound (§4), and
+letting it move would make the sweep a comparison of scales. Scoring goes through the model's own
+\texttt{predict\_proba}, so the loss cannot differ from the one the architecture reports.
+
+\begin{center}\small
+\begin{tabular}{lrrrrr}
+\toprule
+configuration & 2014 (36k) & 2022 (112k) & 2023 (121k) & fat mean & 2022/23 swing \\
+\midrule
+baseline (mcw 20, $\lambda$ 10) & $-0.000314$ & $-0.004371$ & $-0.004200$ & $-0.004285$ & $0.000171$ \\
+\texttt{reg\_lambda=5.0} & $-0.000316$ & $-0.004514$ & $-0.003802$ & $-0.004158$ & $0.000712$ \\
+\texttt{reg\_lambda=2.0} & \bad{$-0.000451$ \tiny(1st)} & \bad{$-0.005092$ \tiny(1st)} & \bad{$-0.003558$ \tiny(5th)} & $-0.004325$ & \bad{$0.001534$} \\
+\texttt{gamma=0.0} & $-0.000288$ & $-0.004383$ & $-0.004186$ & $-0.004284$ & $0.000197$ \\
+\rowcolor{rowshade}\texttt{min\_child\_weight=10} & \bad{$+0.000653$ \tiny(5th)} & $-0.004628$ & \good{$-0.004836$ \tiny(1st)} & \good{$-0.004732$} & $0.000208$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{The two fat years anti-rank the grid: Spearman $-0.4$, and 2014 against 2023 is $-0.9$.}
+Every candidate is both first and last depending on which year is asked. The mechanism is
+training-set size and it points the way it should --- a looser per-leaf minimum only pays when there
+is data to fill the leaves --- which makes the leak-free year not merely weak but \emph{actively
+misleading}: its whole signal is $-0.0003$ against the fat years' $-0.0043$, a factor of fourteen,
+and its ranking is inverted. Selecting on 2014 would have chosen the configuration that comes last
+on the fits that matter.
+
+\subsection*{The selection rule, stated before the canonical run}
+
+One year's argmax is the error §8 named and then half-committed. Two years allow a rule an argmax
+does not:
+
+\begin{quote}
+Take the configuration that (a) improves on the baseline in \textbf{both} fat validation years and
+(b) swings no more between them than the baseline itself does.
+\end{quote}
+
+Clause (b) disqualifies the largest average gain. \texttt{reg\_lambda=2.0} has the second-best fat
+mean and buys it with a swing of $0.001534$ --- \textbf{nine times} the baseline's $0.000171$. A
+setting whose value depends that strongly on which season validates it has been shown to be
+sensitive, not to generalise. \texttt{min\_child\_weight=10} gains $+0.000447$ on the fat mean and
+swings $0.000208$, statistically the control's own.
+
+\textbf{Selected: \texttt{min\_child\_weight} $20 \to 10$, and nothing else.} Depth stays at 5,
+\texttt{reg\_lambda} at 10.0, \texttt{gamma} at 0.2, the step at §8's 0.0025, rounds at 400 --- more
+rounds was worse on both fat years (2023: 600 $\to -0.004011$, 800 $\to -0.003595$).
+
+\textbf{2022 and 2023 selected it, so both are excluded from the canonical comparison it is judged
+by}, leaving nine scored years of eleven. That is the price of using fat validation years, and
+paying it explicitly is cheaper than the alternative: a tuned number whose validation year sits
+inside its own test set.
+
+\subsection*{The canonical result}
+
+60 cells, five seeds, 400 rounds. \textbf{Control first}: the borrowed settings against the
+production Offset reproduces §11's published figure exactly --- year-mean $-0.001352$, se $0.000968$,
+$t=-1.40$, 6/11 years --- so what follows comes from the same machinery.
+
+\begin{center}\small
+\begin{tabular}{lrrrr}
+\toprule
+comparison, paired at year level, 9 leak-free years & year-mean & se & $t$ & years \\
+\midrule
+tuned vs borrowed settings & \bad{$+0.000062$} & $0.000099$ & \bad{$+0.63$} & 5/9 \\
+tuned vs link-only probit & $+0.000054$ & $0.001046$ & $+0.05$ & 3/9 \\
+tuned vs production Offset & $-0.000836$ & $0.001097$ & $-0.76$ & 4/9 \\
+\rowcolor{rowshade}\textbf{probit link, tuned mean held fixed} & \good{$\mathbf{-0.000351}$} & $0.000108$ & \good{$\mathbf{-3.24}$} & \good{\textbf{8/9}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{The tuning did nothing.} A 15\% improvement in the validation year's edge ($-0.004836$
+against $-0.004200$) became $+0.000062$ at $t=+0.63$ across nine independent years, alternating sign
+year to year. The grid was declared in advance, the selection rule was stated before the run, that
+rule deliberately rejected the largest average gain in favour of a stability criterion, and the
+selection years were excluded from the judgement. Every precaution was taken and the gain still did
+not survive. \emph{One validation year moved 15\% and nine test years moved nothing}; a single-year
+delta at this effect size is not evidence about a hyperparameter, and this is the measurement that
+says so rather than an argument that it might be.
+
+\textbf{What the run did establish is the strongest number in the programme's record.} Scoring the
+\emph{identical} boosted margins through the probit link and through the softmax link --- mean
+function fixed, only the shock distribution changing --- gives $-0.000351$ at $\mathbf{t=-3.24}$ with
+8 of 9 years favourable. §11 reported this contrast at \emph{seed} level, where five deltas over the
+same races measure determinism rather than generalisation. At year level it is the first $t$ below
+$-2$ in twenty candidates.
+
+It is still not a promotion case, for §11's own reason: the contrast needs the boosted margins, which
+cost two and a half hours of fitting and are worth nothing themselves --- \texttt{tuned vs link-only
+probit} is $+0.000054$ at $t=+0.05$, so the free link over the incumbent's utilities is as good as
+the expensive mean function beneath it. The link pays; the architecture that made it measurable is
+not what should ship. \textbf{Recommendation unchanged: keep the softmax booster, and keep
+\texttt{probit\_offset} as the published link.}

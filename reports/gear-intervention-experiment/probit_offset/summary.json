@@ -1,0 +1,3265 @@
+{
+  "appendix": {
+    "annual_reset_semantics": "",
+    "architecture": "probit_offset",
+    "bagged_year_weighted_model_minus_reference": -0.0007572694017577885,
+    "bankroll_scenario": "hkd_10m",
+    "calibrated_model_minus_reference": -0.00044568514344670067,
+    "fallback_scale_note": "These test years have no earlier year to fit the utility scale on and fall back to the predeclared theoretical value. The utility is divided by the scale, so the fallback amplifies corrections where a fitted scale halves them: their stakes and claimed edges are several times any fitted year's and are not comparable with them. Exclude these years from any return figure -- filter on is_honest_scale in the per-run CSV.",
+    "fallback_years": [
+      2015
+    ],
+    "initial_bankroll": 10000000.0,
+    "integration": "exact_gauss_hermite_quadrature",
+    "kelly_fractions_declared": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "kelly_fractions_settled": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "loading_features": [],
+    "member_mean_model_minus_reference": -0.0008359163985140624,
+    "model_log_loss": 2.024093516761705,
+    "model_minus_reference": -0.0006609544443598736,
+    "n_factors": 0,
+    "path_modes_declared": [
+      "continuous",
+      "annual_reset"
+    ],
+    "per_seed_delta": {
+      "123": -0.0007995016576441063,
+      "17": -0.0008304158679144761,
+      "256": -0.0008412168224057982,
+      "42": -0.0008907791626203597,
+      "7": -0.0008176684819855714
+    },
+    "promotion_gates": [
+      {
+        "gate": "1. paired delta is negative",
+        "verdict": "pass"
+      },
+      {
+        "gate": "2. no year degrades beyond tolerance",
+        "verdict": "pass"
+      },
+      {
+        "gate": "3. survives nested calibration",
+        "verdict": "pass"
+      },
+      {
+        "gate": "4. direction stable across seeds",
+        "verdict": "pass"
+      },
+      {
+        "gate": "5. improvement exceeds integration error 10x",
+        "verdict": "pass"
+      }
+    ],
+    "rebate_policy": {
+      "basis": "net_loss",
+      "rate": 0.1,
+      "threshold": 10000.0,
+      "threshold_mode": "cliff"
+    },
+    "reference_better_years": 9,
+    "reference_delta_basis": "bagged_pooled",
+    "reference_holds_fixed": "the correction. It is the incumbent's persisted margin, reused exactly rather than refitted, and the market anchor means a zero correction returns the market probability -- so the only difference is the link.",
+    "reference_log_loss": 2.024929433160219,
+    "reference_model": "softmax_offset",
+    "reference_n_years": 11,
+    "scenario_digest": "sha256:25f5d89b043a19322f84fa98a6dd8613c01244ed5596ac8fdd192f70b5d3ec86",
+    "scenario_role": "primary",
+    "sensitivity": [
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years; fallback to the theoretical value",
+        "setting": "2015",
+        "study": "utility_scale",
+        "value": 0.7796968012336761
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2016",
+        "study": "utility_scale",
+        "value": 1.973733007435668
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2017",
+        "study": "utility_scale",
+        "value": 2.005628818936295
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2018",
+        "study": "utility_scale",
+        "value": 2.2273808451141877
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2019",
+        "study": "utility_scale",
+        "value": 2.2646583069316772
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2020",
+        "study": "utility_scale",
+        "value": 2.160636822389371
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2021",
+        "study": "utility_scale",
+        "value": 2.1303634035798917
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2022",
+        "study": "utility_scale",
+        "value": 2.1122941974459444
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2023",
+        "study": "utility_scale",
+        "value": 2.195862266819642
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2024",
+        "study": "utility_scale",
+        "value": 2.17894082772969
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2025",
+        "study": "utility_scale",
+        "value": 2.0641723578077165
+      },
+      {
+        "architecture": "probit_offset",
+        "metric": NaN,
+        "n_races": 0,
+        "note": "fitted on strictly earlier years",
+        "setting": "2026",
+        "study": "utility_scale",
+        "value": 2.0180717628276184
+      }
+    ],
+    "settled_path_modes": [],
+    "settled_scenarios": [],
+    "settled_strategies": [],
+    "settlement_label": "Secondary diagnostic. This suite selects on paired race log loss; betting returns cannot select a model and are not evidence for or against a probit candidate.",
+    "strategy_roles": {},
+    "threshold_fraction": 0.001,
+    "training_window": {
+      "detail": "the training start year is not recorded in this run's metadata",
+      "sentence": "These are walk-forward figures rather than one model's: the model is refitted for each evaluation year on the seasons before it, so the result concatenates 11 separately fitted models and no evaluation year's outcomes appear in its own fit. This run did not record the year its training window starts, so this report does not name one.",
+      "summary": "11 separate fits, one per evaluation year"
+    },
+    "unverifiable_gates": "An interaction diagnostic across predeclared cohorts, reproduction from a clean identified commit, and confirmation on a future prospective period are not derivable from these artifacts. Production remains the five-seed Softmax Offset ensemble until they are met.",
+    "utility_scale": {
+      "max": 2.2646583069316772,
+      "min": 1.973733007435668,
+      "theory": 0.7796968012336761,
+      "theory_source": "the scale the fallback year used, which is the predeclared theoretical value"
+    },
+    "worst_year_model_minus_reference": 0.00042862152937983566
+  },
+  "capabilities": {
+    "betting": {
+      "reason": "",
+      "state": "available"
+    },
+    "calibration": {
+      "reason": "",
+      "state": "available"
+    },
+    "diagnostic_detail": {
+      "reason": "",
+      "state": "available"
+    },
+    "effects": {
+      "reason": "A choice link applies a shock distribution to mean utilities another fit produced, so it has no features of its own to attribute. Showing the Softmax or Offset run's attribution here would be that run's work under this model's heading.",
+      "state": "not_applicable"
+    },
+    "ensemble": {
+      "reason": "The per-runner member-spread artifact is written by the softmax prediction stage, and no probit stage produces one. What the seeds do here is reported beside the paired diagnostic instead, as a per-seed table.",
+      "state": "not_applicable"
+    },
+    "identity": {
+      "reason": "",
+      "state": "available"
+    },
+    "limitations": {
+      "reason": "",
+      "state": "available"
+    },
+    "market": {
+      "reason": "",
+      "state": "available"
+    },
+    "overall": {
+      "reason": "",
+      "state": "available"
+    },
+    "population": {
+      "reason": "",
+      "state": "available"
+    },
+    "simulation": {
+      "reason": "the artifact this section reads has not been built for simulation",
+      "state": "not_built"
+    },
+    "summary": {
+      "reason": "",
+      "state": "available"
+    },
+    "topchoice": {
+      "reason": "This run has no standalone top-choice movement artifact.",
+      "state": "not_applicable"
+    },
+    "yearly": {
+      "reason": "",
+      "state": "available"
+    }
+  },
+  "identity": {
+    "capabilities": {},
+    "config_digest": "",
+    "cv": null,
+    "environment": {
+      "blas": "accelerate",
+      "compiler": "Clang 20.1.4 ",
+      "cpu_count": 12,
+      "libc": "none",
+      "libxgboost_digest": "sha256:5aef338ede7b84ae7d3405a306614de1d326ccaad033a2f14242aedd421359bc",
+      "locale": "UTF-8",
+      "machine": "arm64",
+      "numpy": "2.5.2",
+      "os": "Darwin",
+      "os_release": "25.6.0",
+      "pandas": "3.0.5",
+      "python": "3.12.11",
+      "scikit_learn": "1.9.0",
+      "scipy": "1.18.1",
+      "thread_env": {
+        "HKJC_QUADRATURE_THREADS": "unset",
+        "MKL_NUM_THREADS": "unset",
+        "NUMEXPR_NUM_THREADS": "unset",
+        "OMP_NUM_THREADS": "unset",
+        "OPENBLAS_NUM_THREADS": "unset",
+        "VECLIB_MAXIMUM_THREADS": "unset"
+      },
+      "timezone": "CST",
+      "xgboost": "3.4.1",
+      "xgboost_build": {
+        "BUILTIN_PREFETCH_PRESENT": true,
+        "MM_PREFETCH_PRESENT": false,
+        "USE_CUDA": false,
+        "USE_NCCL": false,
+        "USE_OPENMP": true
+      }
+    },
+    "feature_set": "production_plus_gear",
+    "feature_set_digest": "sha256:e0383ed2185580fa6c9c3d79e71657e0899dca0546a1b7a5af7c3032b61cadfc",
+    "features": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z",
+      "gear_first_n",
+      "gear_removed_n",
+      "gear_load",
+      "gear_vision_first",
+      "gear_true_change",
+      "gear_intervention_size"
+    ],
+    "features_consumed": [
+      "Implied_Prob",
+      "market_rank",
+      "Racecourse",
+      "Track_Turf",
+      "distance_log",
+      "race_class",
+      "rating_z",
+      "going_ord",
+      "course_variant",
+      "field_size",
+      "draw_pct",
+      "wt_z",
+      "layoff_log",
+      "class_change",
+      "rating_change",
+      "distance_change",
+      "gear_change",
+      "setup_weight_z",
+      "trainer_track_residual",
+      "jockey_residual",
+      "early_style_ewm",
+      "pace_pressure",
+      "closer_setup",
+      "trip_excuse_ewm",
+      "bt_finish_ewm",
+      "bt_last_behind",
+      "bt_days_since",
+      "body_wt_change_z",
+      "gear_first_n",
+      "gear_removed_n",
+      "gear_load",
+      "gear_vision_first",
+      "gear_true_change",
+      "gear_intervention_size"
+    ],
+    "features_learned": [],
+    "git_commit": "c85a5fb67e85bfea31198b53089c6d6488454b5c",
+    "git_dirty": true,
+    "identity_source": "artifact",
+    "key": "probit_offset",
+    "label": "Probit Offset",
+    "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
+    "model_view": "bagged_probit_offset",
+    "n_features": 34,
+    "n_members": 5,
+    "notes": {
+      "architecture": "probit_offset",
+      "integration": "exact_gauss_hermite_quadrature"
+    },
+    "paired_diagnostic": {
+      "model_log_loss": 2.024093516761705,
+      "model_minus_reference": -0.0008359163985140624,
+      "reference_log_loss": 2.024929433160219,
+      "reference_model": "softmax_offset",
+      "what_is_held_fixed": "the correction. It is the incumbent's persisted margin, reused exactly rather than refitted, and the market anchor means a zero correction returns the market probability -- so the only difference is the link."
+    },
+    "probability_column": "final_prob",
+    "rounds": 400,
+    "schema_version": 1,
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ],
+    "status": "standard",
+    "test_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "train_start_year": null
+  },
+  "inputs": {
+    "betting_probit_offset/betting_summary": "results/experiments/gear-generation/probit_offset/betting_probit_offset/betting_summary.csv",
+    "betting_probit_offset/betting_yearly": "results/experiments/gear-generation/probit_offset/betting_probit_offset/betting_yearly.csv",
+    "betting_probit_offset/edge_buckets": "results/experiments/gear-generation/probit_offset/betting_probit_offset/edge_buckets.csv",
+    "betting_probit_offset/probit_betting_run": "results/experiments/gear-generation/probit_offset/betting_probit_offset/probit_betting_run.json",
+    "betting_probit_offset/race_paths": "results/experiments/gear-generation/probit_offset/betting_probit_offset/race_paths.parquet",
+    "market_relationship": "results/experiments/gear-generation/probit_offset/market_relationship.json",
+    "probit_offset_correction_identity": "results/experiments/gear-generation/probit_offset/probit_offset_correction_identity.json",
+    "probit_offset_link_movement": "results/experiments/gear-generation/probit_offset/probit_offset_link_movement.parquet",
+    "probit_offset_per_run": "results/experiments/gear-generation/probit_offset/probit_offset_per_run.csv",
+    "probit_offset_reliability": "results/experiments/gear-generation/probit_offset/probit_offset_reliability.parquet",
+    "probit_offset_reliability_yearly": "results/experiments/gear-generation/probit_offset/probit_offset_reliability_yearly.parquet",
+    "probit_offset_sensitivity": "results/experiments/gear-generation/probit_offset/probit_offset_sensitivity.parquet",
+    "probit_offset_state": "results/experiments/gear-generation/probit_offset/probit_offset_state.json"
+  },
+  "kelly_presets": [
+    {
+      "bets": 1721,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 291,
+        "2018": 224,
+        "2019": 139,
+        "2020": 176,
+        "2021": 160,
+        "2022": 159,
+        "2023": 87,
+        "2024": 103,
+        "2025": 86,
+        "2026": 22
+      },
+      "cumulative_return": 0.00039879999999992144,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10003988.0,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.01,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1566,
+      "plotted_points": 998,
+      "races_staked": 1566,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.01",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10005012.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0005011999999999794,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9994217.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0005782500000000024,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9954533.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.004546649999999985,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10027066.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0027066499999999216,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10023529.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0023529499999999093,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10028863.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0028863500000000375,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9964008.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0035991499999999954,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10012390.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0012389999999999901,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9981190.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0018810000000000215,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9994840.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0005159500000000428,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10003988.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.00039879999999992144,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1721,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 291,
+        "2018": 224,
+        "2019": 139,
+        "2020": 176,
+        "2021": 160,
+        "2022": 159,
+        "2023": 87,
+        "2024": 103,
+        "2025": 86,
+        "2026": 22
+      },
+      "cumulative_return": -0.000968086322595596,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10691681.0,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.01,
+      "initial_bankroll": 10702041.5,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1566,
+      "plotted_points": 998,
+      "races_staked": 1566,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.01",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10707053.5,
+          "opening_bankroll": 10702041.5,
+          "return": 0.0004683218617680396,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 10701271.0,
+          "opening_bankroll": 10707053.5,
+          "return": -0.0005400645471698162,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 10655804.5,
+          "opening_bankroll": 10701271.0,
+          "return": -0.004248700925338689,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10682871.0,
+          "opening_bankroll": 10655804.5,
+          "return": 0.0025400710007394967,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10706400.5,
+          "opening_bankroll": 10682871.0,
+          "return": 0.0022025446155813366,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10735264.0,
+          "opening_bankroll": 10706400.5,
+          "return": 0.002695910731155715,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 10699272.5,
+          "opening_bankroll": 10735264.0,
+          "return": -0.003352642282481333,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10711662.5,
+          "opening_bankroll": 10699272.5,
+          "return": 0.0011580226599519072,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 10692852.5,
+          "opening_bankroll": 10711662.5,
+          "return": -0.0017560299346622843,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 10687693.0,
+          "opening_bankroll": 10692852.5,
+          "return": -0.00048251857958392375,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10691681.0,
+          "opening_bankroll": 10687693.0,
+          "return": 0.0003731394604991056,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1739,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 295,
+        "2018": 224,
+        "2019": 141,
+        "2020": 179,
+        "2021": 163,
+        "2022": 160,
+        "2023": 87,
+        "2024": 106,
+        "2025": 88,
+        "2026": 22
+      },
+      "cumulative_return": 0.0008484499999998896,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10008484.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.02,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1583,
+      "plotted_points": 998,
+      "races_staked": 1583,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.02",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10011465.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0011465500000000795,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9985637.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.001436299999999946,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9903313.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.009668699999999975,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10057214.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.005721400000000099,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10050507.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0050506999999999636,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10061684.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.006168450000000103,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9923270.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.007672950000000012,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10026633.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.002663300000000035,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9960035.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.00399645000000004,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9988858.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0011141999999999541,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10008484.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0008484499999998896,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1739,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 295,
+        "2018": 224,
+        "2019": 141,
+        "2020": 179,
+        "2021": 163,
+        "2022": 160,
+        "2023": 87,
+        "2024": 106,
+        "2025": 88,
+        "2026": 22
+      },
+      "cumulative_return": -0.0020057313241536034,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 11393138.0,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.02,
+      "initial_bankroll": 11416035.5,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1583,
+      "plotted_points": 998,
+      "races_staked": 1583,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.02",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 11427501.0,
+          "opening_bankroll": 11416035.5,
+          "return": 0.001004332896477056,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 11413138.0,
+          "opening_bankroll": 11427501.0,
+          "return": -0.001256880222543888,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 11316451.0,
+          "opening_bankroll": 11413138.0,
+          "return": -0.0084715526965502,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 11373665.0,
+          "opening_bankroll": 11316451.0,
+          "return": 0.005055825364330246,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 11424172.0,
+          "opening_bankroll": 11373665.0,
+          "return": 0.004440696996087068,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 11485856.5,
+          "opening_bankroll": 11424172.0,
+          "return": 0.00539947227685289,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 11409127.0,
+          "opening_bankroll": 11485856.5,
+          "return": -0.006680346389492109,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 11435760.0,
+          "opening_bankroll": 11409127.0,
+          "return": 0.0023343591494773275,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 11395795.5,
+          "opening_bankroll": 11435760.0,
+          "return": -0.003494695586476082,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 11384653.5,
+          "opening_bankroll": 11395795.5,
+          "return": -0.0009777290229541213,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 11393138.0,
+          "opening_bankroll": 11384653.5,
+          "return": 0.0007452576400326372,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": 0.0025005499999999348,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10025005.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.05,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.05",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10031903.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0031903499999998974,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9957082.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.004291799999999957,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9713280.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.02867200000000003,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10167877.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.01678774999999999,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10151565.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.015156549999999935,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10184279.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.018427900000000053,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9769258.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.023074200000000045,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10079459.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.00794595000000009,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9880449.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.011955099999999996,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9966235.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0033765000000000045,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10025005.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0025005499999999348,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": -0.005396592211356355,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 13565650.0,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.05,
+      "initial_bankroll": 13639255.5,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.05",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 13671159.0,
+          "opening_bankroll": 13639255.5,
+          "return": 0.0023390939483463047,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 13628241.0,
+          "opening_bankroll": 13671159.0,
+          "return": -0.0031393095493952305,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 13341521.0,
+          "opening_bankroll": 13628241.0,
+          "return": -0.021038665224661024,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 13509398.5,
+          "opening_bankroll": 13341521.0,
+          "return": 0.01258308554174592,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 13660964.0,
+          "opening_bankroll": 13509398.5,
+          "return": 0.011219263389113943,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 13845243.0,
+          "opening_bankroll": 13660964.0,
+          "return": 0.013489457991398002,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 13614501.0,
+          "opening_bankroll": 13845243.0,
+          "return": -0.01666579633163534,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 13693960.5,
+          "opening_bankroll": 13614501.0,
+          "return": 0.005836387246216379,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 13574409.5,
+          "opening_bankroll": 13693960.5,
+          "return": -0.00873019898078431,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 13540644.5,
+          "opening_bankroll": 13574409.5,
+          "return": -0.002487401017333357,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 13565650.0,
+          "opening_bankroll": 13540644.5,
+          "return": 0.001846699394552509,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": 0.00632754999999996,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10063275.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.1,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.1",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10077566.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0077566499999999206,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9889087.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.011091300000000026,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9274662.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.07253379999999998,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10419061.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.04190610000000006,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10380934.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.038093450000000084,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10470456.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.04704559999999991,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9407153.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.05928465000000005,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10202682.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.02026820000000007,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9695012.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.030498800000000048,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9913842.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.008615750000000033,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10063275.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.00632754999999996,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": -0.011841276859549943,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 17213095.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.1,
+      "initial_bankroll": 17419363.0,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 0.0,
+      "role": "settlement_ablation",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_no_rebate@0.1",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 17496929.5,
+          "opening_bankroll": 17419363.0,
+          "return": 0.004452889580405461,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 17386016.5,
+          "opening_bankroll": 17496929.5,
+          "return": -0.0063389979367523,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 16660678.5,
+          "opening_bankroll": 17386016.5,
+          "return": -0.041719619902580884,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 17079739.5,
+          "opening_bankroll": 16660678.5,
+          "return": 0.02515269711254553,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 17460674.0,
+          "opening_bankroll": 17079739.5,
+          "return": 0.02230329683892429,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 17931130.0,
+          "opening_bankroll": 17460674.0,
+          "return": 0.026943747990484157,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 17338283.5,
+          "opening_bankroll": 17931130.0,
+          "return": -0.033062417148277845,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 17540965.5,
+          "opening_bankroll": 17338283.5,
+          "return": 0.011689853842798303,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 17235977.5,
+          "opening_bankroll": 17540965.5,
+          "return": -0.017387184302939285,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 17149820.0,
+          "opening_bankroll": 17235977.5,
+          "return": -0.004998701118053783,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 17213095.5,
+          "opening_bankroll": 17149820.0,
+          "return": 0.003689572252070228,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1722,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 291,
+        "2018": 224,
+        "2019": 139,
+        "2020": 177,
+        "2021": 160,
+        "2022": 159,
+        "2023": 87,
+        "2024": 103,
+        "2025": 86,
+        "2026": 22
+      },
+      "cumulative_return": 0.00040354999999991925,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10004035.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.01,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1567,
+      "plotted_points": 998,
+      "races_staked": 1567,
+      "rebate_paid": 0.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.01",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10005283.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0005283499999999552,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9993492.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0006507999999999514,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9953799.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.004620049999999987,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10027283.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.002728300000000017,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10023463.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0023463500000000526,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10029248.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0029247999999999497,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9963365.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0036634500000000125,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10012924.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0012924000000000824,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9980894.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0019105499999999553,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9994749.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0005250500000000269,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10004035.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.00040354999999991925,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1722,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 291,
+        "2018": 224,
+        "2019": 139,
+        "2020": 177,
+        "2021": 160,
+        "2022": 159,
+        "2023": 87,
+        "2024": 103,
+        "2025": 86,
+        "2026": 22
+      },
+      "cumulative_return": -0.0010529028204181445,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10874158.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.01,
+      "initial_bankroll": 10885620.0,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1567,
+      "plotted_points": 998,
+      "races_staked": 1567,
+      "rebate_paid": 0.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.01",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10890903.5,
+          "opening_bankroll": 10885620.0,
+          "return": 0.00048536509633811953,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 10884395.5,
+          "opening_bankroll": 10890903.5,
+          "return": -0.0005975629111028002,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 10838195.0,
+          "opening_bankroll": 10884395.5,
+          "return": -0.004244654652617141,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10865478.0,
+          "opening_bankroll": 10838195.0,
+          "return": 0.0025173010819605768,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10888941.5,
+          "opening_bankroll": 10865478.0,
+          "return": 0.002159454006533279,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10918189.5,
+          "opening_bankroll": 10888941.5,
+          "return": 0.002686027838426641,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 10881555.0,
+          "opening_bankroll": 10918189.5,
+          "return": -0.0033553640005973273,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10894479.0,
+          "opening_bankroll": 10881555.0,
+          "return": 0.0011876978979565855,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 10875373.5,
+          "opening_bankroll": 10894479.0,
+          "return": -0.0017536864314484646,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 10870123.0,
+          "opening_bankroll": 10875373.5,
+          "return": -0.00048278801642998026,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10874158.5,
+          "opening_bankroll": 10870123.0,
+          "return": 0.00037124694909151934,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1740,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 296,
+        "2018": 224,
+        "2019": 141,
+        "2020": 179,
+        "2021": 163,
+        "2022": 160,
+        "2023": 87,
+        "2024": 106,
+        "2025": 88,
+        "2026": 22
+      },
+      "cumulative_return": 0.0008954500000000198,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10008954.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.02,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1584,
+      "plotted_points": 998,
+      "races_staked": 1584,
+      "rebate_paid": 3081.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.02",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10013904.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0013904000000000138,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9986566.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0013433499999999654,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9897836.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.010216349999999985,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10060146.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.00601465000000001,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10054339.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.005433950000000021,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10065153.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.006515300000000002,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9918695.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.008130450000000011,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10028413.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0028413000000000466,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9957682.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.004231800000000008,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9988119.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0011881000000000252,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10008954.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0008954500000000198,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1740,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 274,
+        "2017": 296,
+        "2018": 224,
+        "2019": 141,
+        "2020": 179,
+        "2021": 163,
+        "2022": 160,
+        "2023": 87,
+        "2024": 106,
+        "2025": 88,
+        "2026": 22
+      },
+      "cumulative_return": -0.0016723032009117178,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 12052979.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.02,
+      "initial_bankroll": 12073169.5,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1584,
+      "plotted_points": 998,
+      "races_staked": 1584,
+      "rebate_paid": 3081.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.02",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 12087073.5,
+          "opening_bankroll": 12073169.5,
+          "return": 0.0011516445619355054,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 12073640.0,
+          "opening_bankroll": 12087073.5,
+          "return": -0.0011113939201247147,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 11971476.5,
+          "opening_bankroll": 12073640.0,
+          "return": -0.008461698377622673,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 12031623.0,
+          "opening_bankroll": 11971476.5,
+          "return": 0.005024150529802984,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 12085962.5,
+          "opening_bankroll": 12031623.0,
+          "return": 0.004516389850313551,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 12151115.5,
+          "opening_bankroll": 12085962.5,
+          "return": 0.005390799450188499,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 12069811.0,
+          "opening_bankroll": 12151115.5,
+          "return": -0.006691114079197091,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 12098224.0,
+          "opening_bankroll": 12069811.0,
+          "return": 0.0023540550883522915,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 12055906.0,
+          "opening_bankroll": 12098224.0,
+          "return": -0.0034978687780949924,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 12044025.0,
+          "opening_bankroll": 12055906.0,
+          "return": -0.0009854920899350361,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 12052979.5,
+          "opening_bankroll": 12044025.0,
+          "return": 0.0007434806885571188,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": 0.003147599999999917,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10031476.0,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.05,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 140138.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.05",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10096169.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.009616899999999928,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9982638.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0017361500000000474,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9682920.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.03170799999999996,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10201628.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.020162800000000036,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10181691.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.01816915000000008,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10226027.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.022602749999999894,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9731545.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.02684545000000005,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10095680.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.009568000000000021,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9860993.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.013900649999999959,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9962594.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0037405499999999536,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10031476.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.003147599999999917,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": 0.003323901473266888,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 16107991.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.05,
+      "initial_bankroll": 16054627.5,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 140138.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.05",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 16150796.5,
+          "opening_bankroll": 16054627.5,
+          "return": 0.00599011095087687,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 16133435.0,
+          "opening_bankroll": 16150796.5,
+          "return": -0.0010749624639255773,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 15816355.0,
+          "opening_bankroll": 16133435.0,
+          "return": -0.0196535951581297,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 16017983.0,
+          "opening_bankroll": 15816355.0,
+          "return": 0.01274806995669997,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 16199674.5,
+          "opening_bankroll": 16017983.0,
+          "return": 0.011342969960699723,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 16425702.0,
+          "opening_bankroll": 16199674.5,
+          "return": 0.013952595158625014,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 16157247.5,
+          "opening_bankroll": 16425702.0,
+          "return": -0.016343563276625894,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 16252927.5,
+          "opening_bankroll": 16157247.5,
+          "return": 0.0059218007275063655,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 16113921.0,
+          "opening_bankroll": 16252927.5,
+          "return": -0.008552705351082102,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 16076515.5,
+          "opening_bankroll": 16113921.0,
+          "return": -0.0023213158361642394,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 16107991.5,
+          "opening_bankroll": 16076515.5,
+          "return": 0.0019578869562872914,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": 0.010399250000000082,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10103992.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.1,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 1043648.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.1",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10380304.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.03803040000000002,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 10047592.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.004759249999999993,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9136908.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.08630914999999995,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10665758.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.06657580000000007,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10620521.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.06205214999999997,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10751771.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.07517715000000003,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9219002.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.07809980000000005,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10327632.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.03276324999999991,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9595271.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.040472850000000005,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9894694.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.010530599999999946,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10103992.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.010399250000000082,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1755,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 276,
+        "2017": 298,
+        "2018": 224,
+        "2019": 146,
+        "2020": 180,
+        "2021": 165,
+        "2022": 160,
+        "2023": 88,
+        "2024": 107,
+        "2025": 89,
+        "2026": 22
+      },
+      "cumulative_return": 0.030563354741222737,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 25068281.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.1,
+      "initial_bankroll": 24324833.0,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1597,
+      "plotted_points": 998,
+      "races_staked": 1597,
+      "rebate_paid": 1043648.0,
+      "role": "sizing_reference",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "kelly_settled_rebate@0.1",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 24705137.0,
+          "opening_bankroll": 24324833.0,
+          "return": 0.015634393050098172,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 24752729.5,
+          "opening_bankroll": 24705137.0,
+          "return": 0.0019264212135314818,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 23889638.0,
+          "opening_bankroll": 24752729.5,
+          "return": -0.03486853843734683,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 24555396.0,
+          "opening_bankroll": 23889638.0,
+          "return": 0.027868065644192752,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 25175917.5,
+          "opening_bankroll": 24555396.0,
+          "return": 0.025270270534427652,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 25927689.0,
+          "opening_bankroll": 25175917.5,
+          "return": 0.02986073893831276,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 25146691.0,
+          "opening_bankroll": 25927689.0,
+          "return": -0.030122160135444442,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 25474323.5,
+          "opening_bankroll": 25146691.0,
+          "return": 0.013028851390427532,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 25069595.0,
+          "opening_bankroll": 25474323.5,
+          "return": -0.015887703553737142,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 24964289.0,
+          "opening_bankroll": 25069595.0,
+          "return": -0.004200546518601467,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 25068281.5,
+          "opening_bankroll": 24964289.0,
+          "return": 0.004165650381631192,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1740,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 282,
+        "2017": 295,
+        "2018": 226,
+        "2019": 139,
+        "2020": 179,
+        "2021": 161,
+        "2022": 159,
+        "2023": 87,
+        "2024": 103,
+        "2025": 87,
+        "2026": 22
+      },
+      "cumulative_return": 0.0004120999999999153,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10004121.0,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.01,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1568,
+      "plotted_points": 998,
+      "races_staked": 1568,
+      "rebate_paid": 19012.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.01",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 9991326.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0008673500000000445,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 9997371.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.00026289999999995484,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9933538.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.006646150000000017,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10027922.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0027922499999999406,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10034348.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.00343479999999996,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10058243.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.005824349999999923,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9962409.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.003759100000000015,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10013085.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.001308550000000075,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9973754.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0026245499999999478,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9994514.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.000548549999999981,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10004121.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0004120999999999153,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1740,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 282,
+        "2017": 295,
+        "2018": 226,
+        "2019": 139,
+        "2020": 179,
+        "2021": 161,
+        "2022": 159,
+        "2023": 87,
+        "2024": 103,
+        "2025": 87,
+        "2026": 22
+      },
+      "cumulative_return": -0.0008380492600621459,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 11165991.900000002,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.01,
+      "initial_bankroll": 11175357.400000002,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1568,
+      "plotted_points": 998,
+      "races_staked": 1568,
+      "rebate_paid": 19012.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.01",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 11166683.900000002,
+          "opening_bankroll": 11175357.400000002,
+          "return": -0.0007761273030963967,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 11164054.900000002,
+          "opening_bankroll": 11166683.900000002,
+          "return": -0.00023543247248181132,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 11097593.400000002,
+          "opening_bankroll": 11164054.900000002,
+          "return": -0.005953168503318618,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 11125515.900000002,
+          "opening_bankroll": 11097593.400000002,
+          "return": 0.0025160860551982633,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 11159863.900000002,
+          "opening_bankroll": 11125515.900000002,
+          "return": 0.0030873175058785396,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 11218107.400000002,
+          "opening_bankroll": 11159863.900000002,
+          "return": 0.005219015260571336,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 11180516.400000002,
+          "opening_bankroll": 11218107.400000002,
+          "return": -0.0033509217428244753,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 11193601.900000002,
+          "opening_bankroll": 11180516.400000002,
+          "return": 0.0011703842230399442,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 11167356.400000002,
+          "opening_bankroll": 11193601.900000002,
+          "return": -0.002344687638033638,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 11161870.900000002,
+          "opening_bankroll": 11167356.400000002,
+          "return": -0.0004912084654161708,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 11165991.900000002,
+          "opening_bankroll": 11161870.900000002,
+          "return": 0.00036920333848322606,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1904,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 313,
+        "2017": 323,
+        "2018": 243,
+        "2019": 152,
+        "2020": 190,
+        "2021": 178,
+        "2022": 175,
+        "2023": 91,
+        "2024": 116,
+        "2025": 99,
+        "2026": 24
+      },
+      "cumulative_return": -4.9349999999948047e-05,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 9999506.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.02,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1678,
+      "plotted_points": 998,
+      "races_staked": 1678,
+      "rebate_paid": 386586.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.02",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10228080.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.02280799999999994,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 10186466.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.018646649999999987,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9877767.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.012223250000000019,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10136321.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.013632099999999925,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10169511.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.016951149999999915,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10068983.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.006898300000000024,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9835735.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.01642650000000001,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10225608.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.022560850000000077,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9940215.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.005978499999999998,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9992833.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0007166499999999854,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 9999506.5,
+          "opening_bankroll": 10000000.0,
+          "return": -4.9349999999948047e-05,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 1904,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 313,
+        "2017": 323,
+        "2018": 243,
+        "2019": 152,
+        "2020": 190,
+        "2021": 178,
+        "2022": 175,
+        "2023": 91,
+        "2024": 116,
+        "2025": 99,
+        "2026": 24
+      },
+      "cumulative_return": 0.05255020008932987,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 13240009.6,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.02,
+      "initial_bankroll": 12578981.6,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 1678,
+      "plotted_points": 998,
+      "races_staked": 1678,
+      "rebate_paid": 386586.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.02",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 12807061.6,
+          "opening_bankroll": 12578981.6,
+          "return": 0.01813183350232417,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 12993528.1,
+          "opening_bankroll": 12807061.6,
+          "return": 0.014559662928458117,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 12871295.6,
+          "opening_bankroll": 12993528.1,
+          "return": -0.00940718325764034,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 13007616.6,
+          "opening_bankroll": 12871295.6,
+          "return": 0.010591086106358949,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 13177128.1,
+          "opening_bankroll": 13007616.6,
+          "return": 0.013031710974630073,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 13246111.1,
+          "opening_bankroll": 13177128.1,
+          "return": 0.005235055732667471,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 13081846.1,
+          "opening_bankroll": 13246111.1,
+          "return": -0.012400998206937852,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 13307454.6,
+          "opening_bankroll": 13081846.1,
+          "return": 0.01724592219442167,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 13247669.6,
+          "opening_bankroll": 13307454.6,
+          "return": -0.00449259469951524,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 13240503.1,
+          "opening_bankroll": 13247669.6,
+          "return": -0.0005409630687045475,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 13240009.6,
+          "opening_bankroll": 13240503.1,
+          "return": -3.7271997617716046e-05,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 3433,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 508,
+        "2017": 458,
+        "2018": 389,
+        "2019": 267,
+        "2020": 350,
+        "2021": 326,
+        "2022": 336,
+        "2023": 237,
+        "2024": 262,
+        "2025": 241,
+        "2026": 59
+      },
+      "cumulative_return": -0.0004377500000000145,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 9995622.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.05,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 2943,
+      "plotted_points": 998,
+      "races_staked": 2943,
+      "rebate_paid": 3170755.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.05",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 10880526.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.08805259999999993,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 10570316.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.0570316500000001,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 9969510.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0030489500000000502,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10501308.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.05013084999999995,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 10464477.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.04644775000000001,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 10507006.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.050700600000000096,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 9315044.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.06849554999999996,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 10779161.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.07791615000000007,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 9765780.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.023421950000000025,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9981891.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0018108999999999487,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 9995622.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0004377500000000145,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 3433,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 508,
+        "2017": 458,
+        "2018": 389,
+        "2019": 267,
+        "2020": 350,
+        "2021": 326,
+        "2022": 336,
+        "2023": 237,
+        "2024": 262,
+        "2025": 241,
+        "2026": 59
+      },
+      "cumulative_return": 0.15516367180646706,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 20329126.450000003,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.05,
+      "initial_bankroll": 17598481.450000003,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 2943,
+      "plotted_points": 998,
+      "races_staked": 2943,
+      "rebate_paid": 3170755.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.05",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 18479007.450000003,
+          "opening_bankroll": 17598481.450000003,
+          "return": 0.05003420337724651,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 19049323.950000003,
+          "opening_bankroll": 18479007.450000003,
+          "return": 0.030862940098008274,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 19018834.450000003,
+          "opening_bankroll": 19049323.950000003,
+          "return": -0.0016005554884797046,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 19520142.950000003,
+          "opening_bankroll": 19018834.450000003,
+          "return": 0.026358529031730527,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 19984620.450000003,
+          "opening_bankroll": 19520142.950000003,
+          "return": 0.023794779638127705,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 20491626.450000003,
+          "opening_bankroll": 19984620.450000003,
+          "return": 0.025369808812155892,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 19806670.950000003,
+          "opening_bankroll": 20491626.450000003,
+          "return": -0.03342611684198449,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 20585832.450000003,
+          "opening_bankroll": 19806670.950000003,
+          "return": 0.03933833716766011,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 20351612.950000003,
+          "opening_bankroll": 20585832.450000003,
+          "return": -0.011377703601196831,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 20333503.950000003,
+          "opening_bankroll": 20351612.950000003,
+          "return": -0.0008898066234106494,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 20329126.450000003,
+          "opening_bankroll": 20333503.950000003,
+          "return": -0.0002152850787923155,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 5071,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 618,
+        "2017": 593,
+        "2018": 518,
+        "2019": 434,
+        "2020": 522,
+        "2021": 513,
+        "2022": 501,
+        "2023": 398,
+        "2024": 434,
+        "2025": 423,
+        "2026": 117
+      },
+      "cumulative_return": 0.042230149999999966,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 10422301.5,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.1,
+      "initial_bankroll": 10000000.0,
+      "last_settlement": "2026-03-15",
+      "mode": "annual_reset",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 4490,
+      "plotted_points": 998,
+      "races_staked": 4490,
+      "rebate_paid": 12284460.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.1",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 12675887.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.26758875000000004,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 12021925.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.20219254999999992,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 10180501.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.018050150000000098,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 10513486.0,
+          "opening_bankroll": 10000000.0,
+          "return": 0.05134860000000008,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 13524746.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.35247465,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 12009964.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.2009964500000001,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 7517512.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.24824875000000002,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 12444034.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.24440345000000008,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 8187858.0,
+          "opening_bankroll": 10000000.0,
+          "return": -0.1812142,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 9976269.5,
+          "opening_bankroll": 10000000.0,
+          "return": -0.0023730499999999877,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 10422301.5,
+          "opening_bankroll": 10000000.0,
+          "return": 0.042230149999999966,
+          "test_year": 2026
+        }
+      ]
+    },
+    {
+      "bets": 5071,
+      "bets_from_settlement": true,
+      "bets_per_year": {
+        "2016": 618,
+        "2017": 593,
+        "2018": 518,
+        "2019": 434,
+        "2020": 522,
+        "2021": 513,
+        "2022": 501,
+        "2023": 398,
+        "2024": 434,
+        "2025": 423,
+        "2026": 117
+      },
+      "cumulative_return": 0.3381087674768464,
+      "excluded_years": [
+        2015
+      ],
+      "final_bankroll": 37496498.2,
+      "first_settlement": "2016-01-01",
+      "fraction": 0.1,
+      "initial_bankroll": 28022010.7,
+      "last_settlement": "2026-03-15",
+      "mode": "continuous",
+      "partial_years": [
+        2026
+      ],
+      "plotted_from": 4490,
+      "plotted_points": 998,
+      "races_staked": 4490,
+      "rebate_paid": 12284460.0,
+      "role": "primary",
+      "ruined": false,
+      "scenario": "hkd_10m",
+      "scenario_role": "",
+      "seed": -1,
+      "strategy": "rebate_aware_kelly@0.1",
+      "yearly_returns": [
+        {
+          "closing_bankroll": 30697898.2,
+          "opening_bankroll": 28022010.7,
+          "return": 0.09549234452330002,
+          "test_year": 2016
+        },
+        {
+          "closing_bankroll": 32719823.700000003,
+          "opening_bankroll": 30697898.2,
+          "return": 0.06586527477636905,
+          "test_year": 2017
+        },
+        {
+          "closing_bankroll": 32900325.200000003,
+          "opening_bankroll": 32719823.700000003,
+          "return": 0.005516579235113728,
+          "test_year": 2018
+        },
+        {
+          "closing_bankroll": 33413811.200000003,
+          "opening_bankroll": 32900325.200000003,
+          "return": 0.01560732293308753,
+          "test_year": 2019
+        },
+        {
+          "closing_bankroll": 36938557.7,
+          "opening_bankroll": 33413811.200000003,
+          "return": 0.10548771221883246,
+          "test_year": 2020
+        },
+        {
+          "closing_bankroll": 38948522.2,
+          "opening_bankroll": 36938557.7,
+          "return": 0.05441372444273851,
+          "test_year": 2021
+        },
+        {
+          "closing_bankroll": 36466034.7,
+          "opening_bankroll": 38948522.2,
+          "return": -0.06373765575115964,
+          "test_year": 2022
+        },
+        {
+          "closing_bankroll": 38910069.2,
+          "opening_bankroll": 36466034.7,
+          "return": 0.06702221725248347,
+          "test_year": 2023
+        },
+        {
+          "closing_bankroll": 37097927.2,
+          "opening_bankroll": 38910069.2,
+          "return": -0.04657257201691123,
+          "test_year": 2024
+        },
+        {
+          "closing_bankroll": 37074196.7,
+          "opening_bankroll": 37097927.2,
+          "return": -0.00063967185746161,
+          "test_year": 2025
+        },
+        {
+          "closing_bankroll": 37496498.2,
+          "opening_bankroll": 37074196.7,
+          "return": 0.011390712074416998,
+          "test_year": 2026
+        }
+      ]
+    }
+  ],
+  "market_relationship": {
+    "evaluation_years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "market_probability_column": "market_prob",
+    "model_key": "probit_offset",
+    "model_probability_column": "final_prob",
+    "model_view": "bagged_probit_offset",
+    "n_races": 7933,
+    "n_runners": 97636,
+    "overall": {
+      "entropy_difference_mean": -0.029987167065576248,
+      "jensen_shannon_divergence_mean": 0.001829080899190854,
+      "market_entropy_mean": 2.068797882588441,
+      "market_race_log_loss": 2.028662251421032,
+      "model_entropy_mean": 2.0388107155228647,
+      "model_minus_market_race_log_loss": -0.00528135473823621,
+      "model_race_log_loss": 2.023380896682796,
+      "probability_pearson_pooled_runners": 0.9943599877721098,
+      "top_choice_agreement": 0.9195764527921341,
+      "total_variation_distance_mean": 0.03822558992376904,
+      "within_race_spearman_mean": 0.9845312422174499
+    },
+    "probability_artifact": "probit_offset_predictions.parquet",
+    "probability_artifact_digest": "sha256:5bc8d24ed293bc2a3211790452d7c600cf0c8785ceb01b85c628e76d5960445d",
+    "race_key_population_digest": "sha256:342d95ee674808a0d7ae4d0df5b0f958da1898863e25c2898bb71d9f58392e58",
+    "yearly": [
+      {
+        "market_race_log_loss": 2.099277028165292,
+        "model_minus_market_race_log_loss": -0.007434243528983142,
+        "model_race_log_loss": 2.091842784636309,
+        "n_races": 744,
+        "n_runners": 9399,
+        "probability_pearson_pooled_runners": 0.9913360365163241,
+        "test_year": 2016,
+        "top_choice_agreement": 0.9086021505376344,
+        "total_variation_distance_mean": 0.04759252829175643,
+        "within_race_spearman_mean": 0.9821044498882284
+      },
+      {
+        "market_race_log_loss": 2.021559096031824,
+        "model_minus_market_race_log_loss": -0.003364432835186726,
+        "model_race_log_loss": 2.0181946631966374,
+        "n_races": 772,
+        "n_runners": 9563,
+        "probability_pearson_pooled_runners": 0.9929046913853751,
+        "test_year": 2017,
+        "top_choice_agreement": 0.9106217616580311,
+        "total_variation_distance_mean": 0.044392264311439,
+        "within_race_spearman_mean": 0.9822343975080601
+      },
+      {
+        "market_race_log_loss": 2.061504314336935,
+        "model_minus_market_race_log_loss": -0.005000501185664863,
+        "model_race_log_loss": 2.05650381315127,
+        "n_races": 756,
+        "n_runners": 9192,
+        "probability_pearson_pooled_runners": 0.9934019229666516,
+        "test_year": 2018,
+        "top_choice_agreement": 0.9034391534391535,
+        "total_variation_distance_mean": 0.03926441493813677,
+        "within_race_spearman_mean": 0.983133258456352
+      },
+      {
+        "market_race_log_loss": 1.9328268503582446,
+        "model_minus_market_race_log_loss": -0.006461033408703631,
+        "model_race_log_loss": 1.926365816949541,
+        "n_races": 759,
+        "n_runners": 9374,
+        "probability_pearson_pooled_runners": 0.9956384285776433,
+        "test_year": 2019,
+        "top_choice_agreement": 0.9235836627140975,
+        "total_variation_distance_mean": 0.03534461649578427,
+        "within_race_spearman_mean": 0.9866382708925212
+      },
+      {
+        "market_race_log_loss": 2.010400243960163,
+        "model_minus_market_race_log_loss": -0.004881010791769835,
+        "model_race_log_loss": 2.005519233168393,
+        "n_races": 799,
+        "n_runners": 9963,
+        "probability_pearson_pooled_runners": 0.9946789475728529,
+        "test_year": 2020,
+        "top_choice_agreement": 0.9449311639549437,
+        "total_variation_distance_mean": 0.036881306877682984,
+        "within_race_spearman_mean": 0.9858952288523001
+      },
+      {
+        "market_race_log_loss": 2.0066588400634955,
+        "model_minus_market_race_log_loss": -0.0060212139668491815,
+        "model_race_log_loss": 2.0006376260966463,
+        "n_races": 783,
+        "n_runners": 9629,
+        "probability_pearson_pooled_runners": 0.9944920531567701,
+        "test_year": 2021,
+        "top_choice_agreement": 0.9054916985951469,
+        "total_variation_distance_mean": 0.037950380449365904,
+        "within_race_spearman_mean": 0.9844681203095682
+      },
+      {
+        "market_race_log_loss": 2.05119493495194,
+        "model_minus_market_race_log_loss": -0.0005677589873198663,
+        "model_race_log_loss": 2.05062717596462,
+        "n_races": 783,
+        "n_runners": 9456,
+        "probability_pearson_pooled_runners": 0.9946313351367877,
+        "test_year": 2022,
+        "top_choice_agreement": 0.929757343550447,
+        "total_variation_distance_mean": 0.037215425843986724,
+        "within_race_spearman_mean": 0.9841882605421796
+      },
+      {
+        "market_race_log_loss": 2.0240661738643344,
+        "model_minus_market_race_log_loss": -0.004844300635299614,
+        "model_race_log_loss": 2.019221873229035,
+        "n_races": 796,
+        "n_runners": 9643,
+        "probability_pearson_pooled_runners": 0.9956051696639231,
+        "test_year": 2023,
+        "top_choice_agreement": 0.9359296482412061,
+        "total_variation_distance_mean": 0.033484620181458376,
+        "within_race_spearman_mean": 0.9863363246889781
+      },
+      {
+        "market_race_log_loss": 2.0257440339798585,
+        "model_minus_market_race_log_loss": -0.009602293858961719,
+        "model_race_log_loss": 2.0161417401208968,
+        "n_races": 792,
+        "n_runners": 9607,
+        "probability_pearson_pooled_runners": 0.9954540736339909,
+        "test_year": 2024,
+        "top_choice_agreement": 0.9217171717171717,
+        "total_variation_distance_mean": 0.034110479334074045,
+        "within_race_spearman_mean": 0.9857423612623433
+      },
+      {
+        "market_race_log_loss": 2.0573966929218863,
+        "model_minus_market_race_log_loss": -0.006460552066279934,
+        "model_race_log_loss": 2.0509361408556064,
+        "n_races": 748,
+        "n_runners": 9283,
+        "probability_pearson_pooled_runners": 0.9952035891614622,
+        "test_year": 2025,
+        "top_choice_agreement": 0.9050802139037433,
+        "total_variation_distance_mean": 0.036406933809860306,
+        "within_race_spearman_mean": 0.9844631943823794
+      },
+      {
+        "market_race_log_loss": 2.026224338288486,
+        "model_minus_market_race_log_loss": 0.0013353327501604006,
+        "model_race_log_loss": 2.0275596710386465,
+        "n_races": 201,
+        "n_runners": 2527,
+        "probability_pearson_pooled_runners": 0.9949679004329807,
+        "test_year": 2026,
+        "top_choice_agreement": 0.9353233830845771,
+        "total_variation_distance_mean": 0.0389494519625055,
+        "within_race_spearman_mean": 0.9841299496886191
+      }
+    ]
+  },
+  "population": {
+    "evaluation_start_year": 2016,
+    "excluded_years": [
+      2015
+    ],
+    "fallback_reasons": [
+      "insufficient_history"
+    ],
+    "fallback_years": [
+      2015
+    ],
+    "n_race_keys": 7933,
+    "race_key_digest": "sha256:342d95ee674808a0d7ae4d0df5b0f958da1898863e25c2898bb71d9f58392e58",
+    "seeds": [
+      7,
+      17,
+      42,
+      123,
+      256
+    ],
+    "test_races": 7933,
+    "years": [
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "root": "results/experiments/gear-generation/probit_offset",
+  "sections": [
+    "overview",
+    "performance",
+    "calibration",
+    "diagnostics",
+    "settlement",
+    "simulation",
+    "limitations"
+  ],
+  "summary": {
+    "bagged_year_weighted_model_minus_reference": -0.0007572694017577885,
+    "beats_market": true,
+    "calibrated_model_minus_reference": -0.00044568514344670067,
+    "delta": -0.00471126023124611,
+    "member_mean_model_minus_reference": -0.0008359163985140624,
+    "model_minus_reference": -0.0006609544443598736,
+    "races": 7933,
+    "reference_delta_basis": "bagged_pooled",
+    "seed_signs_agree": true,
+    "worst_year_model_minus_reference": 0.00042862152937983566,
+    "years_better": 10,
+    "years_total": 11
+  },
+  "uncertainty": {}
+}

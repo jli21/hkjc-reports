@@ -466,3 +466,148 @@ a five-root generation would leave `sweep --check` reading reports standing on t
 feature-table digests, which is worse than a uniformly old one: today all five name one commit, one
 feature-set digest and one race population, and the gate passes. So the correction lands in the
 code and in a test that reads the code, and the next full generation writes it into the artifact.
+
+---
+
+## E12 — tuning the architecture for its own objective, and what the validation years did instead
+
+**Why there was anything to tune.** Every booster setting this architecture uses was **copied from
+`OffsetModel.DEFAULT_PARAMS` and never tuned**. That was deliberate and correct at the time: §22
+required the capacity comparison to hold everything but the likelihood fixed, so the probit objective
+was fitted at the *softmax* objective's tuned settings. The consequence is that the architecture had
+never been optimised for its own objective, and E9's negative result was a negative result about a
+borrowed configuration.
+
+**The hypothesis, and the misreading it rested on.** Two earlier measurements looked like evidence
+that the probit objective wants more capacity and less shrinkage than the settings it borrowed:
+§35's depth ablation is monotone from +0.002665 at depth 1 to **−0.000814 at depth 6** and stops
+there, while production depth is 5; and E8 found the objective wanted lr 0.0025 against the softmax
+booster's 0.01 while producing a *smaller* correction (sd 0.102 against 0.145).
+
+The depth reading was wrong, and the ablation's own table says so. It reports probit **minus**
+softmax at each depth, and the softmax arm degrades with depth on that validation year — best at
+depth 1 (−0.004279), −0.003646 at depth 5. So a monotone *gap* was partly softmax getting worse, not
+probit getting better. Measured directly on a fat fit, depth is flat and then harmful:
+
+| max_depth | 5 | 6 | 7 | 8 |
+|---|---:|---:|---:|---:|
+| Δ vs market, validating 2023 | −0.004200 | −0.004191 | −0.004210 | −0.003889 |
+
+A relative quantity read as an absolute one. Worth recording as its own lesson: a monotone
+difference between two arms is not a monotone claim about either.
+
+### The validation year is the whole problem
+
+The canonical profile scores **2015–2026** and trains from 2010, so only **2011–2014 are never
+scored**. That gives two options and no third:
+
+* **Validate on 2014.** Leak-free — the canonical measurement never scores it — but the fit gets
+  **36,160 training rows** where a canonical cell gets 121,000.
+* **Validate on 2023, as E8 did.** 120,986 training rows, and the canonical run *scores 2023*, so a
+  setting chosen there leaks into 2023's canonical cell. E8's framing ("no *2024* information
+  selected anything") is true and insufficient.
+
+Both were run, on one declared five-configuration grid over the regularisation axis, plus depth and
+step-size grids. `utility_scale` fixed throughout at the declared 2.0, because a scale fitted on the
+training loss runs to its lower bound (E4) and letting it move would make the sweep a comparison of
+scales. Scoring goes through the model's own `predict_proba`, so the loss cannot differ from the one
+the architecture reports.
+
+**The two fat years anti-rank the grid. Spearman −0.4; 2014 against 2023 is −0.9.**
+
+| configuration | 2014 (36k rows) | 2022 (112k) | 2023 (121k) | fat mean | 2022↔2023 swing |
+|---|---:|---:|---:|---:|---:|
+| baseline (mcw 20, λ 10) | **−0.000314** | −0.004371 | −0.004200 | −0.004285 | 0.000171 |
+| `reg_lambda=5.0` | −0.000316 | −0.004514 | −0.003802 | −0.004158 | 0.000712 |
+| `reg_lambda=2.0` | **−0.000451** ① | **−0.005092** ① | **−0.003558** ⑤ | −0.004325 | **0.001534** |
+| `gamma=0.0` | −0.000288 | −0.004383 | −0.004186 | −0.004284 | 0.000197 |
+| `min_child_weight=10` | **+0.000653** ⑤ | −0.004628 | **−0.004836** ① | **−0.004732** | 0.000208 |
+
+Circled digits are the rank within that year. **Every candidate is both first and last depending on
+which year you ask.** `reg_lambda=2.0` is the argmax on 2014 *and* 2022 and the worst of five on
+2023; `min_child_weight=10` is the worst on 2014 and the best on 2023.
+
+The mechanism is training-set size, and it points the way it should: a looser per-leaf minimum only
+pays when there is data to fill the leaves, so `min_child_weight=10` needs the fat fit and hurts the
+thin one. Which means **the leak-free year is not merely weak, it is actively misleading**: its whole
+signal is −0.0003 against the fat years' −0.0043, a factor of fourteen, and its ranking is inverted.
+Selecting on 2014 would have chosen the configuration that comes last on the fits that matter.
+
+### The selection rule, stated before the canonical run
+
+One year's argmax is exactly the error E8 named and then half-committed. Two years allow a rule that
+an argmax does not:
+
+> Take the configuration that (a) improves on the baseline in **both** fat validation years and
+> (b) swings no more between them than the baseline itself does.
+
+Clause (b) is what disqualifies the largest average gain. `reg_lambda=2.0` has the second-best fat
+mean, and it buys it with a 2022↔2023 swing of 0.001534 — **nine times** the baseline's 0.000171. A
+setting whose value depends that strongly on which season you validate on has not been shown to
+generalise; it has been shown to be sensitive. `min_child_weight=10` gains **+0.000447** on the fat
+mean and swings 0.000208, statistically the control's own swing.
+
+**Selected: `min_child_weight` 20 → 10, and nothing else.** Depth stays at 5 (flat then harmful),
+`reg_lambda` at 10.0, `gamma` at 0.2, the learning rate at E8's 0.0025, and rounds at 400 — more
+rounds was worse on both fat years (2023: 600 → −0.004011, 800 → −0.003595).
+
+**2022 and 2023 selected it, so both are excluded from the canonical comparison it is judged by.**
+Nine scored years remain of eleven. That is the price of using fat validation years, and paying it
+explicitly is cheaper than the alternative, which is a tuned number whose validation year is inside
+its own test set.
+
+`tools/tune_boosted_probit.py` is the harness; `tuning-2014.csv`, `tuning-2022.csv` and
+`tuning-2023.csv` beside it are what it wrote.
+
+### The canonical result: the tuning is a null, and it surfaced the link's own number
+
+60 cells, 5 seeds, 400 rounds, `min_child_weight=10`, every arm scored on the same race keys and
+paired per race. **Control first**: borrowed settings against the production Offset reproduces §9's
+published figure exactly — year-mean −0.001352, se 0.000968, **t = −1.40**, 6/11 years — so the
+comparison machinery below is the same one that produced §9.
+
+On the nine years neither validation year touched:
+
+| arm | race log loss | vs market |
+|---|---:|---:|
+| tuned boosted probit (mcw 10) | 2.021544 | −0.004918 |
+| boosted probit (borrowed settings) | 2.021473 | −0.004988 |
+| link-only `probit_offset` | 2.021003 | **−0.005459** |
+| softmax link on the tuned boosted margins | 2.021897 | −0.004565 |
+| production Offset | 2.021764 | −0.004697 |
+| market | 2.026461 | — |
+
+| comparison, paired at year level | year-mean | se | t | years |
+|---|---:|---:|---:|---:|
+| tuned vs borrowed settings | **+0.000062** | 0.000099 | **+0.63** | 5/9 |
+| tuned vs link-only probit | +0.000054 | 0.001046 | +0.05 | 3/9 |
+| tuned vs production Offset | −0.000836 | 0.001097 | −0.76 | 4/9 |
+| **probit link, the tuned mean held fixed** | **−0.000351** | 0.000108 | **−3.24** | **8/9** |
+
+**The tuning did nothing.** A 15% improvement in the validation year's edge (−0.004836 against
+−0.004200) became **+0.000062 at t = +0.63** across nine independent years, and the sign alternates
+year to year: −0.00011, +0.00056, −0.00031, −0.00009, +0.00038, +0.00003, −0.00023, +0.00033,
+−0.00001. That is the twentieth candidate this programme has carried to canonical scale without
+confirming, and the first where the thing carried was a hyperparameter rather than a feature.
+
+Worth stating plainly, because it is the transferable part: **one validation year moved 15% and nine
+test years moved nothing.** The grid was declared in advance, the selection rule was stated before
+the run, the rule deliberately rejected the largest average gain for a stability criterion, and the
+selection years were excluded from the judgement. Every one of those precautions was taken and the
+gain still did not survive. A single-year validation delta at this effect size is not evidence about
+a hyperparameter, and this is the measurement that says so rather than an argument that it might be.
+
+**What the run did establish, and it is the strongest number in the programme's record.** Scoring
+the *identical* boosted margins through the probit link and through the softmax link — the mean
+function held fixed, only the shock distribution changing — gives **−0.000351 at t = −3.24 with 8 of
+9 years favourable** (−0.000285, t = −2.91, 9/11 on all eleven; the exclusion is not needed for this
+comparison because no selection touched it). §9 reported this contrast at *seed* level, where five
+deltas over the same races measure determinism rather than generalisation. At year level it is the
+first t below −2 in twenty candidates.
+
+It is also not a promotion case, and the reason is the same one §9 gave. The comparison needs the
+boosted margins, which cost two and a half hours of fitting and are themselves worth nothing:
+`tuned vs link-only probit` is +0.000054 at t = +0.05, so the free link over the incumbent's own
+utilities is as good as the expensive mean function underneath it. The link is what pays; the
+architecture that made it measurable is not what should ship. **Recommendation unchanged: keep the
+softmax booster, and keep `probit_offset` as the published link.**

@@ -1,0 +1,48 @@
+{
+  "artifacts": {
+    "report_html": {
+      "bytes": 3078281,
+      "digest": "sha256:c13ca7932b4f150aeed26a44efd4626a77f492a4a90fe7cfbc9ea3536050d0df",
+      "format": "html",
+      "path": "results/experiments/gear-generation/reports/softmax_offset/report.html"
+    },
+    "report_summary": {
+      "bytes": 242487,
+      "digest": "sha256:f1953b776dc73e1b89cbe51c53221edb16cb854884ae57be87c1d9d3fc0c7e4a",
+      "format": "json",
+      "path": "results/experiments/gear-generation/reports/softmax_offset/summary.json"
+    },
+    "run_lock": {
+      "bytes": 7283,
+      "digest": "sha256:968252c70e68c391d764f0d3830358c3974903a48caf243ce452e3563d3b238a",
+      "format": "json",
+      "path": "results/experiments/gear-generation/reports/softmax_offset/run_lock.json"
+    }
+  },
+  "created_utc": "2026-09-03T06:11:13+00:00",
+  "kind": "run_manifest",
+  "lock_digest": "sha256:5d0d94299689089a24deabb9c71a2217ba20f3db9ab71175cdfa6511d7475e0b",
+  "report": {
+    "config_digest": "sha256:bf0c84b8bbd341d6398c3aa4a2f671220a4ec0aa6c586a4a8940ad3fd2a25c6a",
+    "evidence_not_applicable": [],
+    "evidence_not_built": [],
+    "label": "Softmax Offset",
+    "mode": "exploratory",
+    "model": "softmax_offset",
+    "sections": [
+      "overview",
+      "performance",
+      "calibration",
+      "diagnostics",
+      "settlement",
+      "simulation",
+      "limitations"
+    ],
+    "source_commit": "c85a5fb67e85bfea31198b53089c6d6488454b5c",
+    "source_dirty": true,
+    "unverified_preview": false
+  },
+  "root": "results/experiments/gear-generation/reports/softmax_offset",
+  "run": "report:softmax_offset",
+  "schema_version": 1
+}
