@@ -2280,8 +2280,8 @@
       "bt_days_since",
       "body_wt_change_z"
     ],
-    "git_commit": "4ebd6e3384cec52ef01f3ac134e0e92a1d113f94",
-    "git_dirty": true,
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "git_dirty": false,
     "identity_source": "artifact",
     "key": "softmax",
     "label": "Softmax",
@@ -8073,7 +8073,7 @@
       "method": "model_assumed_trajectory_monte_carlo",
       "model_probability_column": "model_probability",
       "odds_column": "win_odds",
-      "peak_rss_bytes": 4322869248,
+      "peak_rss_bytes": 4031332352,
       "policy_artifact": "results/runs/softmax/simulation_policies.parquet",
       "policy_sha256": "sha256:324f07ba5f3424bf69fd3a80b63f8b567a83df7bd3bea161d79695cd6fde0186",
       "population": {
@@ -8121,7 +8121,7 @@
         999
       ],
       "seed": 20260824,
-      "total_seconds": 1.07,
+      "total_seconds": 1.11,
       "trajectory_sha256": "sha256:2db0978bb808d6ebf0efe1dd25f3c424736e0a90075aacac7f7f42b9f1935265"
     }
   }

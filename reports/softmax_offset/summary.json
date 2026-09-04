@@ -2209,8 +2209,8 @@
       "bt_days_since",
       "body_wt_change_z"
     ],
-    "git_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
-    "git_dirty": true,
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "git_dirty": false,
     "identity_source": "artifact",
     "key": "softmax_offset",
     "label": "Softmax Offset",
@@ -8005,7 +8005,7 @@
       "method": "model_assumed_trajectory_monte_carlo",
       "model_probability_column": "model_probability",
       "odds_column": "win_odds",
-      "peak_rss_bytes": 3963895808,
+      "peak_rss_bytes": 2677637120,
       "policy_artifact": "results/runs/softmax_offset/simulation_policies.parquet",
       "policy_sha256": "sha256:164c7bc897a8f31622c70ba0b37742938d091f69ba4e108cbee5508f84ad46ea",
       "population": {

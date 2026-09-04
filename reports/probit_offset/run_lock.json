@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "b49c11f9844e15d30a4d4740716d54b70dc187a0",
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
     "git_dirty": false,
-    "source_digest": "sha256:b3a693fd9d5787e2857ad1ee3480f5e24a8b2930063ffba5ba804fb0a9e62bf5"
+    "source_digest": "sha256:8012124048b43808f96b6acaa2e72616ddd6b66cdeee689b88bcc186b6f29861"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-02T04:00:36+00:00",
-  "digest": "sha256:f51a0481e916411c2548065ff7ca9be57969bcf07ea1b12617c398d6d43c9463",
+  "created_utc": "2026-09-04T05:54:22+00:00",
+  "digest": "sha256:62751b095a5b86413ee56b11413bfc8aef83d9554490bd954ae2fb415c10f6b8",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -134,7 +134,7 @@
       "path": "results/runs/probit_offset/betting_probit_offset/edge_buckets.csv"
     },
     "betting_probit_offset/probit_betting_run": {
-      "digest": "sha256:f242bcf70759158de9a9ce782543f6b3818d0d53f05a76faa7337f814360c79c",
+      "digest": "sha256:04729ebc0327b419ec7f1a2ee2e785e74013c1fc584819771937bc2d6f0939be",
       "path": "results/runs/probit_offset/betting_probit_offset/probit_betting_run.json"
     },
     "betting_probit_offset/race_paths": {
@@ -170,7 +170,7 @@
       "path": "results/runs/probit_offset/probit_offset_sensitivity.parquet"
     },
     "probit_offset_state": {
-      "digest": "sha256:840d2b2de23679e28d4fd4cfc9c36d78d54ca899e9ce5bbd2cc6d7a544966437",
+      "digest": "sha256:caa5ed6639b7b9fb0ffa9adc609b45d4c429234024edb03a35e2410cbe69b9f5",
       "path": "results/runs/probit_offset/probit_offset_state.json"
     },
     "sims/model_assumed/summary": {
@@ -210,10 +210,10 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:202268646d7a02e5cf47c35b53440ee18d23c11352758338db30d35cbafcc1f1",
+    "input_run_lock_digest": "sha256:762125ab653d1025164e398f863e4ae665d41397dc29493b70bc8d1d588bb8be",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
-    "run_metadata_dirty": true
+    "run_metadata_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "run_metadata_dirty": false
   },
   "run": "report:probit_offset",
   "schema_version": 1

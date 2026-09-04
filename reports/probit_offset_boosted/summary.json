@@ -333,7 +333,9 @@
       "body_wt_change_z"
     ],
     "features_consumed": [
-      "Implied_Prob",
+      "Implied_Prob"
+    ],
+    "features_learned": [
       "market_rank",
       "Racecourse",
       "Track_Turf",
@@ -362,9 +364,8 @@
       "bt_days_since",
       "body_wt_change_z"
     ],
-    "features_learned": [],
-    "git_commit": "a3776608d446734001159a444096c6b584e132ac",
-    "git_dirty": true,
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "git_dirty": false,
     "identity_source": "artifact",
     "key": "probit_offset_boosted",
     "label": "Probit Offset Boosted",

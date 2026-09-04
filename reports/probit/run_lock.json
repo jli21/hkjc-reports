@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "b49c11f9844e15d30a4d4740716d54b70dc187a0",
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
     "git_dirty": false,
-    "source_digest": "sha256:b3a693fd9d5787e2857ad1ee3480f5e24a8b2930063ffba5ba804fb0a9e62bf5"
+    "source_digest": "sha256:8012124048b43808f96b6acaa2e72616ddd6b66cdeee689b88bcc186b6f29861"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-02T04:00:36+00:00",
-  "digest": "sha256:1aced975723290e4b95daa9c488dbb9c70353b813de8c3dab1443548e442b604",
+  "created_utc": "2026-09-04T05:54:21+00:00",
+  "digest": "sha256:0d6679624f83c1663077a7cb2f52011137295da8f68ff3cc322a88cdd7dc23a0",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -134,7 +134,7 @@
       "path": "results/runs/probit/betting_probit/edge_buckets.csv"
     },
     "betting_probit/probit_betting_run": {
-      "digest": "sha256:8fab0693b8df98ba60a59b05c81bb2bc61ec90d6c81fa84e93fe8cc03fb7c4b2",
+      "digest": "sha256:f2cec17f378d7b0deec0f4e0d1acce1f84332f2b15859d815ba98b4545a8c402",
       "path": "results/runs/probit/betting_probit/probit_betting_run.json"
     },
     "betting_probit/race_paths": {
@@ -170,7 +170,7 @@
       "path": "results/runs/probit/probit_sensitivity.parquet"
     },
     "probit_state": {
-      "digest": "sha256:28805615b35fd1dd1b3b181dfbbdaf004d508b3b451ce32014935351ce4df807",
+      "digest": "sha256:2048045b78db558259f584fc555dbd118954f57f5431baeaac23b071b02928a6",
       "path": "results/runs/probit/probit_state.json"
     },
     "sims/model_assumed/summary": {
@@ -210,10 +210,10 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:6416b21d2e2640080148cef69da30071a6a272e2d3c0d2b4c63af538608c0f95",
+    "input_run_lock_digest": "sha256:bbf17a154641991786dde9e9dd6b50c3bd4776b1a7a7a5a14c5b1bfb6fc0e464",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
-    "run_metadata_dirty": true
+    "run_metadata_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "run_metadata_dirty": false
   },
   "run": "report:probit",
   "schema_version": 1

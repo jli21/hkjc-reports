@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "b49c11f9844e15d30a4d4740716d54b70dc187a0",
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
     "git_dirty": false,
-    "source_digest": "sha256:b3a693fd9d5787e2857ad1ee3480f5e24a8b2930063ffba5ba804fb0a9e62bf5"
+    "source_digest": "sha256:8012124048b43808f96b6acaa2e72616ddd6b66cdeee689b88bcc186b6f29861"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-02T04:00:37+00:00",
-  "digest": "sha256:d705d471d71d65153f428a457159cc02729ea45bebc2ea8acbd85f205e2f1153",
+  "created_utc": "2026-09-04T05:54:23+00:00",
+  "digest": "sha256:63b5c80c4e9c7dc9a00ee7cf3fa8d8d6d18a41fe8aac19f20a4ba9307a0d9c64",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -134,7 +134,7 @@
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/edge_buckets.csv"
     },
     "betting_probit_offset_boosted/probit_betting_run": {
-      "digest": "sha256:26e34feca907d7acf8c4ff86398802ed17b3f1d6aa6a1b7e804f6c17ab6aca08",
+      "digest": "sha256:353ec4c9edb27a3c6adbeb2757b6b6f5279d519cf803b296db2b17d2384ab873",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/probit_betting_run.json"
     },
     "betting_probit_offset_boosted/race_paths": {
@@ -170,7 +170,7 @@
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_sensitivity.parquet"
     },
     "probit_offset_boosted_state": {
-      "digest": "sha256:f08fe30040ef3ea020a607a6bc50f29e9e17b7ae7f0b9672afd67d8b4ad98ed2",
+      "digest": "sha256:585e435ccdf9cee2941aabf519a335e109a08abba36ac2dbba924276fdb6bdab",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_state.json"
     },
     "sims/model_assumed/summary": {
@@ -204,10 +204,10 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:e6166a2db13cee825eac6f8d8bfee5fd7faa4fe791b95b2ea600044ca567d3d3",
+    "input_run_lock_digest": "sha256:4fdb98edc8669bd3f77c169981964aadff9606d508f5d31b55a7a1289016e441",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "a3776608d446734001159a444096c6b584e132ac",
-    "run_metadata_dirty": true
+    "run_metadata_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "run_metadata_dirty": false
   },
   "run": "report:probit_offset_boosted",
   "schema_version": 1

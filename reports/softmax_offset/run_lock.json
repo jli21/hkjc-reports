@@ -38,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "b49c11f9844e15d30a4d4740716d54b70dc187a0",
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
     "git_dirty": false,
-    "source_digest": "sha256:b3a693fd9d5787e2857ad1ee3480f5e24a8b2930063ffba5ba804fb0a9e62bf5"
+    "source_digest": "sha256:8012124048b43808f96b6acaa2e72616ddd6b66cdeee689b88bcc186b6f29861"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-02T04:00:35+00:00",
-  "digest": "sha256:4ca23b6a8c35ac720ecee13c4c31fcc6fe10abb928226c6910375e5a058995a2",
+  "created_utc": "2026-09-04T05:54:20+00:00",
+  "digest": "sha256:a3310c73009ec72f821e6b99a559f20a71a2a44500183a7bdb4b51a8667a95d9",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -122,7 +122,7 @@
   },
   "inputs": {
     "betting_run": {
-      "digest": "sha256:7786b1b2827c623f0bc55ddd2274d2570b4dd49c329b01f2f532d85d034db261",
+      "digest": "sha256:3847889d77927243fce9b4070282dfbb727f13e37e8d48c15dddb15eedb8ff18",
       "path": "results/runs/softmax_offset/betting_run.json"
     },
     "betting_summary": {
@@ -174,7 +174,7 @@
       "path": "results/runs/softmax_offset/race_scores.parquet"
     },
     "run_metadata": {
-      "digest": "sha256:762522664ecdc95507536b8aada8ac1607dc3fbd9a2f9f6f0edba491b775a32a",
+      "digest": "sha256:0bca53cbe6a0f21c2c8cba89f52e2f769a32e8140c792a11328dc2fb64cd7bb2",
       "path": "results/runs/softmax_offset/run_metadata.json"
     },
     "sharpness": {
@@ -190,7 +190,7 @@
       "path": "results/runs/softmax_offset/sims/model_assumed/trajectories.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:8d3c542b543fe043273b76a590cd3d1d0012264c5efba0d39167ca5c27b7adcf",
+      "digest": "sha256:6bd9b230d0f17e05f9c1e983d1c3728ac6173877419c81e4bcbeaa8df9287e26",
       "path": "results/runs/softmax_offset/simulation_run.json"
     },
     "top_choice_movement": {
@@ -212,10 +212,10 @@
     "status": "production"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:03c013191ce1d9657a3782ad571cd32907c9f827c2af99e1e3cbd81344c1aa0f",
+    "input_run_lock_digest": "sha256:271ba6fa2224e2f4d9e0c666820883ecfef7d4eb4c00e619478d1eeb8ce4eb10",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
-    "run_metadata_dirty": true
+    "run_metadata_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "run_metadata_dirty": false
   },
   "run": "report:softmax_offset",
   "schema_version": 1

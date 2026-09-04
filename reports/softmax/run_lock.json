@@ -38,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "b49c11f9844e15d30a4d4740716d54b70dc187a0",
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
     "git_dirty": false,
-    "source_digest": "sha256:b3a693fd9d5787e2857ad1ee3480f5e24a8b2930063ffba5ba804fb0a9e62bf5"
+    "source_digest": "sha256:8012124048b43808f96b6acaa2e72616ddd6b66cdeee689b88bcc186b6f29861"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-02T04:00:34+00:00",
-  "digest": "sha256:dcace3061736f706b1d7163edc7447592146b0e63763307e28bcc7836445831a",
+  "created_utc": "2026-09-04T05:54:19+00:00",
+  "digest": "sha256:41bb28fdb51d179f0f5e8b515b650d716439bfbad11a4f5545d29ef783895ac1",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -122,7 +122,7 @@
   },
   "inputs": {
     "betting_run": {
-      "digest": "sha256:f1ccdcc194a0ddd9f085fc746803d1388079cf45b97216bb8ce576b2840fea0c",
+      "digest": "sha256:a92f972b0638a0e5562ef5f13fb0548001d7a2099f3dbf821936769fb3d166e9",
       "path": "results/runs/softmax/betting_run.json"
     },
     "betting_summary": {
@@ -174,7 +174,7 @@
       "path": "results/runs/softmax/race_scores.parquet"
     },
     "run_metadata": {
-      "digest": "sha256:965d173486e1711a6f933195b63a87071807b16c018ad64279eb552f9ecef8b7",
+      "digest": "sha256:12e18b0665e781ba2be940023ee6589285fb43249e6b7c2ec3ff60693408e0cc",
       "path": "results/runs/softmax/run_metadata.json"
     },
     "sharpness": {
@@ -190,7 +190,7 @@
       "path": "results/runs/softmax/sims/model_assumed/trajectories.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:4b64eae47341e9ec0c923a7e5424ad811d4f21b424101f075ffc16f1a92ea877",
+      "digest": "sha256:aa31194dfff32fe99925b2a28a7709e524ed58be8a9d59e2bb85ea21533e7a38",
       "path": "results/runs/softmax/simulation_run.json"
     },
     "top_choice_movement": {
@@ -212,10 +212,10 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:f2900aeb1fd9e6c653e2bfebc5556f8be66d1e45b12128a6025755bf50096ca9",
+    "input_run_lock_digest": "sha256:fd6eebd0c74e9f33bb530fb4b80d373c7d8f634075aa65269abd972c6a9d6d24",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "4ebd6e3384cec52ef01f3ac134e0e92a1d113f94",
-    "run_metadata_dirty": true
+    "run_metadata_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "run_metadata_dirty": false
   },
   "run": "report:softmax",
   "schema_version": 1

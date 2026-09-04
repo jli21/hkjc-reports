@@ -363,8 +363,8 @@
       "body_wt_change_z"
     ],
     "features_learned": [],
-    "git_commit": "8793e6045fbb555942fbddd189b4eafbb01b5191",
-    "git_dirty": true,
+    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "git_dirty": false,
     "identity_source": "artifact",
     "key": "probit_offset",
     "label": "Probit Offset",
