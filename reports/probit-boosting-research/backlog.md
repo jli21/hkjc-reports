@@ -75,6 +75,53 @@ cannot change silently.
 
 ## Measurement and infrastructure
 
+**The prediction cell cache is not keyed on the feature set.** `_cell_stem` in
+`hkjc/workflows/stages/predictions.py` names a checkpoint `y{test_year}__seed{seed}` and
+`cell_complete` resumes any cell whose `__done.json` marker exists. Neither reads the feature-set
+digest. So re-running a root after `production.json` changes **resumes the previous feature set's
+fits and writes them out under the new set's identity** -- fast, silent, and wrong. Found on
+2026-09-04 during the gear promotion, where a 34-column run reused 28-column cells; the caches were
+cleared by hand and the generation re-fitted from cold.
+
+`refuse_mismatched_reuse` does not cover this. It compares the stage's *declared inputs* against the
+recorded lock and never looks inside the cell directory, so the guard that exists for exactly this
+class of mistake does not reach the place the mistake happens. The reason it went unnoticed is that
+until a feature set changed, `(test_year, seed)` was a complete key.
+
+**The boosted probit has a second, independent cache with the same defect, and it is worse.**
+`boosted_cells` under `results/runs/probit_offset_boosted/` is written by `boosted_utilities` in
+`hkjc/workflows/stages/probit.py`, which reuses a cell on `cell_{test_year}_{seed}.parquet` merely
+*existing*. The companion `.json` records `fit`, `history` and `diagnostics` and **no feature list at
+all**, so unlike the prediction cells there is not even a stale digest to compare -- a cached cell is
+not self-describing and its provenance cannot be recovered from the file. It is worse than the
+prediction cache in a second way: this architecture fits its own mean function, so a reused cell is a
+whole booster trained on the wrong columns rather than a cached scoring pass.
+
+This is the defect that actually bit. On 2026-09-04 the gear promotion cleared the two softmax roots'
+caches but not this one, and the interrupted refit left 48 of 60 cells behind. Refitting one of them
+(`2026`, seed 7) with the current 33-column set reproduced `market_prob` exactly and `raw_margin` **not
+at all** -- a maximum absolute difference of 0.503 on a margin -- so the cached cells were provably not
+the current feature set's. They were moved aside and the generation re-fitted from cold. Note what
+made this *findable*: the fit is otherwise deterministic, so a one-cell refit-and-compare is a cheap
+audit for any cache whose contents are in doubt, and it is the only check available here.
+
+**There is a third, and the pattern is the finding.** `betting_cells` in
+`hkjc/workflows/stages/betting.py` resumes on `_cell_stem(scenario, view, seed)` plus a
+`__done.json` marker, with no reference to the predictions it settled. It did no damage on
+2026-09-04 only because the canonical softmax roots happened to hold no leftover cell directory --
+the smoke root did, and it was cleared by hand. So three independent caches across three stages
+each key on the loop variables and none on the inputs, which means this is a *convention* the
+repository has drifted into rather than three separate oversights, and it should be fixed as one.
+
+*The fix:* put the feature-set digest (and arguably the model-spec digest) in the cell stem or in the
+`__done.json` marker, and have `cell_complete` refuse a marker whose digest does not match the run's.
+Do the same for `boosted_cells`, where the companion JSON is the obvious place to record the ordered
+columns it was fitted on, and for `betting_cells`, which should record the digest of the
+`predictions.parquet` it settled -- a cache entry that cannot say what it is cannot be validated, only
+distrusted. That makes a feature-set change invalidate the cache automatically instead of relying on
+whoever runs it to remember. Worth doing before the next promotion, because the failure mode is a
+published number that is wrong rather than a run that stops.
+
 **Seed-set luck.** The production bag (`7, 17, 42, 123, 256`) was the luckiest of five
 independent 5-seed meta-sets: across the five, mean cumulative ROI at Kelly 0.02 was +107% with
 a standard deviation of 130% and a minimum of +24%. The published reports are single-bag

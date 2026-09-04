@@ -1,7 +1,7 @@
 # HKJC model reports
 
 Published evidence for five winner-probability models on Hong Kong racing, generated from
-[jli21/hkjc-mod](https://github.com/jli21/hkjc-mod) by `python -m hkjc build-report`, plus five
+[jli21/hkjc-mod](https://github.com/jli21/hkjc-mod) by `python -m hkjc build-report`, plus six
 exploratory research studies that inform them. Nothing in the model reports is written by hand.
 
 **Open [`index.html`](index.html)**, or go straight to a report:
@@ -32,17 +32,36 @@ the written record behind several results that were *rejected*, which is most of
 
 `reports/gear-intervention-experiment/` holds two **experimental** model reports and is the one place
 here that is not published evidence. They are the production Offset and the market-anchored Probit
-Offset trained on the 28 production columns *plus* six declared-gear intervention columns, rendered
-in exploratory mode from `results/experiments/` in `hkjc-mod`. They exist because the paired feature
-harness reports one number and refuses per-feature attribution by construction, so the only way to
-see which gear column earns its place was to run a real generation and read its SHAP, its yearly
-response curves and its stability table. What they showed: `gear_removed_n` is the largest correction
-in the whole model, monotone -- taking equipment off is a positive the market underprices -- and
-`gear_first_n`, which prior work had named the strongest candidate, is flat at every bin. **Nothing
-in them is promoted.** `configs/features/production.json` in `hkjc-mod` is unchanged, their run
-status reads `standard` rather than `production`, and the paired canonical measurement they motivated
-came back at -0.0003, below the promotion bar. Read them as working evidence, not as a model this
-programme runs.
+Offset trained on the then-28 production columns *plus* six declared-gear intervention columns,
+rendered in exploratory mode from `results/experiments/` in `hkjc-mod`. They exist because the paired
+feature harness reports one number and refuses per-feature attribution by construction, so the only
+way to see which gear column earns its place was to run a real generation and read its SHAP, its
+yearly response curves and its stability table. What they showed: `gear_removed_n` is the largest
+correction in the whole model, monotone -- taking equipment off is a positive the market underprices
+-- and `gear_first_n`, which prior work had named the strongest candidate, is flat at every bin.
+
+**The six columns were promoted on 2026-09-04, which reverses what this paragraph used to say.** The
+sentence here was "nothing in them is promoted", and the measurement behind it has not changed: the
+paired canonical result is still -0.0002790 equal-cell over 55 cells, below a `-0.0005` promotion
+bar. What changed is the bar. An effect favourable in 5 of 5 seeds and 7 of 11 years, with a 95%
+paired interval of -0.000486 to -0.000024 that excludes zero, is small and real rather than absent,
+and a rule that files it identically to a result whose interval spans zero is throwing away a
+distinction the seeds already paid for. `configs/features/production.json` now declares **33**
+ordered columns: the six appended, and `trip_excuse_ewm` removed the same day as an independent
+decision. On the production root the two together are worth -0.000404 of race log loss over
+2015-2026, and they cost the market-anchored Probit Offset 16% of its edge -- both recorded, with
+what else moved, in [`findings.md`](reports/probit-boosting-research/findings.md).
+
+Read these two reports as the working evidence that motivated that decision, not as the model. They
+are neither the old production set nor the new one: at 34 columns they are the pre-removal incumbent
+plus the block.
+
+**The five model reports above are the pre-promotion 28-column generation.** They were published on
+2026-09-04 from a settled tree and every figure in them is that tree's. The promotion landed after
+them, so the 33-column generation exists in `hkjc-mod` but is not yet published here; `findings.md`
+already reports its numbers, and they will not match these reports until the five are regenerated.
+Each report's `run_lock.json` records the column list it was built on, which is the check rather
+than this sentence.
 
 ## Research studies
 
@@ -121,7 +140,7 @@ right one; the deltas are **not** comparable across families, because each model
 against its own.
 
 The evaluation window is 2016-2026, **7,933 races**, with 2015 excluded as a warm-up year whose
-utility scale is not fitted. The race keys are compared by digest before publication, so the four
+utility scale is not fitted. The race keys are compared by digest before publication, so the five
 reports are known to cover the same population rather than assumed to.
 
 The last section is an interactive Kelly panel over the four fractions the run settled (1%, 2%,
@@ -147,19 +166,22 @@ hidden.
 `run_lock.json` is what ties a figure back to the run that produced it: the run inputs are not
 published here, but their digests are, so a claim about which bytes a number came from is
 checkable. It also records whether the source tree was clean when the report was written; for all
-four model reports it was.
+five model reports it was, at commit `f27e7ed`. The two archived generations under
+`reports/bagged_offset/` and `reports/probit_offset_pace/` record a dirty tree, which is one more
+reason to read them as history.
 
 ## How these were checked
 
 * The generation behind them was produced twice -- once into a scratch directory and once into the
-  canonical run roots -- and every parquet and CSV column of all four models is bit-identical
-  between the two, compared by content rather than by a tolerance.
-* The artifacts reproduce 771 pinned per-column digests across 23 files, verified with the declared
-  keys checked for uniqueness.
-* 2,075 tests pass, and each report was rendered under canonical strictness, which refuses to
+  canonical run roots -- and every parquet and CSV column of the four models it covered is
+  bit-identical between the two, compared by content rather than by a tolerance.
+* The artifacts reproduce 791 pinned per-column digests across 23 files, verified with the declared
+  keys checked for uniqueness. The count was 771 when this section was first written and rose with
+  the four pace-composition and six declared-gear columns added to both feature tables.
+* 2,192 tests pass, and each report was rendered under canonical strictness, which refuses to
   publish a report whose declared evidence is missing.
 
-No PDFs are published for the four model reports. The earlier generation shipped them with an
+No PDFs are published for the five model reports. The earlier generation shipped them with an
 automated
 dimension-and-heading gate and a recorded visual review; the current pipeline does not produce
 them, and shipping the 2026-08-25 files beside 2026-09-01 HTML would have paired each report with a

@@ -242,6 +242,164 @@ untouched. The three manifests carry their measured neutral shares and the pinne
 replacement test -- the corrected bit *instead of* `gear_change` rather than beside it -- is still not
 expressible in this harness and is in `backlog.md` with what it would cost.
 
+> **Superseded on 2026-09-04: the six columns were promoted.** The paragraph above records the
+> decision as it stood under the `-0.0005` bar. The bar was reconsidered on the grounds that it
+> rejects effects this measurement shows to be real, and the six-column block was promoted into
+> `production.json`. See *2026-09-04 The gear promotion* below for the decision, what the relaxation
+> means, and the measured effect on the published generation. Nothing in the measurement above was
+> re-read or revised; only the rule applied to it changed.
+
+## 2026-09-04 The measured result of both production changes
+
+Production went **28 → 33** columns in one generation: the six gear-intervention columns added,
+`trip_excuse_ewm` removed. Measured on the production `softmax_offset` root, racewise log loss against
+the market on the winner, bagged over five seeds, 8,675 scored races over 2015-2026. The two changes
+were fitted separately so each is attributable:
+
+| | equal-year mean | years improved |
+|---|---:|---:|
+| the six gear columns added | **-0.000299** | 8/12 |
+| `trip_excuse_ewm` removed | **-0.000105** | 8/12 |
+| **net, 28 → 33 columns** | **-0.000404** | **9/12** |
+
+Pooled market-relative loss moved from `-0.004647` to `-0.005025`, an **8.1% improvement in the
+model's edge over the market**.
+
+*The basis, because it is not the reports'.* Every number in this entry is over **2015-2026**, the
+full set of test years the run fits -- 8,675 races. The five published reports standardise on
+**2016 onwards** instead (7,933 races), because 2015 has no fitted forward utility scale and takes
+the predeclared theoretical value, which makes its stakes and claimed edges non-comparable with a
+fitted year's; `configs/publication/reports.json` carries that reasoning. So the same run reports a
+pooled market-relative loss of `-0.0048228` in `results/reports/softmax_offset/` and `-0.005025`
+here, and the two do **not** disagree -- they are the same quantity over two populations. Verified
+against `race_scores.parquet` on 2026-09-04. A research entry measuring a feature change wants every
+year the change was fitted on; a publication comparing five architectures wants one population all
+five can be scored on.
+
+**The gear result reproduced its own pre-registration almost exactly.** The candidate harness estimated
+`-0.0002790` for the block; the production refit delivered `-0.000299`. That is the closest agreement
+between a `feature-iterate` estimate and a production outcome this programme has recorded, and it is
+the strongest available evidence that the harness measures what it claims to.
+
+**The removal is the more interesting number, and it contradicts the magnitude ranking.**
+`trip_excuse_ewm` was 18th of 33 correction features by mean absolute correction (0.012416) -- ahead of
+`closer_setup`, `distance_log` and `gear_change` -- and removing it made the model *better*. So
+**correction magnitude is not evidence of usefulness**: it measures how far the booster moves on a
+column, not whether the movement generalises. A column can absorb a large share of the correction
+budget and spend it on noise, which is what a text-derived feature with non-uniform coverage across
+sixteen seasons is well placed to do.
+
+This is the second time the two have run in opposite directions, and it is worth stating as a rule
+rather than as two anecdotes. The seven race-constant columns have a leave-one-out probability effect of
+exactly 0.000000 and removing them made the model **worse** (+0.000219). `trip_excuse_ewm` has the 18th
+largest correction in the model and removing it made it **better** (-0.000105). Neither the magnitude
+ranking nor the leave-one-out effect predicted the sign of its own removal. The only thing that did was
+fitting the model without the column, which means **the ablation is the measurement and the attribution
+is a description** -- a distinction the reports should be read with.
+
+### What the change cost the two probit links, which is not nothing
+
+The mean model improved and the two choice links laid over its utilities did **not** move together.
+Measured on the standardised report population (2016-2026, 7,933 races), bagged and pooled:
+
+| | before, 28 columns | after, 33 columns | |
+|---|---:|---:|---|
+| `probit` vs its standalone comparator | -0.01212623 | **-0.01230172** | improved |
+| `probit_offset` vs the incumbent offset | -0.00076217 | **-0.00064190** | **gave back 16%** |
+
+**And `probit_offset` lost a property the repository had asserted.** It beat its comparator in *every*
+honest year, 11 of 11; it is now **10 of 11**. The degraded year is +0.000232 against a declared
+`YEAR_DEGRADATION_TOLERANCE` of 0.001, so promotion gate 3 still passes, as do the seed-agreement,
+day-block-interval and nested-calibration gates -- the aggregate honest delta is still favourable at
+-0.00083009. The gate set is intact; the clean sweep is gone.
+
+This is the one known unfavourable consequence of the promotion, and it is worth stating in the same
+entry that reports the gain rather than leaving it to a test diff. It also says something about where
+the six columns act: a block that improves the mean utilities can still shift the *shape* of the
+per-race utility spread, and the anchored link -- which prices against the market's own ordering --
+is more exposed to that than the standalone one. The two links moving in opposite directions is the
+evidence; the mechanism is not established here and should not be read as though it were.
+
+## 2026-09-04 The gear promotion: the same numbers, a different bar
+
+**The decision, and whose it was.** The six gear-intervention columns were added to
+`production.json`. The measurement behind them is the one recorded above and was not re-run to
+support the promotion: `-0.0002790` equal-cell over 55 cells, favourable in **5 of 5 seeds** and 7 of
+11 years, 95% paired interval `-0.000486` to `-0.000024`. That interval excludes zero. What changed
+is the rule, not the evidence -- the pre-registered `-0.0005` promotion bar was judged too stringent
+for an effect that is small, reproducible and sign-stable, and the block was promoted at 56% of it.
+
+**Why this block and not C4.** The distinction the earlier entry drew is exactly what the relaxation
+turns on. C4 was inconsistent *and* tiny -- 5/11 years, 1/5 seeds, an interval spanning zero -- and a
+more generous bar does not reach it, because there is nothing there to reach. This block is
+consistent and tiny. A bar that rejects both treats "too small to matter" and "indistinguishable
+from noise" as the same finding, and they are not.
+
+**What the promotion costs, stated rather than discovered later.**
+
+* **Two of the six are near-collinear by construction.** `gear_true_change` and
+  `gear_intervention_size` are non-zero on exactly the same rows, and correlate 0.690 and 0.650 with
+  the `gear_change` bit that stays in the model beside them. The block was measured as a block, so
+  its result is a statement about all six together and not a licence for any one of them.
+* **`gear_first_n` measured flat** -- probability effect 0.00000 on the pre-promotion run -- and
+  `gear_vision_first` rests on a judgement about which item codes affect vision, pinned in
+  `GEAR_VISION_ITEMS`. Both ride in on the block's result rather than their own.
+* **Two columns are non-stationary.** `gear_first_n` rises from 0.0943 in 2010 to 0.1436 in 2024 and
+  `gear_load` from 1.01 to 1.35, as declaration coverage rose. A pooled mean over the full span mixes
+  two coverage regimes, and the model now trains on that.
+* **The `gear_change` replacement is still open**, and the promotion makes it more attractive rather
+  than less: production now carries the defective bit *and* its corrected form. `backlog.md` has the
+  cost.
+
+**What was retired by it, and why that was forced.** Promotion made the four gear candidates
+unrunnable -- `feature-iterate` appends a candidate's columns to the incumbent, so a candidate whose
+columns are already in the incumbent scores an arm identical to the incumbent and a delta of exactly
+zero for the wrong reason. `validate-configs` refuses that outright, which is how it was caught
+rather than run. The four candidates, the `production_plus_gear` variant set and its two experimental
+run configs are in `evidence/archive/feature-research`. `production_plus_gear` was retired because the
+arm it existed to score -- the incumbent *plus* the gear block -- is now the incumbent; note it is not
+a copy of production but production's 33 columns **plus `trip_excuse_ewm`**, at 34, because it was
+written against the pre-removal incumbent. `production_minus_race_constant` was resynchronised from 21
+to 26 columns (33 - 7) so that its name kept meaning "production minus the race-constant seven"; the
+2026-09-03 run that fitted its 21-column form is preserved beside a `STALE.md` and is *not* re-runnable
+as the same test.
+
+**`trip_excuse_ewm` was removed in the same change.** Production went 28 → 34 → **33**: the six gear
+columns were added and `trip_excuse_ewm` was taken out, both on 2026-09-04. The two are independent
+decisions that happen to share a generation, and they are recorded separately because they are not the
+same kind of edit.
+
+The removal is a **real subtraction, not a cleanup.** Measured on the 34-column run before it was
+taken out, `trip_excuse_ewm` ranked **18th of 33** correction features by mean absolute correction at
+0.012416 -- above `closer_setup`, `distance_log` and `gear_change`, and an order of magnitude above the
+seven race-constant columns (ranks 23, 26-29, 31, 32) whose leave-one-out probability effect is exactly
+0.000000. So this is not the race-constant case, where removal was free by construction and still made
+the model worse; here there was something to lose. What it cost is measured in the generation this
+entry heads, and the honest reading of the column's own caveat is that its value was always partly a
+text-coverage artefact: the 0.0 default means "no excuses recorded", which is also what a missing text
+source produces, and comment coverage is not uniform across the sixteen seasons.
+
+Removing it emptied the `race_text` group, which held that column alone. The group was dropped from
+`groups.json` rather than left declared and empty, because an empty group classifies nothing and would
+still be offered as an ablation arm. The group count is therefore still seven -- through two offsetting
+edits rather than by standing still, which is worth saying because a reader checking the count would
+otherwise conclude nothing had changed.
+
+The column's dictionary entry was **moved rather than deleted**, into a new *Retired columns* section
+of the modelling guide at a heading level the coverage tests do not read as production. It still exists
+in `race_features.parquet` and in `ALL_CANDIDATE_FEATURES`, so a candidate can still name it and the
+definition is still worth having; what must not happen is a reader believing the production model reads
+it, which is the drift direction `test_no_documented_feature_is_absent_from_the_manifest` exists to
+catch.
+
+**A latent hazard the regeneration exposed.** The per-cell prediction checkpoint is keyed on
+`y{test_year}__seed{seed}` alone -- `_cell_stem` in `workflows/stages/predictions.py` -- and does
+**not** include the feature-set digest. Re-running a root after a feature-set change therefore
+resumes 28-column fits and relabels them as 34-column ones, silently and quickly. The caches were
+cleared by hand before this generation. `refuse_mismatched_reuse` guards the stage's declared inputs
+and does not reach inside the cell directory, so this is a real gap rather than a procedural note; it
+is in `backlog.md`.
+
 ## 2026-09 Pace composition x own style (canonical block C4): a null, and where the research effect went
 
 **The claim tested.** A feature-research campaign in a separate repository took six candidate
