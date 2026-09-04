@@ -1,27 +1,27 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 6428163,
-      "digest": "sha256:718d1d0ed98949ad8f0e555fb12f8492c32f389719da3e6ffed1fda4221ebc51",
+      "bytes": 6477476,
+      "digest": "sha256:a689bb97240ba4fd5ee8fc24c6092914a4aaf2095a1ad2ebdce6f47426de69c8",
       "format": "html",
       "path": "results/reports/softmax/report.html"
     },
     "report_summary": {
-      "bytes": 232545,
-      "digest": "sha256:9d9b9415322f7113be1fcff7c650afb69846bf3a437e9c9221e3976cc445083a",
+      "bytes": 243583,
+      "digest": "sha256:0c66507cd681e5351e7598af26e476115e6d341ed738a7a490dd61b01ec747e2",
       "format": "json",
       "path": "results/reports/softmax/summary.json"
     },
     "run_lock": {
-      "bytes": 6889,
-      "digest": "sha256:4c1c4695c10613555fb5f001cb446332ead80a6a881f9e86300c183c508ef6ef",
+      "bytes": 7014,
+      "digest": "sha256:135e67319077e573bfd14f5a0b47d27f35fdc32062bb34d7dd75b8590371336f",
       "format": "json",
       "path": "results/reports/softmax/run_lock.json"
     }
   },
-  "created_utc": "2026-09-04T05:54:19+00:00",
+  "created_utc": "2026-09-04T21:35:54+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:41bb28fdb51d179f0f5e8b515b650d716439bfbad11a4f5545d29ef783895ac1",
+  "lock_digest": "sha256:a867586e50cfa7d1336b0998fa43fb76febe6e5d0f78b168e67569e1c015fdfe",
   "report": {
     "config_digest": "sha256:25038878a576474fcdede70d9c4303798c0168aa56905263cba3a500877689f7",
     "evidence_not_applicable": [],
@@ -38,7 +38,7 @@
       "simulation",
       "limitations"
     ],
-    "source_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "source_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
     "source_dirty": false,
     "unverified_preview": false
   },

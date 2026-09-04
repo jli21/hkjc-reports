@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "git_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
     "git_dirty": false,
-    "source_digest": "sha256:8012124048b43808f96b6acaa2e72616ddd6b66cdeee689b88bcc186b6f29861"
+    "source_digest": "sha256:8f2394930e079c7bcbc59365fd3a34a7e057d3c55fcd5def023591f622890855"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-04T05:54:23+00:00",
-  "digest": "sha256:63b5c80c4e9c7dc9a00ee7cf3fa8d8d6d18a41fe8aac19f20a4ba9307a0d9c64",
+  "created_utc": "2026-09-04T21:35:57+00:00",
+  "digest": "sha256:6087508c23cb7cca6b0df8f9c47a4fcb29531796630d04df50cac41fbb37d36c",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -88,7 +88,7 @@
   },
   "features": {
     "groups": {},
-    "n": 28,
+    "n": 33,
     "ordered": [
       "Implied_Prob",
       "market_rank",
@@ -113,36 +113,41 @@
       "early_style_ewm",
       "pace_pressure",
       "closer_setup",
-      "trip_excuse_ewm",
       "bt_finish_ewm",
       "bt_last_behind",
       "bt_days_since",
-      "body_wt_change_z"
+      "body_wt_change_z",
+      "gear_first_n",
+      "gear_removed_n",
+      "gear_load",
+      "gear_vision_first",
+      "gear_true_change",
+      "gear_intervention_size"
     ]
   },
   "inputs": {
     "betting_probit_offset_boosted/betting_summary": {
-      "digest": "sha256:4a301ff7724ff7675a99c2b3b54c7bb2537ab86063bbde2ad5aa00b71cbfd4f6",
+      "digest": "sha256:706df43d9b5e1241bfa9363c6c4e22a13a837f66795a0f51e07be8aa9f858eae",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_summary.csv"
     },
     "betting_probit_offset_boosted/betting_yearly": {
-      "digest": "sha256:a402695ebf65c935dee3a16ee0819d46a386ae89b154caee25b7be44c26bb7cb",
+      "digest": "sha256:7625a67dcc7469f9ba14fc294736668cb8283652a2b4bc3205402e6a1c7e7bdb",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_yearly.csv"
     },
     "betting_probit_offset_boosted/edge_buckets": {
-      "digest": "sha256:3eef3b37817f8c258326e1c382f245a80347d7d7f86c532fc2c6d4b58a864467",
+      "digest": "sha256:432a62555d9bf133b025d2ce2a1c2b147e0d4ada7f3d07974e384c9c586f4813",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/edge_buckets.csv"
     },
     "betting_probit_offset_boosted/probit_betting_run": {
-      "digest": "sha256:353ec4c9edb27a3c6adbeb2757b6b6f5279d519cf803b296db2b17d2384ab873",
+      "digest": "sha256:a10939e369577507d4abe8fb66c3ea751aaf35447dcd70f09afcfa530d848026",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/probit_betting_run.json"
     },
     "betting_probit_offset_boosted/race_paths": {
-      "digest": "sha256:7db3fad1ae6a2c9c7d21a460e30e641465590f5ae6d8af22a62f0c62fb1c1590",
+      "digest": "sha256:9d71d4a83b12f040ff911b15455107155037ec9449b451a3352f9de55f4de81e",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/race_paths.parquet"
     },
     "market_relationship": {
-      "digest": "sha256:40694a9d9de5bc1938980144bf946ae8308167355529a4dd0f9d80d5573e811d",
+      "digest": "sha256:407f294cc4c2585d2cd87af5cff33abdf9c109f7c31c81d020553185546f453a",
       "path": "results/runs/probit_offset_boosted/market_relationship.json"
     },
     "probit_offset_boosted_correction_identity": {
@@ -150,27 +155,27 @@
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_correction_identity.json"
     },
     "probit_offset_boosted_link_movement": {
-      "digest": "sha256:384ef748a1a6811adde9d05a66a139cafd6f068f64be37f3de0c4834f7809e3c",
+      "digest": "sha256:f32ec1cea8ca796941c81a00dac7ad41b480117a8f974c7bd0b351503edf7077",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_link_movement.parquet"
     },
     "probit_offset_boosted_per_run": {
-      "digest": "sha256:c4e2ed400e9127d4169db31f1de6e19a3cc80b93339b8cb63dc6ce7c979d31c0",
+      "digest": "sha256:46a3571f8c1a345f2b0eef5b5bacbdb4e1d81c7f0cb9864cb4c913838ff25daf",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_per_run.csv"
     },
     "probit_offset_boosted_reliability": {
-      "digest": "sha256:a026a9fd58dde71ddeb0bcd45a5975cd67d63ec8116dbb2c11bae51e64812e3e",
+      "digest": "sha256:67415596f4e11d75c764744d5b751c3eb165b076036ccb46304adea78c270a80",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability.parquet"
     },
     "probit_offset_boosted_reliability_yearly": {
-      "digest": "sha256:50ebafad6d2e455e8d09ac1e52903cb84dd5c0f0ba027cdcbe51c12ce2d656cd",
+      "digest": "sha256:c17015ee933b582952528c684ef44b16f206b5d40ab4d3cfc299be173bd38b9d",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability_yearly.parquet"
     },
     "probit_offset_boosted_sensitivity": {
-      "digest": "sha256:b23748f623e0120f0ef3d6ea89c006b43643009df5c7f7faa87a88be3af51d7b",
+      "digest": "sha256:5ac3b5ad68029fb35501e706fdd067c1c6a5e2488de65c025e93e3deb9d2e827",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_sensitivity.parquet"
     },
     "probit_offset_boosted_state": {
-      "digest": "sha256:585e435ccdf9cee2941aabf519a335e109a08abba36ac2dbba924276fdb6bdab",
+      "digest": "sha256:b9283536ce0e0c83819e6b53f914d8dab2f4a819e2926bfd002f8633950e9986",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_state.json"
     },
     "sims/model_assumed/summary": {
@@ -204,9 +209,9 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:4fdb98edc8669bd3f77c169981964aadff9606d508f5d31b55a7a1289016e441",
+    "input_run_lock_digest": "sha256:bc40a3d028800d7724dc02db249314eebab4c804b6422a4d0d4de3106a30144a",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "f27e7eda5198dc4717941010b297b2e01ef2410d",
+    "run_metadata_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
     "run_metadata_dirty": false
   },
   "run": "report:probit_offset_boosted",

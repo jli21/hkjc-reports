@@ -75,6 +75,32 @@ cannot change silently.
 
 ## Measurement and infrastructure
 
+**The boosted probit costs 17x what the repository says it costs, and nobody knows why.** Measured on
+2026-09-04 over the full sixty-cell sweep, from
+`probit_offset_boosted_training_diagnostics.parquet`: per-cell fit time rises monotonically with
+training history from **253s at test year 2015 to 943s at 2026**, mean 586s, totalling **35,165s --
+9.8 CPU-hours**, or about 98 minutes at the six-wide fan-out. What `boosted_utilities` and the guide
+both claimed was "cell cost plateaus around 137-184s" and a whole sweep of **2,023s**, i.e. ~34s per
+cell.
+
+The structural half of that measurement reproduced exactly -- `objective_share_of_fit` came in at
+0.989-0.992 against a claimed 98.5-99.4%, so the integrator is still the bottleneck and the
+fan-out reasoning still holds. Only the magnitudes moved, and the obvious candidates do not explain
+it: `rounds` has been 400 and `factor_nodes` 32 since the architecture was integrated in `a934d63`,
+the feature count went 28 to 33 which cannot cost 17x in an objective that does not touch columns,
+and the learning-rate tuning in `1b511eb` changes the step size rather than the per-round work.
+
+The most likely explanation, and it is a guess: the old figure was taken over a restricted
+`--years`/`--seeds` subset and written up as a full sweep. `2,023s / 60 = 34s` per cell, which matches
+nothing measured -- the *standalone* mean-learner cells are ~5s each (observed 4.1-5.5s on
+2026-09-04, recorded as `~3.4s` in `probit_widths`) and the boosted cells are 253-943s -- so it is
+unlikely to be a mislabelled measurement of the other stage. Check it before concluding a performance
+regression: one cell at the recorded configuration, timed, decides it.
+
+Until it is settled, treat the documented figures as the measured ones and budget an hour and a half
+for a cold boosted sweep. The cost of getting this wrong is a plan, not a number: it is what made a
+2h sweep get scheduled as a 30-minute one on 2026-09-04.
+
 **The prediction cell cache is not keyed on the feature set.** `_cell_stem` in
 `hkjc/workflows/stages/predictions.py` names a checkpoint `y{test_year}__seed{seed}` and
 `cell_complete` resumes any cell whose `__done.json` marker exists. Neither reads the feature-set

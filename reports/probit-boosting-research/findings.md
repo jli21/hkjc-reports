@@ -307,11 +307,26 @@ Measured on the standardised report population (2016-2026, 7,933 races), bagged 
 | `probit` vs its standalone comparator | -0.01212623 | **-0.01230172** | improved |
 | `probit_offset` vs the incumbent offset | -0.00076217 | **-0.00064190** | **gave back 16%** |
 
-**And `probit_offset` lost a property the repository had asserted.** It beat its comparator in *every*
-honest year, 11 of 11; it is now **10 of 11**. The degraded year is +0.000232 against a declared
-`YEAR_DEGRADATION_TOLERANCE` of 0.001, so promotion gate 3 still passes, as do the seed-agreement,
-day-block-interval and nested-calibration gates -- the aggregate honest delta is still favourable at
--0.00083009. The gate set is intact; the clean sweep is gone.
+**And `probit_offset` lost a property the repository had asserted -- on one of its three
+constructions.** This has to name the construction, because the two disagree and an unqualified "it
+was 11 of 11" is wrong for the number the report headlines. Restated after the 2026-09-04
+republication, from the artifacts on both sides:
+
+| construction | before, 28 columns | after, 33 columns |
+|---|---|---|
+| **member mean** (`honest_better_years`, the assertion) | 11 of 11, clean sweep | **10 of 11**, worst year +0.000232 |
+| **bagged**, which the report headlines | **already 10 of 11**, worst year +0.0000493 | 10 of 11, worst year +0.00030877 |
+
+So the clean sweep that was lost is the member-mean one -- the construction
+`test_the_offset_direction_holds_in_all_but_one_honest_year` asserts. The **published** headline never
+had a clean sweep to lose: the 28-column report already recorded one degraded year, and what the
+promotion did there was make that year **6.3 times larger**, from +0.0000493 to +0.00030877. Both
+readings are true of the same link and neither is the whole statement, which is exactly why
+`bundle.py`'s `_reference_delta` pins all three constructions rather than a headline.
+
+Either way the gates hold: +0.000232 against a declared `YEAR_DEGRADATION_TOLERANCE` of 0.001, so
+promotion gate 3 passes, as do the seed-agreement, day-block-interval and nested-calibration gates,
+and the aggregate honest delta is still favourable at -0.00083009.
 
 This is the one known unfavourable consequence of the promotion, and it is worth stating in the same
 entry that reports the gain rather than leaving it to a test diff. It also says something about where
@@ -319,6 +334,68 @@ the six columns act: a block that improves the mean utilities can still shift th
 per-race utility spread, and the anchored link -- which prices against the market's own ordering --
 is more exposed to that than the standalone one. The two links moving in opposite directions is the
 evidence; the mechanism is not established here and should not be read as though it were.
+
+### The other three architectures, measured on the republished generation
+
+The entry above was written before the five reports were regenerated, so it could only report the two
+links. All five are now published from the 33-column tree, and two of the remaining three moved in
+ways worth recording. Same standardised population throughout, 2016-2026 and 7,933 races.
+
+| report | market delta before | after | year consistency |
+|---|---:|---:|---|
+| `softmax` (unanchored baseline) | -0.00099165 | **-0.00106825** | **7 of 11 -> 5 of 11** |
+| `softmax_offset` (production) | -0.00453270 | **-0.00482279** | 10 of 11, unchanged |
+| `probit_offset_boosted` vs its comparator | -0.00030523 | **-0.00029061** | 11 of 11, unchanged |
+
+**The unanchored baseline is the uncomfortable one.** Its pooled edge over the market improved by 7.7%
+and its *year* record fell from 7 of 11 to **5 of 11** -- worse than a coin flip. Both are true because
+its edge is roughly a fifth of the anchored model's and its per-year deltas straddle zero, so a pooled
+improvement of 0.00008 can move several years across the line in either direction. Read the year count
+as the honest reading of a model this weak rather than as a regression the promotion caused: at this
+effect size the count is not a stable statistic, which is itself the finding and is the reason the
+promotion decision was never taken on it.
+
+**The boosted arm gave back 4.8% of its edge and kept every other property**: 11 of 11 years, seed
+signs in agreement, and its market-relative loss improved from -0.00476757 to -0.00479720. Its own
+conclusion is therefore unchanged by the promotion -- the gain still belongs to the choice link rather
+than to training the mean under the probit likelihood, which is what `configs/publication/reports.json`
+records as the reason production keeps the softmax booster.
+
+### The group ablation, re-run on the seven current groups, corroborates the promotion independently
+
+The 2026-08-25 ablation described a group set that no longer exists -- it held `race_text` and had no
+`gear_intervention` arm -- so it was re-run cold on 2026-09-04: 420 fits over 84 `(group, year)` cells
+in **37.7 minutes**. Every cell refitted; none was falsely reused, because the ablation checkpoint's
+`CellIdentity` carries `incumbent_columns` and `candidate_columns` and therefore rejected all eighty-four
+28-column cells on its own. That is the same stage the three defective caches in `backlog.md` sit
+beside, and it is the one that gets this right.
+
+Positive means removing the group made the model worse, so a larger number is a more valuable group:
+
+| group | columns removed | mean delta vs full | 95% interval |
+|---|---:|---:|---|
+| `barrier_trial` | 3 | +0.000772 | +0.000053 to +0.001929 |
+| `pace` | 3 | +0.000673 | +0.000047 to +0.001395 |
+| `preparation` | 6 | +0.000536 | -0.000058 to +0.001059 |
+| `race_card` | 10 | +0.000430 | -0.000039 to +0.001256 |
+| `body_weight` | 1 | +0.000422 | +0.000181 to +0.000929 |
+| `historical_market` | 2 | +0.000316 | -0.000183 to +0.000853 |
+| **`gear_intervention`** | **6** | **+0.000276** | **-0.000062 to +0.000566** |
+
+**The corroboration is the point, and it was not designed as one.** The promotion was decided on a
+paired candidate measurement that put the block at `-0.0002790`, and the production refit delivered
+`-0.000299`. This ablation asks the opposite question on a different construction -- refit the promoted
+model *without* the group and see what it costs -- and answers **+0.000276**. Three estimates of the
+same quantity by three routes, agreeing to within 8%. Nothing in the ablation was tuned to reproduce
+the promotion figure; it is the same seven-group procedure that ran in August, pointed at the new
+group set.
+
+Two honest qualifications. The block is the **least valuable of the seven**, which is exactly what a
+promotion at 56% of the bar predicts, and its interval **includes zero** -- as do three of the other
+six, including `race_card`, so that is a property of this method's power at twelve years and five
+seeds rather than a verdict on the gear block. And the ablation cannot separate the six columns from
+each other: a group is the unit, which is the reason `gear_intervention` was kept as its own group
+rather than folded into `preparation`.
 
 ## 2026-09-04 The gear promotion: the same numbers, a different bar
 

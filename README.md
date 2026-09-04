@@ -56,12 +56,29 @@ Read these two reports as the working evidence that motivated that decision, not
 are neither the old production set nor the new one: at 34 columns they are the pre-removal incumbent
 plus the block.
 
-**The five model reports above are the pre-promotion 28-column generation.** They were published on
-2026-09-04 from a settled tree and every figure in them is that tree's. The promotion landed after
-them, so the 33-column generation exists in `hkjc-mod` but is not yet published here; `findings.md`
-already reports its numbers, and they will not match these reports until the five are regenerated.
-Each report's `run_lock.json` records the column list it was built on, which is the check rather
-than this sentence.
+**The five model reports above are the 33-column generation**, republished on 2026-09-04 after the
+promotion: every architecture refitted, re-settled and rendered from one settled tree, with each
+`run_lock.json` recording `n=33` against a clean checkout. For a few hours that day this paragraph
+said the opposite -- the reports were the 28-column generation while `findings.md` already carried the
+new numbers -- and it is left in the history rather than quietly replaced, because a reports
+repository whose prose and artifacts disagree is the failure worth being able to see happening.
+
+What the regeneration moved, per report, on the standardised 2016-2026 population:
+
+| report | before, 28 columns | after, 33 columns | |
+|---|---:|---:|---|
+| `softmax` vs the market | -0.00099165 | **-0.00106825** | improved; year record 7/11 -> **5/11** |
+| `softmax_offset` vs the market | -0.00453270 | **-0.00482279** | improved 6.4%; 10/11 |
+| `probit` vs standalone Softmax | -0.01212623 | **-0.01230172** | improved |
+| `probit_offset` vs the incumbent Offset | -0.00076217 | **-0.00064190** | **gave back 16%** |
+| `probit_offset_boosted` vs the incumbent | -0.00030523 | **-0.00029061** | gave back 4.8%; 11/11 |
+
+The production model gained and the market-anchored Probit Offset link gave back -- that is the one
+known unfavourable consequence of the promotion and it is stated in
+[`findings.md`](reports/probit-boosting-research/findings.md) in the same entry as the gain. The
+unanchored baseline's year record is the other thing worth reading carefully: its edge is a fifth of
+the anchored model's and its per-year deltas straddle zero, so at that effect size the year count is
+not a stable statistic. Neither figure was the basis of any decision.
 
 ## Research studies
 
@@ -166,20 +183,32 @@ hidden.
 `run_lock.json` is what ties a figure back to the run that produced it: the run inputs are not
 published here, but their digests are, so a claim about which bytes a number came from is
 checkable. It also records whether the source tree was clean when the report was written; for all
-five model reports it was, at commit `f27e7ed`. The two archived generations under
+five model reports it was, at commit `94497d3`. The two archived generations under
 `reports/bagged_offset/` and `reports/probit_offset_pace/` record a dirty tree, which is one more
 reason to read them as history.
 
 ## How these were checked
 
-* The generation behind them was produced twice -- once into a scratch directory and once into the
-  canonical run roots -- and every parquet and CSV column of the four models it covered is
-  bit-identical between the two, compared by content rather than by a tolerance.
+* One earlier generation was produced twice -- once into a scratch directory and once into the
+  canonical run roots -- and every parquet and CSV column of the four models it covered was
+  bit-identical between the two, compared by content rather than by a tolerance. **That check was not
+  repeated for the 33-column generation**, which was produced once; saying otherwise would claim a
+  reproduction nobody ran. What this generation has instead is below.
+* `hkjc sweep --check` passes: all five reports name one feature-set digest, `sha256:a73a692d`, and
+  stand on the same 7,933 race keys compared by digest. That is what makes the five comparable, and it
+  is a checker rather than an assertion -- five runs each calling their column list "production" is
+  worth what the claim is verifiable.
 * The artifacts reproduce 791 pinned per-column digests across 23 files, verified with the declared
   keys checked for uniqueness. The count was 771 when this section was first written and rose with
-  the four pace-composition and six declared-gear columns added to both feature tables.
-* 2,192 tests pass, and each report was rendered under canonical strictness, which refuses to
-  publish a report whose declared evidence is missing.
+  the four pace-composition and six declared-gear columns added to both feature tables. The digests
+  themselves were rebaselined for the 33-column generation, as a declared intentional change with a
+  written record of every column that moved -- the bet ledgers and bankroll paths changed their row
+  universes and not merely their values, because the model places different bets.
+* 2,187 tests pass with 10,275 subtests, and each report was rendered under canonical strictness,
+  which refuses to publish a report whose declared evidence is missing.
+* The seven-group feature ablation was re-run on the promoted set, 420 fits, and removing the gear
+  group costs +0.000276 of race log loss -- a third independent estimate of the promoted block's
+  value, against -0.000279 from the candidate harness and -0.000299 from the production refit.
 
 No PDFs are published for the five model reports. The earlier generation shipped them with an
 automated
