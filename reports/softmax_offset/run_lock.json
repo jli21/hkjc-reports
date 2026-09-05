@@ -38,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
-    "git_dirty": false,
-    "source_digest": "sha256:8f2394930e079c7bcbc59365fd3a34a7e057d3c55fcd5def023591f622890855"
+    "git_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
+    "git_dirty": true,
+    "source_digest": "sha256:5d1b82b2e76e59b3e7eb3d1149f1f7178f2e92607b6c87b1d495fba5134ef197"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-04T21:35:55+00:00",
-  "digest": "sha256:01c811d3f50ff2e3d5f2aca9b22178ecce47d3a0116ec6b2d8cc6bf4ab9a0253",
+  "created_utc": "2026-09-05T18:58:54+00:00",
+  "digest": "sha256:a3e2ff4756f50f97508cc92fb6091d69bb0423d71198ac402524e85f7a85e2ee",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -127,39 +127,39 @@
   },
   "inputs": {
     "betting_run": {
-      "digest": "sha256:9aa6a72bc5a6d356c8e213de58e2f8ddf4524044b515bef4b21d211073ab3f57",
+      "digest": "sha256:f6232a6f0dda881f1654713141562ece504a54a6d73e5953f2d829993e5f049a",
       "path": "results/runs/softmax_offset/betting_run.json"
     },
     "betting_summary": {
-      "digest": "sha256:3bb6ae04242d1bc5638bdc7d7208238ea34668b33e5dc40a7afadae14e26adb5",
+      "digest": "sha256:f827c0c0673a3285a0e332f67a4b7c30d281f992b7ad81dd4fc90c954506c0a1",
       "path": "results/runs/softmax_offset/betting_summary.csv"
     },
     "betting_yearly": {
-      "digest": "sha256:df28dab1f1f7f56423939b74fa9c8699197e7aa40e0901b7fb3d5e7735e32cf2",
+      "digest": "sha256:9074efd30225debcb2fd0c6daaae66bdf0c8be06c9b20433719ef64d92463007",
       "path": "results/runs/softmax_offset/betting_yearly.csv"
     },
     "calibration": {
-      "digest": "sha256:3afea0ed5d396bd6cfc5ff0fd3bafcd13625af0d27797db5f6532329bad558f4",
+      "digest": "sha256:5885ac5c2370360fd9b012a9f5fcfe23e55925249f54426690dc0a820d9454e6",
       "path": "results/runs/softmax_offset/calibration.parquet"
     },
     "edge_buckets": {
-      "digest": "sha256:5d276824d4711ae403049bd2ba918bcfe044a1ac24113923f637b01ceeaf3df8",
+      "digest": "sha256:d0685644646114dc6423d91f2cd315ccbb200ce1913c5ebc7896da41573830f4",
       "path": "results/runs/softmax_offset/edge_buckets.csv"
     },
     "ensemble_diagnostics": {
-      "digest": "sha256:518d06b5985a3a44b7ab1661fcc606e71c74ea621013ca813ff2e17ac546a999",
+      "digest": "sha256:1635281bb1bd2448cd01e8c73d40cf73dc9dfb26aca44a91693495effe25ded5",
       "path": "results/runs/softmax_offset/ensemble_diagnostics.parquet"
     },
     "feature_dictionary": {
-      "digest": "sha256:97a60332550d82cefd2e95670702191f5c00226ec92b4b2d481a1bb81313c3fb",
+      "digest": "sha256:a9c648246aa34cbc42859c1596c8416353c8bd28dcca909d1c210fe03cdb5de0",
       "path": "results/runs/softmax_offset/feature_dictionary.json"
     },
     "feature_effects_yearly": {
-      "digest": "sha256:556e1536a713a1684c71f5b83cbd160784e54e2c8057860c773c3f01cecc1e63",
+      "digest": "sha256:6d656eb7a2fbaafa910749257356e371b0b9f7944f1edc22adf05a91bd8b7477",
       "path": "results/runs/softmax_offset/feature_effects_yearly.parquet"
     },
     "feature_stability": {
-      "digest": "sha256:d0b21d0cd323610a5fcdf8d5a63551d06cd5a22dceafb8034447dd026d157f4e",
+      "digest": "sha256:89acffdc95a3d26df7781f7deb442be955a9b21a836505b342cebd5a72d220e4",
       "path": "results/runs/softmax_offset/feature_stability.csv"
     },
     "lineage": {
@@ -167,39 +167,39 @@
       "path": "results/runs/softmax_offset/lineage.json"
     },
     "market_relationship": {
-      "digest": "sha256:b3876754cf9b5d781aa415a4206882fedcda26d5c2157ef8054adb4384f1adf6",
+      "digest": "sha256:954dfbd9044d52351bf30cdffd2021b4ae73664c2f41e5aa4897ba2d45608159",
       "path": "results/runs/softmax_offset/market_relationship.json"
     },
     "race_paths": {
-      "digest": "sha256:ebbd50216e3cad79f988bc39aaffe913bdbeca728e474a15de7fefda18e4bd3e",
+      "digest": "sha256:ede907813b7269f0ba86515744b368f52ad574f7f3e80ec32d094b4a786eb0df",
       "path": "results/runs/softmax_offset/race_paths.parquet"
     },
     "race_scores": {
-      "digest": "sha256:ad301c548668870037636fcc07de58803169b4b3479a4916319fc864cc57ba1b",
+      "digest": "sha256:a87b3f3046297d00879b002c5dcfc622a4649881bd540eb8786df2247671342d",
       "path": "results/runs/softmax_offset/race_scores.parquet"
     },
     "run_metadata": {
-      "digest": "sha256:dcd73c7f0f4b2d9aca1d38d4323e616176d0d026a8a61854f2d3d9a1a71d6cbd",
+      "digest": "sha256:6a0c453b9c91c71037f61326ab8eece6102e4aa726e6755f3b430ca94d3a1151",
       "path": "results/runs/softmax_offset/run_metadata.json"
     },
     "sharpness": {
-      "digest": "sha256:afb0f6ff36905c8d47dee41a33b191db8ff648fc99b3cff4c93f87281bb93ca7",
+      "digest": "sha256:a257499caa784c2feeb90ddbf54587a6595159c95ad039b4147427d00ccedcf3",
       "path": "results/runs/softmax_offset/sharpness.csv"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:b9ab1fde6865dc24f07072df822921acf47a540d5547b47551afb1f7f25378f0",
+      "digest": "sha256:98b5043bbfa382145ee82522279c9071a48c510f14547f9d19bb7c4970642c71",
       "path": "results/runs/softmax_offset/sims/model_assumed/summary.json"
     },
     "sims/model_assumed/trajectories": {
-      "digest": "sha256:6945bd4e921b351a738155ed1fe66edd5b89fc805e6d38b576fdd2fd1573e62e",
+      "digest": "sha256:d54428660d90137113df2b2ea313fdbc8e5ade65aa400a91ea6f4de90cab98f6",
       "path": "results/runs/softmax_offset/sims/model_assumed/trajectories.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:35886f9fb931de5c75494ccc61ed4fd5db130856ac6e979e2d13209523bf577a",
+      "digest": "sha256:234bc2e9222c446c5885ea08c0bdcbc26ba86afebd68431fb4b6385bec3d4aae",
       "path": "results/runs/softmax_offset/simulation_run.json"
     },
     "top_choice_movement": {
-      "digest": "sha256:e74df9c7c492192dd1b6cadafa0cdf06b27a4f97637ad261e5582ce6b5cdd95b",
+      "digest": "sha256:78340fae84435cf5c233936938e60d4dfdea1964cec18d7d9c17604fd696b321",
       "path": "results/runs/softmax_offset/top_choice_movement.csv"
     }
   },
@@ -217,9 +217,9 @@
     "status": "production"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:0575d9a1145fd3b5f309c48e303059fa46f0ff16d9b46341ba362134bbd1dfa1",
+    "input_run_lock_digest": "sha256:5e9a837d468e8907a3086e1abd0b9d9280f5f619a3ab4d82385e03b233e14fb2",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
+    "run_metadata_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
     "run_metadata_dirty": false
   },
   "run": "report:softmax_offset",

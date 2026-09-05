@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
-    "git_dirty": false,
-    "source_digest": "sha256:8f2394930e079c7bcbc59365fd3a34a7e057d3c55fcd5def023591f622890855"
+    "git_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
+    "git_dirty": true,
+    "source_digest": "sha256:5d1b82b2e76e59b3e7eb3d1149f1f7178f2e92607b6c87b1d495fba5134ef197"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-04T21:35:55+00:00",
-  "digest": "sha256:15e94b8d59e5f769cdef50d6ee4467a4b7b824df80c2d66abb128edcde4cced0",
+  "created_utc": "2026-09-05T18:58:55+00:00",
+  "digest": "sha256:1aed6fd99878ec19ef906d7a9d53b8946f38fbaad008d014b9ea179cffc088b7",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -127,27 +127,27 @@
   },
   "inputs": {
     "betting_probit/betting_summary": {
-      "digest": "sha256:3d7fefdf6ea666a161c101f98cd011efa44e8b37d693603726462207607eb3a4",
+      "digest": "sha256:4a46e5fe9d1557cf66a32edbea152992d1f4aadb4869c866376d3cf13b988e1f",
       "path": "results/runs/probit/betting_probit/betting_summary.csv"
     },
     "betting_probit/betting_yearly": {
-      "digest": "sha256:0c6960531fa9fb767e253b1e101c004d8d75cdf11e120fc60e7365b462e5d7bc",
+      "digest": "sha256:37a012ff2675298bbf50e3f694ca0ae2636974c75d38a06b8453139d350cfbf6",
       "path": "results/runs/probit/betting_probit/betting_yearly.csv"
     },
     "betting_probit/edge_buckets": {
-      "digest": "sha256:09ee5a23451249f515cd455ee8ffabd90f59aebd371c0581bdc4d39b11772c7a",
+      "digest": "sha256:da74a7c65cd97c707ba231c3426eb3e2c60377a6825862022c2df79a5ffa722e",
       "path": "results/runs/probit/betting_probit/edge_buckets.csv"
     },
     "betting_probit/probit_betting_run": {
-      "digest": "sha256:99b2a6d28774ddd7a02fc4b8881fa6008f10aec0f2251ad23946422a80e9bac1",
+      "digest": "sha256:af3585a8d5109e384f31df7088e6d8e17fb796bea86d05cc8115b89123e592ba",
       "path": "results/runs/probit/betting_probit/probit_betting_run.json"
     },
     "betting_probit/race_paths": {
-      "digest": "sha256:02d6d33022c08c19498dfb769cf29b5780caf8077891da22071198ba67b9f73f",
+      "digest": "sha256:ff9c2a0155954710e009d4661a07a7c779bb930a253fd41ab52c4267386fc262",
       "path": "results/runs/probit/betting_probit/race_paths.parquet"
     },
     "market_relationship": {
-      "digest": "sha256:749c2759c2afadebd7a41a6a1ce4290fa0dbdbd15dcbd1fa929bd682c59988d9",
+      "digest": "sha256:0534cb51de001812fee86b1aad1ef12f7a904a696df8e1ed88e72d76cf725c34",
       "path": "results/runs/probit/market_relationship.json"
     },
     "probit_correction_identity": {
@@ -155,43 +155,43 @@
       "path": "results/runs/probit/probit_correction_identity.json"
     },
     "probit_link_movement": {
-      "digest": "sha256:0403cdd28e4b6d77cc53eeb280ea9560de67ae80dffab779a32befaf9d6b204f",
+      "digest": "sha256:ebc254ff26ab605fe758e9c545c58217178a3fa76537c30c9ebe1d5871608a03",
       "path": "results/runs/probit/probit_link_movement.parquet"
     },
     "probit_per_run": {
-      "digest": "sha256:e7747097501e243ca250851ee1b0d06d4fb36f78240deacc6fa00190f3ff151a",
+      "digest": "sha256:76f769e7118a4e156933d46ca5cbb84d4cebb782bb2ea9f6acfce04ef249ee86",
       "path": "results/runs/probit/probit_per_run.csv"
     },
     "probit_reliability": {
-      "digest": "sha256:1a7c42dde633f84909603047987f3081d013f7d3cc35696564a0d7a3f45a9e70",
+      "digest": "sha256:4750d626655ae02aefea900d1fd06b6ddf5cf47dfb211b4ec999d4b1fe232c72",
       "path": "results/runs/probit/probit_reliability.parquet"
     },
     "probit_reliability_yearly": {
-      "digest": "sha256:76da23d98fda4246192568f3fdc610fd60ecf7bd753a2a0100e84fe798a1abb9",
+      "digest": "sha256:b07e09a3dca07e42a5b4c4be8d601048576ece9f659ebbc42dba20d1beab9837",
       "path": "results/runs/probit/probit_reliability_yearly.parquet"
     },
     "probit_sensitivity": {
-      "digest": "sha256:c09f8a5c1e003115e02c464e53c418243a365ed699b152c33b81164bc352bf67",
+      "digest": "sha256:340bfdc35eadf9157679af129cf789cc842182dca09952f69c965848b57e45d0",
       "path": "results/runs/probit/probit_sensitivity.parquet"
     },
     "probit_state": {
-      "digest": "sha256:45ffe031d72cd97bbd24f1de10019170ced433227edb3d6e07dab0cac81dd98f",
+      "digest": "sha256:db86ea6f0a3f59500324a34e7ae17376c2bcab45af32033298dc9b8be44a2746",
       "path": "results/runs/probit/probit_state.json"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:e7025a6ada498d01f68022a85e08c52ad9d35332af77edf013ae77c596fa886a",
+      "digest": "sha256:e38295c2de523f217b3e9fbd8fca75bb72cbfe986689abbadf5183c61674f979",
       "path": "results/runs/probit/sims/model_assumed/summary.json"
     },
     "sims/model_assumed/trajectories": {
-      "digest": "sha256:16f3213e73aeec2823ef4a01f6a960545a232752a5c15e7bda9dd13d1b826f95",
+      "digest": "sha256:d60d1c025f69561a667a76b2094f89b00cdd90085943104454a8075be43437d7",
       "path": "results/runs/probit/sims/model_assumed/trajectories.parquet"
     },
     "simulation_policies": {
-      "digest": "sha256:11acde851cf9e5bf828b12974a6772b9ef0058dfae0987446a2cb0827744daf4",
+      "digest": "sha256:08324d9bb7764b51017bbfba6deedb29a0ef06fab75db018b8b1f51822713c89",
       "path": "results/runs/probit/simulation_policies.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:f516b810b6d6fc375317abbcae35aaa18d283d2534cbce6383a5b13d762f3f5a",
+      "digest": "sha256:0b81bb3ac9b4ca2a518ec9f483cf40bed3b03393d573e11bb5e2a47052d5b288",
       "path": "results/runs/probit/simulation_run.json"
     }
   },
@@ -205,9 +205,9 @@
     "label": "Probit",
     "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
     "paired_diagnostic": {
-      "model_log_loss": 2.031112890014932,
-      "model_minus_reference": -0.012742312639178927,
-      "reference_log_loss": 2.04385520265411,
+      "model_log_loss": 2.033015235354543,
+      "model_minus_reference": -0.012347322776455765,
+      "reference_log_loss": 2.0453625581309987,
       "reference_model": "softmax",
       "what_is_held_fixed": "the mean utilities. Both links score the identical raw tree utilities, so the only difference is the shock distribution: independent Gumbel against iid normal. Scoring against the Offset model instead would change the mean learner and the link at once."
     },
@@ -215,9 +215,9 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:4252c7d8a4171ef2b45b93c37f8104b70a52bfafc775ec746f7be217597f0a72",
+    "input_run_lock_digest": "sha256:008a794fcf465c5df9fe7721343fd1b2ab425eefbe89ef4dd9cb745fc76edc18",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
+    "run_metadata_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
     "run_metadata_dirty": false
   },
   "run": "report:probit",

@@ -38,9 +38,9 @@
     "train_start_year": 2010
   },
   "code": {
-    "git_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
-    "git_dirty": false,
-    "source_digest": "sha256:8f2394930e079c7bcbc59365fd3a34a7e057d3c55fcd5def023591f622890855"
+    "git_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
+    "git_dirty": true,
+    "source_digest": "sha256:5d1b82b2e76e59b3e7eb3d1149f1f7178f2e92607b6c87b1d495fba5134ef197"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-04T21:35:54+00:00",
-  "digest": "sha256:a867586e50cfa7d1336b0998fa43fb76febe6e5d0f78b168e67569e1c015fdfe",
+  "created_utc": "2026-09-05T18:58:53+00:00",
+  "digest": "sha256:6154602f045283f6919ed843d738e037cfe2f91b97f0810fcef8f0e808796f15",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -127,39 +127,39 @@
   },
   "inputs": {
     "betting_run": {
-      "digest": "sha256:b99f5f76a59c8d9a1d08492c1213587b3a06a56adc56b700137a80457dcd02a3",
+      "digest": "sha256:43eb2c87a75d8922fdbd1b2b746f43f2af4ff915d10b0e4fc81d6ce49734a343",
       "path": "results/runs/softmax/betting_run.json"
     },
     "betting_summary": {
-      "digest": "sha256:f28b44d2f58c8c2284ca8de0cfafc27b8aa845a4442a4d2ab2a321dc941ec70f",
+      "digest": "sha256:91b99062214b0dce4e43f7012c868c90c2a620d9eb68c296dce29bc9318c7bd6",
       "path": "results/runs/softmax/betting_summary.csv"
     },
     "betting_yearly": {
-      "digest": "sha256:212d826e8d93b0acb52ffbfe65e5bc1f1800ba0e23e1395e4fa947817f545964",
+      "digest": "sha256:776bca1fb3a50fdd43e4900179e97dd161e5a4c49cd6cb327eb4b15efbd38728",
       "path": "results/runs/softmax/betting_yearly.csv"
     },
     "calibration": {
-      "digest": "sha256:4576c5580588ae8e91e3334760c353320d4b358c6abe698a1fc71faa9cbde9e4",
+      "digest": "sha256:7b23a8c57687d31fba2ed05713ca402caa386b1bf524bfe968fd61df28e5a2cb",
       "path": "results/runs/softmax/calibration.parquet"
     },
     "edge_buckets": {
-      "digest": "sha256:be7d822a2750d601dc8e06b452e74aa33d770d45f7735feea1c31a84f43fc799",
+      "digest": "sha256:5bd4b1599899621860ce4e4ec26b0f7aacf87c3133bb35f224a98236fd9e8d63",
       "path": "results/runs/softmax/edge_buckets.csv"
     },
     "ensemble_diagnostics": {
-      "digest": "sha256:1828c43a2ec13b25ffa5e979a511d74189525c769de5712860a98e6c6c10e586",
+      "digest": "sha256:ffab227825de240cc59a85daf3e8288c2ac3f2ee991dd7b740bb6ccaa84c0055",
       "path": "results/runs/softmax/ensemble_diagnostics.parquet"
     },
     "feature_dictionary": {
-      "digest": "sha256:e7960d8a6b9f8adcbc4859a19f5dafddb43c04179c8ded6dd2750a1366c0b515",
+      "digest": "sha256:0690a7ee2b9cb640d79886497e370f124e9bd5832d75aac76df2d1a06f9ceed8",
       "path": "results/runs/softmax/feature_dictionary.json"
     },
     "feature_effects_yearly": {
-      "digest": "sha256:81f56bfe1d04bc3fef8d18f95abd470960722ffc0bfb4724dd0b756e9446e874",
+      "digest": "sha256:b5464960a9d32da0882faebeb818edd2d910384a5cd928fc08e670674f212957",
       "path": "results/runs/softmax/feature_effects_yearly.parquet"
     },
     "feature_stability": {
-      "digest": "sha256:fe913e3c8fcde1caaeb2aa30f14dcb390f0141fa6e61250eb19296b6961fa145",
+      "digest": "sha256:041045352e918d7c03d7c78ab1710ad16917d7e049ae504ba7f28e45d1db4f7f",
       "path": "results/runs/softmax/feature_stability.csv"
     },
     "lineage": {
@@ -167,39 +167,39 @@
       "path": "results/runs/softmax/lineage.json"
     },
     "market_relationship": {
-      "digest": "sha256:15c8f14e5729f2c1b31881b0ac4268cf2d0c60aa026ebd961e1c20f9544b12e0",
+      "digest": "sha256:a9bceb16f392e959fda60bc8baab929cf4ad7a0fdfa881290e00453283277a7a",
       "path": "results/runs/softmax/market_relationship.json"
     },
     "race_paths": {
-      "digest": "sha256:b42ac8172e0fd01818940a5a94b62c57b4247553166c878738e0092b0f4608d0",
+      "digest": "sha256:3a6a2f74117d1c2a2df3ca9e10ae6414b94a17368d4b40a2010822fbc2012f5e",
       "path": "results/runs/softmax/race_paths.parquet"
     },
     "race_scores": {
-      "digest": "sha256:c683ff0b68dad56ccaefe3514f2254b2f8bcfa506d6cc8331afe71dd41991aef",
+      "digest": "sha256:2161014587ae0c10a08fd0373be1f5244662d5426aae6007005ad290f91da561",
       "path": "results/runs/softmax/race_scores.parquet"
     },
     "run_metadata": {
-      "digest": "sha256:c65c6f80144f788bad9622eb614c65f4d866d525f81116a77973670e58ad574e",
+      "digest": "sha256:6276fde83d005f272b73dfe852be79cd0981615c3b42c075b3688b27c602d534",
       "path": "results/runs/softmax/run_metadata.json"
     },
     "sharpness": {
-      "digest": "sha256:6ee52fa0c9d426cef6cc7676f1ec86fa02f10722097c731cce9a08b7f2370dd8",
+      "digest": "sha256:f1a2bdff936718561a0735d4824a0205091142e8fae48508057384f0680b21b0",
       "path": "results/runs/softmax/sharpness.csv"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:78d393144e836ae0d87cfdae8db8821a59aa85b982dd4e880173283c189d21e6",
+      "digest": "sha256:eeb88d49005877f75f543560ead63e5b6b4c9fded4d927e6ce0b82c48af50885",
       "path": "results/runs/softmax/sims/model_assumed/summary.json"
     },
     "sims/model_assumed/trajectories": {
-      "digest": "sha256:64de2badf5e8fc53699af625f480c4de310e23727c941928d631216ae547a684",
+      "digest": "sha256:270060d4dc1ab8ff6f4749d1200a2ab39ea4d3a14ae993ec00357aaa50987e85",
       "path": "results/runs/softmax/sims/model_assumed/trajectories.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:11947d855e7c755267c669152ba8cbc6e49fdc81a2a0aebef12fd4d211c02eed",
+      "digest": "sha256:fd0e08ff9fb76a414965928b1839c1ecff06b99825f6404c3609eb24116f1968",
       "path": "results/runs/softmax/simulation_run.json"
     },
     "top_choice_movement": {
-      "digest": "sha256:b1b827b6030e6e9b41a25f942b83bd2ccb079c9bb0765ab1fb555092998982ff",
+      "digest": "sha256:793ada9e2d60560f0be334a82aa3ca70b7d84132521f8fd8b48bbd45e0266467",
       "path": "results/runs/softmax/top_choice_movement.csv"
     }
   },
@@ -217,9 +217,9 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:9eaf3d49787ec7bc88a834fa1b990b9821a43eabd1033d07d5e9605b1ba8beaf",
+    "input_run_lock_digest": "sha256:f9c2277038aa9b1e2b2bc319e9ff50fb4622ddf08759caa76af05899ceef37fc",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
+    "run_metadata_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
     "run_metadata_dirty": false
   },
   "run": "report:softmax",

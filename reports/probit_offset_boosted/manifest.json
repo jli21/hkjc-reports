@@ -1,27 +1,27 @@
 {
   "artifacts": {
     "report_html": {
-      "bytes": 2480956,
-      "digest": "sha256:c161ab9bef2a671126ac703ddaba424a72c5c5bd1bdcd449dd6f6d08f5659cb7",
+      "bytes": 2511368,
+      "digest": "sha256:e569a02ce62630892931a324693a4a680fbab785f8141cf3b668b118f64fb3fe",
       "format": "html",
       "path": "results/reports/probit_offset_boosted/report.html"
     },
     "report_summary": {
-      "bytes": 105179,
-      "digest": "sha256:bb4090a889aa3ac49a6c03457a4c15eddc3823892d97178abb33da2eebbceabc",
+      "bytes": 105944,
+      "digest": "sha256:77ad5926f74ef00199346e519964e570a1284b258f361b0f76626e39947b8768",
       "format": "json",
       "path": "results/reports/probit_offset_boosted/summary.json"
     },
     "run_lock": {
-      "bytes": 7484,
-      "digest": "sha256:4132c0392ad666528f44d883c275157e267fe206f1aff269ed092889989aab8e",
+      "bytes": 7483,
+      "digest": "sha256:acc701b0c1a9e3927899e3f29221e9ab003cee68ec1d81a82a759e849f73a93b",
       "format": "json",
       "path": "results/reports/probit_offset_boosted/run_lock.json"
     }
   },
-  "created_utc": "2026-09-04T21:35:57+00:00",
+  "created_utc": "2026-09-05T18:58:56+00:00",
   "kind": "run_manifest",
-  "lock_digest": "sha256:6087508c23cb7cca6b0df8f9c47a4fcb29531796630d04df50cac41fbb37d36c",
+  "lock_digest": "sha256:a2cf3f2724849c39444f9abfa83c3a74d3e587d4b1ea9147e802332d764bdcfb",
   "report": {
     "config_digest": "",
     "evidence_not_applicable": [
@@ -42,7 +42,7 @@
       "simulation",
       "limitations"
     ],
-    "source_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
+    "source_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
     "source_dirty": false,
     "unverified_preview": false
   },

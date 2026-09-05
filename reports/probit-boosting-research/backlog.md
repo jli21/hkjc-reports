@@ -75,6 +75,41 @@ cannot change silently.
 
 ## Measurement and infrastructure
 
+**`hkjc ingest` will silently de-duplicate `aspx-results` the first time anyone runs it.**
+`registry.merge_by_key` resolves a merge with `drop_duplicates(subset=primary_key, keep="last")`,
+which is right for every dataset whose keys are unique. `aspx-results-2026.csv` holds **1,513
+duplicate `(race_id, Horse No.)` pairs** -- a landing defect `features/build.py:1777` absorbs with
+`keep_first`, deliberately left in place -- so that merge would collapse them. Two things make it
+silent rather than loud:
+
+* the guard is `len(merged) < len(existing)`, and a refresh that adds new meetings **grows** the
+  archive, so losing 1,513 rows inside a gain of several thousand never trips it;
+* `keep="last"` keeps the *opposite* row from the one the feature build reads, so the surviving
+  values differ from the ones every published number was computed on.
+
+Found on 2026-09-04 while writing the `aspx-results` collector, and worked around rather than fixed:
+the collector does its own **append-only** merge -- existing rows preserved verbatim and in order,
+only absent keys appended -- and it was run directly rather than through `hkjc ingest`. The
+work-around does not help anyone who runs the orchestrator, which is the whole point of having one.
+
+*The fix, and it is a decision rather than a patch:* either make `merge_by_key` refuse a merge whose
+existing side has duplicate keys (loud, and forces the duplicate question to be answered), or
+de-duplicate the 2026 archive deliberately with a recorded reason and a rebaselined feature table.
+The second is a real data decision -- it changes which physical row 1,513 runners are read from --
+and should not happen as a side effect of a refresh. Until one of them is done, `aspx-results` should
+be collected by running its CLI directly, which the contract's `_merge_hazard_note` says.
+
+**The 2026 archive was patchy, not merely stale, and nothing reported it.** Before the 2026-09-04
+refresh the file held **21 meetings against the 99 HKJC lists** for the same period -- and the gaps
+were not all at the end, where staleness would put them: 4 missing in January, 2 in February, 7 in
+March, inside a range the file appeared to cover continuously from 2026-01-01 to 2026-03-15.
+`SCRAPE_COVERAGE.md` counts rows and files, `coverage --audit` checks keys and nulls, and neither
+asks the only question that would have caught this: *does the archive hold every meeting the source
+lists for this span?* A completeness check against the meeting dropdown is cheap -- one page fetch
+per year -- and it is the check that turns "the file exists and parses" into "the file is complete".
+Worth adding to `hkjc coverage` as a gate rather than leaving it as the thing a refresh happens to
+notice.
+
 **The boosted probit costs 17x what the repository says it costs, and nobody knows why.** Measured on
 2026-09-04 over the full sixty-cell sweep, from
 `probit_offset_boosted_training_diagnostics.parquet`: per-cell fit time rises monotonically with

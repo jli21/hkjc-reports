@@ -249,6 +249,103 @@ expressible in this harness and is in `backlog.md` with what it would cost.
 > means, and the measured effect on the published generation. Nothing in the measurement above was
 > re-read or revised; only the rule applied to it changed.
 
+## 2026-09-05 The 2026 season completed: a partial year was hiding a loss to the market
+
+The archive stopped at 2026-03-15 and held **21 of the season's 56 race meetings**, with gaps inside
+its own January-March range. Collected to the season's last meeting, 2026-07-15, the feature table
+went 152,046 -> **156,220 rows** and 2026 went from **201 races to 533**. All five architectures were
+refitted, re-settled and republished on it, and the evaluation population is now **8,265 races**
+against 7,933.
+
+**The headline result is about evidence, not about the model.** On the partial 201-race 2026 the
+production Offset *lost* to the market by **+0.000230**. On the complete 533-race season it *wins* by
+**-0.002138** -- a swing of 0.0024 from nothing but finishing the year. That single year was the only
+one production did not beat, so `years_better` goes **10 of 11 -> 11 of 11**, and the same flip
+happens to `probit_offset`. Verified from the previously published report's own per-year row rather
+than inferred, and 2026 is the only year whose data changed, which is what makes the attribution
+clean.
+
+The reading to take from it: **a partial season is not a small sample of a season, it is a biased
+one.** 201 races of a Hong Kong campaign are its first ten meetings, and there is no reason for the
+model's edge over those to be the year's edge. Any conclusion this programme draws from a
+still-running year should be read with that in mind, which is a stronger statement than "more data
+is better".
+
+### What each architecture did, and why two numbers moved at once
+
+| report | before | after | |
+|---|---:|---:|---|
+| `softmax` vs the market | -0.00106825 | **-0.00101144** | 5 of 11 years, unchanged |
+| `softmax_offset` vs the market | -0.00482279 | **-0.00477707** | **10 -> 11 of 11** |
+| `probit` vs standalone Softmax | -0.01230172 | **-0.01235145** | improved |
+| `probit_offset` vs the incumbent | -0.00064190 | **-0.00063376** | gave back a further 1.3% |
+| `probit_offset_boosted` vs the incumbent | -0.00029061 | **-0.00026235** | gave back 9.7%, still 11 of 11 |
+
+Every figure here moved for **two reasons at once** and the entry says so rather than attributing the
+sum to the refit: the models were refitted on a bigger table, *and* 2026's weight in the pooled
+number went from 201 races to 533. The two cannot be separated from these numbers alone. What can be
+said cleanly is the per-year statement above, because only one year's data changed.
+
+**The gear promotion's one unfavourable consequence survives the bigger 2026, which is the thing a
+larger sample could plausibly have explained away.** `probit_offset`'s degraded year against its
+comparator is still **2024**, not 2026, and it shrank slightly: +0.000232 -> +0.000207 member-mean,
++0.00030877 -> +0.00028449 bagged. So it was never an artefact of the partial season. It remains
+10 of 11 on that construction while going 11 of 11 against the market -- two different comparisons,
+recorded separately for the reason the 2026-09-04 entry had to be corrected for conflating them.
+
+### The ablation, re-run on the fuller table, values the gear block slightly higher
+
+420 fits over 84 `(group, year)` cells in **33.8 minutes**, with **no cell reused** -- the ablation
+checkpoint carries `data_digest` and `incumbent_columns`, so a changed feature table invalidates it
+without being told to. Positive means removing the group made the model worse:
+
+| group | 2026-09-04 | 2026-09-05 |
+|---|---:|---:|
+| `barrier_trial` | +0.000772 | **+0.000978** |
+| `pace` | +0.000673 | **+0.000807** |
+| `body_weight` | +0.000422 | **+0.000503** |
+| `race_card` | +0.000430 | **+0.000477** |
+| `preparation` | +0.000536 | **+0.000446** |
+| `historical_market` | +0.000316 | **+0.000350** |
+| `gear_intervention` | +0.000276 | **+0.000320** |
+
+Six of seven groups look *more* valuable on the fuller table and `preparation` looks less. The gear
+block stays last of the seven, which is what a promotion at 56% of the bar predicts, and its interval
+still includes zero -- as do `race_card`'s, `preparation`'s and `historical_market`'s, so that is this
+method's power at twelve years and five seeds rather than a verdict on the block.
+
+### Two pipeline defects the refit exposed, both invisible while everything was equally stale
+
+**No probit architecture had ever written `simulation_policies.parquet`.** `betting.run` writes it
+only in its `write_artifacts` branch, which the probit settle path sets to `False` on purpose -- the
+declared specs carry the Offset scoreboard's `model_view` vocabulary and `bagged_probit` legitimately
+fails it -- and the generic betting stage refuses a probit root outright because it reads
+`predictions.parquet` while that family writes `{stem}_predictions.parquet`. So `--stages simulations`
+resampled a policy set frozen on 2026-09-01, and **two publications shipped probit simulation
+sections whose population was 7,932 races beside performance sections that had moved to 8,265**. The
+cross-model parity tests could not see it while all five roots were equally stale; completing 2026 is
+what split them. Fixed by passing the settled frame and its own view to `write_simulation_policies`,
+which needed one new parameter because `family_views` refuses a probit kind by design.
+
+**Four declared artifacts are written only by `predictions --derived-only`.**
+`correction_calibration`, `cohort_difficulty` and the two `effect_realization` frames are rebuilt by
+that flag and not by a full generation, so every refit leaves them describing the previous one. No
+report reads them, so publication was unaffected, but a canonical test does -- and a full run that
+cannot refresh its own declared outputs is a trap regardless of who currently reads them.
+
+### A cross-generation comparison that had to be retired rather than rebaselined
+
+Two tests ranked the deprecated `probit_offset_custom` experiment against the live `probit_offset`,
+and they failed here: the archived figure is -0.00078505 against a live -0.00073011, so the
+deprecated variant now "wins". **Nothing about the experiment changed.** The incumbent moved twice
+since 2026-08-25 -- 28 columns to 33, and 8,675 races to 8,265 honest ones -- so the comparison spans
+two feature sets, two datasets and two generations of the thing being compared against. A frozen
+number cannot be ranked against a live one, and the earlier fix to that same comparison (member mean
+against bagged headline) could not reach this, because the mismatch is now the race universe and the
+feature set rather than the construction. The tests assert the archive's own basis instead; the
+finding lives in its README, was true of its own generation, and is not restated against a different
+one.
+
 ## 2026-09-04 The measured result of both production changes
 
 Production went **28 → 33** columns in one generation: the six gear-intervention columns added,

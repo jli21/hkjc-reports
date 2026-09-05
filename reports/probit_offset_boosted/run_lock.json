@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
-    "git_dirty": false,
-    "source_digest": "sha256:8f2394930e079c7bcbc59365fd3a34a7e057d3c55fcd5def023591f622890855"
+    "git_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
+    "git_dirty": true,
+    "source_digest": "sha256:5d1b82b2e76e59b3e7eb3d1149f1f7178f2e92607b6c87b1d495fba5134ef197"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-04T21:35:57+00:00",
-  "digest": "sha256:6087508c23cb7cca6b0df8f9c47a4fcb29531796630d04df50cac41fbb37d36c",
+  "created_utc": "2026-09-05T18:58:56+00:00",
+  "digest": "sha256:a2cf3f2724849c39444f9abfa83c3a74d3e587d4b1ea9147e802332d764bdcfb",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -127,27 +127,27 @@
   },
   "inputs": {
     "betting_probit_offset_boosted/betting_summary": {
-      "digest": "sha256:706df43d9b5e1241bfa9363c6c4e22a13a837f66795a0f51e07be8aa9f858eae",
+      "digest": "sha256:d0ce49b3066591b47fb5fa41862dade06796ca45df1ffe41f6c22870035cd529",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_summary.csv"
     },
     "betting_probit_offset_boosted/betting_yearly": {
-      "digest": "sha256:7625a67dcc7469f9ba14fc294736668cb8283652a2b4bc3205402e6a1c7e7bdb",
+      "digest": "sha256:19f29c9f50f297c896ac482964497677f0ffb83e87fbc7b3702c2e113c3c0b42",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_yearly.csv"
     },
     "betting_probit_offset_boosted/edge_buckets": {
-      "digest": "sha256:432a62555d9bf133b025d2ce2a1c2b147e0d4ada7f3d07974e384c9c586f4813",
+      "digest": "sha256:b55f096bfbbc7b74ce5c2757326b3d14553e69827afc619496ee164a9ba14713",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/edge_buckets.csv"
     },
     "betting_probit_offset_boosted/probit_betting_run": {
-      "digest": "sha256:a10939e369577507d4abe8fb66c3ea751aaf35447dcd70f09afcfa530d848026",
+      "digest": "sha256:e559e6ba46637ef1f1cf8b298b5036338bad03e06daf0e6f0a764b796bcad97d",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/probit_betting_run.json"
     },
     "betting_probit_offset_boosted/race_paths": {
-      "digest": "sha256:9d71d4a83b12f040ff911b15455107155037ec9449b451a3352f9de55f4de81e",
+      "digest": "sha256:abc659e24a4307546bd13c46eb77b6b1435e327606d594d72140bb1dc8458e1d",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/race_paths.parquet"
     },
     "market_relationship": {
-      "digest": "sha256:407f294cc4c2585d2cd87af5cff33abdf9c109f7c31c81d020553185546f453a",
+      "digest": "sha256:1d9e97bee0e1aa85b223b532d77b94427e26133f92f713a85c3382aa50a4debc",
       "path": "results/runs/probit_offset_boosted/market_relationship.json"
     },
     "probit_offset_boosted_correction_identity": {
@@ -155,43 +155,43 @@
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_correction_identity.json"
     },
     "probit_offset_boosted_link_movement": {
-      "digest": "sha256:f32ec1cea8ca796941c81a00dac7ad41b480117a8f974c7bd0b351503edf7077",
+      "digest": "sha256:18bf384141a5c22dcfc31d9bcbe9ba8b6c503eeda4d4210dbbd81d4561d29184",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_link_movement.parquet"
     },
     "probit_offset_boosted_per_run": {
-      "digest": "sha256:46a3571f8c1a345f2b0eef5b5bacbdb4e1d81c7f0cb9864cb4c913838ff25daf",
+      "digest": "sha256:3caf57b3bd4170a915357011e363f067e4ef7a52474651eaa214cf57597b8afc",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_per_run.csv"
     },
     "probit_offset_boosted_reliability": {
-      "digest": "sha256:67415596f4e11d75c764744d5b751c3eb165b076036ccb46304adea78c270a80",
+      "digest": "sha256:65ddab1ca04f7f92293c8fdbf6600dc6ddff578ae2eb8d5bb4499a89bbcf923c",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability.parquet"
     },
     "probit_offset_boosted_reliability_yearly": {
-      "digest": "sha256:c17015ee933b582952528c684ef44b16f206b5d40ab4d3cfc299be173bd38b9d",
+      "digest": "sha256:a11b576233ec246bbfe02c6a559072f57723648fbb1e0aeb86f3eb252d995abf",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability_yearly.parquet"
     },
     "probit_offset_boosted_sensitivity": {
-      "digest": "sha256:5ac3b5ad68029fb35501e706fdd067c1c6a5e2488de65c025e93e3deb9d2e827",
+      "digest": "sha256:a8f8eae1a800c266e111fb0cb0c198a35050c6a18858b25a46cabde5aa2b7569",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_sensitivity.parquet"
     },
     "probit_offset_boosted_state": {
-      "digest": "sha256:b9283536ce0e0c83819e6b53f914d8dab2f4a819e2926bfd002f8633950e9986",
+      "digest": "sha256:861080035db9048b2ae5fa0815270de662de072ce3ddad079c21340cb914f7b6",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_state.json"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:906dfbd8c1368c1e6e3cd33a0ff9fb7fe6606742a269c27eff827cd22426088b",
+      "digest": "sha256:5d71a85c350a1434a599e63db482b604b2d1c1b26cba4994631a8bb51d69b638",
       "path": "results/runs/probit_offset_boosted/sims/model_assumed/summary.json"
     },
     "sims/model_assumed/trajectories": {
-      "digest": "sha256:68466cb3320389cdd1c8ac6def861fb556d3ebba306bcec9c6a63959a59db378",
+      "digest": "sha256:13c11698a02b4990c05c17f25d38be7b84551b9d7f4d61050f5bf706484ae0fc",
       "path": "results/runs/probit_offset_boosted/sims/model_assumed/trajectories.parquet"
     },
     "simulation_policies": {
-      "digest": "sha256:ebe23e15556bb441f994ffb3fac6421817f64a06f33f9d5022cf18731e8fa100",
+      "digest": "sha256:4ee2366b51115a6ce77466d49d6be5dfff8c43f00f7134cbc89ea21ef7754626",
       "path": "results/runs/probit_offset_boosted/simulation_policies.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:eed693e4ca9cff158caa6a6fc7116eb50d162f85d0f531d3b79e9e68eccf9ca6",
+      "digest": "sha256:f8427bb2dd394e67a8a0c4a410787e7d5e81ed99f0119a5d9c816124cb4f8cea",
       "path": "results/runs/probit_offset_boosted/simulation_run.json"
     }
   },
@@ -209,9 +209,9 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:bc40a3d028800d7724dc02db249314eebab4c804b6422a4d0d4de3106a30144a",
+    "input_run_lock_digest": "sha256:f0c4ddf5086aa153dfcef280f8e580ffb808885813840b5941d14b4852c30fb7",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "94497d3a7b013b9ce5a73079fcaba184f4b0971c",
+    "run_metadata_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
     "run_metadata_dirty": false
   },
   "run": "report:probit_offset_boosted",

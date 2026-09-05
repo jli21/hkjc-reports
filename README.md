@@ -56,29 +56,44 @@ Read these two reports as the working evidence that motivated that decision, not
 are neither the old production set nor the new one: at 34 columns they are the pre-removal incumbent
 plus the block.
 
-**The five model reports above are the 33-column generation**, republished on 2026-09-04 after the
-promotion: every architecture refitted, re-settled and rendered from one settled tree, with each
-`run_lock.json` recording `n=33` against a clean checkout. For a few hours that day this paragraph
-said the opposite -- the reports were the 28-column generation while `findings.md` already carried the
-new numbers -- and it is left in the history rather than quietly replaced, because a reports
-repository whose prose and artifacts disagree is the failure worth being able to see happening.
+**The five model reports above are the 33-column generation on a completed 2026 season**,
+republished on 2026-09-05: production's six promoted gear columns, the 2026 archive collected to the
+season's last meeting on 2026-07-15, and every architecture refitted, re-settled and rendered from one
+settled tree. The evaluation window is **2016-2026, 8,265 races** -- up from 7,933, because 2026 went
+from 201 races to 533.
 
-What the regeneration moved, per report, on the standardised 2016-2026 population:
+**The most useful number here is about evidence, not about the model.** On the partial 201-race 2026
+the production model *lost* to the market by +0.000230. On the complete 533-race season it *wins* by
+-0.002138. That was the only year it did not beat, so it now beats the market in **all eleven**
+evaluated years, and the market-anchored Probit Offset flips the same way. A partial season is not a
+small sample of a season: 201 races is a campaign's first ten meetings, and there is no reason their
+edge is the year's edge. Every figure this repository published for 2026 before 2026-09-05 should be
+read with that in mind.
 
-| report | before, 28 columns | after, 33 columns | |
+| report | 28 cols, partial 2026 | 33 cols, full 2026 | |
 |---|---:|---:|---|
-| `softmax` vs the market | -0.00099165 | **-0.00106825** | improved; year record 7/11 -> **5/11** |
-| `softmax_offset` vs the market | -0.00453270 | **-0.00482279** | improved 6.4%; 10/11 |
-| `probit` vs standalone Softmax | -0.01212623 | **-0.01230172** | improved |
-| `probit_offset` vs the incumbent Offset | -0.00076217 | **-0.00064190** | **gave back 16%** |
-| `probit_offset_boosted` vs the incumbent | -0.00030523 | **-0.00029061** | gave back 4.8%; 11/11 |
+| `softmax` vs the market | -0.00099165 | **-0.00101144** | year record 7/11 -> 5/11 |
+| `softmax_offset` vs the market | -0.00453270 | **-0.00477707** | improved 5.4%; **11/11** |
+| `probit` vs standalone Softmax | -0.01212623 | **-0.01235145** | improved |
+| `probit_offset` vs the incumbent Offset | -0.00076217 | **-0.00063376** | gave back 17% |
+| `probit_offset_boosted` vs the incumbent | -0.00030523 | **-0.00026235** | gave back 14%; 11/11 |
 
-The production model gained and the market-anchored Probit Offset link gave back -- that is the one
-known unfavourable consequence of the promotion and it is stated in
-[`findings.md`](reports/probit-boosting-research/findings.md) in the same entry as the gain. The
-unanchored baseline's year record is the other thing worth reading carefully: its edge is a fifth of
-the anchored model's and its per-year deltas straddle zero, so at that effect size the year count is
-not a stable statistic. Neither figure was the basis of any decision.
+Two cautions on that table, both stated because the numbers invite the wrong reading. Each figure
+moved for **two reasons at once** -- the model refitted, and 2026's weight in the pooled number nearly
+tripled -- and they cannot be separated from these totals. And the anchored Probit Offset link gave
+back edge while the production model gained: that is the promotion's one known unfavourable
+consequence, it is still there on the fuller table, and its degraded year is **2024** rather than
+2026, so completing the season did not explain it away. All of it is in
+[`findings.md`](reports/probit-boosting-research/findings.md) beside the gains.
+
+The unanchored baseline's 5-of-11 year record is the other figure to read carefully rather than
+quickly: its edge is a fifth of the anchored model's and its per-year deltas straddle zero, so at that
+effect size the year count is not a stable statistic. No decision here rested on it.
+
+For a few hours on 2026-09-04 this paragraph said the reports were the 28-column generation while
+`findings.md` beside them already carried the new numbers. That was accurate when written, and the
+correction is recorded rather than quietly applied, because a reports repository whose prose and
+artifacts disagree is the failure worth being able to watch happen.
 
 ## Research studies
 
@@ -156,7 +171,7 @@ not apply. Each report states the comparator it is scored against and why that c
 right one; the deltas are **not** comparable across families, because each model is measured
 against its own.
 
-The evaluation window is 2016-2026, **7,933 races**, with 2015 excluded as a warm-up year whose
+The evaluation window is 2016-2026, **8,265 races**, with 2015 excluded as a warm-up year whose
 utility scale is not fitted. The race keys are compared by digest before publication, so the five
 reports are known to cover the same population rather than assumed to.
 
@@ -195,7 +210,7 @@ reason to read them as history.
   repeated for the 33-column generation**, which was produced once; saying otherwise would claim a
   reproduction nobody ran. What this generation has instead is below.
 * `hkjc sweep --check` passes: all five reports name one feature-set digest, `sha256:a73a692d`, and
-  stand on the same 7,933 race keys compared by digest. That is what makes the five comparable, and it
+  stand on the same 8,265 race keys compared by digest. That is what makes the five comparable, and it
   is a checker rather than an assertion -- five runs each calling their column list "production" is
   worth what the claim is verifiable.
 * The artifacts reproduce 791 pinned per-column digests across 23 files, verified with the declared
@@ -204,10 +219,15 @@ reason to read them as history.
   themselves were rebaselined for the 33-column generation, as a declared intentional change with a
   written record of every column that moved -- the bet ledgers and bankroll paths changed their row
   universes and not merely their values, because the model places different bets.
-* 2,187 tests pass with 10,275 subtests, and each report was rendered under canonical strictness,
+* 2,188 tests pass with 10,279 subtests, and each report was rendered under canonical strictness,
   which refuses to publish a report whose declared evidence is missing.
-* The seven-group feature ablation was re-run on the promoted set, 420 fits, and removing the gear
-  group costs +0.000276 of race log loss -- a third independent estimate of the promoted block's
+* The probit reports' simulation sections are trustworthy here for the first time. Until 2026-09-05
+  no probit architecture could write the `simulation_policies` artifact its own simulation stage
+  reads, so those sections resampled a policy set frozen on 2026-09-01 -- two publications shipped a
+  7,932-race simulation beside an 8,265-race performance section. The cross-model parity checks could
+  not see it while all five models were equally stale.
+* The seven-group feature ablation was re-run on the completed season, 420 fits, and removing the
+  gear group costs +0.000320 of race log loss -- a third independent estimate of the promoted block's
   value, against -0.000279 from the candidate harness and -0.000299 from the production refit.
 
 No PDFs are published for the five model reports. The earlier generation shipped them with an
