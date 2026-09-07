@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
-    "git_dirty": true,
-    "source_digest": "sha256:5d1b82b2e76e59b3e7eb3d1149f1f7178f2e92607b6c87b1d495fba5134ef197"
+    "git_commit": "bb9ab4cc254a6fe9b596108a213801ecd9c77dff",
+    "git_dirty": false,
+    "source_digest": "sha256:4f6b5d3047f1f2b5f6ba615d3946a8ed6a1a57edf2378764d4ea7586d32f9720"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-05T18:58:56+00:00",
-  "digest": "sha256:674dbc91dc81cabce868998a5e6598fbd2560acc68b98f69713053fadd60aad0",
+  "created_utc": "2026-09-07T00:32:27+00:00",
+  "digest": "sha256:37575ce7e6e26705c99ac910bc94825b91445d0f2a87bdade276b67231cbec48",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -88,7 +88,7 @@
   },
   "features": {
     "groups": {},
-    "n": 33,
+    "n": 37,
     "ordered": [
       "Implied_Prob",
       "market_rank",
@@ -100,16 +100,21 @@
       "going_ord",
       "course_variant",
       "field_size",
-      "draw_pct",
+      "draw",
       "wt_z",
       "layoff_log",
       "class_change",
       "rating_change",
       "distance_change",
       "gear_change",
+      "gear_first_n",
+      "gear_removed_n",
+      "gear_load",
+      "gear_vision_first",
+      "gear_true_change",
+      "gear_intervention_size",
       "setup_weight_z",
       "trainer_track_residual",
-      "jockey_residual",
       "early_style_ewm",
       "pace_pressure",
       "closer_setup",
@@ -117,37 +122,36 @@
       "bt_last_behind",
       "bt_days_since",
       "body_wt_change_z",
-      "gear_first_n",
-      "gear_removed_n",
-      "gear_load",
-      "gear_vision_first",
-      "gear_true_change",
-      "gear_intervention_size"
+      "course_layout",
+      "rail_offset",
+      "course_base",
+      "going_awt_ord",
+      "going_context"
     ]
   },
   "inputs": {
     "betting_probit_offset/betting_summary": {
-      "digest": "sha256:1b6b7d41482348e3c6ef9db55ac0ac6a3823f00db904d6900d3b0d212d75094c",
+      "digest": "sha256:922551fe53a89d9b63e5d537d09e99b8eadb561603957148204904721d428c45",
       "path": "results/runs/probit_offset/betting_probit_offset/betting_summary.csv"
     },
     "betting_probit_offset/betting_yearly": {
-      "digest": "sha256:69f5bd00915dcc66684f5b888141aa3373b1fac580a1f35e087fba4b8130d5ab",
+      "digest": "sha256:af3b1fa5278966414b19f6d203d8447cec951b452609b17b55dc28003ce314f7",
       "path": "results/runs/probit_offset/betting_probit_offset/betting_yearly.csv"
     },
     "betting_probit_offset/edge_buckets": {
-      "digest": "sha256:b54a1a48500fa3873ab3b85d3deb9ab0e9613517c09e4ec17197f89e3b5ebc6f",
+      "digest": "sha256:360112eb1507c018138a96a39852aa7c22176d714a39509d343c6b5634b0f7ef",
       "path": "results/runs/probit_offset/betting_probit_offset/edge_buckets.csv"
     },
     "betting_probit_offset/probit_betting_run": {
-      "digest": "sha256:f66811c15c9d018b8c0371243344d28682d666f718de780dedfdcfa428d4c3fb",
+      "digest": "sha256:af94af4afd0d984b0657b89bbf6eb8ad4eb94f88ab28657bae0192025db0725a",
       "path": "results/runs/probit_offset/betting_probit_offset/probit_betting_run.json"
     },
     "betting_probit_offset/race_paths": {
-      "digest": "sha256:90c4b375ae8a50b083775b024a95150419b8afcc341440cb82c72afffa987239",
+      "digest": "sha256:8710de12398b3a8be6e67a34fdde7bc31a62463e459246c165dd99ed03c3cea4",
       "path": "results/runs/probit_offset/betting_probit_offset/race_paths.parquet"
     },
     "market_relationship": {
-      "digest": "sha256:c399320738ce40f509f9fbb64b3b3299e855e2ce9c4f4f696b1b94997b29f516",
+      "digest": "sha256:62d7b61dcf3862db8e2be2dc8ab589b81880eddd862165197d8c58f15a382f1a",
       "path": "results/runs/probit_offset/market_relationship.json"
     },
     "probit_offset_correction_identity": {
@@ -155,43 +159,51 @@
       "path": "results/runs/probit_offset/probit_offset_correction_identity.json"
     },
     "probit_offset_link_movement": {
-      "digest": "sha256:db988a871908a66de87728843c0ac7131178c630f5618c424b7181d3ad865b8b",
+      "digest": "sha256:ed4825f07736501425354ffbc67e2bae7cfec330293f219448352df08ed73188",
       "path": "results/runs/probit_offset/probit_offset_link_movement.parquet"
     },
+    "probit_offset_model_identity": {
+      "digest": "sha256:c47601d03c22bf8516bc9d72ea3eea1c01a7bbe3c75493fe946dd1b69794c1a2",
+      "path": "results/runs/probit_offset/probit_offset_model_identity.json"
+    },
     "probit_offset_per_run": {
-      "digest": "sha256:05f317ebc599b882dcdc259eda415c5c881869def64379995554e60458c387a5",
+      "digest": "sha256:768a9f2c5d59f3cdc091bc1f1bd3b7b43b15a2aca60217d7a705b468b20fb597",
       "path": "results/runs/probit_offset/probit_offset_per_run.csv"
     },
+    "probit_offset_race_scores": {
+      "digest": "sha256:09a0aa7681131813eefa0eba9d576e750d6ebc2d18b5caf996b33289f468f416",
+      "path": "results/runs/probit_offset/probit_offset_race_scores.parquet"
+    },
     "probit_offset_reliability": {
-      "digest": "sha256:619bf12b43586a54c488a6cad074239dd1e268247080076d9f0f488e04c6ea31",
+      "digest": "sha256:fba8d2dbfff47360355bef3e27122f32230a009dbe18d66ffcb17424a129139a",
       "path": "results/runs/probit_offset/probit_offset_reliability.parquet"
     },
     "probit_offset_reliability_yearly": {
-      "digest": "sha256:91fb49d290009747d6f4bebee879419367c51e8f9fd5aeae3b4b1e2e9fded9e0",
+      "digest": "sha256:267c5a88a7061e7dc75c605e22dd39cb34de5160fd584483bafb02a71571c8fb",
       "path": "results/runs/probit_offset/probit_offset_reliability_yearly.parquet"
     },
     "probit_offset_sensitivity": {
-      "digest": "sha256:546eb9cd800190f6c8af7d4c69c3bd5343cd7a7f2bbd6a3fbdca26a4e67bf501",
+      "digest": "sha256:ec268656044454df265af20fe76c8f95408781e621bd182ad0f8ecba4b29d418",
       "path": "results/runs/probit_offset/probit_offset_sensitivity.parquet"
     },
     "probit_offset_state": {
-      "digest": "sha256:c06c65e555d4ee2b8a0a733086501250ce8b2327b66527e44fa5b78f6dbe7e6f",
+      "digest": "sha256:f35512236c2e5aaa0c7d6b5e6e1ad291e2096138fc441b028cc9f396ef4c46db",
       "path": "results/runs/probit_offset/probit_offset_state.json"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:766d442171246da1ca98a0b5da78fba91356c89934868b13e674cb94414d524a",
+      "digest": "sha256:375f49eb52f062f69def1c56df0810e67322abb81714ea039c3e4d8bde8c7b4d",
       "path": "results/runs/probit_offset/sims/model_assumed/summary.json"
     },
     "sims/model_assumed/trajectories": {
-      "digest": "sha256:f9952f730efd1ff7d0db69092985ef2ac6bbdb6fde88b3d5f9d9eabb1a6a810e",
+      "digest": "sha256:45c51a00f7e66002dae213bd8c7ae54a44bf54b39bb951315cc976ec41013b2f",
       "path": "results/runs/probit_offset/sims/model_assumed/trajectories.parquet"
     },
     "simulation_policies": {
-      "digest": "sha256:c81b5b5e0d1e1bf9ac689368aa6c9275d9b57f533281527053bb9dbc543e4fea",
+      "digest": "sha256:979e4f754a7df7f426b36062eafa44bda874c11815959ff0ab5b3ddf1fba64bf",
       "path": "results/runs/probit_offset/simulation_policies.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:e7642c7b9a21f54d2f6c15f30cf7940b4c239acd625389bcf96da7f0c5ad06b2",
+      "digest": "sha256:92b5a847a2dbea903167a3b535481beec4b165197259387b142727df0700fbcd",
       "path": "results/runs/probit_offset/simulation_run.json"
     }
   },
@@ -205,9 +217,9 @@
     "label": "Probit Offset",
     "market_reference": "the market's own implied probabilities on the same races, normalised within each race",
     "paired_diagnostic": {
-      "model_log_loss": 2.0252956261680546,
-      "model_minus_reference": -0.0007301149009932919,
-      "reference_log_loss": 2.0260257410690476,
+      "model_log_loss": 2.024824743131658,
+      "model_minus_reference": -0.0006608750268794877,
+      "reference_log_loss": 2.0254856181585374,
       "reference_model": "softmax_offset",
       "what_is_held_fixed": "the correction. It is the incumbent's persisted margin, reused exactly rather than refitted, and the market anchor means a zero correction returns the market probability -- so the only difference is the link."
     },
@@ -215,9 +227,9 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:8fda4c21b6d3d84cc2997812579f5c63fca370d370b28119ed83be88c60ab9c7",
+    "input_run_lock_digest": "sha256:a58c9d05c94bec6e5f52c8b7c6734c57527e5e6d38ec15faf406dc0992bfc554",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
+    "run_metadata_commit": "bb9ab4cc254a6fe9b596108a213801ecd9c77dff",
     "run_metadata_dirty": false
   },
   "run": "report:probit_offset",

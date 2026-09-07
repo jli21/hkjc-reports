@@ -38,9 +38,9 @@
     "train_start_year": null
   },
   "code": {
-    "git_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
-    "git_dirty": true,
-    "source_digest": "sha256:5d1b82b2e76e59b3e7eb3d1149f1f7178f2e92607b6c87b1d495fba5134ef197"
+    "git_commit": "bb9ab4cc254a6fe9b596108a213801ecd9c77dff",
+    "git_dirty": false,
+    "source_digest": "sha256:4f6b5d3047f1f2b5f6ba615d3946a8ed6a1a57edf2378764d4ea7586d32f9720"
   },
   "compute": {
     "seeds": [
@@ -51,8 +51,8 @@
       256
     ]
   },
-  "created_utc": "2026-09-05T18:58:56+00:00",
-  "digest": "sha256:a2cf3f2724849c39444f9abfa83c3a74d3e587d4b1ea9147e802332d764bdcfb",
+  "created_utc": "2026-09-07T00:32:27+00:00",
+  "digest": "sha256:69d80c4c18f9d3dde2807f4d44c4df837c4965049febba9cdec410895214a6c9",
   "environment": {
     "blas": "accelerate",
     "compiler": "Clang 20.1.4 ",
@@ -88,7 +88,7 @@
   },
   "features": {
     "groups": {},
-    "n": 33,
+    "n": 37,
     "ordered": [
       "Implied_Prob",
       "market_rank",
@@ -100,16 +100,21 @@
       "going_ord",
       "course_variant",
       "field_size",
-      "draw_pct",
+      "draw",
       "wt_z",
       "layoff_log",
       "class_change",
       "rating_change",
       "distance_change",
       "gear_change",
+      "gear_first_n",
+      "gear_removed_n",
+      "gear_load",
+      "gear_vision_first",
+      "gear_true_change",
+      "gear_intervention_size",
       "setup_weight_z",
       "trainer_track_residual",
-      "jockey_residual",
       "early_style_ewm",
       "pace_pressure",
       "closer_setup",
@@ -117,81 +122,88 @@
       "bt_last_behind",
       "bt_days_since",
       "body_wt_change_z",
-      "gear_first_n",
-      "gear_removed_n",
-      "gear_load",
-      "gear_vision_first",
-      "gear_true_change",
-      "gear_intervention_size"
+      "course_layout",
+      "rail_offset",
+      "course_base",
+      "going_awt_ord",
+      "going_context"
     ]
   },
   "inputs": {
     "betting_probit_offset_boosted/betting_summary": {
-      "digest": "sha256:d0ce49b3066591b47fb5fa41862dade06796ca45df1ffe41f6c22870035cd529",
+      "digest": "sha256:6bfc9e79ffbdbec2e7ff65a3bf743147c5b64f577805b1df2206e2813e2589a1",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_summary.csv"
     },
     "betting_probit_offset_boosted/betting_yearly": {
-      "digest": "sha256:19f29c9f50f297c896ac482964497677f0ffb83e87fbc7b3702c2e113c3c0b42",
+      "digest": "sha256:7e13877896c8dbaa25c30b38e1d535433b1d424cff18cc06ca8921bbe2fc7531",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/betting_yearly.csv"
     },
     "betting_probit_offset_boosted/edge_buckets": {
-      "digest": "sha256:b55f096bfbbc7b74ce5c2757326b3d14553e69827afc619496ee164a9ba14713",
+      "digest": "sha256:f2afd5d365312c0bd1e3be0ce477ee9d8b72c6cc50390507701b6e8fb7de8158",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/edge_buckets.csv"
     },
     "betting_probit_offset_boosted/probit_betting_run": {
-      "digest": "sha256:e559e6ba46637ef1f1cf8b298b5036338bad03e06daf0e6f0a764b796bcad97d",
+      "digest": "sha256:7e00598c596bd8e74c016ad671742fa4fd55d7e5bd9f15ef61a34712619f8037",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/probit_betting_run.json"
     },
     "betting_probit_offset_boosted/race_paths": {
-      "digest": "sha256:abc659e24a4307546bd13c46eb77b6b1435e327606d594d72140bb1dc8458e1d",
+      "digest": "sha256:ab3e1227d55f2fb83ef48a2952228814dddf8caf5a0012d925285284be2aa0a5",
       "path": "results/runs/probit_offset_boosted/betting_probit_offset_boosted/race_paths.parquet"
     },
     "market_relationship": {
-      "digest": "sha256:1d9e97bee0e1aa85b223b532d77b94427e26133f92f713a85c3382aa50a4debc",
+      "digest": "sha256:cf01fe50fea54ee21e878a73384369ee2c262f4a8eeb0bbd2b62dbe9dfd11e7a",
       "path": "results/runs/probit_offset_boosted/market_relationship.json"
     },
     "probit_offset_boosted_correction_identity": {
-      "digest": "sha256:cef037790aeeed04106f5a792c620dd83d5c7e1b74196c8b5c76d4a27fcf8d99",
+      "digest": "sha256:830090749c786bc42db0ab90fd7c008c6703def3d7bc1a68fbf7ba26a71b34d8",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_correction_identity.json"
     },
     "probit_offset_boosted_link_movement": {
-      "digest": "sha256:18bf384141a5c22dcfc31d9bcbe9ba8b6c503eeda4d4210dbbd81d4561d29184",
+      "digest": "sha256:a4d4000b8d11edda8aeb92368e162bc7b5720d064055c28090ed8065b8d5dc30",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_link_movement.parquet"
     },
+    "probit_offset_boosted_model_identity": {
+      "digest": "sha256:8a1102d234a61f049b2a655f7ce69c5dd5744ee623fbef97ffba3288aa6663bb",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_model_identity.json"
+    },
     "probit_offset_boosted_per_run": {
-      "digest": "sha256:3caf57b3bd4170a915357011e363f067e4ef7a52474651eaa214cf57597b8afc",
+      "digest": "sha256:0ef558facf4479eea2930ed6e34b24b22edbf3b615df5d5b8d2cf6968680da21",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_per_run.csv"
     },
+    "probit_offset_boosted_race_scores": {
+      "digest": "sha256:69a1de9934c063e1f52d2b6363d45534efaf8bdf79b7e64cd42119f3c880ff7a",
+      "path": "results/runs/probit_offset_boosted/probit_offset_boosted_race_scores.parquet"
+    },
     "probit_offset_boosted_reliability": {
-      "digest": "sha256:65ddab1ca04f7f92293c8fdbf6600dc6ddff578ae2eb8d5bb4499a89bbcf923c",
+      "digest": "sha256:96c666349ab12e57092cd8742cacb83e2f60a44f74c8d9c322d7b38093d3ede1",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability.parquet"
     },
     "probit_offset_boosted_reliability_yearly": {
-      "digest": "sha256:a11b576233ec246bbfe02c6a559072f57723648fbb1e0aeb86f3eb252d995abf",
+      "digest": "sha256:b13d56e1486d05e9c3fab2faf885c1dfda725cd7c316614c9ec770e1402db5ca",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_reliability_yearly.parquet"
     },
     "probit_offset_boosted_sensitivity": {
-      "digest": "sha256:a8f8eae1a800c266e111fb0cb0c198a35050c6a18858b25a46cabde5aa2b7569",
+      "digest": "sha256:32a3df65a3c8ce6df3ed457621614bf77849d671b3bb1075c218fba7edf317ff",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_sensitivity.parquet"
     },
     "probit_offset_boosted_state": {
-      "digest": "sha256:861080035db9048b2ae5fa0815270de662de072ce3ddad079c21340cb914f7b6",
+      "digest": "sha256:10d0ad728a0720735d0b6cfbcd5605ab753b67a22e811c9e06339c48b688d925",
       "path": "results/runs/probit_offset_boosted/probit_offset_boosted_state.json"
     },
     "sims/model_assumed/summary": {
-      "digest": "sha256:5d71a85c350a1434a599e63db482b604b2d1c1b26cba4994631a8bb51d69b638",
+      "digest": "sha256:dfecdb910597981748d5a48841671e410f70cab7593ee29555d50d29fb05d38d",
       "path": "results/runs/probit_offset_boosted/sims/model_assumed/summary.json"
     },
     "sims/model_assumed/trajectories": {
-      "digest": "sha256:13c11698a02b4990c05c17f25d38be7b84551b9d7f4d61050f5bf706484ae0fc",
+      "digest": "sha256:7450e1d46ed1407ab6d60035a68615ab2e4c592956d3f04899544a39725d4b84",
       "path": "results/runs/probit_offset_boosted/sims/model_assumed/trajectories.parquet"
     },
     "simulation_policies": {
-      "digest": "sha256:4ee2366b51115a6ce77466d49d6be5dfff8c43f00f7134cbc89ea21ef7754626",
+      "digest": "sha256:4a5596d2631dbc974adc7d3cfd3712e6c4f1fe69d5640fd1deac84d6007cd930",
       "path": "results/runs/probit_offset_boosted/simulation_policies.parquet"
     },
     "simulation_run": {
-      "digest": "sha256:f8427bb2dd394e67a8a0c4a410787e7d5e81ed99f0119a5d9c816124cb4f8cea",
+      "digest": "sha256:b8064f4cf7234025cbc104c450b48267b009d1e2ae5f48c6c787107704122594",
       "path": "results/runs/probit_offset_boosted/simulation_run.json"
     }
   },
@@ -209,9 +221,9 @@
     "status": "standard"
   },
   "notes": {
-    "input_run_lock_digest": "sha256:f0c4ddf5086aa153dfcef280f8e580ffb808885813840b5941d14b4852c30fb7",
+    "input_run_lock_digest": "sha256:b8b23e3c4b1ab6d477b4f1313fa517e757323e043573d6460335cdb8ea99e56c",
     "produced_by": "hkjc.reporting.generate",
-    "run_metadata_commit": "f9822340d03a9b199fb88ad84853fd742c88f730",
+    "run_metadata_commit": "bb9ab4cc254a6fe9b596108a213801ecd9c77dff",
     "run_metadata_dirty": false
   },
   "run": "report:probit_offset_boosted",

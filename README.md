@@ -56,11 +56,31 @@ Read these two reports as the working evidence that motivated that decision, not
 are neither the old production set nor the new one: at 34 columns they are the pre-removal incumbent
 plus the block.
 
-**The five model reports above are the 33-column generation on a completed 2026 season**,
-republished on 2026-09-05: production's six promoted gear columns, the 2026 archive collected to the
-season's last meeting on 2026-07-15, and every architecture refitted, re-settled and rendered from one
-settled tree. The evaluation window is **2016-2026, 8,265 races** -- up from 7,933, because 2026 went
-from 201 races to 533.
+**The five model reports above are the 37-input generation**, republished on 2026-09-06: the
+production manifest's 37 ordered inputs, digest `sha256:b09b847c`, on the completed 2026 season, with
+every architecture refitted, re-settled and rendered from one settled tree. The evaluation window is
+**2016-2026, 8,265 races**.
+
+Getting here closed a **three-generation split** that nobody had fully recorded. The manifest had
+declared 37 inputs for several commits, but nothing had been refitted on it: two offset reports still
+held a 36-input experiment that removed `closer_setup`, the other three held an earlier 37-input
+generation, and the local model run tree turned out to be a *33-input* generation whose digests
+matched no published report at all. The audit that found it is cheap and worth copying: compare a
+report's `run_lock.json` input digests against the files on disk. Nought of ninety-eight matched.
+
+Restoring `closer_setup` improved both offset families, in the direction and rough magnitude the
+removal experiment had predicted:
+
+| model | 36 inputs | 37 inputs | |
+|---|---:|---:|---|
+| Softmax Offset vs the market | -0.00509135 | **-0.00517185** | improved |
+| Probit Offset vs the market | -0.00534009 | **-0.00540776** | improved |
+
+Two point estimates on one population with no interval attached; not a significance claim. And the
+other three architectures' figures moved too even though they already had the column, which the
+restoration cannot explain -- they were refitted on a feature table and source that differ from
+whatever produced the earlier 37-input reports. That is recorded as unexplained rather than
+attributed.
 
 **The most useful number here is about evidence, not about the model.** On the partial 201-race 2026
 the production model *lost* to the market by +0.000230. On the complete 533-race season it *wins* by
@@ -70,13 +90,12 @@ small sample of a season: 201 races is a campaign's first ten meetings, and ther
 edge is the year's edge. Every figure this repository published for 2026 before 2026-09-05 should be
 read with that in mind.
 
-| report | 28 cols, partial 2026 | 33 cols, full 2026 | |
+| report | on 201 races | on 533 races | |
 |---|---:|---:|---|
-| `softmax` vs the market | -0.00099165 | **-0.00101144** | year record 7/11 -> 5/11 |
-| `softmax_offset` vs the market | -0.00453270 | **-0.00477707** | improved 5.4%; **11/11** |
-| `probit` vs standalone Softmax | -0.01212623 | **-0.01235145** | improved |
-| `probit_offset` vs the incumbent Offset | -0.00076217 | **-0.00063376** | gave back 17% |
-| `probit_offset_boosted` vs the incumbent | -0.00030523 | **-0.00026235** | gave back 14%; 11/11 |
+| `softmax_offset` vs the market, 2026 only | **+0.000230** | **-0.002138** | lost, then won |
+
+The current 37-input figures for all five are in each report's own `summary.json`; the table above is
+kept because it is the finding, not the generation.
 
 Two cautions on that table, both stated because the numbers invite the wrong reading. Each figure
 moved for **two reasons at once** -- the model refitted, and 2026's weight in the pooled number nearly
@@ -207,19 +226,20 @@ reason to read them as history.
 * One earlier generation was produced twice -- once into a scratch directory and once into the
   canonical run roots -- and every parquet and CSV column of the four models it covered was
   bit-identical between the two, compared by content rather than by a tolerance. **That check was not
-  repeated for the 33-column generation**, which was produced once; saying otherwise would claim a
+  repeated for the 37-input generation**, which was produced once; saying otherwise would claim a
   reproduction nobody ran. What this generation has instead is below.
 * `hkjc sweep --check` passes: all five reports name one feature-set digest, `sha256:a73a692d`, and
   stand on the same 8,265 race keys compared by digest. That is what makes the five comparable, and it
   is a checker rather than an assertion -- five runs each calling their column list "production" is
   worth what the claim is verifiable.
-* The artifacts reproduce 791 pinned per-column digests across 23 files, verified with the declared
+* The artifacts reproduce 815 pinned per-column digests across 23 files, verified with the declared
   keys checked for uniqueness. The count was 771 when this section was first written and rose with
   the four pace-composition and six declared-gear columns added to both feature tables. The digests
-  themselves were rebaselined for the 33-column generation, as a declared intentional change with a
+  themselves were rebaselined for the 37-input generation, as a declared intentional change with a
   written record of every column that moved -- the bet ledgers and bankroll paths changed their row
   universes and not merely their values, because the model places different bets.
-* 2,188 tests pass with 10,279 subtests, and each report was rendered under canonical strictness,
+* 2,190 tests pass with 9,753 subtests on the selection that checks published generations, and
+  each report was rendered under canonical strictness,
   which refuses to publish a report whose declared evidence is missing.
 * The probit reports' simulation sections are trustworthy here for the first time. Until 2026-09-05
   no probit architecture could write the `simulation_policies` artifact its own simulation stage
